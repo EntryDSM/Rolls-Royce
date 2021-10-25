@@ -43,7 +43,7 @@ public class JwtTokenProvider {
 	public String generateRefreshToken(Long receiptCode) {
 		return Jwts.builder()
 				.setSubject(receiptCode.toString())
-				.claim("type", "access_token")
+				.claim("type", "refresh_token")
 				.signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
 				.setExpiration(
 						new Date(System.currentTimeMillis() + jwtProperties.getRefreshExp() * 1000)
