@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.global.security.auth;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ public class AuthDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return Collections.emptyList();
 	}
 
 	@Override
