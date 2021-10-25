@@ -13,11 +13,11 @@ public enum ErrorCode {
 	INVALID_DATE(400, "COMMON400-0", "Date was invalid"),
 	REQUEST_BODY_IS_NULL(400, "COMMON400-1", "request body is null."),
 	INVALID_TOKEN(401, "COMMON401-0", "Invalid Token"),
-	UNAUTHENTICATED(401, "COMMON401-1", "UnAuthenticated"),
+	EXPIRED_TOKEN(401, "COMMON401-1", "Expired Token"),
+	UNAUTHENTICATED(401, "COMMON401-2", "UnAuthenticated"),
 	NOT_FOUND(404, "COMMON404-0", "Not Found"),
 
 	INVALID_AUTH_CODE(401, "USER401-0", "Invalid Auth Code"),
-	EXPIRED_TOKEN(401, "USER401-1", "Expired Token"),
 	USER_NOT_FOUND(404, "USER404-0", "User Not Found"),
 	USER_ALREADY_EXISTS(409, "USER409-0", "User Already Exists"),
 	AUTH_CODE_ALREADY_VERIFIED(409, "USER409-1", "Auth Code Already Verified"),
