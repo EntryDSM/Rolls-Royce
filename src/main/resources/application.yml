@@ -1,0 +1,48 @@
+server:
+  port: 8888
+
+spring:
+  datasource:
+    url: ${MYSQL_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maxLifetime: 580000
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD}
+  servlet:
+    multipartfile:
+      maxFileSize: 10MB
+      maxRequestSize: 10MB
+
+auth:
+  jwt:
+    secret: ${JWT_SECRET_KEY:dGVzdA==}
+    exp:
+      access: ${JWT_ACCESS_EXP:3600}
+      refresh: ${JWT_REFRESH_EXP:3600}
+    header:
+      access: ${JWT_HEADER:Authorization}
+    prefix: ${JWT_PREFIX:Bearer}
+
+aws:
+  s3:
+    accessKey: ${AWS_S3_ACCESS:s3_access}
+    secretKey: ${AWS_S3_SECRET:s3_secret}
+    region: ${AWS_S3_REGION:ap-northeast-2}
+    bucket: ${AWS_S3_BUCKET:bucket}
+    base_image_url: ${AWS_S3_URL:image/}
+  ses:
+    access-key: ${AWS_SES_ACCESS:ses_access}
+    secret_key: ${AWS_SES_SECRET:ses_secret}
+    region: ${AWS_SES_REGION:ap-northeast-2}
+
+munchkin:
+  logging:
+    name: munchkin.log
+    path: ${LOG_PATH:/}
+    size: 10 # 10mb
+  font:
+    path: ${FONT_PATH:/fonts}
+  year: ${YEAR:2021}
