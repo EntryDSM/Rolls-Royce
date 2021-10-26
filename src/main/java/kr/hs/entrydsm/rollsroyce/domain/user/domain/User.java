@@ -31,7 +31,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long receiptCode;
+	private Long receiptCode;
 
 	@Column(columnDefinition = "char(36)", nullable = false, unique = true)
 	private String email;
