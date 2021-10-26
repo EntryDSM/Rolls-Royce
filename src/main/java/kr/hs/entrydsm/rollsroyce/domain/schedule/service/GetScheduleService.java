@@ -3,7 +3,7 @@ package kr.hs.entrydsm.rollsroyce.domain.schedule.service;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.Schedule;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.repository.ScheduleRepository;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
-import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.response.SchedulesResponse;
+import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.response.SchedulesResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

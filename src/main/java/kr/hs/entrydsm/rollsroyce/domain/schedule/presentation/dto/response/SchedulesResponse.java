@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.response;
+package kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
