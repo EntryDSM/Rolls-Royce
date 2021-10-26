@@ -15,4 +15,14 @@ public class SchedulesResponse {
 
     private final String currentStatus;
 
+    @Getter
+    @AllArgsConstructor
+    public static class ScheduleDto {
+
+        private final String type;
+
+        private final String date;
+
+    }
+
 }
