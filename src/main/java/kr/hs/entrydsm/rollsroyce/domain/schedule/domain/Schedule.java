@@ -34,8 +34,6 @@ public class Schedule {
 	@Enumerated(EnumType.STRING)
 	private Type type;
 
-	private int year;
-
 	private LocalDateTime date;
 
 }
