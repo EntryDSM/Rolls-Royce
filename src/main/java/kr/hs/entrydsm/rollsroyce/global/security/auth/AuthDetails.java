@@ -5,10 +5,12 @@ import java.util.Collections;
 
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@Getter
 @AllArgsConstructor
 public class AuthDetails implements UserDetails {
 

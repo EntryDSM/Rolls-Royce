@@ -3,14 +3,18 @@ package kr.hs.entrydsm.rollsroyce.domain.user.domain;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
@@ -98,5 +102,18 @@ public class User {
 
 	@CreationTimestamp
 	private LocalDateTime createdAt;
+
+	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Status status;
+
+	public User updateUserApplication(EducationalStatus educationalStatus, ApplicationType applicationType,
+			boolean isDaejeon, ApplicationRemark applicationRemark, HeadCount headcount) {
+		this.educationalStatus = educationalStatus;
+		this.applicationType = applicationType;
+		this.isDaejeon = isDaejeon;
+		this.applicationRemark = applicationRemark;
+		this.headcount = headcount;
+		return this;
+	}
 
 }
