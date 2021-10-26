@@ -31,7 +31,7 @@ public class DeleteAllTablesService {
     private final AdminAuthenticationFacade authenticationFacade;
 
     public void execute() {
-        Admin admin = adminFacade.getAdminById(authenticationFacade.getEmail());
+        Admin admin = adminFacade.getRootAdmin(authenticationFacade.getEmail());
         if (admin.getRole() == Role.ROLE_ROOT) {
             scoreRepository.deleteAll();
             graduationCaseRepository.deleteAll();
