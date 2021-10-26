@@ -18,12 +18,10 @@ spring:
 
 auth:
   jwt:
-    secret: ${JWT_SECRET_KEY:dGVzdA==}
-    exp:
-      access: ${JWT_ACCESS_EXP:3600}
-      refresh: ${JWT_REFRESH_EXP:3600}
-    header:
-      access: ${JWT_HEADER:Authorization}
+    secretKey: ${JWT_SECRET_KEY:dGVzdA==}
+    accessExp: ${JWT_ACCESS_EXP:3600}
+    refreshExp: ${JWT_REFRESH_EXP:3600}
+    header: ${JWT_HEADER:Authorization}
     prefix: ${JWT_PREFIX:Bearer}
 
 aws:
