@@ -26,25 +26,25 @@ public class GraduationCase extends ApplicationCase {
 
 	private Integer earlyLeaveCount;
 
-	@Column(columnDefinition = "CHAR(6)")
+	@Column(columnDefinition = "CHAR(4)")
 	private String koreanGrade;
 
-	@Column(columnDefinition = "CHAR(6)")
+	@Column(columnDefinition = "CHAR(4)")
 	private String socialGrade;
 
-	@Column(columnDefinition = "CHAR(6)")
+	@Column(columnDefinition = "CHAR(4)")
 	private String historyGrade;
 
-	@Column(columnDefinition = "CHAR(6)")
+	@Column(columnDefinition = "CHAR(4)")
 	private String mathGrade;
 
-	@Column(columnDefinition = "CHAR(6)")
+	@Column(columnDefinition = "CHAR(4)")
 	private String scienceGrade;
 
-	@Column(columnDefinition = "CHAR(6)")
+	@Column(columnDefinition = "CHAR(4)")
 	private String englishGrade;
 
-	@Column(columnDefinition = "CHAR(6)")
+	@Column(columnDefinition = "CHAR(4)")
 	private String techAndHomeGrade;
 
 	@Builder
