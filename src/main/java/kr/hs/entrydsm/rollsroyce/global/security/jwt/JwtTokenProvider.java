@@ -68,15 +68,8 @@ public class JwtTokenProvider {
 		Claims body = getTokenBody(token);
 		if(!body.getExpiration().after(new Date()))
 			return null;
-		UserDetails userDetails;
 
-		if(body.get("role").equals("admin")) {
-			userDetails =
-					adminDetailsService.loadUserByUsername(body.getSubject());
-		} else {
-			userDetails =
-					authDetailsService.loadUserByUsername(body.getSubject());
-		}
+		UserDetails userDetails = getDetails(body);
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 	}
 
@@ -88,6 +81,16 @@ public class JwtTokenProvider {
 			throw ExpiredTokenException.EXCEPTION;
 		} catch (MalformedJwtException | SignatureException e) {
 			throw InvalidTokenException.EXCEPTION;
+		}
+	}
+
+	private UserDetails getDetails(Claims body) {
+		if(body.get("role").equals("admin")) {
+			return adminDetailsService
+					.loadUserByUsername(body.getSubject());
+		} else {
+			return authDetailsService
+					.loadUserByUsername(body.getSubject());
 		}
 	}
 
