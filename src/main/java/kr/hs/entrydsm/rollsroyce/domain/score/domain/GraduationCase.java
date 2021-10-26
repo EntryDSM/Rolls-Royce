@@ -3,6 +3,7 @@ package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
@@ -18,16 +19,32 @@ public class GraduationCase extends ApplicationCase {
 	private Integer volunteerTime;
 
 	private Integer dayAbsenceCount;
+
 	private Integer lectureAbsenceCount;
+
 	private Integer latenessCount;
+
 	private Integer earlyLeaveCount;
 
+	@Column(columnDefinition = "CHAR(6)")
 	private String koreanGrade;
+
+	@Column(columnDefinition = "CHAR(6)")
 	private String socialGrade;
+
+	@Column(columnDefinition = "CHAR(6)")
 	private String historyGrade;
+
+	@Column(columnDefinition = "CHAR(6)")
 	private String mathGrade;
+
+	@Column(columnDefinition = "CHAR(6)")
 	private String scienceGrade;
+
+	@Column(columnDefinition = "CHAR(6)")
 	private String englishGrade;
+
+	@Column(columnDefinition = "CHAR(6)")
 	private String techAndHomeGrade;
 
 	@Builder
