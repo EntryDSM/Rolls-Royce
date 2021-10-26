@@ -12,6 +12,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import kr.hs.entrydsm.rollsroyce.global.exception.ExpiredTokenException;
 import kr.hs.entrydsm.rollsroyce.global.exception.InvalidTokenException;
+import kr.hs.entrydsm.rollsroyce.global.security.auth.AdminDetailsService;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AuthDetailsService;
 import lombok.RequiredArgsConstructor;
 
@@ -26,11 +27,13 @@ public class JwtTokenProvider {
 
 	private final JwtProperties jwtProperties;
 	private final AuthDetailsService authDetailsService;
+	private final AdminDetailsService adminDetailsService;
 
-	public String generateAccessToken(Long receiptCode) {
+	public String generateAccessToken(String id, String role) {
 		return Jwts.builder()
-				.setSubject(receiptCode.toString())
+				.setSubject(id)
 				.claim("type", "access_token")
+				.claim("role", role)
 				.signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
 				.setExpiration(
 						new Date(System.currentTimeMillis() + jwtProperties.getAccessExp() * 1000)
@@ -40,10 +43,11 @@ public class JwtTokenProvider {
 
 	}
 
-	public String generateRefreshToken(Long receiptCode) {
+	public String generateRefreshToken(String id, String role) {
 		return Jwts.builder()
-				.setSubject(receiptCode.toString())
+				.setSubject(id)
 				.claim("type", "refresh_token")
+				.claim("role", role)
 				.signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
 				.setExpiration(
 						new Date(System.currentTimeMillis() + jwtProperties.getRefreshExp() * 1000)
@@ -64,8 +68,15 @@ public class JwtTokenProvider {
 		Claims body = getTokenBody(token);
 		if(!body.getExpiration().after(new Date()))
 			return null;
-		UserDetails userDetails =
-				authDetailsService.loadUserByUsername(body.getSubject());
+		UserDetails userDetails;
+
+		if(body.get("role").equals("admin")) {
+			userDetails =
+					adminDetailsService.loadUserByUsername(body.getSubject());
+		} else {
+			userDetails =
+					authDetailsService.loadUserByUsername(body.getSubject());
+		}
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 	}
 
