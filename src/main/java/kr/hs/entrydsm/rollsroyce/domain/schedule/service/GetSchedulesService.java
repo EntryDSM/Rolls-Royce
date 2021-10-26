@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class GetScheduleService {
+public class GetSchedulesService {
 
     private final ScheduleRepository scheduleRepository;
 
