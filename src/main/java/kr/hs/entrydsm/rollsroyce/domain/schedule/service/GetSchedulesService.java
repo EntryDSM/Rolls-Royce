@@ -3,6 +3,7 @@ package kr.hs.entrydsm.rollsroyce.domain.schedule.service;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.Schedule;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.repository.ScheduleRepository;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
+import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.ScheduleDto;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.response.SchedulesResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class GetScheduleService {
+public class GetSchedulesService {
 
     private final ScheduleRepository scheduleRepository;
 
@@ -20,7 +21,7 @@ public class GetScheduleService {
         return SchedulesResponse.builder()
                 .schedules(
                         scheduleRepository.findAllBy().stream()
-                        .map(schedule -> new SchedulesResponse.ScheduleDto(schedule.getType().toString(), schedule.getDate().toString())
+                        .map(schedule -> new ScheduleDto(schedule.getType().toString(), schedule.getDate())
                         ).collect(Collectors.toList())
                 )
                 .currentStatus(getCurrentStatus())
