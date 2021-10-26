@@ -6,11 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Digits;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "tbl_calculated_score")
 public class Score {
 
