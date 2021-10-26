@@ -35,12 +35,10 @@ public class LoginService {
                 .map(Admin::getId)
                 .map(adminId -> {
                     String refreshToken = jwtTokenProvider.generateRefreshToken(adminId, ROLE);
-                    return new RefreshToken(adminId, refreshToken, ttl);
-                })
-                .map(refreshTokenRepository::save)
-                .map(refreshToken -> {
-                    String accessToken = jwtTokenProvider.generateAccessToken(refreshToken.getId(), ROLE);
-                    return new TokenResponse(accessToken, refreshToken.getToken());
+                    refreshTokenRepository.save(new RefreshToken(adminId, refreshToken, ttl));
+
+                    String accessToken = jwtTokenProvider.generateAccessToken(adminId, ROLE);
+                    return new TokenResponse(accessToken, refreshToken);
                 })
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
     }
