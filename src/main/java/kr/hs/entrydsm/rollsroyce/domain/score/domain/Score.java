@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Score {
 
 	@Id
-	private long receiptCode;
+	private Long receiptCode;
 
 	@Digits(integer = 2, fraction = 3)
 	private BigDecimal volunteerScore;

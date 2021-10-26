@@ -25,7 +25,7 @@ import org.hibernate.annotations.ColumnDefault;
 public class Status {
 
 	@Id
-	private long receiptCode;
+	private Long receiptCode;
 
 	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
