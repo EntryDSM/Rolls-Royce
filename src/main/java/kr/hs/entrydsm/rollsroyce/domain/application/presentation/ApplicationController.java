@@ -2,9 +2,9 @@ package kr.hs.entrydsm.rollsroyce.domain.application.presentation;
 
 import javax.validation.Valid;
 
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroRequest;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeIntroService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeIntroduceService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeTypeService;
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApplicationController {
 
 	private final ChangeTypeService changeTypeService;
-	private final ChangeIntroService changeIntroService;
+	private final ChangeIntroduceService changeIntroduceService;
 
 	@PatchMapping("/user/type")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -30,5 +30,5 @@ public class ApplicationController {
 	}
 
 	@PatchMapping("/intro")
-	public void changeIntro(@RequestBody @Valid ChangeIntroRequest request) { changeIntroService.execute(request); }
+	public void changeIntroduce(@RequestBody @Valid ChangeIntroduceRequest request) { changeIntroduceService.execute(request); }
 }

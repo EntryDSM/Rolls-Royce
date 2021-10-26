@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Getter
 @NoArgsConstructor
-public class ChangeIntroRequest {
+public class ChangeIntroduceRequest {
 
     @Length(max = 1_600, message = "content는 최대 1,600글자까지만 허용됩니다.")
     private String content;
