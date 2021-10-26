@@ -16,12 +16,12 @@ public class CheckPasswordService {
     private final AdminFacade adminFacade;
     private final AdminAuthenticationFacade authenticationFacade;
 
-    public String execute(String password) {
+    public boolean execute(String password) {
         Admin admin = adminFacade.getRootAdmin(authenticationFacade.getEmail());
         if(!passwordEncoder.matches(password, admin.getPassword())) {
             throw new PasswordNotValidException();
         }
-        return "Authorization completed.";
+        return true;
     }
 
 }

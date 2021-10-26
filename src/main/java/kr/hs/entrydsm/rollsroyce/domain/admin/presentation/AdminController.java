@@ -24,7 +24,7 @@ public class AdminController {
     }
 
     @GetMapping("/auth")
-    public String execute(@RequestBody @Valid CheckPasswordRequest request) {
+    public boolean execute(@RequestBody @Valid CheckPasswordRequest request) {
         return checkPasswordService.execute(request.getPassword());
     }
 
