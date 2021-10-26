@@ -29,4 +29,9 @@ public class Schedule {
 	@Column(nullable = false)
 	private LocalDateTime date;
 
+	public Schedule updateDate(LocalDateTime date) {
+		this.date = date;
+		return this;
+	}
+
 }
