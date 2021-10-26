@@ -106,14 +106,29 @@ public class User {
 	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Status status;
 
-	public User updateUserApplication(EducationalStatus educationalStatus, ApplicationType applicationType,
+	public void updateUserApplication(EducationalStatus educationalStatus, ApplicationType applicationType,
 			boolean isDaejeon, ApplicationRemark applicationRemark, HeadCount headcount) {
 		this.educationalStatus = educationalStatus;
 		this.applicationType = applicationType;
 		this.isDaejeon = isDaejeon;
 		this.applicationRemark = applicationRemark;
 		this.headcount = headcount;
-		return this;
+	}
+
+	public void updateUserInformation(String name, String sex, LocalDate birthday,
+			String parentName, String parentTel, String telephoneNumber, String homeTel,
+			String address, String postCode, String photoFileName, String detailAddress) {
+		this.name = name;
+		this.sex = sex == null ? null : Sex.valueOf(sex);
+		this.birthday = birthday;
+		this.parentName = parentName;
+		this.parentTel = parentTel;
+		this.telephoneNumber = telephoneNumber;
+		this.homeTel = homeTel;
+		this.address = address;
+		this.postCode = postCode;
+		this.photoFileName = photoFileName;
+		this.detailAddress = detailAddress;
 	}
 
 }
