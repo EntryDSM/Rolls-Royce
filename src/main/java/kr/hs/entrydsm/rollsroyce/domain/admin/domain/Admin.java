@@ -25,9 +25,6 @@ public class Admin {
 	@Column(length = 60, nullable = false)
 	private String password;
 
-	@Column(length = 5, nullable = false)
-	private String name;
-
 	@Column(length = 24)
 	@Enumerated(EnumType.STRING)
 	private Role role;
