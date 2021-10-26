@@ -116,4 +116,8 @@ public class User {
 		return this;
 	}
 
+	public void updateSelfIntroduce(String selfIntroduce) {
+		this.selfIntroduce = selfIntroduce;
+	}
+
 }
