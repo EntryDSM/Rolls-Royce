@@ -2,14 +2,7 @@ package kr.hs.entrydsm.rollsroyce.domain.schedule.domain;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import lombok.AccessLevel;
@@ -22,8 +15,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(uniqueConstraints = @UniqueConstraint(
-		columnNames = {"type", "year"}))
 @Entity(name = "tbl_schedule")
 public class Schedule {
 
@@ -32,8 +23,10 @@ public class Schedule {
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
+	@Column(length = 19, unique = true, nullable = false)
 	private Type type;
 
+	@Column(nullable = false)
 	private LocalDateTime date;
 
 }
