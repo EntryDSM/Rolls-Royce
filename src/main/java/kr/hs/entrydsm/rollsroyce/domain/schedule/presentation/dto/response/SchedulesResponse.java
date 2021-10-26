@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.response;
 
+import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.ScheduleDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,15 +15,5 @@ public class SchedulesResponse {
     private final List<ScheduleDto> schedules;
 
     private final String currentStatus;
-
-    @Getter
-    @AllArgsConstructor
-    public static class ScheduleDto {
-
-        private final String type;
-
-        private final String date;
-
-    }
 
 }
