@@ -35,6 +35,7 @@ public enum ErrorCode {
 	SCHEDULE_NOT_FOUND(404, "ADMIN404-2","The schedule does not exist"),
 	IMAGE_PATH_NOT_FOUND(404, "ADMIN404-3", "The user's image file could not be found."),
 	ALREADY_EXIST_ADMIN_ID(409, "ADMIN409-0", "Already admin id exist"),
+	ADMIN_NOT_ACCESSIBLE(403, "ADMIN403-0", "Don't have permission"),
 
 	FILE_IS_EMPTY(400, "APPLICATION400-0", "The file could not be found"),
 	INVALID_ENUM_CONSTANT(400, "APPLICATION400-1", "The enum constant is invalid"),
