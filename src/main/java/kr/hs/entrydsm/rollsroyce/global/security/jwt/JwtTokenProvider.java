@@ -67,7 +67,7 @@ public class JwtTokenProvider {
 		refreshTokenRepository.save(RefreshToken.builder()
 				.id(email)
 				.token(refreshToken)
-				.ttl(System.currentTimeMillis() + jwtProperties.getRefreshExp() * 1000)
+				.ttl(jwtProperties.getRefreshExp() * 1000)
 				.build());
 
 		return new TokenResponse(accessToken, refreshToken);
