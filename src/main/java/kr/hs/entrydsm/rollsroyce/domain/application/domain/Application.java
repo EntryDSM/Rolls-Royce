@@ -33,4 +33,10 @@ public abstract class Application extends BaseTimeEntity {
 
 	public abstract String getDate();
 
+	public abstract boolean hasEmptyInfo();
+
+	protected boolean isExists(String target) {
+		return target != null && !target.isBlank();
+	}
+
 }

@@ -12,6 +12,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/application")
@@ -26,6 +34,7 @@ public class ApplicationController {
 	private final QueryGraduationInformationService queryGraduationInformationService;
 	private final ChangeIntroduceService changeIntroduceService;
 	private final QueryIntroduceService queryIntroduceService;
+	private final FinalSubmitService finalSubmitService;
 	private final QuerySchoolService querySchoolService;
 
 	@PatchMapping("/users/type")
@@ -72,6 +81,12 @@ public class ApplicationController {
 		changeIntroduceService.execute(request);
 	}
 
+	@PostMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void finalSubmit() {
+		finalSubmitService.execute();
+  }
+  
 	@GetMapping("/schools")
 	public QuerySchoolResponse querySchool(@RequestParam("name") String name,
 			Pageable pageable) {

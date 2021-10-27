@@ -1,12 +1,9 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
-import java.util.ArrayList;
-
 import javax.transaction.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
-import javax.transaction.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
@@ -46,7 +43,7 @@ public class ChangeTypeService {
 			return;
 
 		if(request.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM.name()))
-			graduationRepository.delete(user.getGraduation());
+			graduationRepository.delete(user.queryGraduation());
 		else
 			qualificationRepositroy.delete(user.getQualification());
 	}
