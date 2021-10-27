@@ -51,6 +51,7 @@ public enum ErrorCode {
 	SCORE_NOT_FOUND(400, "APPLICATION400-3", "Score not found"),
 	EDUCATIONAL_STATUS_NULL(400, "APPLICATION400-4", "Educational status is null"),
 	PROCESS_NOT_COMPLETED(406, "APPLICATION406-1", "Application process is not completed"),
+	ALREADY_SUBMIT(409, "APPLICATION-409-0", "Already submit application."),
 
 	FIELD_NOT_FOUND(400, "SCORE-400-0", "Field not found"),
 	GRADE_NOT_FOUND(404, "SCORE-404-0", "User's grade could not be found")
