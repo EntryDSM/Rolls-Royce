@@ -18,6 +18,7 @@ import kr.hs.entrydsm.rollsroyce.domain.application.service.QuerySchoolService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryTypeService;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -76,8 +77,8 @@ public class ApplicationController {
 
 	@GetMapping("/schools")
 	public QuerySchoolResponse querySchool(@RequestParam("name") String name,
-			@RequestParam("size") int size, @RequestParam("page") int page) {
-		return querySchoolService.execute(name, size, page);
+			Pageable pageable) {
+		return querySchoolService.execute(name, pageable);
 	}
 
 }

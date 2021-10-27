@@ -6,7 +6,7 @@ import kr.hs.entrydsm.rollsroyce.domain.school.exception.SchoolNotFoundException
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,9 +20,9 @@ public class SchoolFacade {
 				.orElseThrow(() -> SchoolNotFoundException.EXCEPTION);
 	}
 
-	public Page<School> getSchoolByName(String name, int size, int page) {
+	public Page<School> getSchoolByName(String name, Pageable pageable) {
 		return schoolRepository
-				.findByNameContaining(name, PageRequest.of(page, size));
+				.findByNameContaining(name, pageable);
 	}
 
 }
