@@ -8,7 +8,7 @@ public class UnprovenAuthCodeException extends RollsException {
     public static RollsException EXCEPTION =
             new UnprovenAuthCodeException();
 
-    public UnprovenAuthCodeException() {
+    private UnprovenAuthCodeException() {
         super(ErrorCode.UNPROVEN_AUTH_CODE);
     }
 

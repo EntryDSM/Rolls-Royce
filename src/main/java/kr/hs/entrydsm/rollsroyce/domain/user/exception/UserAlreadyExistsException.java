@@ -8,7 +8,7 @@ public class UserAlreadyExistsException extends RollsException {
     public static RollsException EXCEPTION =
             new UserAlreadyExistsException();
 
-    public UserAlreadyExistsException() {
+    private UserAlreadyExistsException() {
         super(ErrorCode.USER_ALREADY_EXISTS);
     }
 
