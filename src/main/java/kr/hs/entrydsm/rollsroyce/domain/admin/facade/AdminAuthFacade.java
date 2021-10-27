@@ -21,8 +21,7 @@ public class AdminAuthFacade {
 
     private static final String ROLE = "admin";
 
-    public TokenResponse getToken(String id) {
-        String refreshToken = jwtTokenProvider.generateRefreshToken(id, ROLE);
+    public TokenResponse getToken(String id, String refreshToken) {
         refreshTokenRepository.save(new RefreshToken(id, refreshToken, ttl));
 
         String accessToken = jwtTokenProvider.generateAccessToken(id, ROLE);
