@@ -10,6 +10,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
+import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.RefreshToken;
+import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.repository.RefreshTokenRepository;
+import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.global.exception.ExpiredTokenException;
 import kr.hs.entrydsm.rollsroyce.global.exception.InvalidTokenException;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AdminDetailsService;
@@ -28,6 +31,7 @@ public class JwtTokenProvider {
 	private final JwtProperties jwtProperties;
 	private final AuthDetailsService authDetailsService;
 	private final AdminDetailsService adminDetailsService;
+	private final RefreshTokenRepository refreshTokenRepository;
 
 	public String generateAccessToken(String id, String role) {
 		return Jwts.builder()
@@ -54,6 +58,19 @@ public class JwtTokenProvider {
 				)
 				.setIssuedAt(new Date())
 				.compact();
+	}
+
+	public TokenResponse generateToken(String email, String role) {
+		String accessToken = generateAccessToken(email, role);
+		String refreshToken = generateRefreshToken(email, role);
+
+		refreshTokenRepository.save(RefreshToken.builder()
+				.id(email)
+				.token(refreshToken)
+				.ttl(System.currentTimeMillis() + jwtProperties.getRefreshExp() * 1000)
+				.build());
+
+		return new TokenResponse(accessToken, refreshToken);
 	}
 
 	public String resolveToken(HttpServletRequest request) {
