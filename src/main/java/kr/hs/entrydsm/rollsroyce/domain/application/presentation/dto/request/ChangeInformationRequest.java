@@ -52,6 +52,4 @@ public class ChangeInformationRequest {
 	@Length(min = 5, max = 5, message = "INVALID POST_CODE")
 	private String postCode;
 
-	private String photoFileName;
-
 }
