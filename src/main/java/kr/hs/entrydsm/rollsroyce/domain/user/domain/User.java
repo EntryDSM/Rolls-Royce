@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
@@ -130,6 +131,17 @@ public class User {
 				.sex(sex.name())
 				.telephoneNumber(telephoneNumber)
 				.photoFileName(photoFileName)
+        .build();
+  }
+  
+	public QueryTypeResponse queryUserApplication() {
+		return QueryTypeResponse.builder()
+				.applicationRemark(applicationRemark.name())
+				.applicationType(applicationType.name())
+				.educationalStatus(educationalStatus.name())
+				.graduatedAt(queryUserApplication().getGraduatedAt())
+				.isDaejeon(isDaejeon)
+				.isGraduated(queryUserApplication().isGraduated())
 				.build();
 	}
 
