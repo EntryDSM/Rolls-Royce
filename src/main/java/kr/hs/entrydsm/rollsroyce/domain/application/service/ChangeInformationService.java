@@ -1,6 +1,9 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
+import javax.transaction.Transactional;
+
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 
@@ -12,9 +15,16 @@ public class ChangeInformationService {
 
 	private final UserFacade userFacade;
 
+	@Transactional
 	public void execute(ChangeInformationRequest request) {
-		userFacade
-				.changeInformation(request);
+		User user = userFacade.getUserByCode(
+				userFacade.getCurrentReceiptCode()
+		);
+		user.updateUserInformation(
+				request.getName(), request.getSex(), request.getBirthday(),
+				request.getParentName(), request.getParentTel(), request.getTelephoneNumber(), request.getHomeTel(),
+				request.getAddress(), request.getPostCode(), request.getDetailAddress()
+		);
 	}
 
 }
