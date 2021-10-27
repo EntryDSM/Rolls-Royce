@@ -6,7 +6,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotAccessibleExcept
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminAuthenticationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepositroy;
+import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.QualificationCaseRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
@@ -25,7 +25,7 @@ public class DeleteAllTablesService {
     private final GraduationCaseRepository graduationCaseRepository;
     private final QualificationCaseRepository qualificationCaseRepository;
     private final GraduationRepository graduationRepository;
-    private final QualificationRepositroy qualificationRepositroy;
+    private final QualificationRepository qualificationRepositroy;
 
     private final AdminFacade adminFacade;
     private final AdminAuthenticationFacade authenticationFacade;
