@@ -8,9 +8,12 @@ import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.Cha
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.*;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeGraduationInformationService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeInformationService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeIntroduceService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeTypeService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryInformationService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryTypeService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -38,16 +41,16 @@ public class ApplicationController {
 	public void changeType(@RequestBody @Valid ChangeTypeRequest request) {
 		changeTypeService.execute(request);
 	}
-  
+
 	@GetMapping("/user/type")
 	public QueryTypeResponse queryType() {
 		return queryTypeService.execute();
 	}
-  
-  @GetMapping("/users")
+
+	@GetMapping("/users")
 	public QueryInformationResponse queryInformation() {
 		return queryInformationService.execute();
-  }
+	}
 
 	@PatchMapping("/users")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -64,7 +67,7 @@ public class ApplicationController {
 
 	@PatchMapping("/intro")
 	public void changeIntroduce(@RequestBody @Valid ChangeIntroduceRequest request) {
-    changeIntroduceService.execute(request); 
-  }
-  
+		changeIntroduceService.execute(request);
+	}
+
 }

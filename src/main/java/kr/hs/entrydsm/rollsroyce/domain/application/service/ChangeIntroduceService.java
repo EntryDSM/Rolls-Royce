@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChangeIntroduceService {
 
-    private final UserFacade userFacade;
+	private final UserFacade userFacade;
 
-    @Transactional
-    public void execute(ChangeIntroduceRequest request) {
+	@Transactional
+	public void execute(ChangeIntroduceRequest request) {
 		User user = userFacade.getUserByCode(
 				userFacade.getCurrentReceiptCode()
 		);
 		user.updateSelfIntroduce(request.getContent());
-    }
+	}
 }
