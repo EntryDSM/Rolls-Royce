@@ -2,6 +2,7 @@ package kr.hs.entrydsm.rollsroyce.domain.user.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
+import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
+import kr.hs.entrydsm.rollsroyce.domain.application.domain.Qualification;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
@@ -106,14 +112,80 @@ public class User {
 	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Status status;
 
-	public User updateUserApplication(EducationalStatus educationalStatus, ApplicationType applicationType,
+	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Graduation graduation;
+
+	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Qualification qualification;
+
+	public void updateUserApplication(EducationalStatus educationalStatus, ApplicationType applicationType,
 			boolean isDaejeon, ApplicationRemark applicationRemark, HeadCount headcount) {
 		this.educationalStatus = educationalStatus;
 		this.applicationType = applicationType;
 		this.isDaejeon = isDaejeon;
 		this.applicationRemark = applicationRemark;
 		this.headcount = headcount;
-		return this;
+	}
+
+	public void updateUserInformation(String name, String sex, LocalDate birthday,
+			String parentName, String parentTel, String telephoneNumber, String homeTel,
+			String address, String postCode, String detailAddress) {
+		this.name = name;
+		this.sex = sex == null ? null : Sex.valueOf(sex);
+		this.birthday = birthday;
+		this.parentName = parentName;
+		this.parentTel = parentTel;
+		this.telephoneNumber = telephoneNumber;
+		this.homeTel = homeTel;
+		this.address = address;
+		this.postCode = postCode;
+		this.detailAddress = detailAddress;
+	}
+
+	public QueryInformationResponse queryInformation() {
+		return QueryInformationResponse.builder()
+				.address(address)
+				.birthday(String.valueOf(birthday))
+				.detailAddress(detailAddress)
+				.homeTel(homeTel)
+				.name(name)
+				.parentName(parentName)
+				.parentTel(parentTel)
+				.postCode(postCode)
+				.sex(sex.name())
+				.telephoneNumber(telephoneNumber)
+				.photoFileName(photoFileName)
+        .build();
+  }
+  
+	public QueryTypeResponse queryUserApplication() {
+		QueryTypeResponse response = QueryTypeResponse.builder()
+				.applicationRemark(getValue(applicationRemark))
+				.applicationType(getValue(applicationType))
+				.educationalStatus(getValue(educationalStatus))
+				.isDaejeon(isDaejeon)
+				.build();
+
+		if(hasApplication()) {
+			changeGraduationInformation(Objects.requireNonNullElseGet(graduation, () -> qualification),
+					response);
+		}
+		return response;
+	}
+
+	private String getValue(Object obj) {
+		return obj == null ? null : String.valueOf(obj);
+	}
+
+	private boolean hasApplication() {
+		return graduation != null || qualification != null;
+	}
+
+	private void changeGraduationInformation(Application application, QueryTypeResponse response) {
+		if(application instanceof Graduation)
+			response.setGraduated(((Graduation) application).getIsGraduated() != null &&
+					((Graduation) application).getIsGraduated());
+		response.setGraduatedAt(application.getDate());
 	}
 
 	public void updateSelfIntroduce(String selfIntroduce) {

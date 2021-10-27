@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
+import javax.transaction.Transactional;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
@@ -38,6 +39,7 @@ public class UserFacade {
 				.orElseThrow(() -> UserNotFoundException.EXCEPTION);
 	}
 
+	@Transactional
 	public void changeType(ChangeTypeRequest request) {
 		User user = getUserByCode(
 				getCurrentReceiptCode()
@@ -55,6 +57,18 @@ public class UserFacade {
 				getCurrentReceiptCode()
 		);
 		user.updateSelfIntroduce(request.getContent());
+	
+    
+	@Transactional
+  public void changeInformation(ChangeInformationRequest request) {
+		User user = getUserByCode(
+				getCurrentReceiptCode()
+		);
+		user.updateUserInformation(
+				request.getName(), request.getSex(), request.getBirthday(),
+				request.getParentName(), request.getParentTel(), request.getTelephoneNumber(), request.getHomeTel(),
+				request.getAddress(), request.getPostCode(), request.getDetailAddress()
+		);
 	}
 
 }
