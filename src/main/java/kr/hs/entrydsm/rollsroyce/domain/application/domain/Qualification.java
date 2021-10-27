@@ -1,6 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.domain;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Entity;
 
@@ -17,19 +19,22 @@ public class Qualification extends Application {
 
 	private LocalDate qualifiedAt;
 
-	public Qualification(long receiptCode) {
-		super(receiptCode);
-	}
-
 	@Builder
-	public Qualification(long receiptCode, LocalDate qualifiedAt) {
-		super(receiptCode);
+	public Qualification(LocalDate qualifiedAt) {
 		this.qualifiedAt = qualifiedAt;
 	}
 
 	@Override
 	public boolean isGraduation() {
 		return false;
+	}
+
+	@Override
+	public String getDate() {
+		return qualifiedAt == null ? null :
+				DateTimeFormatter.ofPattern("yyyyMM")
+						.withZone(ZoneId.of("Asia/Seoul"))
+						.format(qualifiedAt);
 	}
 
 }
