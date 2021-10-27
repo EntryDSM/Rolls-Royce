@@ -13,7 +13,15 @@ public class QueryTypeResponse {
 	private final String applicationType;
 	private final boolean isDaejeon;
 	private final String applicationRemark;
-	private final String graduatedAt;
-	private final boolean isGraduated;
+	private String graduatedAt;
+	private boolean isGraduated;
+
+	public void setGraduatedAt(String graduatedAt) {
+		this.graduatedAt = graduatedAt;
+	}
+
+	public void setGraduated(boolean graduated) {
+		this.isGraduated = graduated;
+	}
 
 }
