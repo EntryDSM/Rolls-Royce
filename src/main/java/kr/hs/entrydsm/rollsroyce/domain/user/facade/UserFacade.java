@@ -59,7 +59,7 @@ public class UserFacade {
 		user.updateUserInformation(
 				request.getName(), request.getSex(), request.getBirthday(),
 				request.getParentName(), request.getParentTel(), request.getTelephoneNumber(), request.getHomeTel(),
-				request.getAddress(), request.getPostCode(), request.getPhotoFileName(), request.getDetailAddress()
+				request.getAddress(), request.getPostCode(), request.getDetailAddress()
 		);
 	}
 

@@ -118,7 +118,7 @@ public class User {
 
 	public void updateUserInformation(String name, String sex, LocalDate birthday,
 			String parentName, String parentTel, String telephoneNumber, String homeTel,
-			String address, String postCode, String photoFileName, String detailAddress) {
+			String address, String postCode, String detailAddress) {
 		this.name = name;
 		this.sex = sex == null ? null : Sex.valueOf(sex);
 		this.birthday = birthday;
@@ -128,7 +128,6 @@ public class User {
 		this.homeTel = homeTel;
 		this.address = address;
 		this.postCode = postCode;
-		this.photoFileName = photoFileName;
 		this.detailAddress = detailAddress;
 	}
 
