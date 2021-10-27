@@ -22,7 +22,7 @@ public class SubmitAspect {
 	public void checkSubmit(JoinPoint joinPoint) {
 		if(statusFacade.getStatusByReceiptCode(
 				userFacade.getCurrentReceiptCode()
-		).getIsSubmit().equals(Boolean.TRUE))
+		).getIsSubmitted().equals(Boolean.TRUE))
 			throw AlreadySubmitException.EXCEPTION;
 	}
 

@@ -168,7 +168,7 @@ public class User {
 				.build();
 
 		if(hasApplication()) {
-			changeGraduationInformation(Objects.requireNonNullElseGet(graduation, () -> qualification),
+			changeGraduationInformation(Objects.requireNonNullElse(graduation, qualification),
 					response);
 		}
 		return response;
@@ -176,17 +176,27 @@ public class User {
 
 	public boolean hasApplication() {
 		return graduation != null || qualification != null;
-  }
-  
+	}
+
 	public boolean isQualification() {
 		return educationalStatus != null &&
 				educationalStatus.equals(EducationalStatus.QUALIFICATION_EXAM);
 	}
 
-	public Graduation getGraduation() {
+	public Graduation queryGraduation() {
 		if(graduation == null)
 			throw ApplicationNotFoundException.EXCEPTION;
 		return graduation;
+	}
+
+	public void updateSelfIntroduce(String selfIntroduce) {
+		this.selfIntroduce = selfIntroduce;
+	}
+
+	public boolean hasEmptyInfo() {
+		return !(isExists(name) && sex != null && birthday != null && isExists(telephoneNumber) && isExists(parentTel)
+				&& isExists(parentName) && isExists(address) && isExists(detailAddress) && isExists(postCode)
+				&& photoFileName != null && educationalStatus != null && applicationType != null);
 	}
 
 	private String getValue(Object obj) {
@@ -200,8 +210,8 @@ public class User {
 		response.setGraduatedAt(application.getDate());
 	}
 
-	public void updateSelfIntroduce(String selfIntroduce) {
-		this.selfIntroduce = selfIntroduce;
+	private boolean isExists(String target) {
+		return target != null && !target.isBlank();
 	}
 
 }

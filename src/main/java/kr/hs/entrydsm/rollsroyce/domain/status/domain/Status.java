@@ -53,6 +53,10 @@ public class Status {
 	@Column(nullable = false)
 	private boolean isFirstRoundPass;
 
+	public void isSubmitToTrue() {
+		this.isSubmitted = true;
+  }
+  
 	public void cancelIsSumitted() {
 		this.isSubmitted = false;
 		if (this.isPrintedArrived)

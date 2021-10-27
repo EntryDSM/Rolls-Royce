@@ -61,4 +61,10 @@ public class Graduation extends Application {
 						.format(graduatedAt);
 	}
 
+	@Override
+	public boolean hasEmptyInfo() {
+		return !(isExists(studentNumber) && isGraduated != null &&
+				school != null && graduatedAt != null);
+	}
+
 }

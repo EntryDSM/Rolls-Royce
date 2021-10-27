@@ -29,7 +29,7 @@ public class ChangeGraduationInformationService {
 		if(user.isQualification())
 			throw EducationalStatusUnmatchedException.EXCEPTION;
 
-		user.getGraduation().changeGraduationInformation(
+		user.queryGraduation().changeGraduationInformation(
 				school, request.getStudentNumber());
 	}
 
