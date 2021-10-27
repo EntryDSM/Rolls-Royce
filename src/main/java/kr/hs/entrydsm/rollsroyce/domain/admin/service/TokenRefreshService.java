@@ -22,6 +22,7 @@ public class TokenRefreshService {
         jwtTokenProvider.isRefreshToken(existingRefreshToken);
 
         return refreshTokenRepository.findById(existingRefreshToken)
+                .filter(existingToken -> jwtTokenProvider.getRole(existingToken.getToken()).equals("admin"))
                 .map(existingToken -> {
                     String id = existingToken.getId();
                     String refreshToken = jwtTokenProvider.generateRefreshToken(id, "admin");

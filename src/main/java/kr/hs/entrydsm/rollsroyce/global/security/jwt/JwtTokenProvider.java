@@ -79,6 +79,10 @@ public class JwtTokenProvider {
 		}
 	}
 
+	public String getRole(String token) {
+		return getTokenBody(token).get("role").toString();
+	}
+
 	private Claims getTokenBody(String token) {
 		try {
 			return Jwts.parser().setSigningKey(jwtProperties.getSecretKey())
