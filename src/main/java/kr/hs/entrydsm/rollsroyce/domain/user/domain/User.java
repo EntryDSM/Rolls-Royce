@@ -214,4 +214,6 @@ public class User {
 		return target != null && !target.isBlank();
 	}
 
+	public void updateStudyPlan(String StudyPlan) { this.studyPlan = StudyPlan; }
+
 }
