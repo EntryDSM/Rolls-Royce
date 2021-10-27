@@ -6,12 +6,14 @@ import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.Cha
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryGraduationInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeGraduationInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeIntroduceService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeTypeService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryGraduationInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryTypeService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,7 @@ public class ApplicationController {
 	private final QueryInformationService queryInformationService;
 	private final QueryTypeService queryTypeService;
 	private final ChangeGraduationInformationService changeGraduationInformationService;
+	private final QueryGraduationInformationService queryGraduationInformationService;
 	private final ChangeIntroduceService changeIntroduceService;
 
 	@PatchMapping("/users/type")
@@ -63,6 +66,11 @@ public class ApplicationController {
 	public void changeGraduationInformation(
 			@RequestBody @Valid ChangeGraduationInformationRequest request) {
 		changeGraduationInformationService.execute(request);
+	}
+
+	@GetMapping("/users/graduation")
+	public QueryGraduationInformationResponse queryGraduationInformation() {
+		return queryGraduationInformationService.execute();
 	}
 
 	@PatchMapping("/intro")
