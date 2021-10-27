@@ -2,6 +2,7 @@ package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 
 import javax.transaction.Transactional;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
@@ -57,6 +58,7 @@ public class UserFacade {
 				getCurrentReceiptCode()
 		);
 		user.updateSelfIntroduce(request.getContent());
+	}
 	
     
 	@Transactional
