@@ -27,10 +27,7 @@ public class LoginService {
         return adminRepository.findById(request.getId())
                 .filter(admin -> passwordEncoder.matches(request.getPassword(), admin.getPassword()))
                 .map(Admin::getId)
-                .map(adminId -> {
-                    String refreshToken = jwtTokenProvider.generateRefreshToken(adminId, "admin");
-                    return adminAuthFacade.getToken(adminId, refreshToken);
-                })
+                .map(adminId ->  adminAuthFacade.getToken(adminId, jwtTokenProvider.generateRefreshToken(adminId, "admin")))
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
     }
 
