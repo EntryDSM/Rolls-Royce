@@ -133,13 +133,17 @@ public class User {
 
 	public QueryTypeResponse queryUserApplication() {
 		return QueryTypeResponse.builder()
-				.applicationRemark(applicationRemark.name())
-				.applicationType(applicationType.name())
-				.educationalStatus(educationalStatus.name())
+				.applicationRemark(getValue(applicationRemark))
+				.applicationType(getValue(applicationType))
+				.educationalStatus(getValue(educationalStatus))
 				.graduatedAt(queryUserApplication().getGraduatedAt())
 				.isDaejeon(isDaejeon)
 				.isGraduated(queryUserApplication().isGraduated())
 				.build();
+	}
+
+	private String getValue(Object obj) {
+		return obj == null ? null : String.valueOf(obj);
 	}
 
 }
