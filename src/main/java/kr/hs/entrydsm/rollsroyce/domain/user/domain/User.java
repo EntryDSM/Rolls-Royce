@@ -193,10 +193,6 @@ public class User {
 		return obj == null ? null : String.valueOf(obj);
 	}
 
-	private String getValue(Object obj) {
-		return obj == null ? null : String.valueOf(obj);
-	}
-
 	private void changeGraduationInformation(Application application, QueryTypeResponse response) {
 		if(application instanceof Graduation)
 			response.setGraduated(((Graduation) application).getIsGraduated() != null &&
