@@ -6,7 +6,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.exception.CredentialsNotFoundExcept
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AuthDetails;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +27,10 @@ public class UserFacade {
 	public User getUserByCode(Long receiptCode) {
 		return userRepository.findById(receiptCode)
 				.orElseThrow(() -> UserNotFoundException.EXCEPTION);
+	}
+
+	public boolean isAlreadyExists(String email) {
+		return userRepository.findByEmail(email).isPresent();
 	}
 
 }
