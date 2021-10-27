@@ -54,7 +54,7 @@ public class Status {
 	private boolean isFirstRoundPass;
 
 	public void isSubmitToTrue() {
-		this.isSubmit = true;
+		this.isSubmitted = true;
   }
   
 	public void cancelIsSumitted() {
