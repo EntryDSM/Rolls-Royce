@@ -6,7 +6,7 @@ public class EnumUtil {
 
 	public static <T extends Enum<T>> T getEnum(final Class<T> enumClass, final String enumName) {
 		if (enumName == null) {
-			throw InvalidEnumConstantException.EXCEPTION;
+			return null;
 		}
 		try {
 			return Enum.valueOf(enumClass, enumName);
