@@ -173,12 +173,12 @@ public class User {
 		return response;
 	}
 
-	private String getValue(Object obj) {
-		return obj == null ? null : String.valueOf(obj);
+	public boolean hasApplication() {
+		return graduation != null || qualification != null;
 	}
 
-	private boolean hasApplication() {
-		return graduation != null || qualification != null;
+	private String getValue(Object obj) {
+		return obj == null ? null : String.valueOf(obj);
 	}
 
 	private void changeGraduationInformation(Application application, QueryTypeResponse response) {
