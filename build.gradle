@@ -30,6 +30,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
+	implementation 'org.apache.poi:poi:3.16'
+	implementation 'org.apache.poi:poi-ooxml:3.16'
+
 	implementation 'com.amazonaws:aws-java-sdk-ses:1.11.852'
 	implementation 'com.amazonaws:aws-java-sdk-s3control:1.11.457'
 	implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3control', version: '1.11.457'
