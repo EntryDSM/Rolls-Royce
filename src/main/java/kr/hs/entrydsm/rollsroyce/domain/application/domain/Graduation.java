@@ -32,9 +32,6 @@ public class Graduation extends Application {
 	@JoinColumn(name = "school_code")
 	private School school;
 
-	@Column(length = 11)
-	private String schoolTel;
-
 	private LocalDate graduatedAt;
 
 	@Builder
@@ -43,8 +40,12 @@ public class Graduation extends Application {
 		this.isGraduated = isGraduated;
 		this.studentNumber = studentNumber;
 		this.school = school;
-		this.schoolTel = schoolTel;
 		this.graduatedAt = graduatedAt;
+	}
+
+	public void changeGraduationInformation(School school, String studentNumber) {
+		this.school = school;
+		this.studentNumber = studentNumber;
 	}
 
 	@Override
