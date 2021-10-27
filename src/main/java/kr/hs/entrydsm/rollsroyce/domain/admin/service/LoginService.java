@@ -3,13 +3,13 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Admin;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.AdminRepository;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotFoundException;
-import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminAuthFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.LoginRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.RefreshToken;
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,8 @@ public class LoginService {
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
 
-    private final AdminAuthFacade adminAuthFacade;
+    @Value("${auth.jwt.refreshExp}")
+    private long ttl;
 
     public TokenResponse execute(LoginRequest request) {
         return adminRepository.findById(request.getId())
@@ -31,8 +32,10 @@ public class LoginService {
                 .map(Admin::getId)
                 .map(adminId ->  {
                     String refreshToken = jwtTokenProvider.generateRefreshToken(adminId, "admin");
-                    refreshTokenRepository.save(new RefreshToken(adminId, refreshToken, adminAuthFacade.getTtl()));
-                    return adminAuthFacade.getToken(adminId, refreshToken);
+                    refreshTokenRepository.save(new RefreshToken(adminId, refreshToken, ttl));
+                    
+                    String accessToken = jwtTokenProvider.generateAccessToken(adminId, "admin");
+                    return new TokenResponse(accessToken, refreshToken);
                 })
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
     }
