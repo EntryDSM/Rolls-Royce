@@ -2,6 +2,7 @@ package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 
 import javax.transaction.Transactional;
 
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
@@ -33,18 +34,6 @@ public class UserFacade {
 	public User getUserByCode(Long receiptCode) {
 		return userRepository.findById(receiptCode)
 				.orElseThrow(() -> UserNotFoundException.EXCEPTION);
-	}
-
-	@Transactional
-	public void changeType(ChangeTypeRequest request) {
-		User user = getUserByCode(
-				getCurrentReceiptCode()
-		);
-		user.updateUserApplication(
-				EnumUtil.getEnum(EducationalStatus.class, request.getEducationalStatus()),
-				EnumUtil.getEnum(ApplicationType.class, request.getApplicationType()),
-				request.getIsDaejeon(), EnumUtil.getEnum(ApplicationRemark.class, request.getApplicationRemark()),
-				EnumUtil.getEnum(HeadCount.class, request.getHeadcount()));
 	}
 
 	@Transactional

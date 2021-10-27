@@ -174,6 +174,10 @@ public class User {
 		return response;
 	}
 
+	public boolean hasApplication() {
+		return graduation != null || qualification != null;
+  }
+  
 	public boolean isQualification() {
 		return educationalStatus != null &&
 				educationalStatus.equals(EducationalStatus.QUALIFICATION_EXAM);
@@ -189,8 +193,8 @@ public class User {
 		return obj == null ? null : String.valueOf(obj);
 	}
 
-	private boolean hasApplication() {
-		return graduation != null || qualification != null;
+	private String getValue(Object obj) {
+		return obj == null ? null : String.valueOf(obj);
 	}
 
 	private void changeGraduationInformation(Application application, QueryTypeResponse response) {
