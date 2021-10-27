@@ -4,12 +4,11 @@ import javax.validation.Valid;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeTypeService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryInformationService;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeTypeService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryTypeService;
 import lombok.RequiredArgsConstructor;
 
@@ -53,6 +52,4 @@ public class ApplicationController {
 		changeInformationService.execute(request);
 	}
 
-	@PatchMapping("/intro")
-	public void changeIntroduce(@RequestBody @Valid ChangeIntroduceRequest request) { changeIntroduceService.execute(request); }
 }
