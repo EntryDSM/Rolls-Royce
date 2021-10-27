@@ -19,5 +19,6 @@ public class QueryInformationResponse {
 	private final String address;
 	private final String detailAddress;
 	private final String postCode;
+	private final String photoFileName;
 
 }

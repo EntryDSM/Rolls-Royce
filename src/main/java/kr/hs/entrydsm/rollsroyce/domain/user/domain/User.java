@@ -129,6 +129,7 @@ public class User {
 				.postCode(postCode)
 				.sex(sex.name())
 				.telephoneNumber(telephoneNumber)
+				.photoFileName(photoFileName)
 				.build();
 	}
 
