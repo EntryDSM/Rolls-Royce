@@ -7,6 +7,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminAuthFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.LoginRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.RefreshToken;
+import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     private final AdminRepository adminRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
@@ -27,7 +29,11 @@ public class LoginService {
         return adminRepository.findById(request.getId())
                 .filter(admin -> passwordEncoder.matches(request.getPassword(), admin.getPassword()))
                 .map(Admin::getId)
-                .map(adminId ->  adminAuthFacade.getToken(adminId, jwtTokenProvider.generateRefreshToken(adminId, "admin")))
+                .map(adminId ->  {
+                    String refreshToken = jwtTokenProvider.generateRefreshToken(adminId, "admin");
+                    refreshTokenRepository.save(new RefreshToken(adminId, refreshToken, adminAuthFacade.getTtl()));
+                    return adminAuthFacade.getToken(adminId, refreshToken);
+                })
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
     }
 
