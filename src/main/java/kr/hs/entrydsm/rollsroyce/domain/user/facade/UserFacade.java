@@ -1,5 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 
+import javax.transaction.Transactional;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
@@ -15,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -36,6 +39,7 @@ public class UserFacade {
 				.orElseThrow(() -> UserNotFoundException.EXCEPTION);
 	}
 
+	@Transactional
 	public void changeType(ChangeTypeRequest request) {
 		User user = getUserByCode(
 				getCurrentReceiptCode()
@@ -45,6 +49,26 @@ public class UserFacade {
 				EnumUtil.getEnum(ApplicationType.class, request.getApplicationType()),
 				request.getIsDaejeon(), EnumUtil.getEnum(ApplicationRemark.class, request.getApplicationRemark()),
 				EnumUtil.getEnum(HeadCount.class, request.getHeadcount()));
+	}
+
+	@Transactional
+	public void changeIntroduce(ChangeIntroduceRequest request) {
+		User user = getUserByCode(
+				getCurrentReceiptCode()
+		);
+		user.updateSelfIntroduce(request.getContent());
+	
+    
+	@Transactional
+  public void changeInformation(ChangeInformationRequest request) {
+		User user = getUserByCode(
+				getCurrentReceiptCode()
+		);
+		user.updateUserInformation(
+				request.getName(), request.getSex(), request.getBirthday(),
+				request.getParentName(), request.getParentTel(), request.getTelephoneNumber(), request.getHomeTel(),
+				request.getAddress(), request.getPostCode(), request.getDetailAddress()
+		);
 	}
 
 }

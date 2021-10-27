@@ -1,6 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.domain;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,14 +37,9 @@ public class Graduation extends Application {
 
 	private LocalDate graduatedAt;
 
-	public Graduation(long receiptCode) {
-		super(receiptCode);
-	}
-
 	@Builder
-	public Graduation(long receiptCode, boolean isGraduated, String studentNumber, School school,
+	public Graduation(boolean isGraduated, String studentNumber, School school,
 			String schoolTel, LocalDate graduatedAt) {
-		super(receiptCode);
 		this.isGraduated = isGraduated;
 		this.studentNumber = studentNumber;
 		this.school = school;
@@ -53,6 +50,14 @@ public class Graduation extends Application {
 	@Override
 	public boolean isGraduation() {
 		return true;
+	}
+
+	@Override
+	public String getDate() {
+		return graduatedAt == null ? null :
+				DateTimeFormatter.ofPattern("yyyyMM")
+						.withZone(ZoneId.of("Asia/Seoul"))
+						.format(graduatedAt);
 	}
 
 }
