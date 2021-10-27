@@ -5,10 +5,13 @@ import javax.validation.Valid;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeInformationService;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeTypeService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryTypeService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +25,17 @@ public class ApplicationController {
 
 	private final ChangeTypeService changeTypeService;
 	private final ChangeInformationService changeInformationService;
+	private final QueryTypeService queryTypeService;
 
 	@PatchMapping("/user/type")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void changeType(@RequestBody @Valid ChangeTypeRequest request) {
 		changeTypeService.execute(request);
+	}
+  
+  @GetMapping("/user/type")
+	public QueryTypeResponse queryType() {
+		return queryTypeService.execute();
 	}
 
 	@PatchMapping("/users")
@@ -34,7 +43,5 @@ public class ApplicationController {
 	public void changeInformation(@RequestBody @Valid ChangeInformationRequest request) {
 		changeInformationService.execute(request);
 	}
-
-
 
 }
