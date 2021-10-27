@@ -57,7 +57,7 @@ public class Status {
 		this.isSubmitted = true;
   }
   
-	public void cancelIsSumitted() {
+	public void cancelIsSubmitted() {
 		this.isSubmitted = false;
 		if (this.isPrintedArrived)
 			this.isPrintedArrived = false;

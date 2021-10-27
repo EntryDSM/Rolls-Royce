@@ -27,7 +27,7 @@ public class CancelApplicationSubmitService {
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         if (!adminFacade.getAdminRole(authenticationFacade.getEmail()).equals(Role.ROLE_CONFIRM_FEE)) {
-            status.cancelIsSumitted();
+            status.cancelIsSubmitted();
         } else {
             throw AdminNotAccessibleException.EXCEPTION;
         }
