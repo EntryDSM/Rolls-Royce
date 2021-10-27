@@ -7,6 +7,7 @@ import kr.hs.entrydsm.rollsroyce.global.exception.InvalidTokenException;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -18,6 +19,7 @@ public class TokenRefreshService {
 
     private final AdminAuthFacade adminAuthFacade;
 
+    @Transactional
     public TokenResponse execute(String existingRefreshToken) {
         jwtTokenProvider.isRefreshToken(existingRefreshToken);
 
