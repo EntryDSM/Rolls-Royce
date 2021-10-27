@@ -32,10 +32,17 @@ public class Status {
 	@JoinColumn(name = "receipt_code")
 	private User user;
 
-	private boolean isPrintedArrived;
+	@ColumnDefault("0")
+	@Column(nullable = false)
+	private Boolean isPrintedArrived;
 
 	@ColumnDefault("0")
-	private Boolean isSubmit;
+	@Column(nullable = false)
+	private Boolean isSubmitted;
+
+	@ColumnDefault("0")
+	@Column(nullable = false)
+	private Boolean isPaid;
 
 	private LocalDateTime submittedAt;
 
@@ -45,5 +52,11 @@ public class Status {
 	@ColumnDefault("0")
 	@Column(nullable = false)
 	private boolean isFirstRoundPass;
+
+	public void cancelIsSumitted() {
+		this.isSubmitted = false;
+		if (this.isPrintedArrived)
+			this.isPrintedArrived = false;
+	}
 
 }
