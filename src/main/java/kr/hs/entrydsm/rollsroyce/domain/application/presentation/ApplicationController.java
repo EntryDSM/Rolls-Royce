@@ -99,12 +99,6 @@ public class ApplicationController {
       return queryIntroduceService.execute();
     }
 
-    @PatchMapping("/intro")
-    public void changeIntroduce(@RequestBody @Valid ChangeIntroduceRequest request) {
-      changeIntroduceService.execute(request);
-    }
-  
-
     @PatchMapping("/study-plan")
     public void changeStudyPlan(@RequestBody @Valid ChangeStudyPlanRequest request) {
         changeStudyPlanService.execute(request);
