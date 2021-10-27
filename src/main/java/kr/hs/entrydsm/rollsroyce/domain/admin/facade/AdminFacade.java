@@ -26,4 +26,10 @@ public class AdminFacade {
 				.orElseThrow(() -> AdminNotAccessibleException.EXCEPTION);
 	}
 
+	public Role getAdminRole(String id) {
+		return adminRepository.findById(id)
+				.map(Admin::getRole)
+				.orElseThrow(() -> AdminNotFoundException.EXCEPTION);
+	}
+
 }

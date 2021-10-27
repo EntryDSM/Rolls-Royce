@@ -37,4 +37,9 @@ public class Qualification extends Application {
 						.format(qualifiedAt);
 	}
 
+	@Override
+	public boolean hasEmptyInfo() {
+		return qualifiedAt == null;
+	}
+
 }
