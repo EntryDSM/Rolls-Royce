@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @RequestMapping("/admin")
@@ -20,6 +22,7 @@ public class AdminController {
     private final LoginService loginService;
     private final TokenRefreshService tokenRefreshService;
     private final CancelApplicationSubmitService cancelApplicationSubmitService;
+    private final ApplicantsExcelService applicantsExcelService;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/data")
@@ -47,6 +50,11 @@ public class AdminController {
     @PatchMapping("/applicant/status/{receipt-code}")
     public void cancelApplicationSubmitStatus(@PathVariable("receipt-code") long receiptCode) {
         cancelApplicationSubmitService.execute(receiptCode);
+    }
+
+    @GetMapping( "/applicants")
+    public void createApplicantInformation(HttpServletResponse response) throws IOException {
+        applicantsExcelService.execute(response);
     }
 
 }
