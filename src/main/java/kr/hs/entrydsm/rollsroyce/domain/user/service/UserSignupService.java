@@ -30,7 +30,7 @@ public class UserSignupService {
         String email = request.getEmail();
 
         if(userFacade.isAlreadyExists(email))
-            throw new UserAlreadyExistsException();
+            throw UserAlreadyExistsException.EXCEPTION;
 
         if(authCodeFacade.getAuthCodeById(email).isVerified()) {
             userRepository.save(User.builder()
@@ -38,7 +38,7 @@ public class UserSignupService {
                     .password(passwordEncoder.encode(request.getPassword()))
                     .name(request.getName())
                     .build());
-        } else throw new UnprovenAuthCodeException();
+        } else throw UnprovenAuthCodeException.EXCEPTION;
 
         return tokenProvider.generateToken(email, "user");
     }
