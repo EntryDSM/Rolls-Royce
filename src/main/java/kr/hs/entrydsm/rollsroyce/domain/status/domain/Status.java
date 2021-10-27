@@ -46,4 +46,8 @@ public class Status {
 	@Column(nullable = false)
 	private boolean isFirstRoundPass;
 
+	public void isSubmitToTrue() {
+		this.isSubmit = true;
+	}
+
 }
