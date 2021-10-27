@@ -46,4 +46,10 @@ public class Status {
 	@Column(nullable = false)
 	private boolean isFirstRoundPass;
 
+	public void isSubmittedFalse() {
+		this.isSubmit = false;
+		if (this.isPrintedArrived)
+			this.isPrintedArrived = false;
+	}
+
 }
