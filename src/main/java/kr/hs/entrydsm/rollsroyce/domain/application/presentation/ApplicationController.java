@@ -12,6 +12,7 @@ import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeGraduationInfo
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeIntroduceService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeTypeService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.FinalSubmitService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryTypeService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -35,6 +37,7 @@ public class ApplicationController {
 	private final QueryTypeService queryTypeService;
 	private final ChangeGraduationInformationService changeGraduationInformationService;
 	private final ChangeIntroduceService changeIntroduceService;
+	private final FinalSubmitService finalSubmitService;
 
 	@PatchMapping("/users/type")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -68,6 +71,12 @@ public class ApplicationController {
 	@PatchMapping("/intro")
 	public void changeIntroduce(@RequestBody @Valid ChangeIntroduceRequest request) {
 		changeIntroduceService.execute(request);
+	}
+
+	@PostMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void finalSubmit() {
+		finalSubmitService.execute();
 	}
 
 }
