@@ -2,6 +2,7 @@ package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 
 import javax.transaction.Transactional;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
@@ -17,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -57,10 +57,11 @@ public class UserFacade {
 				getCurrentReceiptCode()
 		);
 		user.updateSelfIntroduce(request.getContent());
-	
-    
+
+	}
+
 	@Transactional
-  public void changeInformation(ChangeInformationRequest request) {
+	public void changeInformation(ChangeInformationRequest request) {
 		User user = getUserByCode(
 				getCurrentReceiptCode()
 		);
