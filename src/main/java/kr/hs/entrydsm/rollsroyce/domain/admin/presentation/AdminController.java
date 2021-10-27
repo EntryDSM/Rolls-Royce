@@ -52,7 +52,7 @@ public class AdminController {
         cancelApplicationSubmitService.execute(receiptCode);
     }
 
-    @GetMapping( "/applicants")
+    @GetMapping( "/excel/applicants")
     public void createApplicantInformation(HttpServletResponse response) throws IOException {
         applicantsExcelService.execute(response);
     }
