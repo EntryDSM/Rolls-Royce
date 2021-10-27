@@ -40,6 +40,10 @@ public class Status {
 	@Column(nullable = false)
 	private Boolean isSubmitted;
 
+	@ColumnDefault("0")
+	@Column(nullable = false)
+	private Boolean isPaid;
+
 	private LocalDateTime submittedAt;
 
 	@Column(columnDefinition = "char(5)")
