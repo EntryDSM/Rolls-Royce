@@ -23,4 +23,5 @@ public class SignupRequest {
     @NotBlank
     @Length(min = 1, max = 5, message = "INVALID NAME")
     private String name;
+
 }
