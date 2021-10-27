@@ -26,6 +26,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.HeadCount;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.ApplicationNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -155,9 +156,9 @@ public class User {
 				.sex(sex.name())
 				.telephoneNumber(telephoneNumber)
 				.photoFileName(photoFileName)
-        .build();
-  }
-  
+				.build();
+	}
+
 	public QueryTypeResponse queryUserApplication() {
 		QueryTypeResponse response = QueryTypeResponse.builder()
 				.applicationRemark(getValue(applicationRemark))
@@ -175,6 +176,21 @@ public class User {
 
 	public boolean hasApplication() {
 		return graduation != null || qualification != null;
+  }
+  
+	public boolean isQualification() {
+		return educationalStatus != null &&
+				educationalStatus.equals(EducationalStatus.QUALIFICATION_EXAM);
+	}
+
+	public Graduation getGraduation() {
+		if(graduation == null)
+			throw ApplicationNotFoundException.EXCEPTION;
+		return graduation;
+	}
+
+	private String getValue(Object obj) {
+		return obj == null ? null : String.valueOf(obj);
 	}
 
 	private String getValue(Object obj) {

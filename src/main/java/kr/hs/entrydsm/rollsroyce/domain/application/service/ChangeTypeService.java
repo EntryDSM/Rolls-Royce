@@ -6,8 +6,16 @@ import javax.transaction.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
+import javax.transaction.Transactional;
+
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.HeadCount;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
+import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -20,6 +28,7 @@ public class ChangeTypeService {
 	private final GraduationRepository graduationRepository;
 	private final UserFacade userFacade;
 
+	@Transactional
 	public void execute(ChangeTypeRequest request) {
 		User user = userFacade.getUserByCode(
 				userFacade.getCurrentReceiptCode()

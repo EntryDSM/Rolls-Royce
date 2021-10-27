@@ -3,6 +3,9 @@ package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 import javax.transaction.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.CredentialsNotFoundException;
@@ -39,6 +42,19 @@ public class UserFacade {
 				getCurrentReceiptCode()
 		);
 		user.updateSelfIntroduce(request.getContent());
+	}
+	
+    
+	@Transactional
+  public void changeInformation(ChangeInformationRequest request) {
+		User user = getUserByCode(
+				getCurrentReceiptCode()
+		);
+		user.updateUserInformation(
+				request.getName(), request.getSex(), request.getBirthday(),
+				request.getParentName(), request.getParentTel(), request.getTelephoneNumber(), request.getHomeTel(),
+				request.getAddress(), request.getPostCode(), request.getDetailAddress()
+		);
 	}
 
 }

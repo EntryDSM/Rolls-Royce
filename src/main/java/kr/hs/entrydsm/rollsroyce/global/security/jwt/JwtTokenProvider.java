@@ -73,6 +73,16 @@ public class JwtTokenProvider {
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 	}
 
+	public void isRefreshToken(String token) {
+		if (!getTokenBody(token).get("type").equals("refresh_token")) {
+			throw InvalidTokenException.EXCEPTION;
+		}
+	}
+
+	public String getRole(String token) {
+		return getTokenBody(token).get("role").toString();
+	}
+
 	private Claims getTokenBody(String token) {
 		try {
 			return Jwts.parser().setSigningKey(jwtProperties.getSecretKey())

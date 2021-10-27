@@ -2,15 +2,15 @@ package kr.hs.entrydsm.rollsroyce.domain.application.presentation;
 
 import javax.validation.Valid;
 
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeGraduationInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeTypeService;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeTypeService;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryTypeService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.*;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -30,6 +30,8 @@ public class ApplicationController {
 	private final ChangeInformationService changeInformationService;
 	private final QueryInformationService queryInformationService;
 	private final QueryTypeService queryTypeService;
+	private final ChangeGraduationInformationService changeGraduationInformationService;
+	private final ChangeIntroduceService changeIntroduceService;
 
 	@PatchMapping("/users/type")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -53,6 +55,16 @@ public class ApplicationController {
 		changeInformationService.execute(request);
 	}
 
+	@PatchMapping("/users/graduation")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void changeGraduationInformation(
+			@RequestBody @Valid ChangeGraduationInformationRequest request) {
+		changeGraduationInformationService.execute(request);
+	}
+
 	@PatchMapping("/intro")
-	public void changeIntroduce(@RequestBody @Valid ChangeIntroduceRequest request) { changeIntroduceService.execute(request); }
+	public void changeIntroduce(@RequestBody @Valid ChangeIntroduceRequest request) {
+    changeIntroduceService.execute(request); 
+  }
+  
 }
