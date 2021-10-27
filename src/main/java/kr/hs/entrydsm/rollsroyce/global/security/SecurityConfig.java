@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.global.security;
 
-import kr.hs.entrydsm.rollsroyce.global.error.GlobalExceptionFilter;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 
@@ -20,12 +19,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private final JwtTokenProvider jwtTokenProvider;
-	private final GlobalExceptionFilter globalExceptionFilter;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-				.csrf().and()
+				.csrf().disable()
 				.cors().and()
 				.formLogin().disable()
 				.sessionManagement()
@@ -36,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/schedules").permitAll()
 				.anyRequest().authenticated()
-				.and().apply(new FilterConfig(jwtTokenProvider, globalExceptionFilter));
+				.and().apply(new FilterConfig(jwtTokenProvider));
 	}
 
 	@Bean

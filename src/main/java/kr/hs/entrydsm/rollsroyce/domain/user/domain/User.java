@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Qualification;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
@@ -141,6 +142,22 @@ public class User {
 		this.detailAddress = detailAddress;
 	}
 
+	public QueryInformationResponse queryInformation() {
+		return QueryInformationResponse.builder()
+				.address(address)
+				.birthday(String.valueOf(birthday))
+				.detailAddress(detailAddress)
+				.homeTel(homeTel)
+				.name(name)
+				.parentName(parentName)
+				.parentTel(parentTel)
+				.postCode(postCode)
+				.sex(sex.name())
+				.telephoneNumber(telephoneNumber)
+				.photoFileName(photoFileName)
+        .build();
+  }
+  
 	public QueryTypeResponse queryUserApplication() {
 		QueryTypeResponse response = QueryTypeResponse.builder()
 				.applicationRemark(getValue(applicationRemark))
