@@ -1,16 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 
 import javax.transaction.Transactional;
+
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.HeadCount;
-import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.CredentialsNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AuthDetails;
