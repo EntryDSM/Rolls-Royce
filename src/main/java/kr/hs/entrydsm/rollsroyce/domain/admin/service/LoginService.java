@@ -21,23 +21,20 @@ public class LoginService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     private final JwtTokenProvider jwtTokenProvider;
-
     private final PasswordEncoder passwordEncoder;
 
     @Value("${auth.jwt.refreshExp}")
     private long ttl;
 
-    private static final String ROLE = "admin";
-
     public TokenResponse execute(LoginRequest request) {
         return adminRepository.findById(request.getId())
                 .filter(admin -> passwordEncoder.matches(request.getPassword(), admin.getPassword()))
                 .map(Admin::getId)
-                .map(adminId -> {
-                    String refreshToken = jwtTokenProvider.generateRefreshToken(adminId, ROLE);
+                .map(adminId ->  {
+                    String refreshToken = jwtTokenProvider.generateRefreshToken(adminId, "admin");
                     refreshTokenRepository.save(new RefreshToken(adminId, refreshToken, ttl));
-
-                    String accessToken = jwtTokenProvider.generateAccessToken(adminId, ROLE);
+                    
+                    String accessToken = jwtTokenProvider.generateAccessToken(adminId, "admin");
                     return new TokenResponse(accessToken, refreshToken);
                 })
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);

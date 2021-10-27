@@ -200,4 +200,8 @@ public class User {
 		response.setGraduatedAt(application.getDate());
 	}
 
+	public void updateSelfIntroduce(String selfIntroduce) {
+		this.selfIntroduce = selfIntroduce;
+	}
+
 }
