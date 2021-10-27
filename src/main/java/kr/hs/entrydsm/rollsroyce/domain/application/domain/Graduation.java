@@ -61,4 +61,8 @@ public class Graduation extends Application {
 						.format(graduatedAt);
 	}
 
+	public String getSchoolName() {
+		return this.school.getName();
+	}
+
 }
