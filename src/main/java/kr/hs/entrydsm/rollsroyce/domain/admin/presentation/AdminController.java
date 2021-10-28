@@ -23,6 +23,7 @@ public class AdminController {
     private final TokenRefreshService tokenRefreshService;
     private final CancelApplicationSubmitService cancelApplicationSubmitService;
     private final ApplicantsExcelService applicantsExcelService;
+    private final UpdateApplicantIsPaidService updateApplicantIsPaidService;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/data")
@@ -47,7 +48,7 @@ public class AdminController {
         return tokenRefreshService.execute(existingRefreshToken);
     }
 
-    @PatchMapping("/applicant/status/{receipt-code}")
+    @PatchMapping("/applicant/submitted/{receipt-code}")
     public void cancelApplicationSubmitStatus(@PathVariable("receipt-code") long receiptCode) {
         cancelApplicationSubmitService.execute(receiptCode);
     }
@@ -55,6 +56,11 @@ public class AdminController {
     @GetMapping( "/excel/applicants")
     public void createApplicantInformation(HttpServletResponse response) throws IOException {
         applicantsExcelService.execute(response);
+    }
+
+    @PatchMapping("/applicant/paid/{receipt-code}")
+    public void updateApplicantIsPaidStatus(@PathVariable("receipt-code") long receiptCode) {
+        updateApplicantIsPaidService.execute(receiptCode);
     }
 
 }

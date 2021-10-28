@@ -63,4 +63,8 @@ public class Status {
 			this.isPrintedArrived = false;
 	}
 
+	public void updateIsPaid() {
+		this.isPaid = !this.isPaid;
+	}
+
 }
