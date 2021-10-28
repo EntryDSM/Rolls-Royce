@@ -63,4 +63,8 @@ public class Status {
 			this.isPrintedArrived = false;
 	}
 
+	public void updateIsPrintedArrived() {
+		this.isPrintedArrived = !this.isPrintedArrived;
+	}
+
 }
