@@ -24,6 +24,7 @@ public class AdminController {
     private final CancelApplicationSubmitService cancelApplicationSubmitService;
     private final ApplicantsExcelService applicantsExcelService;
     private final UpdateApplicantIsPaidService updateApplicantIsPaidService;
+    private final UpdateIsPrintsArrivedService updateIsPrintsArrivedService;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/data")
@@ -60,9 +61,9 @@ public class AdminController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/applicant/paid/{receipt-code}")
-    public void updateApplicantIsPaidStatus(@PathVariable("receipt-code") long receiptCode) {
-        updateApplicantIsPaidService.execute(receiptCode);
+    @PatchMapping("/application/prints-arrived/{receipt-code}")
+    public void updateApplicationPrintsArrivedStatus(@PathVariable("receipt-code") long receiptCode) {
+        updateIsPrintsArrivedService.execute(receiptCode);
     }
 
 }
