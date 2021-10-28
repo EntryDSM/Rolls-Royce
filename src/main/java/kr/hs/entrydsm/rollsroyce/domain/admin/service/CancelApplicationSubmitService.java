@@ -5,8 +5,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotAccessibleExcept
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminAuthenticationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
-import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,19 +14,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CancelApplicationSubmitService {
 
-    private final StatusRepository statusRepository;
-
     private final AdminAuthenticationFacade authenticationFacade;
 
     private final AdminFacade adminFacade;
+    private final StatusFacade statusFacade;
 
     @Transactional
     public void execute(long receiptCode) {
-        Status status = statusRepository.findById(receiptCode)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        Status status = statusFacade.getStatusByReceiptCode(receiptCode);
 
         if (!adminFacade.getAdminRole(authenticationFacade.getEmail()).equals(Role.ROLE_CONFIRM_FEE)) {
-            status.cancelIsSumitted();
+            status.cancelIsSubmitted();
         } else {
             throw AdminNotAccessibleException.EXCEPTION;
         }
