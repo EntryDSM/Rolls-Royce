@@ -75,7 +75,7 @@ public class AdminController {
         updateApplicantIsPaidService.execute(receiptCode);
     }
 
-    @GetMapping( "/excel/applicants")
+    @GetMapping( "/applicants")
     public ApplicantsResponse getApplicants(Pageable page,
                                             @RequestParam(name = "receipt_code", defaultValue = "%") String receiptCode,
                                             @RequestParam(defaultValue = "%") String name,
