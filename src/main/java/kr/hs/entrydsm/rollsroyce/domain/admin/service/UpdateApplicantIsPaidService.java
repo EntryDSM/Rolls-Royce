@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class CancelApplicationSubmitService {
+public class UpdateApplicantIsPaidService {
 
     private final AdminAuthenticationFacade authenticationFacade;
 
@@ -23,8 +23,8 @@ public class CancelApplicationSubmitService {
     public void execute(long receiptCode) {
         Status status = statusFacade.getStatusByReceiptCode(receiptCode);
 
-        if (!(adminFacade.getAdminRole(authenticationFacade.getEmail()) == Role.ROLE_CONFIRM_FEE)) {
-            status.cancelIsSubmitted();
+        if (!(adminFacade.getAdminRole(authenticationFacade.getEmail()) == Role.ROLE_CONFIRM_APPLICATION)) {
+            status.updateIsPaid();
         } else {
             throw AdminNotAccessibleException.EXCEPTION;
         }
