@@ -49,11 +49,12 @@ public class SendAuthCodeService {
                 .filter(authcode -> sesUtil.sendMessage(email, "RollsRoyceEmailTemplate", params))
                 .map(authCode -> authCode.updateAuthCode(code, authCodeTTL))
                 .orElseGet(() -> authCodeRepository.save(AuthCode.builder()
-                            .email(email)
-                            .code(code)
-                            .isVerified(false)
-                            .ttl(authCodeTTL)
-                            .build()));
+                        .email(email)
+                        .code(code)
+                        .isVerified(false)
+                        .ttl(authCodeTTL)
+                        .build())
+                );
     }
 
     private boolean isOverLimit(String email) {
