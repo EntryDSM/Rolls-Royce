@@ -24,7 +24,7 @@ public class CancelApplicationSubmitService {
     public void execute(long receiptCode) {
         Status status = statusFacade.getStatusByReceiptCode(receiptCode);
 
-        if (!adminFacade.getAdminRole(authenticationFacade.getEmail()).equals(Role.ROLE_CONFIRM_FEE)) {
+        if (!(adminFacade.getAdminRole(authenticationFacade.getEmail()) == Role.ROLE_CONFIRM_FEE)) {
             status.cancelIsSubmitted();
         } else {
             throw AdminNotAccessibleException.EXCEPTION;
