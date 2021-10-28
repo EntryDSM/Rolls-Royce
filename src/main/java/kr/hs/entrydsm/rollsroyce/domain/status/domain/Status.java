@@ -34,7 +34,7 @@ public class Status {
 
 	@ColumnDefault("0")
 	@Column(nullable = false)
-	private Boolean isPrintedArrived;
+	private Boolean isPrintsArrived;
 
 	@ColumnDefault("0")
 	@Column(nullable = false)
@@ -59,8 +59,8 @@ public class Status {
   
 	public void cancelIsSubmitted() {
 		this.isSubmitted = false;
-		if (this.isPrintedArrived)
-			this.isPrintedArrived = false;
+		if (this.isPrintsArrived)
+			this.isPrintsArrived = false;
 	}
 
 }
