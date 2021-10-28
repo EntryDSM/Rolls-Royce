@@ -63,8 +63,8 @@ public class Status {
 			this.isPrintsArrived = false;
 	}
 
-	public void updateIsPrintedArrived() {
-		this.isPrintedArrived = !this.isPrintedArrived;
+	public void updateIsPrintsArrived() {
+		this.isPrintsArrived = !this.isPrintsArrived;
 	}
 
 	public void updateIsPaid() {
