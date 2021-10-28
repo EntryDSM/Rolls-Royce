@@ -24,7 +24,7 @@ public class UpdateIsPrintsArrivedService {
         Status status = statusFacade.getStatusByReceiptCode(receiptCode);
 
         if (!(adminFacade.getAdminRole(authenticationFacade.getEmail()) == Role.ROLE_CONFIRM_FEE)) {
-            status.updateIsPrintedArrived();
+            status.updateIsPrintsArrived();
         } else {
             throw AdminNotAccessibleException.EXCEPTION;
         }
