@@ -66,4 +66,10 @@ public class AdminController {
         updateIsPrintsArrivedService.execute(receiptCode);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/applicant/paid/{receipt-code}")
+    public void updateApplicantIsPaidStatus(@PathVariable("receipt-code") long receiptCode) {
+        updateApplicantIsPaidService.execute(receiptCode);
+    }
+
 }
