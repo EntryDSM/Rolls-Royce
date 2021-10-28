@@ -60,15 +60,10 @@ public class AdminController {
         applicantsExcelService.execute(response);
     }
 
-    @PatchMapping("/applicant/prints-arrived/{receipt-code}")
-    public void updateApplicantIsPaidStatus(@PathVariable("receipt-code") long receiptCode) {
-        updateIsPrintsArrivedService.execute(receiptCode);
-    }
-
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/applicant/paid/{receipt-code}")
-    public void updateApplicantIsPaidStatus(@PathVariable("receipt-code") long receiptCode) {
-        updateApplicantIsPaidService.execute(receiptCode);
+    @PatchMapping("/application/prints-arrived/{receipt-code}")
+    public void updateApplicationPrintsArrivedStatus(@PathVariable("receipt-code") long receiptCode) {
+        updateIsPrintsArrivedService.execute(receiptCode);
     }
 
 }

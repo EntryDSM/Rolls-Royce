@@ -25,7 +25,7 @@ public class DeleteAllTablesService {
     private final GraduationCaseRepository graduationCaseRepository;
     private final QualificationCaseRepository qualificationCaseRepository;
     private final GraduationRepository graduationRepository;
-    private final QualificationRepository qualificationRepositroy;
+    private final QualificationRepository qualificationRepository;
 
     private final AdminFacade adminFacade;
     private final AdminAuthenticationFacade authenticationFacade;
@@ -37,7 +37,7 @@ public class DeleteAllTablesService {
             graduationCaseRepository.deleteAll();
             graduationRepository.deleteAll();
             qualificationCaseRepository.deleteAll();
-            qualificationRepositroy.deleteAll();
+            qualificationRepository.deleteAll();
             statusRepository.deleteAll();
             userRepository.deleteAll();
         } else {
