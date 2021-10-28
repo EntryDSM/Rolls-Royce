@@ -54,14 +54,6 @@ public class SendAuthCodeService {
                             .isVerified(false)
                             .ttl(authCodeTTL)
                             .build()));
-
-        authCodeLimitRepository.findById(email)
-                .map(authCodeLimit -> authCodeLimit.updateAuthCode(authCodeTTL))
-                .orElseGet(() -> authCodeLimitRepository.save(AuthCodeLimit.builder()
-                        .email(email)
-                        .count(1)
-                        .ttl(authCodeTTL)
-                        .build()));
     }
 
     private boolean isOverLimit(String email) {
