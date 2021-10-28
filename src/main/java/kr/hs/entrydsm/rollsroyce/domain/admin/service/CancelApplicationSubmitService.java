@@ -6,7 +6,6 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminAuthenticationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
-import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
