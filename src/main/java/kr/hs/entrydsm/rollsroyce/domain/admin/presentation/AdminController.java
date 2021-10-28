@@ -87,7 +87,7 @@ public class AdminController {
                                             @RequestParam(name = "is_social") boolean isSocial,
                                             @RequestParam(name = "is_in") boolean inOfHeadcount,
                                             @RequestParam(name = "is_out") boolean outOfHeadcount,
-                                            @RequestParam(name = "is_prints_arrived") boolean isSubmitted) {
+                                            @RequestParam(name = "is_submitted") boolean isSubmitted) {
         return getApplicantsService.execute(page, receiptCode, name, schoolName, isDaejeon, isNationwide, isCommon, isMeister, isSocial, inOfHeadcount, outOfHeadcount, isSubmitted);
     }
 
