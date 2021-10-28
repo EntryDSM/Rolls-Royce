@@ -42,6 +42,7 @@ public class GetApplicantsService {
                                         .applicationType(user.getApplicationType().name())
                                         .isPrintsArrived(user.getStatus().getIsPrintsArrived())
                                         .isSubmitted(user.getStatus().getIsSubmitted())
+                                        .headcount(user.getHeadcount().name())
                                         .build()
                         )
                         .collect(Collectors.toList())

@@ -39,6 +39,8 @@ public class ApplicantsResponse {
 
         private Boolean isSubmitted;
 
+        private String headcount;
+
     }
 
 }
