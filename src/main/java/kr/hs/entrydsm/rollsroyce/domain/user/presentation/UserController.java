@@ -1,7 +1,9 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.presentation;
 
+import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SendEmailRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response.TokenResponse;
+import kr.hs.entrydsm.rollsroyce.domain.user.service.SendAuthCodeService;
 import kr.hs.entrydsm.rollsroyce.domain.user.service.UserSignupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,11 +18,17 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserSignupService signupService;
+    private final SendAuthCodeService sendAuthCodeService;
 
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
     public TokenResponse signup(@RequestBody @Valid SignupRequest request) {
         return signupService.execute(request);
+    }
+
+    @PostMapping("/email/verify")
+    public void sendEmail(@RequestBody @Valid SendEmailRequest request) {
+        sendAuthCodeService.execute(request);
     }
 
 }
