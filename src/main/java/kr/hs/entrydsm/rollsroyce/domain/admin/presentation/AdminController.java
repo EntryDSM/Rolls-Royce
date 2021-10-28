@@ -79,7 +79,7 @@ public class AdminController {
     public ApplicantsResponse getApplicants(Pageable page,
                                             @RequestParam(name = "receipt_code", defaultValue = "%") String receiptCode,
                                             @RequestParam(defaultValue = "%") String name,
-                                            @RequestParam(name = "telephone", defaultValue = "%") String schoolName,
+                                            @RequestParam(name = "school_name", defaultValue = "%") String schoolName,
                                             @RequestParam(name = "is_daejeon") boolean isDaejeon,
                                             @RequestParam(name = "is_nationwide") boolean isNationwide,
                                             @RequestParam(name = "is_common") boolean isCommon,
