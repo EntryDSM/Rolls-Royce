@@ -23,6 +23,7 @@ public class AdminController {
     private final TokenRefreshService tokenRefreshService;
     private final CancelApplicationSubmitService cancelApplicationSubmitService;
     private final ApplicantsExcelService applicantsExcelService;
+    private final UpdateApplicantIsPaidService updateApplicantIsPaidService;
     private final UpdateIsPrintsArrivedService updateIsPrintsArrivedService;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -48,7 +49,8 @@ public class AdminController {
         return tokenRefreshService.execute(existingRefreshToken);
     }
 
-    @PatchMapping("/applicant/status/{receipt-code}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/application/submitted/{receipt-code}")
     public void cancelApplicationSubmitStatus(@PathVariable("receipt-code") long receiptCode) {
         cancelApplicationSubmitService.execute(receiptCode);
     }
@@ -61,6 +63,12 @@ public class AdminController {
     @PatchMapping("/applicant/prints-arrived/{receipt-code}")
     public void updateApplicantIsPaidStatus(@PathVariable("receipt-code") long receiptCode) {
         updateIsPrintsArrivedService.execute(receiptCode);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/applicant/paid/{receipt-code}")
+    public void updateApplicantIsPaidStatus(@PathVariable("receipt-code") long receiptCode) {
+        updateApplicantIsPaidService.execute(receiptCode);
     }
 
 }
