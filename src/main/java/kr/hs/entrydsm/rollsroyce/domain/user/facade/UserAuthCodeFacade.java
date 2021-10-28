@@ -4,6 +4,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.AuthCode;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,6 +15,10 @@ public class UserAuthCodeFacade {
 
     public AuthCode getAuthCodeById(String email) {
         return authCodeRepository.findById(email).orElseThrow(() -> UserNotFoundException.EXCEPTION);
+    }
+
+    public String getRandomCode() {
+        return RandomStringUtils.randomNumeric(6);
     }
 
 }
