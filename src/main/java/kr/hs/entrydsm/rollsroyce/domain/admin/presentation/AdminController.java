@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.CheckPasswordRequest;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.LoginRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.TokenResponse;
@@ -76,19 +77,8 @@ public class AdminController {
     }
 
     @GetMapping( "/applicants")
-    public ApplicantsResponse getApplicants(Pageable page,
-                                            @RequestParam(name = "receipt_code", defaultValue = "%") String receiptCode,
-                                            @RequestParam(defaultValue = "%") String name,
-                                            @RequestParam(name = "school_name", defaultValue = "%") String schoolName,
-                                            @RequestParam(name = "is_daejeon", defaultValue = "false") boolean isDaejeon,
-                                            @RequestParam(name = "is_nationwide", defaultValue = "false") boolean isNationwide,
-                                            @RequestParam(name = "is_common", defaultValue = "false") boolean isCommon,
-                                            @RequestParam(name = "is_meister", defaultValue = "false") boolean isMeister,
-                                            @RequestParam(name = "is_social", defaultValue = "false") boolean isSocial,
-                                            @RequestParam(name = "is_in", defaultValue = "false") boolean inOfHeadcount,
-                                            @RequestParam(name = "is_out", defaultValue = "false") boolean outOfHeadcount,
-                                            @RequestParam(name = "is_submitted", defaultValue = "false") boolean isSubmitted) {
-        return getApplicantsService.execute(page, receiptCode, name, schoolName, isDaejeon, isNationwide, isCommon, isMeister, isSocial, inOfHeadcount, outOfHeadcount, isSubmitted);
+    public ApplicantsResponse getApplicants(Pageable page, GetApplicantsRequest getApplicantsRequest) {
+        return getApplicantsService.execute(page, getApplicantsRequest);
     }
 
 }
