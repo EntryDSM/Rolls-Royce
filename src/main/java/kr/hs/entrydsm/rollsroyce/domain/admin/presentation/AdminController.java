@@ -80,14 +80,14 @@ public class AdminController {
                                             @RequestParam(name = "receipt_code", defaultValue = "%") String receiptCode,
                                             @RequestParam(defaultValue = "%") String name,
                                             @RequestParam(name = "school_name", defaultValue = "%") String schoolName,
-                                            @RequestParam(name = "is_daejeon") boolean isDaejeon,
-                                            @RequestParam(name = "is_nationwide") boolean isNationwide,
-                                            @RequestParam(name = "is_common") boolean isCommon,
-                                            @RequestParam(name = "is_meister") boolean isMeister,
-                                            @RequestParam(name = "is_social") boolean isSocial,
-                                            @RequestParam(name = "is_in") boolean inOfHeadcount,
-                                            @RequestParam(name = "is_out") boolean outOfHeadcount,
-                                            @RequestParam(name = "is_submitted") boolean isSubmitted) {
+                                            @RequestParam(name = "is_daejeon", defaultValue = "false") boolean isDaejeon,
+                                            @RequestParam(name = "is_nationwide", defaultValue = "false") boolean isNationwide,
+                                            @RequestParam(name = "is_common", defaultValue = "false") boolean isCommon,
+                                            @RequestParam(name = "is_meister", defaultValue = "false") boolean isMeister,
+                                            @RequestParam(name = "is_social", defaultValue = "false") boolean isSocial,
+                                            @RequestParam(name = "is_in", defaultValue = "false") boolean inOfHeadcount,
+                                            @RequestParam(name = "is_out", defaultValue = "false") boolean outOfHeadcount,
+                                            @RequestParam(name = "is_submitted", defaultValue = "false") boolean isSubmitted) {
         return getApplicantsService.execute(page, receiptCode, name, schoolName, isDaejeon, isNationwide, isCommon, isMeister, isSocial, inOfHeadcount, outOfHeadcount, isSubmitted);
     }
 
