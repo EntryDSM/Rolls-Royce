@@ -2,7 +2,6 @@ package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.CredentialsNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserAlreadyExistsException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
@@ -28,30 +27,6 @@ public class UserFacade {
 
 	public Long getCurrentReceiptCode() {
 		return getCurrentUser().getReceiptCode();
-	}
-
-	public String getCurrentEmail() {
-		return getCurrentUser().getEmail();
-	}
-
-	public String getCurrentName() {
-		return getCurrentUser().getName();
-	}
-
-	public String getCurrentPhoneNumber() {
-		return getCurrentUser().getTelephoneNumber();
-	}
-
-	public ApplicationType getCurrentApplicationType() {
-		return getCurrentUser().getApplicationType();
-	}
-
-	public String getCurrentSelfIntroduce() {
-		return getCurrentUser().getSelfIntroduce();
-	}
-
-	public String getCurrentStudyPlan() {
-		return getCurrentUser().getStudyPlan();
 	}
 
 	public User getUserByCode(Long receiptCode) {
