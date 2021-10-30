@@ -50,6 +50,10 @@ public class UserFacade {
 		return getCurrentUser().getSelfIntroduce();
 	}
 
+	public String getCurrentStudyPlan() {
+		return getCurrentUser().getStudyPlan();
+	}
+
 	public User getUserByCode(Long receiptCode) {
 		return userRepository.findById(receiptCode)
 				.orElseThrow(() -> UserNotFoundException.EXCEPTION);
