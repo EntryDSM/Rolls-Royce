@@ -33,6 +33,10 @@ public class UserFacade {
 		return getCurrentUser().getEmail();
 	}
 
+	public String getCurrentName() {
+		return getCurrentUser().getName();
+	}
+
 	public User getUserByCode(Long receiptCode) {
 		return userRepository.findById(receiptCode)
 				.orElseThrow(() -> UserNotFoundException.EXCEPTION);
