@@ -2,6 +2,7 @@ package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.CredentialsNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserAlreadyExistsException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
@@ -39,6 +40,10 @@ public class UserFacade {
 
 	public String getCurrentPhoneNumber() {
 		return getCurrentUser().getTelephoneNumber();
+	}
+
+	public ApplicationType getCurrentApplicationType() {
+		return getCurrentUser().getApplicationType();
 	}
 
 	public User getUserByCode(Long receiptCode) {
