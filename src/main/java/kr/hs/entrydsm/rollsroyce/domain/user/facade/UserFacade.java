@@ -37,6 +37,10 @@ public class UserFacade {
 		return getCurrentUser().getName();
 	}
 
+	public String getCurrentPhoneNumber() {
+		return getCurrentUser().getTelephoneNumber();
+	}
+
 	public User getUserByCode(Long receiptCode) {
 		return userRepository.findById(receiptCode)
 				.orElseThrow(() -> UserNotFoundException.EXCEPTION);
