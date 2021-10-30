@@ -25,4 +25,9 @@ public class StatusFacade {
 				.getIsSubmitted();
 	}
 
+	public boolean getCurrentIsPrintedArrived() {
+		return getStatusByReceiptCode(userFacade.getCurrentReceiptCode())
+				.getIsPrintsArrived();
+	}
+
 }
