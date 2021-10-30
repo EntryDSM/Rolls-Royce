@@ -1,10 +1,13 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.CheckPasswordRequest;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.LoginRequest;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +28,7 @@ public class AdminController {
     private final ApplicantsExcelService applicantsExcelService;
     private final UpdateApplicantIsPaidService updateApplicantIsPaidService;
     private final UpdateIsPrintsArrivedService updateIsPrintsArrivedService;
+    private final GetApplicantsService getApplicantsService;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/data")
@@ -70,6 +74,11 @@ public class AdminController {
     @PatchMapping("/applicant/paid/{receipt-code}")
     public void updateApplicantIsPaidStatus(@PathVariable("receipt-code") long receiptCode) {
         updateApplicantIsPaidService.execute(receiptCode);
+    }
+
+    @GetMapping( "/applicants")
+    public ApplicantsResponse getApplicants(Pageable page, GetApplicantsRequest getApplicantsRequest) {
+        return getApplicantsService.execute(page, getApplicantsRequest);
     }
 
 }
