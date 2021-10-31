@@ -16,13 +16,17 @@ public class UserFacade {
 
 	private final UserRepository userRepository;
 
-	public Long getCurrentReceiptCode() {
+	public User getCurrentUser() {
 		Object detail =
 				SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if(detail instanceof AuthDetails) {
-			return ((AuthDetails)detail).getUser().getReceiptCode();
+		if(!(detail instanceof AuthDetails)) {
+			throw CredentialsNotFoundException.EXCEPTION;
 		}
-		throw CredentialsNotFoundException.EXCEPTION;
+		return ((AuthDetails)detail).getUser();
+	}
+
+	public Long getCurrentReceiptCode() {
+		return getCurrentUser().getReceiptCode();
 	}
 
 	public User getUserByCode(Long receiptCode) {
