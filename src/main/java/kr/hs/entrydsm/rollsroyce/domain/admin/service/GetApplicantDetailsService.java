@@ -71,7 +71,7 @@ public class GetApplicantDetailsService {
                 .address(user.getAddress())
                 .detailAddress(user.getDetailAddress())
                 .headCount(user.getHeadcount() != null ? user.getHeadcount().name() : null)
-                .build()
+                .build();
     }
 
     private ApplicantDetailsResponse.Evaluation getEvaluation(User user) {
