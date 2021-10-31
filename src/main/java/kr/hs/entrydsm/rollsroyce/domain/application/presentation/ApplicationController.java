@@ -1,14 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.presentation;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.*;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryGraduationInformationResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QuerySchoolResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeGraduationInformationRequest;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.*;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.*;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/application")
@@ -42,6 +26,7 @@ public class ApplicationController {
     private final FinalSubmitService finalSubmitService;
     private final QuerySchoolService querySchoolService;
     private final ChangeStudyPlanService changeStudyPlanService;
+    private final QueryStudyPlanService queryStudyPlanService;
 
     @PatchMapping("/users/type")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -93,10 +78,10 @@ public class ApplicationController {
                                            Pageable pageable) {
         return querySchoolService.execute(name, pageable);
     }
-  
+
     @GetMapping("/intro")
     public QueryIntroduceResponse queryIntroduce() {
-      return queryIntroduceService.execute();
+        return queryIntroduceService.execute();
     }
 
     @PatchMapping("/study-plan")
@@ -104,4 +89,8 @@ public class ApplicationController {
         changeStudyPlanService.execute(request);
     }
 
+    @GetMapping("/study-plan")
+    public QueryStudyPlanResponse queryStudyPlan() {
+        return queryStudyPlanService.execute();
+    }
 }
