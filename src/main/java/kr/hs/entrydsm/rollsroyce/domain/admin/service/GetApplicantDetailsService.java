@@ -40,54 +40,60 @@ public class GetApplicantDetailsService {
 
         ApplicantDetailsResponse applicantDetailsResponse = new ApplicantDetailsResponse();
         applicantDetailsResponse.setStatus(new ApplicantDetailsResponse.Status(userStatus.getIsSubmitted(), userStatus.getIsSubmitted()));
-        applicantDetailsResponse.setCommonInformation(
-                ApplicantDetailsResponse.CommonInformation.builder()
-                        .name(user.getName())
-                        .email(user.getEmail())
-                        .telephoneNumber(user.getTelephoneNumber())
-                        .parentTel(user.getParentTel())
-                        //.schoolTel() 상의 필요
-                        .schoolName(user.getGraduation() != null ? user.getGraduation().getSchoolName() : null)
-                        .build()
-        );
+        applicantDetailsResponse.setCommonInformation(getCommonInformation(user));
 
         if (userStatus.getIsSubmitted()) {
-            Score score = scoreRepository.findById(receiptCode)
-                    .orElseThrow(() -> UserNotFoundException.EXCEPTION);
-            GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode)
-                    .orElse(null);
-            QualificationCase qualificationCase = qualificationCaseRepository.findById(receiptCode)
-                    .orElse(null);
-
-            applicantDetailsResponse.setMoreInformation(
-                    ApplicantDetailsResponse.MoreInformation.builder()
-                            .photoUrl(null) // 수정 필요
-                            .birthday(user.getBirthday().toString())
-                            .educationStatus(user.getEducationalStatus().name())
-                            .applicationType(user.getApplicationType().name())
-                            .applicationRemark(user.getApplicationRemark() != null ? user.getApplicationRemark().name() : null)
-                            .address(user.getAddress())
-                            .detailAddress(user.getDetailAddress())
-                            .headCount(user.getHeadcount() != null ? user.getHeadcount().name() : null)
-                            .build()
-            );
-
-            Integer[] graduationInfo = graduationInfo(graduationCase);
-            applicantDetailsResponse.setEvaluation(
-                    ApplicantDetailsResponse.Evaluation.builder()
-                            .conversionScore(score.getTotalScore())
-                            .dayAbsenceCount(graduationInfo[0])
-                            .lectureAbsenceCount(graduationInfo[1])
-                            .earlyLeaveCount(graduationInfo[2])
-                            .latenessCount(graduationInfo[3])
-                            .averageScore(qualificationCase != null ? qualificationCase.getAverageScore() : null)
-                            .selfIntroduce(user.getSelfIntroduce())
-                            .studyPlan(user.getStudyPlan())
-                            .build()
-            );
+            applicantDetailsResponse.setMoreInformation(getMoreInformation(user));
+            applicantDetailsResponse.setEvaluation(getEvaluation(user));
         }
 
         return applicantDetailsResponse;
+    }
+
+    private ApplicantDetailsResponse.CommonInformation getCommonInformation(User user) {
+        return ApplicantDetailsResponse.CommonInformation.builder()
+                .name(user.getName())
+                .email(user.getEmail())
+                .telephoneNumber(user.getTelephoneNumber())
+                .parentTel(user.getParentTel())
+                .schoolTel(user.getSchoolTel())
+                .schoolName(user.getGraduation() != null ? user.getGraduation().getSchoolName() : null)
+                .build();
+    }
+
+    private ApplicantDetailsResponse.MoreInformation getMoreInformation(User user) {
+        return ApplicantDetailsResponse.MoreInformation.builder()
+                .photoUrl(null) // 수정 필요
+                .birthday(user.getBirthday().toString())
+                .educationStatus(user.getEducationalStatus().name())
+                .applicationType(user.getApplicationType().name())
+                .applicationRemark(user.getApplicationRemark() != null ? user.getApplicationRemark().name() : null)
+                .address(user.getAddress())
+                .detailAddress(user.getDetailAddress())
+                .headCount(user.getHeadcount() != null ? user.getHeadcount().name() : null)
+                .build()
+    }
+
+    private ApplicantDetailsResponse.Evaluation getEvaluation(User user) {
+        long receiptCode = user.getReceiptCode();
+        Score score = scoreRepository.findById(receiptCode)
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode)
+                .orElse(null);
+        QualificationCase qualificationCase = qualificationCaseRepository.findById(receiptCode)
+                .orElse(null);
+        Integer[] graduationInfo = graduationInfo(graduationCase);
+
+        return ApplicantDetailsResponse.Evaluation.builder()
+                .conversionScore(score.getTotalScore())
+                .dayAbsenceCount(graduationInfo[0])
+                .lectureAbsenceCount(graduationInfo[1])
+                .earlyLeaveCount(graduationInfo[2])
+                .latenessCount(graduationInfo[3])
+                .averageScore(qualificationCase != null ? qualificationCase.getAverageScore() : null)
+                .selfIntroduce(user.getSelfIntroduce())
+                .studyPlan(user.getStudyPlan())
+                .build();
     }
 
     private Integer[] graduationInfo(GraduationCase graduationCase) {
