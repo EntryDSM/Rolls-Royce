@@ -48,8 +48,8 @@ public class AdminController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/auth")
-    public TokenResponse refreshToken(@RequestHeader("X-Refresh-Token") String existingRefreshToken) {
-        return tokenRefreshService.execute(existingRefreshToken);
+    public TokenResponse refreshToken(@RequestHeader("X-Refresh-Token") String refreshToken) {
+        return tokenRefreshService.execute(refreshToken);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

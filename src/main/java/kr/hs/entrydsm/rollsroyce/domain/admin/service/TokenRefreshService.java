@@ -13,8 +13,8 @@ public class TokenRefreshService {
     private final TokenRefreshUtil tokenRefreshUtil;
 
     @Transactional
-    public TokenResponse execute(String existingRefreshToken) {
-        return tokenRefreshUtil.tokenRefresh(existingRefreshToken, "admin");
+    public TokenResponse execute(String refreshToken) {
+        return tokenRefreshUtil.tokenRefresh(refreshToken, "admin");
     }
 
 }
