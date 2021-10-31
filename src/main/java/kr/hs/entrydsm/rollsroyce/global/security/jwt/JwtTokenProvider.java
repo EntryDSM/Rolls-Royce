@@ -12,11 +12,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.RefreshToken;
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.repository.RefreshTokenRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.global.exception.ExpiredTokenException;
 import kr.hs.entrydsm.rollsroyce.global.exception.InvalidTokenException;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AdminDetailsService;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AuthDetailsService;
+import kr.hs.entrydsm.rollsroyce.global.security.util.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -60,12 +60,12 @@ public class JwtTokenProvider {
 				.compact();
 	}
 
-	public TokenResponse generateToken(String email, String role) {
-		String accessToken = generateAccessToken(email, role);
-		String refreshToken = generateRefreshToken(email, role);
+	public TokenResponse generateToken(String id, String role) {
+		String accessToken = generateAccessToken(id, role);
+		String refreshToken = generateRefreshToken(id, role);
 
 		refreshTokenRepository.save(RefreshToken.builder()
-				.id(email)
+				.id(id)
 				.token(refreshToken)
 				.ttl(jwtProperties.getRefreshExp() * 1000)
 				.build());
