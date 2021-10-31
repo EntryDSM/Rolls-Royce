@@ -7,7 +7,6 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.LoginRequ
 import kr.hs.entrydsm.rollsroyce.global.security.dto.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
