@@ -22,12 +22,20 @@ public class UserController {
     private final UserSignupService signupService;
     private final SendAuthCodeService sendAuthCodeService;
     private final VerifyAuthCodeService verifyAuthCodeService;
+    private final TokenRefreshService tokenRefreshService;
 
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
     public TokenResponse signup(@RequestBody @Valid SignupRequest request) {
         return signupService.execute(request);
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PutMapping("/auth")
+    public TokenResponse refreshToken(@RequestHeader("X-Refresh-Token") String existingRefreshToken) {
+        return tokenRefreshService.execute(existingRefreshToken);
+    }
+
 
     @PostMapping("/email/verify")
     public void sendEmail(@RequestBody @Valid SendEmailRequest request) {
