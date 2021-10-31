@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
 
 @RequiredArgsConstructor
 @RequestMapping("/admin")
@@ -62,7 +61,7 @@ public class AdminController {
     }
 
     @GetMapping( "/excel/applicants")
-    public void createApplicantInformation(HttpServletResponse response) throws IOException {
+    public void createApplicantInformation(HttpServletResponse response) {
         applicantsExcelService.execute(response);
     }
 
