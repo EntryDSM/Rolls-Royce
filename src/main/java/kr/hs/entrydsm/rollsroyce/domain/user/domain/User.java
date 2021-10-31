@@ -218,4 +218,9 @@ public class User {
 
 	public void updateStudyPlan(String StudyPlan) { this.studyPlan = StudyPlan; }
 
+	public User updatePassword(String password) {
+		this.password = password;
+		return this;
+	}
+
 }
