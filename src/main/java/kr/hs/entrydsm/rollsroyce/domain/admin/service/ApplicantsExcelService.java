@@ -57,7 +57,7 @@ public class ApplicantsExcelService {
             Graduation graduation = graduationRepository.findById(receiptCode).orElse(null);
             Score score = scoreRepository.findById(receiptCode).orElseThrow(() -> GradeOrScoreNotFoundException.EXCEPTION);
 
-            Row row = sheet.createRow((i++) + 1);
+            Row row = sheet.createRow(++i);
             insertUserInfo(row, user, graduation);
             insertRating(row, graduationCase);
             insertScore(row, score);
