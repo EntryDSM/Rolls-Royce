@@ -7,6 +7,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserAuthCodeFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
+import kr.hs.entrydsm.rollsroyce.global.security.util.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
