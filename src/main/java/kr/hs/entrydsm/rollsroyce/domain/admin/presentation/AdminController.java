@@ -5,8 +5,8 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplic
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.LoginRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
-import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.*;
+import kr.hs.entrydsm.rollsroyce.global.security.util.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -50,8 +50,8 @@ public class AdminController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/auth")
-    public TokenResponse refreshToken(@RequestHeader("X-Refresh-Token") String existingRefreshToken) {
-        return tokenRefreshService.execute(existingRefreshToken);
+    public TokenResponse refreshToken(@RequestHeader("X-Refresh-Token") String refreshToken) {
+        return tokenRefreshService.execute(refreshToken);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

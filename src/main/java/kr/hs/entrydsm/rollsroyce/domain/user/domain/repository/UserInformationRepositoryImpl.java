@@ -17,10 +17,11 @@ import static kr.hs.entrydsm.rollsroyce.domain.user.domain.QUser.user;
 
 @RequiredArgsConstructor
 @Repository
-public class UserCustomRepository {
+public class UserInformationRepositoryImpl implements UserInformationRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
+    @Override
     public Page<User> findAllByUserInfo(String receiptCode,
                                      Boolean isDaejeon,
                                      String schoolName, String name,

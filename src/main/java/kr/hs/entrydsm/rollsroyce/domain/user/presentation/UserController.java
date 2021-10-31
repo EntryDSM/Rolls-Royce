@@ -5,8 +5,8 @@ import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SendEmailR
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.VerifyAuthCodeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response.StatusResponse;
-import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.service.*;
+import kr.hs.entrydsm.rollsroyce.global.security.util.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
