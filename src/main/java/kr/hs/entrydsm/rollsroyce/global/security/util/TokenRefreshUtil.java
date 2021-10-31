@@ -2,7 +2,7 @@ package kr.hs.entrydsm.rollsroyce.global.security.util;
 
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import kr.hs.entrydsm.rollsroyce.global.exception.InvalidTokenException;
-import kr.hs.entrydsm.rollsroyce.global.security.dto.TokenResponse;
+import kr.hs.entrydsm.rollsroyce.global.security.util.dto.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

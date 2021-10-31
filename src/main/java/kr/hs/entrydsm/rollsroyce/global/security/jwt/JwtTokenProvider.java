@@ -16,7 +16,7 @@ import kr.hs.entrydsm.rollsroyce.global.exception.ExpiredTokenException;
 import kr.hs.entrydsm.rollsroyce.global.exception.InvalidTokenException;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AdminDetailsService;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AuthDetailsService;
-import kr.hs.entrydsm.rollsroyce.global.security.dto.TokenResponse;
+import kr.hs.entrydsm.rollsroyce.global.security.util.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
