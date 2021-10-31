@@ -88,6 +88,9 @@ public class User {
 	@Column(columnDefinition = "char(11)")
 	private String parentTel;
 
+	@Column(columnDefinition = "char(11)")
+	private String schoolTel;
+
 	@Column(length = 300)
 	private String address;
 
