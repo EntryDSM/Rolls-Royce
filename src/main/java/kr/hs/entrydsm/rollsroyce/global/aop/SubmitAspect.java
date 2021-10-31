@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 
 import org.springframework.stereotype.Component;
 
@@ -18,12 +19,15 @@ public class SubmitAspect {
 	private final UserFacade userFacade;
 	private final StatusFacade statusFacade;
 
-	@Around("execution(* kr.hs.entrydsm.rollsroyce.domain.application.presentation.ApplicationController.*(..))")
+	@Around("applicationController()")
 	public void checkSubmit(JoinPoint joinPoint) {
 		if(statusFacade.getStatusByReceiptCode(
 				userFacade.getCurrentReceiptCode()
 		).getIsSubmitted().equals(Boolean.TRUE))
 			throw AlreadySubmitException.EXCEPTION;
 	}
+
+	@Pointcut("within(kr.hs.entrydsm.rollsroyce.domain.application.presentation.*)")
+	public void applicationController() {}
 
 }
