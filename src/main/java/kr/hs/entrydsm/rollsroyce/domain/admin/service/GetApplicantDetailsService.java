@@ -13,8 +13,8 @@ import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.QualificationCas
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
+import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,20 +22,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetApplicantDetailsService {
 
-    private final UserRepository userRepository;
     private final GraduationCaseRepository graduationCaseRepository;
     private final QualificationCaseRepository qualificationCaseRepository;
     private final ScoreRepository scoreRepository;
 
     private final AdminFacade adminFacade;
+    private final UserFacade userFacade;
     private final AdminAuthenticationFacade authenticationFacade;
 
     public ApplicantDetailsResponse execute(long receiptCode) {
         if (adminFacade.getAdminRole(authenticationFacade.getEmail()).equals(Role.ROLE_CONFIRM_FEE)) {
             throw AdminNotAccessibleException.EXCEPTION;
         }
-        User user = userRepository.findById(receiptCode)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        User user = userFacade.getUserByCode(receiptCode);
         Status userStatus = user.getStatus();
 
         ApplicantDetailsResponse applicantDetailsResponse = new ApplicantDetailsResponse();
