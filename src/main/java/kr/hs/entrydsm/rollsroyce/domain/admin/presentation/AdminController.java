@@ -10,7 +10,6 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -85,7 +84,7 @@ public class AdminController {
     }
 
     @GetMapping( "/applicant/{receipt-code}")
-    public ResponseEntity<ApplicantDetailsResponse> getApplicantDetails(@PathVariable("receipt-code") long receiptCode) {
+    public ApplicantDetailsResponse getApplicantDetails(@PathVariable("receipt-code") long receiptCode) {
         return getApplicantDetailsService.execute(receiptCode);
     }
 

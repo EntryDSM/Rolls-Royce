@@ -16,8 +16,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -32,7 +30,7 @@ public class GetApplicantDetailsService {
     private final AdminFacade adminFacade;
     private final AdminAuthenticationFacade authenticationFacade;
 
-    public ResponseEntity<ApplicantDetailsResponse> execute(long receiptCode) {
+    public ApplicantDetailsResponse execute(long receiptCode) {
         if (adminFacade.getAdminRole(authenticationFacade.getEmail()).equals(Role.ROLE_CONFIRM_FEE)) {
             throw AdminNotAccessibleException.EXCEPTION;
         }
@@ -53,42 +51,51 @@ public class GetApplicantDetailsService {
                         .build()
         );
 
-        if (!userStatus.getIsSubmitted()) {
-            return new ResponseEntity<>(applicantDetailsResponse, HttpStatus.LOCKED);
+        if (userStatus.getIsSubmitted()) {
+            Score score = scoreRepository.findById(receiptCode)
+                    .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+            GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode)
+                    .orElse(null);
+            QualificationCase qualificationCase = qualificationCaseRepository.findById(receiptCode)
+                    .orElse(null);
+
+            applicantDetailsResponse.setMoreInformation(
+                    ApplicantDetailsResponse.MoreInformation.builder()
+                            .photoUrl(null) // 수정 필요
+                            .birthday(user.getBirthday().toString())
+                            .educationStatus(user.getEducationalStatus().name())
+                            .applicationType(user.getApplicationType().name())
+                            .applicationRemark(user.getApplicationRemark() != null ? user.getApplicationRemark().name() : null)
+                            .address(user.getAddress())
+                            .detailAddress(user.getDetailAddress())
+                            .headCount(user.getHeadcount() != null ? user.getHeadcount().name() : null)
+                            .build()
+            );
+
+            Integer[] graduationInfo = graduationInfo(graduationCase);
+            applicantDetailsResponse.setEvaluation(
+                    ApplicantDetailsResponse.Evaluation.builder()
+                            .conversionScore(score.getTotalScore())
+                            .dayAbsenceCount(graduationInfo[0])
+                            .lectureAbsenceCount(graduationInfo[1])
+                            .earlyLeaveCount(graduationInfo[2])
+                            .latenessCount(graduationInfo[3])
+                            .averageScore(qualificationCase != null ? qualificationCase.getAverageScore() : null)
+                            .selfIntroduce(user.getSelfIntroduce())
+                            .studyPlan(user.getStudyPlan())
+                            .build()
+            );
         }
 
-        Score score = scoreRepository.findById(receiptCode)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
-        GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode)
-                .orElse(null);
-        QualificationCase qualificationCase = qualificationCaseRepository.findById(receiptCode)
-                .orElse(null);
+        return applicantDetailsResponse;
+    }
 
-        applicantDetailsResponse.setMoreInformation(
-                ApplicantDetailsResponse.MoreInformation.builder()
-                        .photoUrl(user.getPhotoFileName()) // 수정 필요
-                        .birthday(user.getBirthday().toString())
-                        .educationStatus(user.getEducationalStatus().name())
-                        .applicationType(user.getApplicationType().name())
-                        .applicationRemark(user.getApplicationRemark() != null ? user.getApplicationRemark().name() : null)
-                        .address(user.getAddress())
-                        .detailAddress(user.getDetailAddress())
-                        .headCount(user.getHeadcount() != null ? user.getHeadcount().name() : null)
-                        .build()
-        );
-        applicantDetailsResponse.setEvaluation(
-                ApplicantDetailsResponse.Evaluation.builder()
-                        .conversionScore(score.getTotalScore())
-                        .dayAbsenceCount(graduationCase != null ? graduationCase.getDayAbsenceCount() : null)
-                        .lectureAbsenceCount(graduationCase != null ? graduationCase.getLectureAbsenceCount() : null)
-                        .earlyLeaveCount(graduationCase != null ? graduationCase.getEarlyLeaveCount() : null)
-                        .latenessCount(graduationCase != null ? graduationCase.getLatenessCount() : null)
-                        .averageScore(qualificationCase != null ? qualificationCase.getAverageScore() : null)
-                        .selfIntroduce(user.getSelfIntroduce())
-                        .studyPlan(user.getStudyPlan())
-                        .build()
-        );
-        return new ResponseEntity<>(applicantDetailsResponse, HttpStatus.OK);
+    private Integer[] graduationInfo(GraduationCase graduationCase) {
+        if (graduationCase != null) {
+            return new Integer[]{graduationCase.getDayAbsenceCount(), graduationCase.getLectureAbsenceCount(), graduationCase.getEarlyLeaveCount(), graduationCase.getLatenessCount()};
+        } else {
+            return new Integer[]{null, null, null, null};
+        }
     }
 
 }
