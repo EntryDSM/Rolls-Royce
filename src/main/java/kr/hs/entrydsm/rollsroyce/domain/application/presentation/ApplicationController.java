@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/application")
 @RequiredArgsConstructor
 public class ApplicationController {
-
+  
     private final ChangeIntroduceService changeIntroduceService;
     private final QueryIntroduceService queryIntroduceService;
     private final FinalSubmitService finalSubmitService;
