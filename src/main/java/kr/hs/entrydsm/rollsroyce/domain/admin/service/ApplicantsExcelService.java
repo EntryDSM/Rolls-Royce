@@ -44,7 +44,10 @@ public class ApplicantsExcelService {
 
     public void execute(HttpServletResponse response) {
         adminFacade.getRootAdmin(authenticationFacade.getEmail());
+        getApplicantsExcel(response);
+    }
 
+    private void getApplicantsExcel(HttpServletResponse response) {
         ApplicantInformation applicantInformation = new ApplicantInformation();
         Sheet sheet = applicantInformation.getSheet();
         applicantInformation.format();
