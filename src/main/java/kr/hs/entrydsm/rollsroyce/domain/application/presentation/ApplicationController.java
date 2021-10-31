@@ -6,11 +6,13 @@ import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.Cha
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeStudyPlanRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryIntroduceResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QuerySchoolResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryStudyPlanResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeIntroduceService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeStudyPlanService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.FinalSubmitService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryIntroduceService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QuerySchoolService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryStudyPlanService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Pageable;
@@ -28,12 +30,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/application")
 @RequiredArgsConstructor
 public class ApplicationController {
-	
+  
     private final ChangeIntroduceService changeIntroduceService;
     private final QueryIntroduceService queryIntroduceService;
     private final FinalSubmitService finalSubmitService;
     private final QuerySchoolService querySchoolService;
     private final ChangeStudyPlanService changeStudyPlanService;
+    private final QueryStudyPlanService queryStudyPlanService;
 
     @PatchMapping("/intro")
     public void changeIntroduce(@RequestBody @Valid ChangeIntroduceRequest request) {
@@ -51,10 +54,10 @@ public class ApplicationController {
                                            Pageable pageable) {
         return querySchoolService.execute(name, pageable);
     }
-  
+
     @GetMapping("/intro")
     public QueryIntroduceResponse queryIntroduce() {
-      return queryIntroduceService.execute();
+        return queryIntroduceService.execute();
     }
 
     @PatchMapping("/study-plan")
@@ -62,4 +65,8 @@ public class ApplicationController {
         changeStudyPlanService.execute(request);
     }
 
+    @GetMapping("/study-plan")
+    public QueryStudyPlanResponse queryStudyPlan() {
+        return queryStudyPlanService.execute();
+    }
 }
