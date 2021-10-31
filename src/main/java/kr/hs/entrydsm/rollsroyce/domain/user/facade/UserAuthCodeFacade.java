@@ -26,6 +26,13 @@ public class UserAuthCodeFacade {
         return true;
     }
 
+    public boolean checkVerified(boolean isVerified) {
+        if(isVerified == false)
+            throw UnprovenAuthCodeException.EXCEPTION;
+
+        return true;
+    }
+
     public boolean compareCode(String reqCode, String code) {
         return reqCode.equals(code);
     }
