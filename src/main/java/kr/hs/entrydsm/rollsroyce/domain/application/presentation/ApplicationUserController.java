@@ -36,36 +36,36 @@ public class ApplicationUserController {
 	private final ChangeGraduationInformationService changeGraduationInformationService;
 	private final QueryGraduationInformationService queryGraduationInformationService;
 
-	@PatchMapping("/users/type")
+	@PatchMapping("/type")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void changeType(@RequestBody @Valid ChangeTypeRequest request) {
 		changeTypeService.execute(request);
 	}
 
-	@GetMapping("/user/type")
+	@GetMapping("/type")
 	public QueryTypeResponse queryType() {
 		return queryTypeService.execute();
 	}
 
-	@GetMapping("/users")
+	@GetMapping
 	public QueryInformationResponse queryInformation() {
 		return queryInformationService.execute();
 	}
 
-	@PatchMapping("/users")
+	@PatchMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void changeInformation(@RequestBody @Valid ChangeInformationRequest request) {
 		changeInformationService.execute(request);
 	}
 
-	@PatchMapping("/users/graduation")
+	@PatchMapping("/graduation")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void changeGraduationInformation(
 			@RequestBody @Valid ChangeGraduationInformationRequest request) {
 		changeGraduationInformationService.execute(request);
 	}
 
-	@GetMapping("/users/graduation")
+	@GetMapping("/graduation")
 	public QueryGraduationInformationResponse queryGraduationInformation() {
 		return queryGraduationInformationService.execute();
 	}
