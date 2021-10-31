@@ -4,7 +4,6 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.CheckPass
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.LoginRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
-import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

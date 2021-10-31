@@ -4,7 +4,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.LoginRequest;
-import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response.TokenResponse;
+import kr.hs.entrydsm.rollsroyce.global.security.dto.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

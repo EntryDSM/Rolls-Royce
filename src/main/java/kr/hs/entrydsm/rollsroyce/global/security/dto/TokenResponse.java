@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response;
+package kr.hs.entrydsm.rollsroyce.global.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
