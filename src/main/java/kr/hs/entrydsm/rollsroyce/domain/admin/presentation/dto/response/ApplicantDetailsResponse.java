@@ -17,6 +17,22 @@ public class ApplicantDetailsResponse {
     private MoreInformation moreInformation;
     private Evaluation evaluation;
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setCommonInformation(CommonInformation commonInformation) {
+        this.commonInformation = commonInformation;
+    }
+
+    public void setMoreInformation(MoreInformation moreInformation) {
+        this.moreInformation = moreInformation;
+    }
+
+    public void setEvaluation(Evaluation evaluation) {
+        this.evaluation = evaluation;
+    }
+
     @Getter
     @AllArgsConstructor
     public static class Status {
@@ -42,12 +58,11 @@ public class ApplicantDetailsResponse {
     public static class MoreInformation {
         private final String photoUrl;
         private final String birthday;
-        private final Boolean isGraduated;
         private final String educationStatus;
         private final String applicationType;
+        private final String applicationRemark;
         private final String address;
         private final String detailAddress;
-        private final String applicationRemark;
         private final String headCount;
     }
 
@@ -55,7 +70,6 @@ public class ApplicantDetailsResponse {
     @Builder
     @AllArgsConstructor
     public static class Evaluation {
-        private final Integer volunteerTime;
         private final BigDecimal conversionScore;
         private final Integer dayAbsenceCount;
         private final Integer lectureAbsenceCount;
