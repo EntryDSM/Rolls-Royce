@@ -3,7 +3,7 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserCustomRepository;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserInformationRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class GetApplicantsService {
 
-    private final UserCustomRepository userCustomRepository;
+    private final UserInformationRepositoryImpl userCustomRepository;
 
     public ApplicantsResponse execute(Pageable page, GetApplicantsRequest request) {
         Boolean isDaejeonQuery;
