@@ -4,11 +4,9 @@ import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.LoginReque
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SendEmailRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.VerifyAuthCodeRequest;
+import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response.StatusResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response.TokenResponse;
-import kr.hs.entrydsm.rollsroyce.domain.user.service.SendAuthCodeService;
-import kr.hs.entrydsm.rollsroyce.domain.user.service.UserLoginService;
-import kr.hs.entrydsm.rollsroyce.domain.user.service.UserSignupService;
-import kr.hs.entrydsm.rollsroyce.domain.user.service.VerifyAuthCodeService;
+import kr.hs.entrydsm.rollsroyce.domain.user.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +18,7 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserLoginService loginService;
+    private final UserStatusService statusService;
     private final UserSignupService signupService;
     private final SendAuthCodeService sendAuthCodeService;
     private final VerifyAuthCodeService verifyAuthCodeService;
@@ -43,6 +42,11 @@ public class UserController {
     @PostMapping("/auth")
     public TokenResponse login(@RequestBody @Valid LoginRequest request) {
         return loginService.execute(request);
+    }
+
+    @GetMapping("/status")
+    public StatusResponse getStatus() {
+        return statusService.execute();
     }
 
 }
