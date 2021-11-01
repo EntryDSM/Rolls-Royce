@@ -5,7 +5,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplic
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.LoginRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.*;
-import kr.hs.entrydsm.rollsroyce.global.security.util.dto.TokenResponse;
+import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

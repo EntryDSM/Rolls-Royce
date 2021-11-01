@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.rollsroyce.global.security.util.dto;
+package kr.hs.entrydsm.rollsroyce.global.utils.token.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
