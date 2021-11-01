@@ -16,7 +16,8 @@ public class QueryGraduationService {
     private final UserFacade userFacade;
 
     public QueryGraduationResponse execute() {
-        GraduationCase graduationCase = graduationCaseRepository.findByReceiptCode(userFacade.getCurrentReceiptCode())
+        GraduationCase graduationCase = graduationCaseRepository
+                .findByReceiptCode(userFacade.getCurrentReceiptCode())
                 .orElseThrow(() -> GradeNotFoundException.EXCEPTION);
         return new QueryGraduationResponse(graduationCase);
     }
