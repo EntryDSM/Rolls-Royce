@@ -20,4 +20,21 @@ public class QueryGraduationResponse {
     private final String scienceGrade;
     private final String englishGrade;
     private final String techAndHomeGrade;
+
+    public QueryGraduationResponse(GraduationCase graduationCase) {
+        this.volunteerTime = graduationCase.getVolunteerTime();
+
+        this.dayAbsenceCount = graduationCase.getDayAbsenceCount();
+        this.lectureAbsenceCount = graduationCase.getLectureAbsenceCount();
+        this.latenessCount = graduationCase.getLatenessCount();
+        this.earlyLeaveCount = graduationCase.getEarlyLeaveCount();
+
+        this.koreanGrade = graduationCase.getKoreanGrade();
+        this.socialGrade = graduationCase.getSocialGrade();
+        this.historyGrade = graduationCase.getHistoryGrade();
+        this.mathGrade = graduationCase.getMathGrade();
+        this.scienceGrade = graduationCase.getScienceGrade();
+        this.englishGrade = graduationCase.getEnglishGrade();
+        this.techAndHomeGrade = graduationCase.getTechAndHomeGrade();
+    }
 }
