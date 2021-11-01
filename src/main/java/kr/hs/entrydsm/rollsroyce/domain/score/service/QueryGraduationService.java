@@ -17,7 +17,7 @@ public class QueryGraduationService {
 
     public QueryGraduationResponse execute() {
         GraduationCase graduationCase = graduationCaseRepository.findByReceiptCode(userFacade.getCurrentReceiptCode())
-                .orElseThrow(GradeNotFoundException::new);
+                .orElseThrow(() -> GradeNotFoundException.EXCEPTION);
         return new QueryGraduationResponse(graduationCase);
     }
 }
