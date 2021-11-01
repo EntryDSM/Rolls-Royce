@@ -8,16 +8,33 @@ import lombok.Getter;
 @AllArgsConstructor
 public class QueryGraduationResponse {
 
-    private final int volunteerTime;
-    private final int dayAbsenceCount;
-    private final int lectureAbsenceCount;
-    private final int latenessCount;
-    private final int earlyLeaveCount;
-    private final String koreanGrade;
-    private final String socialGrade;
-    private final String historyGrade;
-    private final String mathGrade;
-    private final String scienceGrade;
-    private final String englishGrade;
-    private final String techAndHomeGrade;
+    private int volunteerTime;
+    private int dayAbsenceCount;
+    private int lectureAbsenceCount;
+    private int latenessCount;
+    private int earlyLeaveCount;
+    private String koreanGrade;
+    private String socialGrade;
+    private String historyGrade;
+    private String mathGrade;
+    private String scienceGrade;
+    private String englishGrade;
+    private String techAndHomeGrade;
+
+    public QueryGraduationResponse(GraduationCase graduationCase) {
+        this.volunteerTime = graduationCase.getVolunteerTime();
+
+        this.dayAbsenceCount = graduationCase.getDayAbsenceCount();
+        this.lectureAbsenceCount = graduationCase.getLectureAbsenceCount();
+        this.latenessCount = graduationCase.getLatenessCount();
+        this.earlyLeaveCount = graduationCase.getEarlyLeaveCount();
+
+        this.koreanGrade = graduationCase.getKoreanGrade();
+        this.socialGrade = graduationCase.getSocialGrade();
+        this.historyGrade = graduationCase.getHistoryGrade();
+        this.mathGrade = graduationCase.getMathGrade();
+        this.scienceGrade = graduationCase.getScienceGrade();
+        this.englishGrade = graduationCase.getEnglishGrade();
+        this.techAndHomeGrade = graduationCase.getTechAndHomeGrade();
+    }
 }
