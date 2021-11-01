@@ -21,8 +21,8 @@ public class UserLoginService {
     public TokenResponse execute(LoginRequest request) {
         return userRepository.findByEmail(request.getEmail())
                 .filter(user -> passwordEncoder.matches(request.getPassword(), user.getPassword()))
-                .map(User::getEmail)
-                .map(email -> tokenProvider.generateToken(email, "user"))
+                .map(User::getReceiptCode)
+                .map(code -> tokenProvider.generateToken(code.toString(), "user"))
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 
