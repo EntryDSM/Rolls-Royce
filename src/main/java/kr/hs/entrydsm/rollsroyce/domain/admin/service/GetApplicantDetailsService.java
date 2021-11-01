@@ -65,7 +65,7 @@ public class GetApplicantDetailsService {
 
     private ApplicantDetailsResponse.MoreInformation getMoreInformation(User user) {
         return ApplicantDetailsResponse.MoreInformation.builder()
-                .photoUrl(s3Util.generateObjectUrl(user.getPhotoFileName())) // 수정 필요
+                .photoUrl(s3Util.generateObjectUrl(user.getPhotoFileName()))
                 .birthday(user.getBirthday().toString())
                 .educationStatus(user.getEducationalStatus().name())
                 .applicationType(user.getApplicationType().name())
