@@ -21,6 +21,7 @@ import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Qualification;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
@@ -120,6 +121,9 @@ public class User {
 
 	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Graduation graduation;
+
+	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Score score;
 
 	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Qualification qualification;
