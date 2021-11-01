@@ -1,9 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.presentation;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.LoginRequest;
-import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SendEmailRequest;
-import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
-import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.VerifyAuthCodeRequest;
+import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.*;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response.StatusResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.service.*;
 import kr.hs.entrydsm.rollsroyce.global.security.util.dto.TokenResponse;
@@ -22,6 +19,7 @@ public class UserController {
     private final UserSignupService signupService;
     private final SendAuthCodeService sendAuthCodeService;
     private final VerifyAuthCodeService verifyAuthCodeService;
+    private final ChangePasswordService changePasswordService;
 
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
@@ -47,6 +45,11 @@ public class UserController {
     @GetMapping("/status")
     public StatusResponse getStatus() {
         return statusService.execute();
+    }
+
+    @PutMapping("/password")
+    public void changePassword(PasswordRequest request) {
+        changePasswordService.execute(request);
     }
 
 }
