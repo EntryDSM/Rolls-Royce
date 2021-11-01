@@ -14,15 +14,20 @@ import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeTypeService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryGraduationInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryTypeService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.UploadPhotoService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/application/users")
@@ -35,6 +40,7 @@ public class ApplicationUserController {
 	private final QueryTypeService queryTypeService;
 	private final ChangeGraduationInformationService changeGraduationInformationService;
 	private final QueryGraduationInformationService queryGraduationInformationService;
+	private final UploadPhotoService uploadPhotoService;
 
 	@PatchMapping("/type")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -68,6 +74,12 @@ public class ApplicationUserController {
 	@GetMapping("/graduation")
 	public QueryGraduationInformationResponse queryGraduationInformation() {
 		return queryGraduationInformationService.execute();
+	}
+
+	@PostMapping("/photo")
+	@ResponseStatus(HttpStatus.CREATED)
+	public String uploadPhoto(@RequestPart(name = "photo") @Nullable MultipartFile file) {
+		return uploadPhotoService.execute(file);
 	}
 
 }
