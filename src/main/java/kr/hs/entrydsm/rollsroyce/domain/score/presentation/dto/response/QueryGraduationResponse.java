@@ -1,11 +1,9 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.response;
 
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public class QueryGraduationResponse {
 
     private final int volunteerTime;
