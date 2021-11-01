@@ -15,7 +15,9 @@ public class QueryQualificationService {
     private final UserFacade userFacade;
 
     public QueryQualificationResponse execute() {
-        return new QueryQualificationResponse(qualificationCaseRepository.findById(userFacade.getCurrentReceiptCode())
-                .orElseThrow(() -> GradeNotFoundException.EXCEPTION));
+        return new QueryQualificationResponse(
+                qualificationCaseRepository.findById(userFacade.getCurrentReceiptCode())
+                        .orElseThrow(() -> GradeNotFoundException.EXCEPTION)
+        );
     }
 }
