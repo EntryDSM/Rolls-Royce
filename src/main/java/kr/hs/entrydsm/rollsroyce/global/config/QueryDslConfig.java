@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.rollsroyce.global.security;
+package kr.hs.entrydsm.rollsroyce.global.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;
