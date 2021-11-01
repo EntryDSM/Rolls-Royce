@@ -8,7 +8,7 @@ public class GradeNotFoundException extends RollsException {
     public static RollsException EXCEPTION =
             new GradeNotFoundException();
 
-    public GradeNotFoundException() {
+    private GradeNotFoundException() {
         super(ErrorCode.GRADE_NOT_FOUND);
     }
 }
