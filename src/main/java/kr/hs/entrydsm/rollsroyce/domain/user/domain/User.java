@@ -226,4 +226,8 @@ public class User {
 		return this;
 	}
 
+	public void updatePhotoFileName(String photoFileName) {
+		this.photoFileName = photoFileName;
+	}
+
 }
