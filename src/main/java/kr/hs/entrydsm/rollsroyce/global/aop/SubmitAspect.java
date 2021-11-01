@@ -4,7 +4,7 @@ import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.exception.AlreadySubmitException;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -20,11 +20,12 @@ public class SubmitAspect {
 	private final StatusFacade statusFacade;
 
 	@Around("applicationController()")
-	public void checkSubmit(JoinPoint joinPoint) {
+	public Object checkSubmit(ProceedingJoinPoint joinPoint) throws Throwable {
 		if(statusFacade.getStatusByReceiptCode(
 				userFacade.getCurrentReceiptCode()
 		).getIsSubmitted().equals(Boolean.TRUE))
 			throw AlreadySubmitException.EXCEPTION;
+		return joinPoint.proceed();
 	}
 
 	@Pointcut("within(kr.hs.entrydsm.rollsroyce.domain.application.presentation.*)")

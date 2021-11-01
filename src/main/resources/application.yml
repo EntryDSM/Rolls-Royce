@@ -12,9 +12,19 @@ spring:
     port: ${REDIS_PORT:6379}
     password: ${REDIS_PASSWORD}
   servlet:
-    multipartfile:
-      maxFileSize: 10MB
-      maxRequestSize: 10MB
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+cloud:
+  aws:
+    region:
+      static: ${AWS_S3_REGION:ap-northeast-2}
+    stack:
+      auto: false
+    credentials:
+      access-key: ${AWS_S3_ACCESS:s3_access}
+      secret-key: ${AWS_S3_SECRET:s3_secret}
 
 auth:
   jwt:
@@ -26,9 +36,6 @@ auth:
 
 aws:
   s3:
-    accessKey: ${AWS_S3_ACCESS:s3_access}
-    secretKey: ${AWS_S3_SECRET:s3_secret}
-    region: ${AWS_S3_REGION:ap-northeast-2}
     bucket: ${AWS_S3_BUCKET:bucket}
     base_image_url: ${AWS_S3_URL:image/}
   ses:
@@ -44,3 +51,10 @@ munchkin:
   font:
     path: ${FONT_PATH:/fonts}
   year: ${YEAR:2021}
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error

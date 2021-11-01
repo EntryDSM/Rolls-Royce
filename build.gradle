@@ -40,8 +40,7 @@ dependencies {
 	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:general'
 
 	implementation 'com.amazonaws:aws-java-sdk-ses:1.11.852'
-	implementation 'com.amazonaws:aws-java-sdk-s3control:1.11.457'
-	implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3control', version: '1.11.457'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
 	implementation 'mysql:mysql-connector-java'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
