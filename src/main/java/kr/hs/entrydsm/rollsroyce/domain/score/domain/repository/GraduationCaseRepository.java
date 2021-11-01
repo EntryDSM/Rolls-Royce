@@ -6,5 +6,4 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface GraduationCaseRepository extends CrudRepository<GraduationCase, Long> {
-    Optional<GraduationCase> findByReceiptCode(long receiptCode);
 }
