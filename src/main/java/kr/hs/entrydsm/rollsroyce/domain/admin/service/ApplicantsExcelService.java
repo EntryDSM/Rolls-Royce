@@ -9,9 +9,6 @@ import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.Graduation
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
-import kr.hs.entrydsm.rollsroyce.domain.score.exception.GradeOrScoreNotFoundException;
-import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
@@ -36,7 +33,6 @@ public class ApplicantsExcelService {
 
     private final UserRepository userRepository;
     private final GraduationCaseRepository graduationCaseRepository;
-    private final ScoreRepository scoreRepository;
     private final GraduationRepository graduationRepository;
 
     private final AdminAuthenticationFacade authenticationFacade;
@@ -55,12 +51,11 @@ public class ApplicantsExcelService {
 
             GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode).orElse(null);
             Graduation graduation = graduationRepository.findById(receiptCode).orElse(null);
-            Score score = scoreRepository.findById(receiptCode).orElseThrow(() -> GradeOrScoreNotFoundException.EXCEPTION);
 
             Row row = sheet.createRow(++i);
             insertUserInfo(row, user, graduation);
             insertRating(row, graduationCase);
-            insertScore(row, score);
+            insertScore(row, user.getScore());
             insertSelfIntroduceAndStudyPlan(row, user);
         }
 
