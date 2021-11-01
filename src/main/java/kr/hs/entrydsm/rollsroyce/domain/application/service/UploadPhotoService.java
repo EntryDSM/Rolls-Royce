@@ -16,9 +16,7 @@ public class UploadPhotoService {
 	private final UserFacade userFacade;
 
 	public String execute(MultipartFile file) {
-		User user = userFacade.getUserByCode(
-				userFacade.getCurrentReceiptCode()
-		);
+		User user = userFacade.getCurrentUser();
 
 		if(user.getPhotoFileName() != null)
 			s3Util.delete(user.getPhotoFileName());

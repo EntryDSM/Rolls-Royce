@@ -22,9 +22,7 @@ public class ChangeGraduationInformationService {
 	@Transactional
 	public void execute(ChangeGraduationInformationRequest request) {
 		School school = schoolFacade.getSchoolByCode(request.getSchoolCode());
-		User user = userFacade.getUserByCode(
-				userFacade.getCurrentReceiptCode()
-		);
+		User user = userFacade.getCurrentUser();
 
 		if(user.isQualification())
 			throw EducationalStatusUnmatchedException.EXCEPTION;

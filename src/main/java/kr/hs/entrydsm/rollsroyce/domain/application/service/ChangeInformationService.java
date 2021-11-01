@@ -17,9 +17,7 @@ public class ChangeInformationService {
 
 	@Transactional
 	public void execute(ChangeInformationRequest request) {
-		User user = userFacade.getUserByCode(
-				userFacade.getCurrentReceiptCode()
-		);
+		User user = userFacade.getCurrentUser();
 		user.updateUserInformation(
 				request.getName(), request.getSex(), request.getBirthday(),
 				request.getParentName(), request.getParentTel(), request.getTelephoneNumber(), request.getHomeTel(),
