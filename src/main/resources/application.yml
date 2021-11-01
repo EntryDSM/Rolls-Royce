@@ -51,3 +51,10 @@ munchkin:
   font:
     path: ${FONT_PATH:/fonts}
   year: ${YEAR:2021}
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
