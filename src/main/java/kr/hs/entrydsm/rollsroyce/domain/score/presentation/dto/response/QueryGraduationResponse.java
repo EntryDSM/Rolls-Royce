@@ -18,7 +18,7 @@ public class QueryGraduationResponse {
     private final String scienceGrade;
     private final String englishGrade;
     private final String techAndHomeGrade;
-
+  
     public QueryGraduationResponse(GraduationCase graduationCase) {
         this.volunteerTime = graduationCase.getVolunteerTime();
 

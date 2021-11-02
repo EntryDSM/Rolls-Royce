@@ -27,9 +27,7 @@ public class ChangeTypeService {
 
 	@Transactional
 	public void execute(ChangeTypeRequest request) {
-		User user = userFacade.getUserByCode(
-				userFacade.getCurrentReceiptCode()
-		);
+		User user = userFacade.getCurrentUser();
 		user.updateUserApplication(
 				EnumUtil.getEnum(EducationalStatus.class, request.getEducationalStatus()),
 				EnumUtil.getEnum(ApplicationType.class, request.getApplicationType()),

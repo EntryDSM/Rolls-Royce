@@ -1,8 +1,11 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnprovenAuthCodeException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserAlreadyExistsException;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserAuthCodeFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
@@ -22,23 +25,36 @@ public class UserSignupService {
     private final JwtTokenProvider tokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final UserAuthCodeFacade authCodeFacade;
+    private final StatusRepository statusRepository;
 
     @Transactional
     public TokenResponse execute(SignupRequest request) {
+        String name = request.getName();
         String email = request.getEmail();
+        String password = passwordEncoder.encode(request.getPassword());
 
-        return userRepository.findByEmail(email)
-                .filter(user -> userFacade.isAlreadyExists(email))
-                .filter(authCode -> authCodeFacade.getAuthCodeById(email).isVerified())
-                .map(user -> {
-                    userRepository.save(User.builder()
-                            .email(email)
-                            .password(passwordEncoder.encode(request.getPassword()))
-                            .name(request.getName())
-                            .build());
-                    return tokenProvider.generateToken(email, "user");
-                })
-                .orElseThrow(() -> UnprovenAuthCodeException.EXCEPTION);
+        if(!userFacade.isAlreadyExists(email)) {
+            throw UserAlreadyExistsException.EXCEPTION;
+        }
+
+        if(!authCodeFacade.getAuthCodeById(email).isVerified()) {
+            throw UnprovenAuthCodeException.EXCEPTION;
+        }
+
+        User user = userRepository.save(User.builder()
+                .name(name)
+                .email(email)
+                .password(password)
+                .build());
+
+        statusRepository.save(Status.builder()
+                .user(user)
+                .isPrintsArrived(false)
+                .isSubmitted(false)
+                .isFirstRoundPass(false)
+                .build());
+
+        return tokenProvider.generateToken(user.getReceiptCode().toString(), "user");
     }
 
 }
