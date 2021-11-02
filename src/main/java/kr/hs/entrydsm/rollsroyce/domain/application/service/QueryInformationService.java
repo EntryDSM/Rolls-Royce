@@ -14,7 +14,7 @@ public class QueryInformationService {
 
 	public QueryInformationResponse execute() {
 		return userFacade
-				.getUserByCode(userFacade.getCurrentReceiptCode())
+				.getCurrentUser()
 				.queryInformation();
 	}
 

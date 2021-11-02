@@ -13,9 +13,7 @@ public class ChangeStudyPlanService {
     private final UserFacade userFacade;
 
     public void execute(ChangeStudyPlanRequest request) {
-        User user = userFacade.getUserByCode(
-                userFacade.getCurrentReceiptCode()
-        );
+        User user = userFacade.getCurrentUser();
         user.updateStudyPlan(request.getContent());
     }
 }
