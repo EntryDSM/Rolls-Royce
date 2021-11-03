@@ -222,7 +222,7 @@ public class User {
 
 	public boolean isProspectiveGraduate() {
 		return educationalStatus.equals(EducationalStatus.PROSPECTIVE_GRADUATE);
-  }
+	}
   
 	public void updatePhotoFileName(String photoFileName) {
 		this.photoFileName = photoFileName;
