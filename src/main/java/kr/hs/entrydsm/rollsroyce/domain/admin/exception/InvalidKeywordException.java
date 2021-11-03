@@ -5,10 +5,11 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class InvalidKeywordException extends RollsException {
 
-    public static RollsException EXCEPTION =
+    public static final RollsException EXCEPTION =
             new InvalidKeywordException();
 
-    public InvalidKeywordException() {
+    private InvalidKeywordException() {
         super(ErrorCode.INVALID_KEYWORD);
     }
+
 }
