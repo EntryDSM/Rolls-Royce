@@ -5,10 +5,10 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class AlreadySubmitException extends RollsException {
 
-	public static RollsException EXCEPTION =
+	public static final RollsException EXCEPTION =
 			new AlreadySubmitException();
 
-	public AlreadySubmitException() {
+	private AlreadySubmitException() {
 		super(ErrorCode.ALREADY_SUBMIT);
 	}
 

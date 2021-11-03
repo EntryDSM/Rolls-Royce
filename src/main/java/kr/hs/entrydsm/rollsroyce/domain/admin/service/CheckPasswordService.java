@@ -19,7 +19,7 @@ public class CheckPasswordService {
     public boolean execute(String password) {
         Admin admin = adminFacade.getRootAdmin(authenticationFacade.getEmail());
         if(!passwordEncoder.matches(password, admin.getPassword())) {
-            throw new PasswordNotValidException();
+            throw PasswordNotValidException.EXCEPTION;
         }
         return true;
     }
