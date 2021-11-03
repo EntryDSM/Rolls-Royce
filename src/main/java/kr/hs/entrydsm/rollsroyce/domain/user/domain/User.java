@@ -220,4 +220,5 @@ public class User {
 		return educationalStatus.equals(EducationalStatus.PROSPECTIVE_GRADUATE);
 	}
 
+	
 }
