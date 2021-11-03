@@ -19,9 +19,7 @@ public class QueryGraduationInformationService {
 	private final UserFacade userFacade;
 
 	public QueryGraduationInformationResponse execute() {
-		User user = userFacade.getUserByCode(
-				userFacade.getCurrentReceiptCode()
-		);
+		User user = userFacade.getCurrentUser();
 		if(user.isQualification())
 			throw EducationalStatusUnmatchedException.EXCEPTION;
 

@@ -3,9 +3,14 @@ package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Digits;
 
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +22,11 @@ public class Score {
 
 	@Id
 	private Long receiptCode;
+
+	@MapsId
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "receipt_code")
+	private User user;
 
 	@Digits(integer = 2, fraction = 3)
 	private BigDecimal volunteerScore;

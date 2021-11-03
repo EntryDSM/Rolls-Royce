@@ -13,9 +13,8 @@ public class QueryIntroduceService {
 
     public QueryIntroduceResponse execute() {
         return new QueryIntroduceResponse(
-                userFacade.getUserByCode(
-                        userFacade.getCurrentReceiptCode()
-                ).getSelfIntroduce()
+                userFacade.getCurrentUser()
+						.getSelfIntroduce()
         );
     }
 }
