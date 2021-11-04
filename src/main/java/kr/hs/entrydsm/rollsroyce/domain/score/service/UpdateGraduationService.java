@@ -4,6 +4,7 @@ import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.QualificationCaseRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.exception.ApplicationTypeUnmatchedException;
+import kr.hs.entrydsm.rollsroyce.domain.score.facade.ScoreFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateGraduationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
@@ -14,22 +15,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class UpdateGraduationService {
 
-    private final QualificationCaseRepository qualificationCaseRepository;
-    private final GraduationCaseRepository graduationCaseRepository;
     private final UserFacade userFacade;
+    private final ScoreFacade scoreFacade;
+    private final GraduationCaseRepository graduationCaseRepository;
+    private final QualificationCaseRepository qualificationCaseRepository;
 
     public void execute(UpdateGraduationRequest request) {
         User user = userFacade.getCurrentUser();
+        long receiptCode = user.getReceiptCode();
+
         if (!user.isGraduate() && !user.isProspectiveGraduate()) {
             throw ApplicationTypeUnmatchedException.EXCEPTION;
         }
-        qualificationCaseRepository.findById(user.getReceiptCode())
+
+        qualificationCaseRepository.findById(receiptCode)
                 .ifPresent(qualificationCaseRepository::delete);
 
-        graduationCaseRepository.save(new GraduationCase(request,
-                user.getReceiptCode(),
+        GraduationCase graduationCase = new GraduationCase(request,
+                receiptCode,
                 user.getIsDaejeon(),
                 user.getApplicationType(),
-                user.getEducationalStatus()));
+                user.getEducationalStatus());
+        graduationCaseRepository.save(graduationCase);
+
+        scoreFacade.updateScore(receiptCode, graduationCase);
     }
 }
