@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class UpdateQualificationRequest {
 
-    @Digits(integer = 2, fraction = 3)
+    @Digits(integer = 3, fraction = 2)
     private BigDecimal gedAverageScore;
 
 }
