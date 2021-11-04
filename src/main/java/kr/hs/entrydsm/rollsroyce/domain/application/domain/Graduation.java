@@ -34,6 +34,9 @@ public class Graduation extends Application {
 	@JoinColumn(name = "school_code")
 	private School school;
 
+	@Column(length = 11)
+	private String schoolTel;
+
 	private LocalDate graduatedAt;
 
 	@Builder
@@ -41,6 +44,7 @@ public class Graduation extends Application {
 			String schoolTel, LocalDate graduatedAt) {
 		this.isGraduated = isGraduated;
 		this.studentNumber = studentNumber;
+		this.schoolTel = schoolTel;
 		this.school = school;
 		this.graduatedAt = graduatedAt;
 	}
@@ -72,5 +76,18 @@ public class Graduation extends Application {
   public String getSchoolName() {
 		return this.school.getName();
   }
+
+	public String getSchoolCode() {
+		return school == null ? null : school.getCode();
+	}
+
+	public String getSchoolClass() {
+		String schoolClass = null;
+		if (studentNumber != null && !studentNumber.isBlank()) {
+			int classNumber = Integer.parseInt(studentNumber.substring(1, 3));
+			schoolClass = Integer.toString(classNumber);
+		}
+		return schoolClass;
+	}
 
 }
