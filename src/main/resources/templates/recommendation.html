@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <style>
+        td {
+            padding: 6px;
+        }
+    </style>
+</head>
+<body style="width: 100%">
+<h1 style="text-align: center">학 교 장 추 천 서</h1>
+<table style="width: 40%; float: right;">
+    <tr>
+        <td style="width: 20%; border: none; text-align: right"><b>접수번호 : </b></td>
+        <td style="width: 20%; border: none; border-bottom: 1.5px black solid; text-align: center"
+            th:text="${receiptCode}"></td>
+    </tr>
+</table>
+<br/><br/><br/>
+<div
+        style="
+        border: 1px solid black;
+        padding: 20px;
+        box-sizing: border-box;
+        width: 100%;
+      "
+>
+    <div>
+        <div style="width: 100%">
+            <div
+                    style="
+              font-weight: bold;
+              text-align: right;
+              width: 95%;
+              font-size: 18px;
+            "
+            >
+                <p><span th:text="${schoolName}"></span></p>
+            </div>
+            <div
+                    style="
+              font-weight: bold;
+              text-align: right;
+              width: 95%;
+              font-size: 18px;
+            "
+            >
+                <div style="display: inline-block">
+                    3학년
+                    <div style="display: inline-block; width: 40px; margin: 0px" th:text="${schoolClass}"></div>
+                    반
+                </div>
+            </div>
+            <div
+                    style="
+              font-weight: bold;
+              text-align: right;
+              width: 95%;
+              font-size: 18px;
+            "
+            >
+                <div style="display: inline-block; margin: 1em 0">
+                    성명:
+                    <div style="display: inline-block; width: 70px; margin: 0px" th:text="${userName}"></div>
+                </div>
+            </div>
+        </div>
+        <table
+                style="
+            text-align: center;
+            font-weight: 600;
+            border-spacing: 0;
+            border-collapse: collapse;
+            width: 95%;
+            margin: 0 auto;
+            margin-top: 40px;
+            margin-bottom: 40px;
+          "
+        >
+            <tbody>
+            <tr>
+                <td
+                        colspan="3"
+                        style="
+                  border: 1px solid black;
+                  background-color: #F2F2F2;
+                  font-size: 18px;
+                "
+                >
+                    특별전형 추천분야(해당란에 O표)
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black; width: 20%; font-size: 18px;">
+                    구분
+                </td>
+                <td style="border: 1px solid black; width: 40%; font-size: 18px">
+                    마이스터 인재 전형
+                </td>
+                <td style="border: 1px solid black; width: 40%; font-size: 18px">
+                    사회통합 전형
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black; font-size: 18px">대전</td>
+                <td style="border: 1px solid black" th:text="${isDaejeonAndMeister}"></td>
+                <td style="border: 1px solid black" th:text="${isDaejeonAndSocialMerit}"></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black; font-size: 18px">전국</td>
+                <td style="border: 1px solid black" th:text="${isNotDaejeonAndMeister}"></td>
+                <td style="border: 1px solid black" th:text="${isNotDaejeonAndSocialMerit}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div
+                style="
+            margin: 0 auto;
+            width: 95%;
+            font-size: 19px;
+            margin-bottom: 40px;
+          "
+        >
+            <p style="margin: 0 auto; text-align: right; font-size: 22px" th:text="'위 학생을' + ${entranceYear} + '학년도 대덕소프트웨어마이스터고등학교 특별전형'">
+                위 학생을 2021학년도 대덕소프트웨어마이스터고등학교 특별전형
+            </p>
+            <p style="font-size: 22px">대상자로 추천합니다.</p>
+        </div>
+        <div style="text-align: center; font-size: 21px" th:text="${year} + '년 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일'">
+            2020년 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일
+        </div>
+        <div style="text-align: right; font-size: 21px">
+            <p style="display:  inline-block;">작성자 담임:
+            <div style="width: 90px; display: inline-block"></div>
+            (서명)</p>
+        </div>
+        <div style="text-align: center">
+            <span style="text-align: center; font-size: 21px; font-weight: 600; margin-top: 40px; letter-spacing: 5px"
+                  th:utext="'|' + ${schoolName} + '장|'"></span>
+            <span style="color: #b8b8b8"><b>(직인)</b></span>
+        </div>
+        <div style="font-size: 25px; font-weight: 600;margin-top: 40px">
+            <p>대덕소프트웨어마이스터고등학교장 귀하</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

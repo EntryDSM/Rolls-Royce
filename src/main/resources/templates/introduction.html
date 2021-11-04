@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>application.html</title>
+    <style>
+        td {
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0px;
+            border: 1px solid black;
+            width: 100%;
+        }
+    </style>
+</head>
+<body style="overflow-y: scroll;">
+<div class="WordSection2">
+    <p class="MsoNormal" style="text-align: center; margin: 0;">
+        <b>
+            <span style="font-size: 20pt; font-family: KoPubWorldDotum_Pro Medium;">자기소개서 및 학업계획서</span>
+        </b>
+    </p>
+    <p class="MsoNormal">
+        <b>
+            <span style="font-size:12.0pt;line-height:200%; font-family: KoPubWorldDotum_Pro Medium;">지원자 기재사항</span>
+        </b>
+    </p>
+</div>
+<table style="border: 1px solid black; margin-bottom: 50px;">
+    <tr>
+        <td style="padding: 10px; width: 25%;background-color: #F2F2F2;">
+            성명
+        </td>
+        <td style="padding: 10px; width: 25%;" th:text="${userName}">
+        </td>
+        <td style="padding: 10px; width: 25%;background-color: #F2F2F2;">
+            접수번호
+        </td>
+        <td style="padding: 10px; width: 25%;" th:text="${receiptCode}">
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 10px;background-color: #F2F2F2;">출신중학교</td>
+        <td style="padding: 10px" colspan="3" th:text="${schoolName}"></td>
+    </tr>
+</table>
+<table style="margin-bottom: 50px; text-align: left">
+    <tr>
+        <td style="text-align: left; font-size: 15.5px;">◎ <b>자기소개서</b> 내용은 특별한 형식이 없으며 개인의 특성 및 성장 과정, 취미·특기, 학교 생활, 가족
+            안에서의 역할, 남들보다 뛰어나다고 생각하는 자신의 장점(특성 혹은 능력)과 보완·발전시켜야 할 단점에 대하여 기술하십시오.
+        </td>
+    </tr>
+    <tr>
+        <td style=" min-height: 230px;text-align: left;"><p style="min-height: 230px;" th:utext="${#strings.replace(selfIntroduction, newLineChar, '&lt;br /&gt;')}"></p></td>
+    </tr>
+</table>
+<table style="margin-bottom: 50px;">
+    <tr>
+        <td style="text-align: left; font-size: 15.5px">◎ <b>학업계획서</b>는 자신이 본교를 선택하게 된 구체적인 사유(지원 동기)와 고등학생이 된 후 이루고자 하는<br/>목표를
+            달성하기 위한 학업계획을 상세하게 기술하십시오.
+        </td>
+    </tr>
+    <tr>
+        <td style=" min-height: 230px;text-align: left;"><p style="min-height: 230px;" th:utext="${#strings.replace(studyPlan, newLineChar, '&lt;br /&gt;')}"></p></td>
+    </tr>
+</table>
+</div>
+</body>
+</html>
