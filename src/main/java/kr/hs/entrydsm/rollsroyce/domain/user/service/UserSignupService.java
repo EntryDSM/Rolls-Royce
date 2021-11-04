@@ -33,7 +33,7 @@ public class UserSignupService {
         String email = request.getEmail();
         String password = passwordEncoder.encode(request.getPassword());
 
-        if(!userFacade.isAlreadyExists(email)) {
+        if(userFacade.isAlreadyExists(email)) {
             throw UserAlreadyExistsException.EXCEPTION;
         }
 
