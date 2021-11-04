@@ -67,3 +67,7 @@ jacocoTestReport {
 		html.enabled false
 	}
 }
+
+jar {
+	enabled = false
+}
