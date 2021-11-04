@@ -1,20 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.domain;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Objects;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
 import com.querydsl.core.annotations.QueryEntity;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
@@ -23,17 +8,18 @@ import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.Qu
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.HeadCount;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.*;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.ApplicationNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @Builder
@@ -230,8 +216,17 @@ public class User {
 		return this;
 	}
 
+	public boolean isGraduate() {
+		return educationalStatus.equals(EducationalStatus.GRADUATE);
+	}
+
+	public boolean isProspectiveGraduate() {
+		return educationalStatus.equals(EducationalStatus.PROSPECTIVE_GRADUATE);
+	}
+  
 	public void updatePhotoFileName(String photoFileName) {
 		this.photoFileName = photoFileName;
 	}
 
+	
 }

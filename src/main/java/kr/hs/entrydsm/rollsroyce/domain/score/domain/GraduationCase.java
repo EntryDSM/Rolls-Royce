@@ -1,15 +1,16 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateGraduationRequest;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Getter
 @NoArgsConstructor
@@ -47,26 +48,24 @@ public class GraduationCase extends ApplicationCase {
 	@Column(columnDefinition = "CHAR(4)")
 	private String techAndHomeGrade;
 
-	@Builder
-	public GraduationCase(Scorer scorer, Integer volunteerTime, Integer dayAbsenceCount,
-			Integer lectureAbsenceCount, Integer latenessCount,
-			Integer earlyLeaveCount, String koreanGrade,
-			String socialGrade, String historyGrade,
-			String mathGrade, String scienceGrade,
-			String englishGrade, String techAndHomeGrade) {
-		super(scorer);
-		this.volunteerTime = volunteerTime;
-		this.dayAbsenceCount = dayAbsenceCount;
-		this.lectureAbsenceCount = lectureAbsenceCount;
-		this.latenessCount = latenessCount;
-		this.earlyLeaveCount = earlyLeaveCount;
-		this.koreanGrade = koreanGrade;
-		this.socialGrade = socialGrade;
-		this.historyGrade = historyGrade;
-		this.mathGrade = mathGrade;
-		this.scienceGrade = scienceGrade;
-		this.englishGrade = englishGrade;
-		this.techAndHomeGrade = techAndHomeGrade;
+	public GraduationCase(UpdateGraduationRequest request,
+						  long receiptCode,
+						  boolean isDaejeon,
+						  ApplicationType applicationType,
+						  EducationalStatus educationalStatus) {
+		super(receiptCode, isDaejeon, applicationType, educationalStatus);
+		this.volunteerTime = request.getVolunteerTime();
+		this.dayAbsenceCount = request.getDayAbsenceCount();
+		this.lectureAbsenceCount = request.getLectureAbsenceCount();
+		this.latenessCount = request.getLatenessCount();
+		this.earlyLeaveCount = request.getEarlyLeaveCount();
+		this.koreanGrade = request.getKoreanGrade();
+		this.socialGrade = request.getSocialGrade();
+		this.historyGrade = request.getHistoryGrade();
+		this.mathGrade = request.getMathGrade();
+		this.scienceGrade = request.getScienceGrade();
+		this.englishGrade = request.getEnglishGrade();
+		this.techAndHomeGrade = request.getTechAndHomeGrade();
 	}
 
 	@Transient
@@ -115,7 +114,7 @@ public class GraduationCase extends ApplicationCase {
 			scoresSum = scoresSum.add(score);
 		}
 
-		if (scorer.isCommon()) {
+		if (isCommon()) {
 			scoresSum = scoresSum.multiply(COMMON_GRADE_RATE);
 		}
 
@@ -212,7 +211,7 @@ public class GraduationCase extends ApplicationCase {
 			}
 		}
 
-		if (scorer.isProspectiveGraduate()) gradesPerSemester[5] = gradesPerSemester[4];
+		if (isProspectiveGraduate()) gradesPerSemester[5] = gradesPerSemester[4];
 
 		return gradesPerSemester;
 	}
