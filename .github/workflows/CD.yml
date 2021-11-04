@@ -19,7 +19,7 @@ jobs:
         run: ./gradlew build
 
       - name: build docker image
-        run: docker build -t munchkin .
+        run: docker build -t rolls .
 
       - name: publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@3.04
