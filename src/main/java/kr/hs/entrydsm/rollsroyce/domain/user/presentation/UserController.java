@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     private final UserLoginService loginService;
@@ -20,11 +21,22 @@ public class UserController {
     private final SendAuthCodeService sendAuthCodeService;
     private final VerifyAuthCodeService verifyAuthCodeService;
     private final ChangePasswordService changePasswordService;
+    private final UserTokenRefreshService userTokenRefreshService;
 
-    @PostMapping("/user")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TokenResponse signup(@RequestBody @Valid SignupRequest request) {
         return signupService.execute(request);
+    }
+
+    @PostMapping("/auth")
+    public TokenResponse login(@RequestBody @Valid LoginRequest request) {
+        return loginService.execute(request);
+    }
+
+    @PutMapping("/auth")
+    public TokenResponse tokenRefresh(@RequestHeader("X-Refresh-Token") String refreshToken) {
+        return userTokenRefreshService.execute(refreshToken);
     }
 
     @PostMapping("/email/verify")
@@ -37,19 +49,14 @@ public class UserController {
         verifyAuthCodeService.execute(request);
     }
 
-    @PostMapping("/auth")
-    public TokenResponse login(@RequestBody @Valid LoginRequest request) {
-        return loginService.execute(request);
+    @PutMapping("/password")
+    public void changePassword(PasswordRequest request) {
+        changePasswordService.execute(request);
     }
 
     @GetMapping("/status")
     public StatusResponse getStatus() {
         return statusService.execute();
-    }
-
-    @PutMapping("/password")
-    public void changePassword(PasswordRequest request) {
-        changePasswordService.execute(request);
     }
 
 }

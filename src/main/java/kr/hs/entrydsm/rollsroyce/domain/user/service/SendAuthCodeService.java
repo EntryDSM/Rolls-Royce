@@ -39,11 +39,13 @@ public class SendAuthCodeService {
         Map<String, String> params = new HashMap<>();
         params.put("code", code);
 
-        if(isOverLimit(email))
+        if(isOverLimit(email)) {
             throw AuthCodeRequestOverLimitException.EXCEPTION;
+        }
 
-        if(userFacade.isAlreadyExists(email))
+        if(userFacade.isAlreadyExists(email)) {
             throw UserAlreadyExistsException.EXCEPTION;
+        }
 
         authCodeRepository.findById(email)
                 .filter(authcode -> sesUtil.sendMessage(email, "RollsRoyceEmailTemplate", params))

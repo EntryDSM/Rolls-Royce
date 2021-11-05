@@ -34,10 +34,7 @@ public class UserFacade {
 	}
 
 	public boolean isAlreadyExists(String email) {
-		if(userRepository.findByEmail(email).isPresent())
-			return false;
-
-		return true;
+		return userRepository.findByEmail(email).isPresent();
 	}
 
 }
