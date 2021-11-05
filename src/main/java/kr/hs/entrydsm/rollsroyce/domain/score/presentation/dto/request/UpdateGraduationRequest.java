@@ -1,17 +1,13 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 
-@Builder
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class UpdateGraduationRequest {
 
     @PositiveOrZero
