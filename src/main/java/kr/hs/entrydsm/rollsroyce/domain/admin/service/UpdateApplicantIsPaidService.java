@@ -23,11 +23,10 @@ public class UpdateApplicantIsPaidService {
     public void execute(long receiptCode) {
         Status status = statusFacade.getStatusByReceiptCode(receiptCode);
 
-        if (!(adminFacade.getAdminRole(authenticationFacade.getEmail()) == Role.ROLE_CONFIRM_APPLICATION)) {
-            status.updateIsPaid();
-        } else {
+        if (adminFacade.getAdminRole(authenticationFacade.getEmail()) == Role.ROLE_CONFIRM_APPLICATION) {
             throw AdminNotAccessibleException.EXCEPTION;
         }
+        status.updateIsPaid();
     }
 
 }
