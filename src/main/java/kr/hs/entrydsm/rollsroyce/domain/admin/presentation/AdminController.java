@@ -21,7 +21,6 @@ import javax.validation.Valid;
 public class AdminController {
 
     private final DeleteAllTablesService deleteAllTablesService;
-    private final CheckPasswordService checkPasswordService;
     private final LoginService loginService;
     private final TokenRefreshService tokenRefreshService;
     private final CancelApplicationSubmitService cancelApplicationSubmitService;
@@ -33,13 +32,8 @@ public class AdminController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/data")
-    public void deleteAllTables() {
-        deleteAllTablesService.execute();
-    }
-
-    @GetMapping("/auth")
-    public boolean checkPassword(@RequestBody @Valid CheckPasswordRequest request) {
-        return checkPasswordService.execute(request.getPassword());
+    public void deleteAllTables(@RequestBody @Valid CheckPasswordRequest request) {
+        deleteAllTablesService.execute(request.getPassword());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
