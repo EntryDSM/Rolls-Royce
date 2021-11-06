@@ -28,16 +28,15 @@ public class CancelApplicationSubmitService {
     public void execute(long receiptCode) {
         User user = userFacade.getUserByCode(receiptCode);
 
-        if (!(adminFacade.getAdminRole() == Role.ROLE_CONFIRM_FEE)) {
-            user.getStatus().cancelIsSubmitted();
-
-            Map<String, String> params = new HashMap<>();
-            params.put("name", user.getName());
-
-            sesUtil.sendMessage(user.getEmail(), TEMPLATE, params);
-        } else {
+        if (adminFacade.getAdminRole() == Role.ROLE_CONFIRM_FEE) {
             throw AdminNotAccessibleException.EXCEPTION;
         }
+
+        user.getStatus().cancelIsSubmitted();
+
+        Map<String, String> params = new HashMap<>();
+        params.put("name", user.getName());
+        sesUtil.sendMessage(user.getEmail(), TEMPLATE, params);
     }
 
 }
