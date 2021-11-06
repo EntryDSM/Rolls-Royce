@@ -10,6 +10,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.utils.ses.SESUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class UpdateIsPrintsArrivedService {
 
     private final SESUtil sesUtil;
 
+    @Transactional
     public void execute(long receiptCode) {
         User user = userFacade.getUserByCode(receiptCode);
 
