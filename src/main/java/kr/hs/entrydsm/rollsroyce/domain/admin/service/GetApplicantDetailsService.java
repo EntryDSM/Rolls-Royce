@@ -2,7 +2,6 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotAccessibleException;
-import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminAuthenticationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
@@ -17,7 +16,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.util.ImageUtils;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -29,12 +27,11 @@ public class GetApplicantDetailsService {
     private final ScoreRepository scoreRepository;
 
     private final AdminFacade adminFacade;
-    private final AdminAuthenticationFacade authenticationFacade;
     private final UserFacade userFacade;
     private final S3Util s3Util;
 
     public ApplicantDetailsResponse execute(long receiptCode) {
-        if (adminFacade.getAdminRole(authenticationFacade.getEmail()).equals(Role.ROLE_CONFIRM_FEE)) {
+        if (adminFacade.getAdminRole().equals(Role.ROLE_CONFIRM_FEE)) {
             throw AdminNotAccessibleException.EXCEPTION;
         }
         User user = userFacade.getUserByCode(receiptCode);

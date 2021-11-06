@@ -3,7 +3,6 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Admin;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.PasswordNotValidException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
-import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminAuthenticationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
@@ -28,12 +27,11 @@ public class DeleteAllTablesService {
     private final QualificationRepository qualificationRepository;
 
     private final AdminFacade adminFacade;
-    private final AdminAuthenticationFacade authenticationFacade;
 
     private final PasswordEncoder passwordEncoder;
 
     public void execute(String password) {
-        Admin admin = adminFacade.getRootAdmin(authenticationFacade.getEmail());
+        Admin admin = adminFacade.getRootAdmin();
 
         if (!passwordEncoder.matches(password, admin.getPassword())) {
             throw PasswordNotValidException.EXCEPTION;

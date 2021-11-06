@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.schedule.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminAuthenticationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.Schedule;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.repository.ScheduleRepository;
@@ -18,10 +17,9 @@ public class UpdateSchedulesService {
     private final ScheduleRepository scheduleRepository;
 
     private final AdminFacade adminFacade;
-    private final AdminAuthenticationFacade authenticationFacade;
 
     public void execute(ScheduleRequest request) {
-        adminFacade.getRootAdmin(authenticationFacade.getEmail());
+        adminFacade.getRootAdmin();
 
         for (ScheduleDto schedule : request.getSchedules()) {
             Schedule updateSchedule = scheduleRepository.findByType(Type.valueOf(schedule.getType()));

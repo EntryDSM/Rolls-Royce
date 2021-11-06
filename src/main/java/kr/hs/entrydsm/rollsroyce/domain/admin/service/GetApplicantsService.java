@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
@@ -17,7 +18,11 @@ public class GetApplicantsService {
 
     private final UserInformationRepositoryImpl userCustomRepository;
 
+    private final AdminFacade adminFacade;
+
     public ApplicantsResponse execute(Pageable page, GetApplicantsRequest request) {
+        adminFacade.getAdmin();
+
         Boolean isDaejeonQuery;
         if (request.isDaejeon() == request.isNationwide()) isDaejeonQuery = null;
         else isDaejeonQuery = request.isDaejeon();

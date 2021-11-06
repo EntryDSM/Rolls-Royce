@@ -7,6 +7,8 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotAccessibleExcept
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotFoundException;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,16 +22,29 @@ public class AdminFacade {
 				.orElseThrow(() -> AdminNotFoundException.EXCEPTION);
 	}
 
-	public Admin getRootAdmin(String id) {
-		return adminRepository.findById(id)
+	public void getAdmin() {
+		adminRepository.findById(getEmail())
+				.orElseThrow(() -> AdminNotFoundException.EXCEPTION);
+	}
+
+	public Admin getRootAdmin() {
+		return adminRepository.findById(getEmail())
 				.filter(admin -> admin.getRole().equals(Role.ROLE_ROOT))
 				.orElseThrow(() -> AdminNotAccessibleException.EXCEPTION);
 	}
 
-	public Role getAdminRole(String id) {
-		return adminRepository.findById(id)
+	public Role getAdminRole() {
+		return adminRepository.findById(getEmail())
 				.map(Admin::getRole)
 				.orElseThrow(() -> AdminNotFoundException.EXCEPTION);
+	}
+
+	private String getEmail() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null) {
+			throw AdminNotFoundException.EXCEPTION;
+		}
+		return authentication.getName();
 	}
 
 }
