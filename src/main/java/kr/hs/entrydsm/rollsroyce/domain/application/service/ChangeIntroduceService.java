@@ -16,9 +16,7 @@ public class ChangeIntroduceService {
 
 	@Transactional
 	public void execute(ChangeIntroduceRequest request) {
-		User user = userFacade.getUserByCode(
-				userFacade.getCurrentReceiptCode()
-		);
+		User user = userFacade.getCurrentUser();
 		user.updateSelfIntroduce(request.getContent());
 	}
 }

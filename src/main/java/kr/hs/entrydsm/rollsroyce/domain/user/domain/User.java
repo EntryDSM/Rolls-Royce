@@ -208,6 +208,89 @@ public class User {
 				&& photoFileName != null && educationalStatus != null && applicationType != null);
 	}
 
+	public boolean isEducationalStatusEmpty() {
+		return this.educationalStatus == null;
+	}
+
+	public boolean isMale() {
+		return sex.equals(Sex.MALE);
+	}
+
+	public boolean isFemale() {
+		return sex.equals(Sex.FEMALE);
+	}
+
+	public void updateStudyPlan(String StudyPlan) { this.studyPlan = StudyPlan; }
+
+	public User updatePassword(String password) {
+		this.password = password;
+		return this;
+	}
+
+	public void updatePhotoFileName(String photoFileName) {
+		this.photoFileName = photoFileName;
+	}
+
+	public boolean isRecommendationsRequired() {
+		return !isEducationalStatusEmpty() && !isCommonApplicationType() && !isProspectiveGraduate();
+	}
+
+	public boolean isQualificationExam() {
+		return educationalStatus.equals(EducationalStatus.QUALIFICATION_EXAM);
+	}
+
+	public boolean isGraduate() {
+		return educationalStatus.equals(EducationalStatus.GRADUATE);
+	}
+
+	public boolean isProspectiveGraduate() {
+		return educationalStatus.equals(EducationalStatus.PROSPECTIVE_GRADUATE);
+	}
+
+	public boolean isBasicLiving() {
+		return applicationRemark.equals(ApplicationRemark.BASIC_LIVING);
+	}
+
+	public boolean isFromNorth() {
+		return applicationRemark.equals(ApplicationRemark.FROM_NORTH);
+	}
+
+	public boolean isLowestIncome() {
+		return applicationRemark.equals(ApplicationRemark.LOWEST_INCOME);
+	}
+
+	public boolean isMulticultural() {
+		return applicationRemark.equals(ApplicationRemark.MULTICULTURAL);
+	}
+
+	public boolean isOneParent() {
+		return applicationRemark.equals(ApplicationRemark.ONE_PARENT);
+	}
+
+	public boolean isTeenHouseholder() {
+		return applicationRemark.equals(ApplicationRemark.TEEN_HOUSEHOLDER);
+	}
+
+	public boolean isPrivilegedAdmission() {
+		return applicationRemark.equals(ApplicationRemark.PRIVILEGED_ADMISSION);
+	}
+
+	public boolean isNationalMerit() {
+		return applicationRemark.equals(ApplicationRemark.NATIONAL_MERIT);
+	}
+
+	public boolean isCommonApplicationType() {
+		return applicationType.equals(ApplicationType.COMMON);
+	}
+
+	public boolean isMeisterApplicationType() {
+		return applicationType.equals(ApplicationType.MEISTER);
+	}
+
+	public boolean isSocialApplicationType() {
+		return applicationType.equals(ApplicationType.SOCIAL);
+	}
+
 	private String getValue(Object obj) {
 		return obj == null ? null : String.valueOf(obj);
 	}
@@ -222,16 +305,5 @@ public class User {
 	private boolean isExists(String target) {
 		return target != null && !target.isBlank();
 	}
-
-	public void updateStudyPlan(String StudyPlan) { this.studyPlan = StudyPlan; }
-
-	public User updatePassword(String password) {
-		this.password = password;
-		return this;
-	}
-
-	public void updatePhotoFileName(String photoFileName) {
-		this.photoFileName = photoFileName;
-	}
-
+	
 }

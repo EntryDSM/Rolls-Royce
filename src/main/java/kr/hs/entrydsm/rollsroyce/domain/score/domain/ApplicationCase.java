@@ -1,14 +1,14 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 
-import java.math.BigDecimal;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Transient;
-
-import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
 
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -25,20 +25,49 @@ public abstract class ApplicationCase {
 
 	protected static final int MAX_ATTENDANCE_SCORE = 15;
 
-	@Transient
-	protected Scorer scorer;
-
 	@Id
 	protected Long receiptCode;
+	protected boolean isDaejeon;
+	protected ApplicationType applicationType;
+	protected EducationalStatus educationalStatus;
 
-	protected ApplicationCase(Scorer scorer) {
-		this.scorer = scorer;
-		this.receiptCode = scorer.getReceiptCode();
+	protected ApplicationCase(Long receiptCode,
+							  boolean isDaejeon,
+							  ApplicationType applicationType,
+							  EducationalStatus educationalStatus) {
+		this.receiptCode = receiptCode;
+		this.isDaejeon = isDaejeon;
+		this.applicationType = applicationType;
+		this.educationalStatus = educationalStatus;
 	}
 
 	abstract BigDecimal calculateVolunteerScore();
 	abstract Integer calculateAttendanceScore();
 	abstract BigDecimal[] calculateGradeScores();
 	abstract BigDecimal calculateTotalGradeScore();
+
+	public boolean isDaejeon() {
+		return isDaejeon;
+	}
+
+	public boolean isMeister() {
+		return applicationType == ApplicationType.MEISTER;
+	}
+
+	public boolean isCommon() {
+		return applicationType == ApplicationType.COMMON;
+	}
+
+	public boolean isQualificationExam() {
+		return educationalStatus == EducationalStatus.QUALIFICATION_EXAM;
+	}
+
+	public boolean isProspectiveGraduate() {
+		return educationalStatus == EducationalStatus.PROSPECTIVE_GRADUATE;
+	}
+
+	public boolean isGraduated() {
+		return educationalStatus == EducationalStatus.GRADUATE;
+	}
 
 }

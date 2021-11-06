@@ -5,7 +5,7 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class InvalidAuthCodeException extends RollsException {
 
-    public static RollsException EXCEPTION =
+    public static final RollsException EXCEPTION =
             new InvalidAuthCodeException();
 
     private InvalidAuthCodeException() {

@@ -1,14 +1,15 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import javax.persistence.Entity;
-import javax.validation.constraints.Digits;
-
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.validation.constraints.Digits;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Getter
 @NoArgsConstructor
@@ -19,8 +20,12 @@ public class QualificationCase extends ApplicationCase {
 	private BigDecimal averageScore;
 
 	@Builder
-	public QualificationCase(Scorer scorer, BigDecimal averageScore) {
-		super(scorer);
+	public QualificationCase(BigDecimal averageScore,
+							 long receiptCode,
+							 boolean isDaejeon,
+							 ApplicationType applicationType,
+							 EducationalStatus educationalStatus) {
+		super(receiptCode, isDaejeon, applicationType, educationalStatus);
 		this.averageScore = averageScore;
 	}
 
@@ -48,7 +53,7 @@ public class QualificationCase extends ApplicationCase {
 				.multiply(BigDecimal.valueOf(1.6))
 				.setScale(3, RoundingMode.HALF_UP);
 
-		if (scorer.isCommon()) {
+		if (isCommon()) {
 			return gradeScore.multiply(COMMON_GRADE_RATE)
 					.setScale(3, RoundingMode.HALF_UP);
 		} else {

@@ -5,10 +5,10 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class ScheduleNotFoundException extends RollsException {
 
-    public static RollsException EXCEPTION =
+    public static final RollsException EXCEPTION =
             new ScheduleNotFoundException();
 
-    public ScheduleNotFoundException() {
+    private ScheduleNotFoundException() {
         super(ErrorCode.SCHEDULE_NOT_FOUND);
     }
 }

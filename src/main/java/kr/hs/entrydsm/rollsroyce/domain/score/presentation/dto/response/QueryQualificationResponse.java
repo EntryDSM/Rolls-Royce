@@ -1,13 +1,15 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.response;
 
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.QualificationCase;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 
-public class QueryQualificationExamResponse {
+@Getter
+public class QueryQualificationResponse {
     private final BigDecimal averageScore;
 
-    public QueryQualificationExamResponse(QualificationCase qualificationExamCase) {
+    public QueryQualificationResponse(QualificationCase qualificationExamCase) {
         this.averageScore = qualificationExamCase.getAverageScore();
     }
 }

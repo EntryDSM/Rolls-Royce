@@ -5,7 +5,7 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class AuthCodeAlreadyVerifiedException extends RollsException {
 
-    public static RollsException EXCEPTION =
+    public static final RollsException EXCEPTION =
             new AuthCodeAlreadyVerifiedException();
 
     private AuthCodeAlreadyVerifiedException() {

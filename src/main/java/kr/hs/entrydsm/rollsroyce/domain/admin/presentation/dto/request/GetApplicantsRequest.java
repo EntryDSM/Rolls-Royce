@@ -56,7 +56,7 @@ public class GetApplicantsRequest {
         try {
             this.receiptCode =  "%" + Long.parseLong(receiptCode) + "%";
         } catch (Exception e) {
-            throw new InvalidKeywordException();
+            throw InvalidKeywordException.EXCEPTION;
         }
         this.name = "%" + ((name!=null)?name:"") + "%";
         this.schoolName = "%" + ((schoolName!=null)?schoolName:"") + "%";

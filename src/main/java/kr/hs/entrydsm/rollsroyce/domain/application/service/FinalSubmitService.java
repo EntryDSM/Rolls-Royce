@@ -20,9 +20,7 @@ public class FinalSubmitService {
 
 	@Transactional
 	public void execute() {
-		User user = userFacade.getUserByCode(
-				userFacade.getCurrentReceiptCode()
-		);
+		User user = userFacade.getCurrentUser();
 
 		if(user.hasEmptyInfo() || checkApplication(user))
 			throw ProcessNotCompletedException.EXCEPTION;
