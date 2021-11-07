@@ -18,7 +18,7 @@ public class AdmissionTicketExcelService {
     private final AdminFacade adminFacade;
 
     public void execute() {
-        adminFacade.getAdmin();
+        adminFacade.getRootAdmin();
 
         if (!scheduleRepository.findByType(Type.END_DATE).getDate().isAfter(LocalDateTime.now())) {
             throw ApplicationPeriodNotOverException.EXCEPTION;
