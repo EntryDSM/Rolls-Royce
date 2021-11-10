@@ -1,21 +1,24 @@
 package kr.hs.entrydsm.rollsroyce.domain.schedule.service;
 
+import java.time.LocalDateTime;
+import java.util.stream.Collectors;
+
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.Schedule;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.repository.ScheduleRepository;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
+import kr.hs.entrydsm.rollsroyce.domain.schedule.facade.ScheduleFacade;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.ScheduleDto;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.response.SchedulesResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
 public class GetSchedulesService {
 
-    private final ScheduleRepository scheduleRepository;
+	private final ScheduleRepository scheduleRepository;
+    private final ScheduleFacade scheduleFacade;
 
     public SchedulesResponse execute() {
         return SchedulesResponse.builder()
@@ -30,12 +33,12 @@ public class GetSchedulesService {
 
     private String getCurrentStatus() {
         LocalDateTime now = LocalDateTime.now();
-        Schedule firstAnnounce = scheduleRepository.findByType(Type.FIRST_ANNOUNCEMENT);
-        Schedule interview = scheduleRepository.findByType(Type.INTERVIEW);
-        Schedule secondAnnounce = scheduleRepository.findByType(Type.SECOND_ANNOUNCEMENT);
+        Schedule firstAnnounce = scheduleFacade.getScheduleByType(Type.FIRST_ANNOUNCEMENT);
+        Schedule interview = scheduleFacade.getScheduleByType((Type.INTERVIEW));
+        Schedule secondAnnounce = scheduleFacade.getScheduleByType((Type.SECOND_ANNOUNCEMENT));
 
-        if(now.isBefore(scheduleRepository.findByType(Type.START_DATE).getDate())) return "NOT_APPLICATION_PERIOD";
-        else if(!now.isAfter(scheduleRepository.findByType(Type.END_DATE).getDate())) return "APPLICATION_PERIOD";
+        if(now.isBefore(scheduleFacade.getScheduleByType(Type.START_DATE).getDate())) return "NOT_APPLICATION_PERIOD";
+        else if(!now.isAfter(scheduleFacade.getScheduleByType(Type.END_DATE).getDate())) return "APPLICATION_PERIOD";
         else if(now.isBefore(firstAnnounce.getDate())) return "BEFORE_FIRST_ANNOUNCEMENT";
         else if(now.isEqual(firstAnnounce.getDate())) return firstAnnounce.getType().toString();
         else if(now.isBefore(interview.getDate())) return "BEFORE_INTERVIEW";

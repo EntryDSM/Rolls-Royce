@@ -34,4 +34,12 @@ public class Schedule {
 		return this;
 	}
 
+	public boolean isBefore(LocalDateTime localDateTime) {
+		return this.date.isBefore(localDateTime);
+	}
+
+	public boolean isAfter(LocalDateTime localDateTime) {
+		return this.date.isAfter(localDateTime);
+	}
+
 }
