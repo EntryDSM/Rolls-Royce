@@ -21,6 +21,7 @@ import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Qualification;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
+import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
@@ -198,6 +199,11 @@ public class User {
 		return graduation;
 	}
 
+	public void changeGraduationInformation(School school, String studentNumber) {
+		queryGraduation()
+				.changeGraduationInformation(school, studentNumber);
+	}
+
 	public void updateSelfIntroduce(String selfIntroduce) {
 		this.selfIntroduce = selfIntroduce;
 	}
@@ -220,7 +226,7 @@ public class User {
 		return sex.equals(Sex.FEMALE);
 	}
 
-	public void updateStudyPlan(String StudyPlan) { this.studyPlan = StudyPlan; }
+	public void updateStudyPlan(String studyPlan) { this.studyPlan = studyPlan; }
 
 	public User updatePassword(String password) {
 		this.password = password;
@@ -289,6 +295,10 @@ public class User {
 
 	public boolean isSocialApplicationType() {
 		return applicationType.equals(ApplicationType.SOCIAL);
+	}
+
+	public void isSubmitToTrue() {
+		status.isSubmitToTrue();
 	}
 
 	private String getValue(Object obj) {
