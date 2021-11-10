@@ -1,26 +1,27 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import java.time.LocalDateTime;
+
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ApplicationPeriodNotOverException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
-import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.repository.ScheduleRepository;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
+import kr.hs.entrydsm.rollsroyce.domain.schedule.facade.ScheduleFacade;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
 public class AdmissionTicketExcelService {
 
-    private final ScheduleRepository scheduleRepository;
-
+    private final ScheduleFacade scheduleFacade;
     private final AdminFacade adminFacade;
 
     public void execute() {
         adminFacade.getRootAdmin();
 
-        if (!scheduleRepository.findByType(Type.END_DATE).getDate().isAfter(LocalDateTime.now())) {
+        if (!scheduleFacade.getScheduleByType(Type.END_DATE)
+				.isAfter(LocalDateTime.now())) {
             throw ApplicationPeriodNotOverException.EXCEPTION;
         }
         
