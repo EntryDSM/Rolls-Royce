@@ -22,7 +22,9 @@ public class UpdateSchedulesService {
         adminFacade.getRootAdmin();
 
         for (ScheduleDto schedule : request.getSchedules()) {
-            Schedule updateSchedule = scheduleRepository.findByType(Type.valueOf(schedule.getType()));
+            Schedule updateSchedule = scheduleRepository
+					.findByType(Type.valueOf(schedule.getType()))
+					.orElse(null);
             if (updateSchedule == null) throw ScheduleNotFoundException.EXCEPTION;
             scheduleRepository.save(updateSchedule.updateDate(schedule.getDate()));
         }
