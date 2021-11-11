@@ -21,6 +21,7 @@ import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Qualification;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.dto.UpdateUserInformationDto;
 import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
