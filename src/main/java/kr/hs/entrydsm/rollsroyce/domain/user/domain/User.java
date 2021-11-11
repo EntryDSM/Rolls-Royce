@@ -138,19 +138,17 @@ public class User {
 		this.headcount = headcount;
 	}
 
-	public void updateUserInformation(String name, String sex, LocalDate birthday,
-			String parentName, String parentTel, String telephoneNumber, String homeTel,
-			String address, String postCode, String detailAddress) {
-		this.name = name;
-		this.sex = sex == null ? null : Sex.valueOf(sex);
-		this.birthday = birthday;
-		this.parentName = parentName;
-		this.parentTel = parentTel;
-		this.telephoneNumber = telephoneNumber;
-		this.homeTel = homeTel;
-		this.address = address;
-		this.postCode = postCode;
-		this.detailAddress = detailAddress;
+	public void updateUserInformation(UpdateUserInformationDto information) {
+		this.name = information.getName();
+		this.sex = information.getSex();
+		this.birthday = information.getBirthday();
+		this.parentName = information.getParentName();
+		this.parentTel = information.getParentTel();
+		this.telephoneNumber = information.getTelephoneNumber();
+		this.homeTel = information.getHomeTel();
+		this.address = information.getAddress();
+		this.postCode = information.getPostCode();
+		this.detailAddress = information.getDetailAddress();
 	}
 
 	public QueryInformationResponse queryInformation() {

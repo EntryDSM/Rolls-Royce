@@ -9,6 +9,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserAlreadyExistsExceptio
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserAuthCodeFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SendEmailRequest;
+import kr.hs.entrydsm.rollsroyce.global.exception.MessageRejectedException;
 import kr.hs.entrydsm.rollsroyce.global.utils.ses.SESUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -47,8 +48,11 @@ public class SendAuthCodeService {
             throw UserAlreadyExistsException.EXCEPTION;
         }
 
+        if(sesUtil.sendMessage(email, "RollsRoyceEmailTemplate", params)) {
+            throw MessageRejectedException.EXCEPTION;
+        }
+
         authCodeRepository.findById(email)
-                .filter(authcode -> sesUtil.sendMessage(email, "RollsRoyceEmailTemplate", params))
                 .map(authCode -> authCode.updateAuthCode(code, authCodeTTL))
                 .orElseGet(() -> authCodeRepository.save(AuthCode.builder()
                         .email(email)
