@@ -25,7 +25,7 @@ public class FinalSubmitService {
 		if(user.hasEmptyInfo() || checkApplication(user))
 			throw ProcessNotCompletedException.EXCEPTION;
 
-		user.getStatus().isSubmitToTrue();
+		user.isSubmitToTrue();
 	}
 
 	private boolean checkApplication(User user) {
