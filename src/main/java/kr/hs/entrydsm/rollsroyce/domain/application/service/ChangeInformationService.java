@@ -3,8 +3,11 @@ package kr.hs.entrydsm.rollsroyce.domain.application.service;
 import javax.transaction.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.dto.UpdateUserInformationDto;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
+import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -19,9 +22,18 @@ public class ChangeInformationService {
 	public void execute(ChangeInformationRequest request) {
 		User user = userFacade.getCurrentUser();
 		user.updateUserInformation(
-				request.getName(), request.getSex(), request.getBirthday(),
-				request.getParentName(), request.getParentTel(), request.getTelephoneNumber(), request.getHomeTel(),
-				request.getAddress(), request.getPostCode(), request.getDetailAddress()
+				UpdateUserInformationDto.builder()
+				.name(request.getName())
+				.sex(EnumUtil.getEnum(Sex.class, request.getSex()))
+				.birthday(request.getBirthday())
+				.parentName(request.getParentName())
+				.parentTel(request.getParentTel())
+				.telephoneNumber(request.getTelephoneNumber())
+				.homeTel(request.getHomeTel())
+				.address(request.getAddress())
+				.postCode(request.getPostCode())
+				.detailAddress(request.getDetailAddress())
+				.build()
 		);
 	}
 
