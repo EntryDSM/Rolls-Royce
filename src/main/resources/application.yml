@@ -52,6 +52,10 @@ munchkin:
     path: ${FONT_PATH:/fonts}
   year: ${YEAR:2021}
 
+tmap:
+  app:
+    key:${TMAP_KEY}
+
 logging:
   level:
     com:
