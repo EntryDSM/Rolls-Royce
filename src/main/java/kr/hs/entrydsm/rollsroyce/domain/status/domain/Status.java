@@ -57,8 +57,8 @@ public class Status {
 
 	public void isSubmitToTrue() {
 		this.isSubmitted = true;
-  }
-  
+	}
+
 	public void cancelIsSubmitted() {
 		this.isSubmitted = false;
 		if (this.isPrintsArrived)
@@ -71,6 +71,10 @@ public class Status {
 
 	public void updateIsPaid() {
 		this.isPaid = !this.isPaid;
+	}
+
+	public void updateExamCode(String examCode) {
+		this.examCode = examCode;
 	}
 
 }
