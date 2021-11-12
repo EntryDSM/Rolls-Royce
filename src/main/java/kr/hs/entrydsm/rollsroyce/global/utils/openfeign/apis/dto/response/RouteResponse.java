@@ -10,6 +10,10 @@ public class RouteResponse {
 	private String type;
 	private List<Feature> featureList;
 
+	public int getTotalDistance() {
+		return featureList.get(0).getProperties().getTotalDistance();
+	}
+
 	@Getter
 	public static class Feature {
 		private String type;

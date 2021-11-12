@@ -191,14 +191,13 @@ public class AdmissionTicketExcelService {
 					tmapApi.getCoordinate(appKey, URLEncoder.encode(user.getAddress(), StandardCharsets.UTF_8));
 			RouteResponse distance = tmapApi.routeGuidance(appKey,
 					RouteRequest.builder()
-					.startX(Double.parseDouble(coordinate.getCoordinate().getLat()))
-					.startY(Double.parseDouble(coordinate.getCoordinate().getLon()))
+					.startX(Double.parseDouble(coordinate.getLat()))
+					.startY(Double.parseDouble(coordinate.getLon()))
 					.build()
 			);
 			if(distance.getFeatureList().size() < 1)
 				throw RequestFailToOtherServerException.EXCEPTION;
-			user.updateDistance(
-					distance.getFeatureList().get(0).getProperties().getTaxiFare());
+			user.updateDistance(distance.getTotalDistance());
 		}
 
 		userSort.sort((o1, o2) -> Double.compare(o2.getDistance(), o1.getDistance()));

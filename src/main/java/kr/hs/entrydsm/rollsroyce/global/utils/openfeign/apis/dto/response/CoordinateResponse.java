@@ -7,6 +7,14 @@ public class CoordinateResponse {
 
 	private Coordinate coordinate;
 
+	public String getLat() {
+		return coordinate.getLat();
+	}
+
+	public String getLon() {
+		return coordinate.getLon();
+	}
+
 	@Getter
 	public static class Coordinate {
 		private String lat;
