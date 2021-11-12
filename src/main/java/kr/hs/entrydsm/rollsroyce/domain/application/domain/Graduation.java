@@ -66,16 +66,17 @@ public class Graduation extends Application {
 						.withZone(ZoneId.of("Asia/Seoul"))
 						.format(graduatedAt);
 	}
-  
+
 	@Override
 	public boolean hasEmptyInfo() {
 		return !(isExists(studentNumber) && isGraduated != null &&
 				school != null && graduatedAt != null);
 	}
-  
-  public String getSchoolName() {
+
+	@Override
+	public String getSchoolName() {
 		return this.school.getName();
-  }
+	}
 
 	public String getSchoolCode() {
 		return school == null ? null : school.getCode();

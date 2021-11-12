@@ -35,6 +35,8 @@ public abstract class Application extends BaseTimeEntity {
 
 	public abstract boolean hasEmptyInfo();
 
+	public abstract String getSchoolName();
+
 	protected boolean isExists(String target) {
 		return target != null && !target.isBlank();
 	}
