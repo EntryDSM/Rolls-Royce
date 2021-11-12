@@ -33,6 +33,7 @@ dependencies {
 	implementation 'org.apache.poi:poi:3.16'
 	implementation 'org.apache.poi:poi-ooxml:3.16'
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.0.5'
 
 	implementation 'com.querydsl:querydsl-apt:5.0.0'
 	implementation 'com.querydsl:querydsl-jpa:5.0.0'
