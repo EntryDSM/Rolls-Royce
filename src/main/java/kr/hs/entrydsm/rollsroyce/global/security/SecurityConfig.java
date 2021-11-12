@@ -34,9 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/schedules").permitAll()
 				.antMatchers(HttpMethod.POST, "/user").permitAll()
-				.antMatchers(HttpMethod.POST, "/auth").permitAll()
-				.antMatchers(HttpMethod.POST, "/email/verify").permitAll()
-				.antMatchers(HttpMethod.PUT, "/email/verify").permitAll()
+				.antMatchers("/**/auth").permitAll()
+				.antMatchers("/**/email/verify").permitAll()
 				.anyRequest().authenticated()
 				.and().apply(new FilterConfig(jwtTokenProvider));
 	}
