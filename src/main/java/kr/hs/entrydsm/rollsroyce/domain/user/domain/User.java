@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import com.querydsl.core.annotations.QueryEntity;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
@@ -129,6 +130,9 @@ public class User {
 
 	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Qualification qualification;
+
+	@Transient
+	private int distance;
 
 	public void updateUserApplication(EducationalStatus educationalStatus, ApplicationType applicationType,
 			boolean isDaejeon, ApplicationRemark applicationRemark, HeadCount headcount) {
@@ -298,6 +302,18 @@ public class User {
 
 	public void isSubmitToTrue() {
 		status.isSubmitToTrue();
+	}
+
+	public String getExamCode() {
+		return status.getExamCode();
+	}
+
+	public void updateExamCode(String examCode) {
+		status.updateExamCode(examCode);
+	}
+
+	public void updateDistance(int distance) {
+		this.distance = distance;
 	}
 
 	private String getValue(Object obj) {
