@@ -3,6 +3,7 @@ package kr.hs.entrydsm.rollsroyce.domain.application.service;
 import javax.transaction.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.exception.EducationalStatusUnmatchedException;
+import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeGraduationInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
 import kr.hs.entrydsm.rollsroyce.domain.school.facade.SchoolFacade;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class ChangeGraduationInformationService {
 
 	private final SchoolFacade schoolFacade;
+	private final ApplicationFacade applicationFacade;
 	private final UserFacade userFacade;
 
 	@Transactional
@@ -27,8 +29,8 @@ public class ChangeGraduationInformationService {
 		if(user.isQualification())
 			throw EducationalStatusUnmatchedException.EXCEPTION;
 
-		user.changeGraduationInformation(
-				school, request.getStudentNumber());
+		applicationFacade.getGraduation(user.getReceiptCode())
+				.changeGraduationInformation(school, request.getStudentNumber(), request.getSchoolTel());
 	}
 
 }

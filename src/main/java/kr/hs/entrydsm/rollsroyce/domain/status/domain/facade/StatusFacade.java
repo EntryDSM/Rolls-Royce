@@ -32,4 +32,13 @@ public class StatusFacade {
 		statusRepository.save(status);
 	}
 
+	public void updateIsFirstRoundPass(List<Long> receiptCodes) {
+		receiptCodes.forEach(receiptCode ->
+			saveStatus(
+					getStatusByReceiptCode(receiptCode)
+							.updateIsFirstRoundPass()
+			)
+		);
+	}
+
 }

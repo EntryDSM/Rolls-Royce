@@ -8,10 +8,10 @@ import lombok.Getter;
 public class RouteResponse {
 
 	private String type;
-	private List<Feature> featureList;
+	private List<Feature> features;
 
 	public int getTotalDistance() {
-		return featureList.get(0).getProperties().getTotalDistance();
+		return features.get(0).getProperties().getTotalDistance();
 	}
 
 	@Getter

@@ -1,18 +1,21 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.domain.repository;
 
+import java.util.List;
+
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.HeadCount;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation1;
+import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
 import static kr.hs.entrydsm.rollsroyce.domain.user.domain.QUser.user;
 
 @RequiredArgsConstructor
@@ -39,6 +42,11 @@ public class UserInformationRepositoryImpl implements UserInformationRepository 
         return new PageImpl<>(result, pageable, result.size());
     }
 
+    private BooleanExpression eqApplicationType(ApplicationType applicationType) {
+    	if(applicationType == null) return null;
+    	return user.applicationType.eq(applicationType);
+	}
+
     private BooleanExpression eqIsDaejeon(Boolean isDeajeon) {
         if (isDeajeon == null) return null;
         return user.isDaejeon.eq(isDeajeon);
@@ -46,7 +54,7 @@ public class UserInformationRepositoryImpl implements UserInformationRepository 
 
     private BooleanExpression eqSchoolName(String schoolName) {
         if (schoolName.isBlank()) return null;
-        return user.graduation.schoolName.eq(schoolName);
+        return graduation1.schoolName.eq(schoolName);
     }
 
     private BooleanExpression eqName(String name) {
@@ -81,7 +89,7 @@ public class UserInformationRepositoryImpl implements UserInformationRepository 
 
     private BooleanExpression eqIsSubmitted(boolean isSubmitted) {
         if (!isSubmitted) return null;
-        return user.status.isSubmitted.eq(true);
+        return status.isSubmitted.eq(true);
     }
 
 }

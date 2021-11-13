@@ -4,34 +4,26 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import com.querydsl.core.annotations.QueryEntity;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.Qualification;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.dto.UpdateUserInformationDto;
-import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
-import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.HeadCount;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.ApplicationNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -92,9 +84,6 @@ public class User {
 	@Column(columnDefinition = "char(11)")
 	private String parentTel;
 
-	@Column(columnDefinition = "char(11)")
-	private String schoolTel;
-
 	@Column(length = 300)
 	private String address;
 
@@ -118,18 +107,6 @@ public class User {
 
 	@CreationTimestamp
 	private LocalDateTime createdAt;
-
-	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Status status;
-
-	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Graduation graduation;
-
-	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Score score;
-
-	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Qualification qualification;
 
 	@Transient
 	private int distance;
@@ -172,7 +149,7 @@ public class User {
 				.build();
 	}
 
-	public QueryTypeResponse queryUserApplication() {
+	public QueryTypeResponse queryUserApplication(Application application) {
 		QueryTypeResponse response = QueryTypeResponse.builder()
 				.applicationRemark(getValue(applicationRemark))
 				.applicationType(getValue(applicationType))
@@ -180,31 +157,13 @@ public class User {
 				.isDaejeon(isDaejeon)
 				.build();
 
-		if(hasApplication()) {
-			changeGraduationInformation(Objects.requireNonNullElse(graduation, qualification),
-					response);
-		}
+		changeGraduationInformation(application, response);
 		return response;
-	}
-
-	public boolean hasApplication() {
-		return graduation != null || qualification != null;
 	}
 
 	public boolean isQualification() {
 		return educationalStatus != null &&
 				educationalStatus.equals(EducationalStatus.QUALIFICATION_EXAM);
-	}
-
-	public Graduation queryGraduation() {
-		if(graduation == null)
-			throw ApplicationNotFoundException.EXCEPTION;
-		return graduation;
-	}
-
-	public void changeGraduationInformation(School school, String studentNumber) {
-		queryGraduation()
-				.changeGraduationInformation(school, studentNumber);
 	}
 
 	public void updateSelfIntroduce(String selfIntroduce) {
@@ -300,18 +259,6 @@ public class User {
 		return applicationType.equals(ApplicationType.SOCIAL);
 	}
 
-	public void isSubmitToTrue() {
-		status.isSubmitToTrue();
-	}
-
-	public String getExamCode() {
-		return status.getExamCode();
-	}
-
-	public void updateExamCode(String examCode) {
-		status.updateExamCode(examCode);
-	}
-
 	public void updateDistance(int distance) {
 		this.distance = distance;
 	}
@@ -330,5 +277,5 @@ public class User {
 	private boolean isExists(String target) {
 		return target != null && !target.isBlank();
 	}
-	
+
 }

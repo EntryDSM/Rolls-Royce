@@ -4,6 +4,8 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotAccessibleException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
+import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.QualificationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
@@ -11,6 +13,7 @@ import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRe
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.QualificationCaseRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
@@ -22,12 +25,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetApplicantDetailsService {
 
+	private final GraduationRepository graduationRepository;
     private final GraduationCaseRepository graduationCaseRepository;
     private final QualificationCaseRepository qualificationCaseRepository;
     private final ScoreRepository scoreRepository;
 
     private final AdminFacade adminFacade;
     private final UserFacade userFacade;
+    private final StatusFacade statusFacade;
+
     private final S3Util s3Util;
 
     public ApplicantDetailsResponse execute(long receiptCode) {
@@ -35,7 +41,7 @@ public class GetApplicantDetailsService {
             throw AdminNotAccessibleException.EXCEPTION;
         }
         User user = userFacade.getUserByCode(receiptCode);
-        Status userStatus = user.getStatus();
+        Status userStatus = statusFacade.getStatusByReceiptCode(receiptCode);
 
         ApplicantDetailsResponse applicantDetailsResponse = new ApplicantDetailsResponse();
         applicantDetailsResponse.setStatus(new ApplicantDetailsResponse.Status(userStatus.getIsSubmitted(), userStatus.getIsSubmitted()));
@@ -50,13 +56,15 @@ public class GetApplicantDetailsService {
     }
 
     private ApplicantDetailsResponse.CommonInformation getCommonInformation(User user) {
+    	Graduation graduation = graduationRepository.findById(user.getReceiptCode())
+				.orElse(null);
         return ApplicantDetailsResponse.CommonInformation.builder()
                 .name(user.getName())
                 .email(user.getEmail())
                 .telephoneNumber(user.getTelephoneNumber())
                 .parentTel(user.getParentTel())
-                .schoolTel(user.getSchoolTel())
-                .schoolName(user.getGraduation() != null ? user.getGraduation().getSchoolName() : null)
+                .schoolTel(graduation != null ? graduation.getSchoolTel() : null)
+                .schoolName(graduation != null ? graduation.getSchoolName() : null)
                 .build();
     }
 

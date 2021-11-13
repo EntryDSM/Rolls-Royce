@@ -6,8 +6,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Admin;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ApplicationPeriodNotOverException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.PasswordNotValidException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
+import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.facade.ScheduleFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
@@ -30,8 +29,7 @@ public class DeleteAllTablesService {
     private final ScoreRepository scoreRepository;
     private final GraduationCaseRepository graduationCaseRepository;
     private final QualificationCaseRepository qualificationCaseRepository;
-    private final GraduationRepository graduationRepository;
-    private final QualificationRepository qualificationRepository;
+    private final ApplicationFacade applicationFacade;
 
     private final AdminFacade adminFacade;
 
@@ -51,9 +49,8 @@ public class DeleteAllTablesService {
 
         scoreRepository.deleteAll();
         graduationCaseRepository.deleteAll();
-        graduationRepository.deleteAll();
+        applicationFacade.deleteAll();
         qualificationCaseRepository.deleteAll();
-        qualificationRepository.deleteAll();
         statusRepository.deleteAll();
         userRepository.deleteAll();
     }

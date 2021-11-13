@@ -1,5 +1,13 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Stream;
+
+import javax.servlet.http.HttpServletResponse;
+
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ExcelOException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.ApplicantInformation;
@@ -8,6 +16,9 @@ import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.Graduation
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
+import kr.hs.entrydsm.rollsroyce.domain.score.facade.ScoreFacade;
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
@@ -17,14 +28,8 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Stream;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -35,6 +40,8 @@ public class ApplicantsExcelService {
     private final GraduationRepository graduationRepository;
 
     private final AdminFacade adminFacade;
+    private final StatusFacade statusFacade;
+    private final ScoreFacade scoreFacade;
 
     public void execute(HttpServletResponse response) {
         adminFacade.getRootAdmin();
@@ -49,19 +56,21 @@ public class ApplicantsExcelService {
 
             GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode).orElse(null);
             Graduation graduation = graduationRepository.findById(receiptCode).orElse(null);
+            Status status = statusFacade.getStatusByReceiptCode(receiptCode);
+            Score score = scoreFacade.queryScore(user.getReceiptCode());
 
             Row row = sheet.createRow(++i);
-            insertUserInfo(row, user, graduation);
+            insertUserInfo(row, user, graduation, status);
             insertRating(row, graduationCase);
-            insertScore(row, user.getScore());
+            insertScore(row, score);
             insertSelfIntroduceAndStudyPlan(row, user);
         }
 
         try {
-            response.setContentType("ms-vnd/excel");
+			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             String formatFilename = "attachment;filename=\"지원자 목록";
             String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일_HH시mm분"));
-            String fileName = new String((formatFilename + time + ".xls\"").getBytes("KSC5601"), "8859_1");
+            String fileName = new String((formatFilename + time + ".xlsx\"").getBytes("KSC5601"), "8859_1");
             response.setHeader("Content-Disposition", fileName);
 
             applicantInformation.getWorkbook().write(response.getOutputStream());
@@ -70,12 +79,12 @@ public class ApplicantsExcelService {
         }
     }
 
-    private void insertUserInfo(Row row, User user, Graduation graduation) {
-        row.createCell(0).setCellValue(user.getStatus().getExamCode());
+    private void insertUserInfo(Row row, User user, Graduation graduation, Status status) {
+        row.createCell(0).setCellValue(status.getExamCode());
         row.createCell(1).setCellValue(user.getReceiptCode());
         row.createCell(2).setCellValue(getApplicationType(user.getApplicationType()));
 
-        row.createCell(3).setCellValue(user.getIsDaejeon() ? "대전" : "전국");
+        row.createCell(3).setCellValue(user.getIsDaejeon().equals(Boolean.TRUE) ? "대전" : "전국");
         row.createCell(4).setCellValue(getApplicationRemark(user.getApplicationRemark()));
         row.createCell(5).setCellValue(user.getName());
         row.createCell(6).setCellValue(user.getBirthday().toString());

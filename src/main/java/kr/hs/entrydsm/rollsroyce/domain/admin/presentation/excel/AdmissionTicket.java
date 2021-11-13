@@ -1,24 +1,32 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel;
 
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFRegionUtil;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.RegionUtil;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class AdmissionTicket {
 
-    private final HSSFWorkbook workbook = new HSSFWorkbook();
-    private final HSSFSheet sheet = workbook.createSheet("수험표");
+    private final Workbook workbook = new XSSFWorkbook();
+    private final Sheet sheet = workbook.createSheet("수험표");
 
-    public HSSFWorkbook getWorkbook() {
+    public Workbook getWorkbook() {
         return workbook;
     }
 
-    public HSSFSheet getSheet() {
+    public Sheet getSheet() {
         return sheet;
     }
 
@@ -27,7 +35,7 @@ public class AdmissionTicket {
         CellStyle alignCenter = alignCenter();
         Font bold = bold();
 
-        HSSFRichTextString title = new HSSFRichTextString("2022학년도 대덕소프트웨어마이스터고등학교\n입학전형 수험표");
+        XSSFRichTextString title = new XSSFRichTextString("2022학년도 대덕소프트웨어마이스터고등학교\n입학전형 수험표");
         title.applyFont(24, 32, bold);
         CellRangeAddress titleAddress = new CellRangeAddress(rowIndex, rowIndex + 1, colIndex,  colIndex + 5);
         merge(titleAddress, title, alignCenter);
@@ -42,11 +50,11 @@ public class AdmissionTicket {
                     studentInfo[(i - rowIndex) / 2],
                     alignCenter);
         }
-        HSSFRichTextString bottom = new HSSFRichTextString("대덕소프트웨어마이스터고등학교장");
+        XSSFRichTextString bottom = new XSSFRichTextString("대덕소프트웨어마이스터고등학교장");
         bottom.applyFont(bold);
         merge(new CellRangeAddress(rowIndex + 14, rowIndex + 15, colIndex, colIndex + 5), bottom, alignCenter);
 
-        sheet.createRow(rowIndex + 16).createCell(rowIndex + 6);
+        sheet.createRow(rowIndex + 16).createCell(colIndex + 6);
     }
 
     private CellStyle alignCenter() {
@@ -70,7 +78,7 @@ public class AdmissionTicket {
         mergeCell(cellAddress);
     }
 
-    private void merge(CellRangeAddress cellAddress, HSSFRichTextString value, CellStyle style) {
+    private void merge(CellRangeAddress cellAddress, XSSFRichTextString value, CellStyle style) {
         Cell cell = getFirstCell(cellAddress);
         cell.setCellValue(value);
         cell.setCellStyle(style);
@@ -84,12 +92,12 @@ public class AdmissionTicket {
         return sheet.createRow(cellAddress.getFirstRow()).createCell(cellAddress.getFirstColumn());
     }
 
-    private void mergeCell(CellRangeAddress cellAddress) {
-        sheet.addMergedRegion(cellAddress);
-        HSSFRegionUtil.setBorderTop(BorderStyle.THIN.getCode(), cellAddress, sheet, workbook);
-        HSSFRegionUtil.setBorderBottom(BorderStyle.THIN.getCode(), cellAddress, sheet, workbook);
-        HSSFRegionUtil.setBorderLeft(BorderStyle.THIN.getCode(), cellAddress, sheet, workbook);
-        HSSFRegionUtil.setBorderRight(BorderStyle.THIN.getCode(), cellAddress, sheet, workbook);
+    private void mergeCell(CellRangeAddress region) {
+    	sheet.addMergedRegion(region);
+		RegionUtil.setBorderTop(BorderStyle.THIN, region, sheet);
+		RegionUtil.setBorderBottom(BorderStyle.THIN, region, sheet);
+		RegionUtil.setBorderLeft(BorderStyle.THIN, region, sheet);
+		RegionUtil.setBorderRight(BorderStyle.THIN, region, sheet);
     }
 
 }

@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.ApplicationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
@@ -35,17 +34,15 @@ public class ScoreFacade {
 	public List<Score> queryScoreByApplicationTypeAndIsDaejeon(
 			ApplicationType applicationType, boolean isDaejeon
 	) {
-    	List<Score> scores = userFacade.queryUserByApplicationTypeAndIsDaejeon(applicationType, isDaejeon)
-				.parallelStream().map(user -> queryScore(user.getReceiptCode())).collect(Collectors.toList());
-    	listSort(scores);
-    	return scores;
+    	return scoreRepository
+				.queryScoreByApplicationTypeAndIsDaejeon(applicationType, isDaejeon);
 	}
 
 	public void listSort(List<Score> scores) {
     	scores.sort(Comparator.comparing(o -> {
 			Score score = (Score) o;
 			BigDecimal totalScore = score.getTotalScore();
-			if (!queryScore(score.getReceiptCode()).getUser().isCommonApplicationType()) {
+			if (!userFacade.getUserByCode(score.getReceiptCode()).isCommonApplicationType()) {
 				totalScore = totalScore.multiply(BigDecimal.valueOf(1.75)).setScale(3, RoundingMode.HALF_UP);
 			}
 			return totalScore;

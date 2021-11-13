@@ -6,9 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,10 +17,13 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.ApplicationCountFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.AdmissionTicket;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
+import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.facade.ScheduleFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.facade.ScoreFacade;
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
@@ -35,14 +36,13 @@ import kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis.dto.response.Coordi
 import kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis.dto.response.RouteResponse;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
-import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import static org.apache.poi.hssf.usermodel.HSSFPicture.PICTURE_TYPE_PNG;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +51,7 @@ public class AdmissionTicketExcelService {
 	@Value("${tmap.app.key}")
 	private String appKey;
 
+	private final ScoreRepository scoreRepository;
 	private final TmapApi tmapApi;
 	private final S3Util s3Util;
 	private final StatusFacade statusFacade;
@@ -58,12 +59,13 @@ public class AdmissionTicketExcelService {
 	private final AdminFacade adminFacade;
 	private final ScoreFacade scoreFacade;
 	private final UserFacade userFacade;
+	private final StatusFacade status;
 	private final ApplicationCountFacade applicationCountFacade;
+	private final ApplicationFacade applicationFacade;
+
 
 	public void execute(HttpServletResponse response) {
-		adminFacade.getRootAdmin();
-
-		if (!scheduleFacade.getScheduleByType(Type.END_DATE)
+		if (scheduleFacade.getScheduleByType(Type.END_DATE)
 				.isAfter(LocalDateTime.now())) {
 			throw ApplicationPeriodNotOverException.EXCEPTION;
 		}
@@ -78,7 +80,7 @@ public class AdmissionTicketExcelService {
 				List<Score> applicants =
 						scoreFacade.queryScoreByApplicationTypeAndIsDaejeon(type, i != 0);
 				int limitCount = applicationCountFacade.countOfApplicationTypeAndIsDaejeon(type, i != 0);
-
+				System.out.println(type.name() + (i != 0) + " " + LocalDateTime.now());
 				if(applicants.size() > limitCount) {
 					for(int j = 0; j < limitCount; j++) {
 						result.add(applicants.remove(0).getReceiptCode());
@@ -93,7 +95,11 @@ public class AdmissionTicketExcelService {
 			}
 		}
 
+		System.out.println("전형별 점수" + " " + LocalDateTime.now());
+
 		scoreFacade.listSort(spareApplicationQueue);
+
+		System.out.println("정렬 후" + " " + LocalDateTime.now());
 
 		if(spareApplicationQueue.size() < lessCount)
 			result.addAll(spareApplicationQueue.parallelStream()
@@ -104,7 +110,10 @@ public class AdmissionTicketExcelService {
 				result.add(spareApplicationQueue.remove(0).getReceiptCode());
 			}
 		}
+		statusFacade.updateIsFirstRoundPass(result);
+		System.out.println("저장 전" + " " + LocalDateTime.now());
 		saveAllApplicantsExamCode();
+		System.out.println("저장 후" + " " + LocalDateTime.now());
 		getAdmissionTicket(response, result);
 	}
 
@@ -118,10 +127,10 @@ public class AdmissionTicketExcelService {
 			User user = userFacade.getUserByCode(receiptCode);
 			Application application;
 			if(user.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM))
-				application = user.getQualification();
-			else application = user.getGraduation();
+				application = applicationFacade.getQualification(receiptCode);
+			else application = applicationFacade.getGraduation(receiptCode);
 
-			String examCode = user.getExamCode();
+			String examCode = getExamCode(receiptCode);
 			String name = user.getName();
 			String middleSchool = application.getSchoolName();
 			String area = user.getIsDaejeon().equals(Boolean.TRUE) ? "대전" : "전국";
@@ -130,12 +139,12 @@ public class AdmissionTicketExcelService {
 			byte[] imageBytes = s3Util.getObject("images/" + user.getPhotoFileName());
 			admissionTicket.format(x * 17,y * 7, examCode, name, middleSchool, area, applicationType, String.valueOf(receiptCode));
 
-			int index = admissionTicket.getWorkbook().addPicture(imageBytes, PICTURE_TYPE_PNG);
-			HSSFPatriarch patriarch = admissionTicket.getSheet().createDrawingPatriarch();
-			HSSFClientAnchor anchor;
-			anchor = new HSSFClientAnchor(0, 0, 0, 0, (short) (y * 7),2 + (x * 17), (short) (2 + (y * 7)),14 + (x * 17));
+			int index = admissionTicket.getWorkbook().addPicture(imageBytes, XSSFWorkbook.PICTURE_TYPE_PNG);
+			Drawing drawing = admissionTicket.getSheet().createDrawingPatriarch();
+			ClientAnchor anchor;
+			anchor = new XSSFClientAnchor(0, 0, 0, 0, (short) (y * 7),2 + (x * 17), (short) (2 + (y * 7)),14 + (x * 17));
 			anchor.setAnchorType(ClientAnchor.AnchorType.DONT_MOVE_AND_RESIZE);
-			patriarch.createPicture(anchor, index);
+			drawing.createPicture(anchor, index);
 
 			count++;
 			if(count % 3 ==0) {
@@ -183,24 +192,24 @@ public class AdmissionTicketExcelService {
 					examCode.append(3);
 			}
 			if (user.getIsDaejeon().equals(Boolean.TRUE)) examCode.append(1);
-			else examCode.append(2);
-
-			user.updateExamCode(examCode.toString());
+				else examCode.append(2);
+			statusFacade.saveStatus(
+					statusFacade.getStatusByReceiptCode(user.getReceiptCode())
+							.updateExamCode(examCode.toString())
+			);
 		}
 
 		for (User user : users) {
-			Map<String, String> requestMap = new HashMap<>();
-			requestMap.put("addr", URLEncoder.encode(user.getAddress(), StandardCharsets.UTF_8));
-			requestMap.put("key", appKey);
 			CoordinateResponse coordinate =
-					tmapApi.getCoordinate(requestMap);
+					tmapApi.getCoordinate(appKey, URLEncoder.encode(user.getAddress(), StandardCharsets.UTF_8));
 			RouteResponse distance = tmapApi.routeGuidance(appKey,
 					RouteRequest.builder()
-							.startX(Double.parseDouble(coordinate.getLat()))
-							.startY(Double.parseDouble(coordinate.getLon()))
+							.startX(Double.parseDouble(coordinate.getLon()))
+							.startY(Double.parseDouble(coordinate.getLat()))
+							.totalValue(2)
 							.build()
 			);
-			if(distance.getFeatureList().size() < 1)
+			if(distance.getFeatures().size() < 1)
 				throw RequestFailToOtherServerException.EXCEPTION;
 			user.updateDistance(distance.getTotalDistance());
 		}
@@ -209,7 +218,8 @@ public class AdmissionTicketExcelService {
 
 		for(User user : userSort) {
 			int examOrder = 0;
-			String examCode = user.getExamCode();
+			Status status = statusFacade.getStatusByReceiptCode(user.getReceiptCode());
+			String examCode = status.getExamCode();
 			if(examCode.startsWith("11")) {
 				examOrder = commonDaejeon++;
 			} else if(examCode.startsWith("12")) {
@@ -223,10 +233,14 @@ public class AdmissionTicketExcelService {
 			} else if(examCode.startsWith("32")) {
 				examOrder = socialNationwide++;
 			}
-
-			user.updateExamCode(user.getExamCode() + String.format("%03d", examOrder));
-			statusFacade.saveStatus(user.getStatus());
+			status.updateExamCode(getExamCode(user.getReceiptCode()) + String.format("%03d", examOrder));
+			statusFacade.saveStatus(status);
 		}
+	}
+
+	private String getExamCode(Long receiptCode) {
+		return statusFacade.getStatusByReceiptCode(receiptCode)
+				.getExamCode();
 	}
 
 }

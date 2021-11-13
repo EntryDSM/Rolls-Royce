@@ -15,6 +15,14 @@ public class QueryGraduationInformationResponse {
 
 	private final String birthday;
 
+	private final String schoolCode;
+
+	private final String schoolTel;
+
+	private final String schoolName;
+
+	private final String studentNumber;
+
 	private final String parentName;
 
 	private final String telephoneNumber;
