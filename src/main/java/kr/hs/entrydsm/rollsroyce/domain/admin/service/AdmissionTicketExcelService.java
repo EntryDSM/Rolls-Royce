@@ -52,27 +52,27 @@ public class AdmissionTicketExcelService {
 	private final TmapApi tmapApi;
 	private final S3Util s3Util;
 	private final StatusFacade statusFacade;
-    private final ScheduleFacade scheduleFacade;
-    private final AdminFacade adminFacade;
-    private final ScoreFacade scoreFacade;
+	private final ScheduleFacade scheduleFacade;
+	private final AdminFacade adminFacade;
+	private final ScoreFacade scoreFacade;
 	private final UserFacade userFacade;
 	private final ApplicationCountFacade applicationCountFacade;
 
-    public void execute(HttpServletResponse response) {
-        adminFacade.getRootAdmin();
+	public void execute(HttpServletResponse response) {
+		adminFacade.getRootAdmin();
 
-        if (!scheduleFacade.getScheduleByType(Type.END_DATE)
+		if (!scheduleFacade.getScheduleByType(Type.END_DATE)
 				.isAfter(LocalDateTime.now())) {
-            throw ApplicationPeriodNotOverException.EXCEPTION;
-        }
+			throw ApplicationPeriodNotOverException.EXCEPTION;
+		}
 
-        List<Long> result = new ArrayList<>();
+		List<Long> result = new ArrayList<>();
 
-        int lessCount = 0;
+		int lessCount = 0;
 		List<Score> spareApplicationQueue = new ArrayList<>();
 
-        for(ApplicationType type : ApplicationType.values()) {
-        	for(int i = 0; i < 2; i++) {
+		for(ApplicationType type : ApplicationType.values()) {
+			for(int i = 0; i < 2; i++) {
 				List<Score> applicants =
 						scoreFacade.queryScoreByApplicationTypeAndIsDaejeon(type, i != 0);
 				int limitCount = applicationCountFacade.countOfApplicationTypeAndIsDaejeon(type, i != 0);
@@ -93,18 +93,18 @@ public class AdmissionTicketExcelService {
 
 		scoreFacade.listSort(spareApplicationQueue);
 
-        if(spareApplicationQueue.size() < lessCount)
-        	result.addAll(spareApplicationQueue.parallelStream()
+		if(spareApplicationQueue.size() < lessCount)
+			result.addAll(spareApplicationQueue.parallelStream()
 					.map(Score::getReceiptCode)
 					.collect(Collectors.toList()));
-        else {
+		else {
 			for(int i = 0; i < lessCount; i++) {
 				result.add(spareApplicationQueue.remove(0).getReceiptCode());
 			}
 		}
 		saveAllApplicantsExamCode();
 		getAdmissionTicket(response, result);
-    }
+	}
 
 	private void getAdmissionTicket(HttpServletResponse response, List<Long> applicantReceiptCodes) {
 		AdmissionTicket admissionTicket = new AdmissionTicket();
@@ -191,9 +191,9 @@ public class AdmissionTicketExcelService {
 					tmapApi.getCoordinate(appKey, URLEncoder.encode(user.getAddress(), StandardCharsets.UTF_8));
 			RouteResponse distance = tmapApi.routeGuidance(appKey,
 					RouteRequest.builder()
-					.startX(Double.parseDouble(coordinate.getLat()))
-					.startY(Double.parseDouble(coordinate.getLon()))
-					.build()
+							.startX(Double.parseDouble(coordinate.getLat()))
+							.startY(Double.parseDouble(coordinate.getLon()))
+							.build()
 			);
 			if(distance.getFeatureList().size() < 1)
 				throw RequestFailToOtherServerException.EXCEPTION;
