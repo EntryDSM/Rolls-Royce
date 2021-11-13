@@ -78,4 +78,9 @@ public class Status {
 		return this;
 	}
 
+	public Status updateIsFirstRoundPass() {
+		this.isFirstRoundPass = true;
+		return this;
+	}
+
 }
