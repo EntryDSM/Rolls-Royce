@@ -73,8 +73,9 @@ public class Status {
 		this.isPaid = !this.isPaid;
 	}
 
-	public void updateExamCode(String examCode) {
+	public Status updateExamCode(String examCode) {
 		this.examCode = examCode;
+		return this;
 	}
 
 }
