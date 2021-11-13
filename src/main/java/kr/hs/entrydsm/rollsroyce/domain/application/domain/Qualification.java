@@ -42,4 +42,9 @@ public class Qualification extends Application {
 		return qualifiedAt == null;
 	}
 
+	@Override
+	public String getSchoolName() {
+		return null;
+	}
+
 }

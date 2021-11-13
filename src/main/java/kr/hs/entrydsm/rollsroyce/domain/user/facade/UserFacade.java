@@ -1,11 +1,15 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 
+import java.util.List;
+
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.CredentialsNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AuthDetails;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +39,12 @@ public class UserFacade {
 
 	public boolean isAlreadyExists(String email) {
 		return userRepository.findByEmail(email).isPresent();
+	}
+
+	public List<User> queryUserByApplicationTypeAndIsDaejeon(
+			ApplicationType applicationType, boolean isDaejeon
+	) {
+		return userRepository.findByApplicationTypeAndIsDaejeon(applicationType, isDaejeon);
 	}
 
 }
