@@ -49,9 +49,10 @@ public class Graduation extends Application {
 		this.graduatedAt = graduatedAt;
 	}
 
-	public void changeGraduationInformation(School school, String studentNumber) {
+	public void changeGraduationInformation(School school, String studentNumber, String schoolTel) {
 		this.school = school;
 		this.studentNumber = studentNumber;
+		this.schoolTel = schoolTel;
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import javax.transaction.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
-
+import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
@@ -23,6 +23,7 @@ public class ChangeTypeService {
 
 	private final QualificationRepository qualificationRepositroy;
 	private final GraduationRepository graduationRepository;
+	private final ApplicationFacade applicationFacade;
 	private final UserFacade userFacade;
 
 	@Transactional
@@ -33,17 +34,7 @@ public class ChangeTypeService {
 				EnumUtil.getEnum(ApplicationType.class, request.getApplicationType()),
 				request.getIsDaejeon(), EnumUtil.getEnum(ApplicationRemark.class, request.getApplicationRemark()),
 				EnumUtil.getEnum(HeadCount.class, request.getHeadcount()));
-		deleteLegacyApplication(request, user);
-	}
-
-	private void deleteLegacyApplication(ChangeTypeRequest request, User user) {
-		if(!user.hasApplication())
-			return;
-
-		if(request.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM.name()))
-			graduationRepository.delete(user.queryGraduation());
-		else
-			qualificationRepositroy.delete(user.getQualification());
+		applicationFacade.deleteByReceiptCode(user.getReceiptCode());
 	}
 
 }

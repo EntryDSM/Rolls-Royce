@@ -1,12 +1,13 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
-import java.util.Objects;
-
 import javax.transaction.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.exception.ProcessNotCompletedException;
+import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 public class FinalSubmitService {
 
 	private final UserFacade userFacade;
+	private final StatusFacade statusFacade;
+	private final ApplicationFacade applicationFacade;
 
 	@Transactional
 	public void execute() {
@@ -25,12 +28,17 @@ public class FinalSubmitService {
 		if(user.hasEmptyInfo() || checkApplication(user))
 			throw ProcessNotCompletedException.EXCEPTION;
 
-		user.isSubmitToTrue();
+		statusFacade.getStatusByReceiptCode(user.getReceiptCode())
+				.isSubmitToTrue();
 	}
 
 	private boolean checkApplication(User user) {
-		Application application =
-				Objects.requireNonNullElse(user.getGraduation(), user.getQualification());
+		Application application;
+
+		if(user.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM))
+			application = applicationFacade.getQualification(user.getReceiptCode());
+		else application = applicationFacade.getGraduation(user.getReceiptCode());
+
 		return application.hasEmptyInfo();
 	}
 
