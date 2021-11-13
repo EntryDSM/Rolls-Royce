@@ -16,4 +16,9 @@ public enum ApplicationType {
 				return null;
 		}
 	}
+
+	public boolean isCommon() {
+		return this == COMMON;
+	}
+
 }
