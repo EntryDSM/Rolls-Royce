@@ -21,7 +21,6 @@ import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.facade.ScheduleFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.facade.ScoreFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
@@ -51,7 +50,6 @@ public class AdmissionTicketExcelService {
 	@Value("${tmap.app.key}")
 	private String appKey;
 
-	private final ScoreRepository scoreRepository;
 	private final TmapApi tmapApi;
 	private final S3Util s3Util;
 	private final StatusFacade statusFacade;
@@ -59,12 +57,13 @@ public class AdmissionTicketExcelService {
 	private final AdminFacade adminFacade;
 	private final ScoreFacade scoreFacade;
 	private final UserFacade userFacade;
-	private final StatusFacade status;
 	private final ApplicationCountFacade applicationCountFacade;
 	private final ApplicationFacade applicationFacade;
 
 
 	public void execute(HttpServletResponse response) {
+		adminFacade.getRootAdmin();
+
 		if (scheduleFacade.getScheduleByType(Type.END_DATE)
 				.isAfter(LocalDateTime.now())) {
 			throw ApplicationPeriodNotOverException.EXCEPTION;
