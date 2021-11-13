@@ -15,6 +15,8 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+  jpa:
+    show-sql: true
 
 cloud:
   aws:
@@ -54,7 +56,7 @@ munchkin:
 
 tmap:
   app:
-    key:${TMAP_KEY}
+    key: ${TMAP_KEY}
 
 logging:
   level:

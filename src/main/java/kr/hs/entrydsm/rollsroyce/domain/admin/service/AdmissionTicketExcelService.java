@@ -6,7 +6,9 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
@@ -42,8 +44,8 @@ import org.springframework.stereotype.Service;
 
 import static org.apache.poi.hssf.usermodel.HSSFPicture.PICTURE_TYPE_PNG;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class AdmissionTicketExcelService {
 
 	@Value("${tmap.app.key}")
@@ -187,8 +189,11 @@ public class AdmissionTicketExcelService {
 		}
 
 		for (User user : users) {
+			Map<String, String> requestMap = new HashMap<>();
+			requestMap.put("addr", URLEncoder.encode(user.getAddress(), StandardCharsets.UTF_8));
+			requestMap.put("key", appKey);
 			CoordinateResponse coordinate =
-					tmapApi.getCoordinate(appKey, URLEncoder.encode(user.getAddress(), StandardCharsets.UTF_8));
+					tmapApi.getCoordinate(requestMap);
 			RouteResponse distance = tmapApi.routeGuidance(appKey,
 					RouteRequest.builder()
 							.startX(Double.parseDouble(coordinate.getLat()))
