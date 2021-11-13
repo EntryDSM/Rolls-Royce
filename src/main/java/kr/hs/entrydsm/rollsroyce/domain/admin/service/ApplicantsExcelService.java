@@ -67,10 +67,10 @@ public class ApplicantsExcelService {
         }
 
         try {
-            response.setContentType("ms-vnd/excel");
+			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             String formatFilename = "attachment;filename=\"지원자 목록";
             String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일_HH시mm분"));
-            String fileName = new String((formatFilename + time + ".xls\"").getBytes("KSC5601"), "8859_1");
+            String fileName = new String((formatFilename + time + ".xlsx\"").getBytes("KSC5601"), "8859_1");
             response.setHeader("Content-Disposition", fileName);
 
             applicantInformation.getWorkbook().write(response.getOutputStream());
