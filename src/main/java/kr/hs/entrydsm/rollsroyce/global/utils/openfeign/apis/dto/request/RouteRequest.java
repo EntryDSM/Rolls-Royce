@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RouteRequest {
 
-	private final double endX = 36.391636;
+	private final double endX = 127.363585;
 
-	private final double endY = 127.363585;
+	private final double endY = 36.391636;
 
 	private double startX;
 
