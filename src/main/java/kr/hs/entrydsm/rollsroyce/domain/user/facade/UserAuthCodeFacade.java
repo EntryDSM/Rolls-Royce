@@ -21,19 +21,22 @@ public class UserAuthCodeFacade {
     private final AuthCodeRepository authCodeRepository;
 
     public AuthCode getAuthCodeById(String email) {
-        return authCodeRepository.findById(email).orElseThrow(() -> InvalidAuthCodeException.EXCEPTION);
+        return authCodeRepository.findById(email)
+                .orElseThrow(() -> InvalidAuthCodeException.EXCEPTION);
     }
 
     public boolean isAlreadyVerified(boolean isVerified) {
-        if(isVerified)
+        if(isVerified) {
             throw AuthCodeAlreadyVerifiedException.EXCEPTION;
+        }
 
         return true;
     }
 
     public boolean checkVerified(boolean isVerified) {
-        if(!isVerified)
+        if(!isVerified) {
             throw UnprovenAuthCodeException.EXCEPTION;
+        }
 
         return true;
     }
