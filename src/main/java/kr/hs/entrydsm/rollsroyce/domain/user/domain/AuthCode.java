@@ -32,7 +32,7 @@ public class AuthCode {
 	}
 
 	public boolean isVerified() {
-		return isVerified;
+		return this.isVerified;
 	}
 
 	public AuthCode verify() {
