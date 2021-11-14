@@ -35,6 +35,9 @@ auth:
     refreshExp: ${JWT_REFRESH_EXP:3600}
     header: ${JWT_HEADER:Authorization}
     prefix: ${JWT_PREFIX:Bearer}
+  code:
+    exp: ${CODE_EXP:180000}
+    limit: ${CODE_LIMIT:5}
 
 aws:
   s3:

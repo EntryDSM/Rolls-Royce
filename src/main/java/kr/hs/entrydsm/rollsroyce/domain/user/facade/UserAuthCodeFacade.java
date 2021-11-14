@@ -8,13 +8,16 @@ import kr.hs.entrydsm.rollsroyce.domain.user.exception.InvalidAuthCodeException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnprovenAuthCodeException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class UserAuthCodeFacade {
 
-    private static final long authCodeLimit = 5;
+    @Value("auth.code.limit")
+    private long authCodeLimit;
+
     private final AuthCodeRepository authCodeRepository;
 
     public AuthCode getAuthCodeById(String email) {

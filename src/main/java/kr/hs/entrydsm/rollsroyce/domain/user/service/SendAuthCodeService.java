@@ -9,6 +9,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SendEmailRequest;
 import kr.hs.entrydsm.rollsroyce.global.utils.ses.SESUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,8 @@ import java.util.Optional;
 @Service
 public class SendAuthCodeService {
 
-    private static final long authCodeTTL = 3 * 60;
+    @Value("auth.code.exp")
+    private long authCodeTTL;
 
     private final SESUtil sesUtil;
     private final UserFacade userFacade;
