@@ -3,6 +3,7 @@ package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.AuthCode;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeAlreadyVerifiedException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeRequestOverLimitException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.InvalidAuthCodeException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnprovenAuthCodeException;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserAuthCodeFacade {
 
+    private static final long authCodeLimit = 5;
     private final AuthCodeRepository authCodeRepository;
 
     public AuthCode getAuthCodeById(String email) {
@@ -20,15 +22,23 @@ public class UserAuthCodeFacade {
     }
 
     public boolean isAlreadyVerified(boolean isVerified) {
-        if(isVerified == true)
+        if(isVerified)
             throw AuthCodeAlreadyVerifiedException.EXCEPTION;
 
         return true;
     }
 
     public boolean checkVerified(boolean isVerified) {
-        if(isVerified == false)
+        if(!isVerified)
             throw UnprovenAuthCodeException.EXCEPTION;
+
+        return true;
+    }
+
+    public boolean checkCount(int count) {
+        if(count < authCodeLimit) {
+            throw AuthCodeRequestOverLimitException.EXCEPTION;
+        }
 
         return true;
     }
