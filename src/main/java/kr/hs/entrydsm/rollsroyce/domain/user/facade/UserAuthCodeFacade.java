@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserAuthCodeFacade {
 
-    @Value("auth.code.limit")
+    @Value("${auth.code.limit}")
     private long authCodeLimit;
 
     private final AuthCodeRepository authCodeRepository;

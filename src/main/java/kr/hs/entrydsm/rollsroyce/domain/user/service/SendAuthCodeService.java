@@ -21,10 +21,10 @@ import java.util.Optional;
 @Service
 public class SendAuthCodeService {
 
-    @Value("auth.code.exp")
+    @Value("${auth.code.exp}")
     private long authCodeTTL;
 
-    @Value("auth.code.limitExp")
+    @Value("${auth.code.limitExp}")
     private long authCodeLimitTTL;
 
     private final SESUtil sesUtil;
