@@ -33,10 +33,8 @@ public class UserSignupService {
         String email = request.getEmail();
         String password = passwordEncoder.encode(request.getPassword());
 
-        if(userFacade.isAlreadyExists(email)) {
-            throw UserAlreadyExistsException.EXCEPTION;
-        }
-
+        userFacade.isAlreadyExists(email);
+        
         if(!authCodeFacade.getAuthCodeById(email).isVerified()) {
             throw UnprovenAuthCodeException.EXCEPTION;
         }

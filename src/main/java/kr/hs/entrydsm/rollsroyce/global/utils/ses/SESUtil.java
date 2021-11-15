@@ -2,6 +2,7 @@ package kr.hs.entrydsm.rollsroyce.global.utils.ses;
 
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceAsync;
 import com.amazonaws.services.simpleemail.model.Destination;
+import com.amazonaws.services.simpleemail.model.MessageRejectedException;
 import com.amazonaws.services.simpleemail.model.SendTemplatedEmailRequest;
 import com.amazonaws.services.simpleemail.model.SendTemplatedEmailResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,8 +29,13 @@ public class SESUtil {
                 .withSource(UTF_8_ENCODED_SOURCE_NAME + " <noreply@entrydsm.hs.kr>")
                 .withTemplateData(paramToJson(params));
 
-        Future<SendTemplatedEmailResult> result = amazonSimpleEmailServiceAsync.sendTemplatedEmailAsync(request);
-        return result.isDone();
+        try {
+            Future<SendTemplatedEmailResult> result = amazonSimpleEmailServiceAsync.sendTemplatedEmailAsync(request);
+            return result.isDone();
+        } catch (MessageRejectedException e) {
+            throw kr.hs.entrydsm.rollsroyce.global.exception.MessageRejectedException.EXCEPTION;
+        }
+
     }
 
     @SneakyThrows
