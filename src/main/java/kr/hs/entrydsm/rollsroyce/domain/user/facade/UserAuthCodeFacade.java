@@ -42,7 +42,7 @@ public class UserAuthCodeFacade {
     }
 
     public boolean checkCount(int count) {
-        if(count < authCodeLimit) {
+        if(count >= authCodeLimit) {
             throw AuthCodeRequestOverLimitException.EXCEPTION;
         }
 
