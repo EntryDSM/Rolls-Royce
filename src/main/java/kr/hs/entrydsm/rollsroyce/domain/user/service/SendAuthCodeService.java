@@ -24,6 +24,9 @@ public class SendAuthCodeService {
     @Value("auth.code.exp")
     private long authCodeTTL;
 
+    @Value("auth.code.limitExp")
+    private long authCodeLimitTTL;
+
     private final SESUtil sesUtil;
     private final UserFacade userFacade;
     private final UserAuthCodeFacade authCodeFacade;
@@ -42,12 +45,12 @@ public class SendAuthCodeService {
                 .filter(s -> isOverLimit(email))
                 .filter(s -> userFacade.isAlreadyExists(email))
                 .filter(s -> sesUtil.sendMessage(email, "RollsRoyceEmailTemplate", params))
-                .map(authCode -> authCode.updateAuthCode(code, authCodeTTL))
+                .map(authCode -> authCode.updateAuthCode(code, authCodeTTL * 1000))
                 .orElseGet(() -> authCodeRepository.save(AuthCode.builder()
                         .email(email)
                         .code(code)
                         .isVerified(false)
-                        .ttl(authCodeTTL)
+                        .ttl(authCodeTTL * 1000)
                         .build())
                 );
     }
@@ -55,11 +58,11 @@ public class SendAuthCodeService {
     private boolean isOverLimit(String email) {
         authCodeLimitRepository.findById(email)
                 .filter(limit -> authCodeFacade.checkCount(limit.getCount()))
-                .map(authCodeLimit -> authCodeLimit.updateAuthCode(authCodeTTL))
+                .map(authCodeLimit -> authCodeLimit.updateAuthCode(authCodeLimitTTL * 1000))
                 .or(() -> Optional.of(authCodeLimitRepository.save(AuthCodeLimit.builder()
                         .email(email)
                         .count(1)
-                        .ttl(authCodeTTL)
+                        .ttl(authCodeLimitTTL * 1000)
                         .build())));
 
         return true;

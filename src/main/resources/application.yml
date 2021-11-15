@@ -36,8 +36,9 @@ auth:
     header: ${JWT_HEADER:Authorization}
     prefix: ${JWT_PREFIX:Bearer}
   code:
-    exp: ${CODE_EXP:180000}
+    exp: ${CODE_EXP:180}
     limit: ${CODE_LIMIT:5}
+    limitExp: ${CODE_LIMIT_EXP:180}
 
 aws:
   s3:
