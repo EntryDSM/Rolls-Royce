@@ -58,7 +58,7 @@ public class SendAuthCodeService {
     private boolean isOverLimit(String email) {
         authCodeLimitRepository.findById(email)
                 .filter(limit -> authCodeFacade.checkCount(limit.getCount()))
-                .map(authCodeLimit -> authCodeLimit.updateAuthCode(authCodeLimitTTL * 1000))
+                .map(AuthCodeLimit::addCount)
                 .or(() -> Optional.of(authCodeLimitRepository.save(AuthCodeLimit.builder()
                         .email(email)
                         .count(1)
