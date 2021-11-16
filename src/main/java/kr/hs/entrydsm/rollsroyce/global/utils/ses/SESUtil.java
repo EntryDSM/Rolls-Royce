@@ -8,11 +8,13 @@ import com.amazonaws.services.simpleemail.model.SendTemplatedEmailResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.Future;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class SESUtil {
@@ -31,6 +33,7 @@ public class SESUtil {
 
         try {
             Future<SendTemplatedEmailResult> result = amazonSimpleEmailServiceAsync.sendTemplatedEmailAsync(request);
+            log.info(result.toString());
             return result.isDone();
         } catch (MessageRejectedException e) {
             throw kr.hs.entrydsm.rollsroyce.global.exception.MessageRejectedException.EXCEPTION;
@@ -46,3 +49,4 @@ public class SESUtil {
     }
 
 }
+
