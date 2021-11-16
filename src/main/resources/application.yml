@@ -2,6 +2,8 @@ server:
   port: 8888
 
 spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
   datasource:
     url: ${MYSQL_URL}
     driver-class-name: com.mysql.cj.jdbc.Driver
