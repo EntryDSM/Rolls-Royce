@@ -7,6 +7,10 @@ import javax.validation.Valid;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.CheckPasswordRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsCountResponse;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteAllTablesService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.GetApplicantsService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.QueryStaticsCountService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsScoreResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteAllTablesService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.GetApplicantsService;
@@ -29,6 +33,7 @@ public class AdminController {
 
     private final DeleteAllTablesService deleteAllTablesService;
     private final GetApplicantsService getApplicantsService;
+    private final QueryStaticsCountService queryStaticsCountService;
     private final QueryStaticsScore queryStaticsScore;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -37,14 +42,19 @@ public class AdminController {
         deleteAllTablesService.execute(request.getPassword());
     }
 
-    @GetMapping( "/applicants")
+    @GetMapping("/applicants")
     public ApplicantsResponse getApplicants(Pageable page, GetApplicantsRequest getApplicantsRequest) {
         return getApplicantsService.execute(page, getApplicantsRequest);
     }
 
+    @GetMapping("/statics/count")
+    public List<StaticsCountResponse> queryStaticsCount() {
+    	  return queryStaticsCountService.execute();
+    }
+  
     @GetMapping("/statics/score")
-	public List<StaticsScoreResponse> queryStaticsScore() {
-    	return queryStaticsScore.execute();
-	}
+	  public List<StaticsScoreResponse> queryStaticsScore() {
+    	  return queryStaticsScore.execute();
+	  }
 
 }
