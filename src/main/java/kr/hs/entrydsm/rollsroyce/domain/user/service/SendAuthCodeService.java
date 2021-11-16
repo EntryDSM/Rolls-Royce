@@ -44,7 +44,7 @@ public class SendAuthCodeService {
         authCodeRepository.findById(email)
                 .filter(s -> isOverLimit(email))
                 .filter(s -> userFacade.isAlreadyExists(email))
-                .filter(s -> sesUtil.sendMessage(email, "RollsRoyceEmailTemplate", params))
+                .filter(s -> sesUtil.sendMessage(email, "MunchkinEmailTemplate", params))
                 .map(authCode -> authCode.updateAuthCode(code, authCodeTTL * 1000))
                 .orElseGet(() -> authCodeRepository.save(AuthCode.builder()
                         .email(email)
