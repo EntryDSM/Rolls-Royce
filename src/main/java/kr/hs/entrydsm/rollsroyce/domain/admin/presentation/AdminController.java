@@ -11,6 +11,10 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsC
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteAllTablesService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.GetApplicantsService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.QueryStaticsCountService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsScoreResponse;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteAllTablesService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.GetApplicantsService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.QueryStaticsScore;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Pageable;
@@ -30,6 +34,7 @@ public class AdminController {
     private final DeleteAllTablesService deleteAllTablesService;
     private final GetApplicantsService getApplicantsService;
     private final QueryStaticsCountService queryStaticsCountService;
+    private final QueryStaticsScore queryStaticsScore;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/data")
@@ -43,8 +48,13 @@ public class AdminController {
     }
 
     @GetMapping("/statics/count")
-	public List<StaticsCountResponse> queryStaticsCount() {
-    	return queryStaticsCountService.execute();
-	}
+    public List<StaticsCountResponse> queryStaticsCount() {
+    	  return queryStaticsCountService.execute();
+    }
+  
+    @GetMapping("/statics/score")
+	  public List<StaticsScoreResponse> queryStaticsScore() {
+    	  return queryStaticsScore.execute();
+	  }
 
 }
