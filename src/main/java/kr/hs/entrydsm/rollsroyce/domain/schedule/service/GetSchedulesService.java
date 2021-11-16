@@ -27,15 +27,15 @@ public class GetSchedulesService {
                         .map(schedule -> new ScheduleDto(schedule.getType().toString(), schedule.getDate())
                         ).collect(Collectors.toList())
                 )
-                .currentStatus(getCurrentStatus())
+                .currentStatus(null)
                 .build();
     }
 
     private String getCurrentStatus() {
         LocalDateTime now = LocalDateTime.now();
         Schedule firstAnnounce = scheduleFacade.getScheduleByType(Type.FIRST_ANNOUNCEMENT);
-        Schedule interview = scheduleFacade.getScheduleByType((Type.INTERVIEW));
-        Schedule secondAnnounce = scheduleFacade.getScheduleByType((Type.SECOND_ANNOUNCEMENT));
+        Schedule interview = scheduleFacade.getScheduleByType(Type.INTERVIEW);
+        Schedule secondAnnounce = scheduleFacade.getScheduleByType(Type.SECOND_ANNOUNCEMENT);
 
         if(now.isBefore(scheduleFacade.getScheduleByType(Type.START_DATE).getDate())) return "NOT_APPLICATION_PERIOD";
         else if(!now.isAfter(scheduleFacade.getScheduleByType(Type.END_DATE).getDate())) return "APPLICATION_PERIOD";
