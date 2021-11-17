@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
-public class SendAuthCodeService {
+public class SendPasswordAuthCodeService {
 
     @Value("${auth.code.exp}")
     private long authCodeTTL;
@@ -34,7 +34,7 @@ public class SendAuthCodeService {
 
         authCodeRepository.findById(email)
                 .filter(s -> authCodeFacade.checkFilter(email))
-                .filter(s -> sesUtil.sendMessage(email, "MunchkinEmailTemplate", params))
+                .filter(s -> sesUtil.sendMessage(email, "RollsRoycePasswordTemplate", params))
                 .map(authCode -> authCode.updateAuthCode(code, authCodeTTL * 1000))
                 .orElseGet(() -> authCodeRepository.save(AuthCode.builder()
                         .email(email)
