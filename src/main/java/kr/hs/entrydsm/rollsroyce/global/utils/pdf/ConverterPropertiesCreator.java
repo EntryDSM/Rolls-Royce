@@ -16,7 +16,7 @@ import static kr.hs.entrydsm.rollsroyce.global.config.Font.fonts;
 @Component
 public class ConverterPropertiesCreator {
 
-	@Value("${munchkin.font.path}")
+	@Value("${rolls-royce.font.path}")
 	private String fontPath;
 
 	public ConverterProperties createConverterProperties() {
