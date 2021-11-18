@@ -51,14 +51,13 @@ aws:
     secret_key: ${AWS_SES_SECRET:ses_secret}
     region: ${AWS_SES_REGION:ap-northeast-2}
 
-munchkin:
+rolls-royce:
   logging:
-    name: munchkin.log
+    name: rolls-royce.log
     path: ${LOG_PATH:/}
     size: 10 # 10mb
   font:
     path: ${FONT_PATH:/fonts}
-  year: ${YEAR:2021}
 
 tmap:
   app:
