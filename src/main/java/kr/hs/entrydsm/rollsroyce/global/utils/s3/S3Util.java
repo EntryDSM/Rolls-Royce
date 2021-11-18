@@ -39,7 +39,7 @@ public class S3Util {
 	@Value("${aws.s3.bucket}")
 	private String bucketName;
 
-	@Value("${aws.s3.base_image_url}")
+	@Value("${aws.s3.base-image-url}")
 	private String baseImageUrl;
 
 	public String upload(MultipartFile file) {
