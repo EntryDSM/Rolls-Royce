@@ -45,10 +45,10 @@ auth:
 aws:
   s3:
     bucket: ${AWS_S3_BUCKET:bucket}
-    base_image_url: ${AWS_S3_URL:image/}
+    base-image-url: ${AWS_S3_URL:image/}
   ses:
     access-key: ${AWS_SES_ACCESS:ses_access}
-    secret_key: ${AWS_SES_SECRET:ses_secret}
+    secret-key: ${AWS_SES_SECRET:ses_secret}
     region: ${AWS_SES_REGION:ap-northeast-2}
 
 rolls-royce:
