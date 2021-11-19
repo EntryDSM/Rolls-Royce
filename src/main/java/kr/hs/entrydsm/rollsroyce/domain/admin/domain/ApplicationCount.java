@@ -31,4 +31,15 @@ public class ApplicationCount {
 
 	private int count;
 
+	public ApplicationCount(ApplicationType applicationType, boolean isDaejeon, int count) {
+		this.applicationType = applicationType;
+		this.isDaejeon = isDaejeon;
+		this.count = count;
+	}
+
+	public ApplicationCount update(int count) {
+		this.count = count;
+		return this;
+	}
+
 }
