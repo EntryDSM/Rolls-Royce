@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
-public class SendAuthCodeService {
+public class SendEmailAuthCodeService {
 
     @Value("${auth.code.exp}")
     private long authCodeTTL;
