@@ -18,10 +18,11 @@ public class UserController {
     private final UserLoginService loginService;
     private final UserStatusService statusService;
     private final UserSignupService signupService;
-    private final SendAuthCodeService sendAuthCodeService;
+    private final SendEmailAuthCodeService sendEmailAuthCodeService;
     private final VerifyAuthCodeService verifyAuthCodeService;
     private final ChangePasswordService changePasswordService;
     private final UserTokenRefreshService userTokenRefreshService;
+    private final SendPasswordAuthCodeService sendPasswordAuthCodeService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -40,13 +41,18 @@ public class UserController {
     }
 
     @PostMapping("/email/verify")
-    public void sendEmail(@RequestBody @Valid SendEmailRequest request) {
-        sendAuthCodeService.execute(request);
+    public void sendEmailAuthCode(@RequestBody @Valid SendEmailRequest request) {
+        sendEmailAuthCodeService.execute(request);
     }
 
     @PutMapping("/email/verify")
     public void verifyEmail(@RequestBody @Valid VerifyAuthCodeRequest request) {
         verifyAuthCodeService.execute(request);
+    }
+
+    @PostMapping("/password/email/verify")
+    public void sendPasswordAuthCode(@RequestBody @Valid SendEmailRequest request) {
+        sendPasswordAuthCodeService.execute(request);
     }
 
     @PutMapping("/password")
