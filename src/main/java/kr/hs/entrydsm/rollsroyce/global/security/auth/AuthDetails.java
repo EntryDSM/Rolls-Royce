@@ -3,7 +3,6 @@ package kr.hs.entrydsm.rollsroyce.global.security.auth;
 import java.util.Collection;
 import java.util.Collections;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 public class AuthDetails implements UserDetails {
 
-	private final User user;
+	private final String receiptCode;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -23,12 +22,12 @@ public class AuthDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return user.getPassword();
+		return null;
 	}
 
 	@Override
 	public String getUsername() {
-		return user.getName();
+		return receiptCode;
 	}
 
 	@Override
