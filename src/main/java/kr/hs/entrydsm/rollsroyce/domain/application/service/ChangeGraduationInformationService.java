@@ -1,7 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
-import javax.transaction.Transactional;
-
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.exception.EducationalStatusUnmatchedException;
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeGraduationInformationRequest;
@@ -12,6 +10,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
