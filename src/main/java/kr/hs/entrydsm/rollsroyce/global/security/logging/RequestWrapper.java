@@ -71,6 +71,13 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 				return "{}";
 
 			Map bodyMap = objectMapper.readValue(body, Map.class);
+
+			if(bodyMap == null)
+				return "{}";
+
+			if (bodyMap.get("password") != null)
+				bodyMap.put("password", "SECURED");
+
 			body = objectMapper.writeValueAsString(bodyMap);
 			return body;
 		} catch (JsonProcessingException ignored) { }
