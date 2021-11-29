@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor
 public class ChangeTypeRequest {
 
-	@NotEmpty(message = "education_status는 Null 또는 공백을 허용하지 않습니다.")
+	@NotEmpty(message = "educational_status는 Null 또는 공백을 허용하지 않습니다.")
 	private String educationalStatus;
 
 	@NotEmpty(message = "application_type은 Null 또는 공백을 허용하지 않습니다.")
