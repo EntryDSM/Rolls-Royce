@@ -1,9 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
-import javax.transaction.Transactional;
-
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
@@ -16,13 +12,12 @@ import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class ChangeTypeService {
 
-	private final QualificationRepository qualificationRepositroy;
-	private final GraduationRepository graduationRepository;
 	private final ApplicationFacade applicationFacade;
 	private final UserFacade userFacade;
 

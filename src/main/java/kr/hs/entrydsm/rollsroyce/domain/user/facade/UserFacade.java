@@ -26,7 +26,8 @@ public class UserFacade {
 		if(!(detail instanceof AuthDetails)) {
 			throw CredentialsNotFoundException.EXCEPTION;
 		}
-		return ((AuthDetails)detail).getUser();
+		return userRepository.findById(Long.valueOf(((AuthDetails) detail).getUsername()))
+				.orElseThrow(() -> UserNotFoundException.EXCEPTION);
 	}
 
 	public Long getCurrentReceiptCode() {
