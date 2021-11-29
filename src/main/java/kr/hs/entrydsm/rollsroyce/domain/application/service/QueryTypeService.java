@@ -28,9 +28,9 @@ public class QueryTypeService {
 			throw EducationalStatusNullException.EXCEPTION;
 
 		if(user.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM))
-			application = applicationFacade.getQualification(user.getReceiptCode());
+			application = applicationFacade.getQualificationOrNull(user.getReceiptCode());
 		else
-			application = applicationFacade.getGraduation(user.getReceiptCode());
+			application = applicationFacade.getGraduationOrNull(user.getReceiptCode());
 
 		return user.queryUserApplication(application);
 	}
