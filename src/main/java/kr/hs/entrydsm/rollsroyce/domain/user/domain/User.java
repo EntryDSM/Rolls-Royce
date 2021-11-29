@@ -268,6 +268,8 @@ public class User {
 	}
 
 	private void changeGraduationInformation(Application application, QueryTypeResponse response) {
+		if(application == null)
+			return;
 		if(application instanceof Graduation)
 			response.setGraduated(((Graduation) application).getIsGraduated() != null &&
 					((Graduation) application).getIsGraduated());
