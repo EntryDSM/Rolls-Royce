@@ -26,6 +26,16 @@ public class ApplicationFacade {
 				.orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 	}
 
+	public Graduation getGraduationOrNull(Long receiptCode) {
+		return graduationRepository.findById(receiptCode)
+				.orElse(null);
+	}
+
+	public Qualification getQualificationOrNull(Long receiptCode) {
+		return qualificationRepository.findById(receiptCode)
+				.orElse(null);
+	}
+
 	public void deleteByReceiptCode(Long receiptCode) {
 		graduationRepository.findById(receiptCode)
 				.ifPresent(graduationRepository::delete);
