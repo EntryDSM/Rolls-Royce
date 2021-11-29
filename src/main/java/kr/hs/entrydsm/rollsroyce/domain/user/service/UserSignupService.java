@@ -5,13 +5,13 @@ import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepositor
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnprovenAuthCodeException;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserAlreadyExistsException;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserAuthCodeFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +50,7 @@ public class UserSignupService {
                 .isPrintsArrived(false)
                 .isSubmitted(false)
                 .isFirstRoundPass(false)
+				.isPaid(false)
                 .build());
 
         return tokenProvider.generateToken(user.getReceiptCode().toString(), "user");
