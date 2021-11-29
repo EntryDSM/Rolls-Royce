@@ -36,6 +36,7 @@ public class SendPasswordAuthCodeService {
                 .filter(s -> authCodeFacade.checkFilter(email))
                 .filter(s -> sesUtil.sendMessage(email, "RollsRoycePasswordTemplate", params))
                 .map(authCode -> authCode.updateAuthCode(code, authCodeTTL * 1000))
+                .map(authCodeRepository::save)
                 .orElseGet(() -> authCodeRepository.save(AuthCode.builder()
                         .email(email)
                         .code(code)
