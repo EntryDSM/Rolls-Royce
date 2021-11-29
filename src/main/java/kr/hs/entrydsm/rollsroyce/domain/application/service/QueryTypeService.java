@@ -6,6 +6,7 @@ import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.Qu
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
+import kr.hs.entrydsm.rollsroyce.global.exception.EducationalStatusNullException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class QueryTypeService {
 				.getCurrentUser();
 
 		Application application;
+
+		if(user.getEducationalStatus() == null)
+			throw EducationalStatusNullException.EXCEPTION;
 
 		if(user.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM))
 			application = applicationFacade.getQualification(user.getReceiptCode());
