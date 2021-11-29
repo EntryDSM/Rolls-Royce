@@ -26,6 +26,7 @@ public class ChangePasswordService {
                         authCodeFacade.getAuthCodeById(email).isVerified()
                 ))
                 .map(user -> user.updatePassword(passwordEncoder.encode(request.getNewPassword())))
+                .map(userRepository::save)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 

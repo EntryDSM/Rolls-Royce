@@ -36,6 +36,7 @@ public class SendEmailAuthCodeService {
                 .filter(s -> authCodeFacade.checkFilter(email))
                 .filter(s -> sesUtil.sendMessage(email, "MunchkinEmailTemplate", params))
                 .map(authCode -> authCode.updateAuthCode(code, authCodeTTL * 1000))
+                .map(authCodeRepository::save)
                 .orElseGet(() -> authCodeRepository.save(AuthCode.builder()
                         .email(email)
                         .code(code)

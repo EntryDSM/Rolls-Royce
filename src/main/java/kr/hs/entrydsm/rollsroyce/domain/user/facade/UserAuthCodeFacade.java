@@ -70,6 +70,7 @@ public class UserAuthCodeFacade {
         authCodeLimitRepository.findById(email)
                 .filter(limit -> checkCount(limit.getCount()))
                 .map(AuthCodeLimit::addCount)
+                .map(authCodeLimitRepository::save)
                 .or(() -> Optional.of(authCodeLimitRepository.save(AuthCodeLimit.builder()
                         .email(email)
                         .count(1)
