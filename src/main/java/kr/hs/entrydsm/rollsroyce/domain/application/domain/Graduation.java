@@ -39,6 +39,10 @@ public class Graduation extends Application {
 
 	private LocalDate graduatedAt;
 
+	public Graduation(Long receiptCode) {
+		super(receiptCode);
+	}
+
 	@Builder
 	public Graduation(boolean isGraduated, String studentNumber, School school,
 			String schoolTel, LocalDate graduatedAt) {

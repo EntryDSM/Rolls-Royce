@@ -19,6 +19,10 @@ public class Qualification extends Application {
 
 	private LocalDate qualifiedAt;
 
+	public Qualification(Long receiptCode) {
+		super(receiptCode);
+	}
+
 	@Builder
 	public Qualification(LocalDate qualifiedAt) {
 		this.qualifiedAt = qualifiedAt;

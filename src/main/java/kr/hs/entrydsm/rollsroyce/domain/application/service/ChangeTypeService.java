@@ -32,16 +32,14 @@ public class ChangeTypeService {
 		User user = userFacade.getCurrentUser();
 		if(!request.getEducationalStatus().equals(user.getEducationalStatus().name())) {
 			applicationFacade.deleteByReceiptCode(user.getReceiptCode());
-			
+
 			if(request.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM.name())) {
 				qualificationRepository.save(
-						Qualification.builder()
-						.build()
+						new Qualification(user.getReceiptCode())
 				);
 			} else {
 				graduationRepository.save(
-						Graduation.builder()
-						.build()
+						new Graduation(user.getReceiptCode())
 				);
 			}
 		}
