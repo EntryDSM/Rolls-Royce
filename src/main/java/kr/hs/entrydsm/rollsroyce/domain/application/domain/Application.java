@@ -41,8 +41,8 @@ public abstract class Application extends BaseTimeEntity {
 		return target != null && !target.isBlank();
 	}
 
-	protected Application(Long receiptCode) {
-		this.receiptCode = receiptCode;
+	protected Application(User user) {
+		this.user = user;
 	}
 
 }

@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import com.querydsl.core.annotations.QueryEntity;
 import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,8 +40,8 @@ public class Graduation extends Application {
 
 	private LocalDate graduatedAt;
 
-	public Graduation(Long receiptCode) {
-		super(receiptCode);
+	public Graduation(User user) {
+		super(user);
 	}
 
 	@Builder
