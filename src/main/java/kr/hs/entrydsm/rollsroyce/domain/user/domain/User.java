@@ -2,7 +2,6 @@ package kr.hs.entrydsm.rollsroyce.domain.user.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,7 +48,7 @@ public class User {
 	private String password;
 
 	@Enumerated(EnumType.STRING)
-	@Column(length = 6)
+	@Column(length = 7)
 	private ApplicationType applicationType;
 
 	@Enumerated(EnumType.STRING)
@@ -96,9 +95,6 @@ public class User {
 	@Column(columnDefinition = "char(45)")
 	private String photoFileName;
 
-	@Column(columnDefinition = "char(11)")
-	private String homeTel;
-
 	@Column(length = 1600)
 	private String selfIntroduce;
 
@@ -127,7 +123,6 @@ public class User {
 		this.parentName = information.getParentName();
 		this.parentTel = information.getParentTel();
 		this.telephoneNumber = information.getTelephoneNumber();
-		this.homeTel = information.getHomeTel();
 		this.address = information.getAddress();
 		this.postCode = information.getPostCode();
 		this.detailAddress = information.getDetailAddress();
@@ -138,7 +133,6 @@ public class User {
 				.address(address)
 				.birthday(String.valueOf(birthday))
 				.detailAddress(detailAddress)
-				.homeTel(homeTel)
 				.name(name)
 				.parentName(parentName)
 				.parentTel(parentTel)

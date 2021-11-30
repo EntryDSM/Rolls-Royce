@@ -15,7 +15,6 @@ public class QueryInformationResponse {
 	private final String parentName;
 	private final String parentTel;
 	private final String telephoneNumber;
-	private final String homeTel;
 	private final String address;
 	private final String detailAddress;
 	private final String postCode;

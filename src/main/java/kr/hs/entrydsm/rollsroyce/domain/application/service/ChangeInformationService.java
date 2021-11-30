@@ -28,7 +28,6 @@ public class ChangeInformationService {
 				.parentName(request.getParentName())
 				.parentTel(request.getParentTel())
 				.telephoneNumber(request.getTelephoneNumber())
-				.homeTel(request.getHomeTel())
 				.address(request.getAddress())
 				.postCode(request.getPostCode())
 				.detailAddress(request.getDetailAddress())

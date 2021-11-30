@@ -103,8 +103,6 @@ public class PdfDataConverter {
 	private void setPhoneNumber(User user, Map<String, Object> values) {
 		values.put("applicantTel", toFormattedPhoneNumber(user.getTelephoneNumber()));
 		values.put("parentTel", toFormattedPhoneNumber(user.getParentTel()));
-		String homeTel =  "없음"; // TODO: 2021-11-05 이거 없애야함.
-		values.put("homeTel", toFormattedPhoneNumber(homeTel));
 	}
 
 	private void setGraduationClassification(User user, Map<String, Object> values) {

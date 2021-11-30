@@ -29,8 +29,6 @@ public class QueryGraduationInformationResponse {
 
 	private final String parentTel;
 
-	private final String homeTel;
-
 	private final String address;
 
 	private final String detailAddress;

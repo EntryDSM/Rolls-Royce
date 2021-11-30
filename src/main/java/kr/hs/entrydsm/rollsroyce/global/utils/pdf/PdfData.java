@@ -69,10 +69,6 @@ public class PdfData {
 		return (String) data.get("parentTel");
 	}
 
-	public String getHomeTel() {
-		return (String) data.get("homeTel");
-	}
-
 	public String getQualificationExamPassedYear() {
 		return (String) data.get("qualificationExamPassedYear");
 	}
