@@ -81,6 +81,9 @@ public class Graduation extends Application {
 
 	@Override
 	public String getSchoolName() {
+		if(school == null) {
+			return null;
+		}
 		return this.school.getName();
 	}
 
