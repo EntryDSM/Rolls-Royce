@@ -35,11 +35,11 @@ public class ChangeTypeService {
 
 			if(request.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM.name())) {
 				qualificationRepository.save(
-						new Qualification(user.getReceiptCode())
+						new Qualification(user)
 				);
 			} else {
 				graduationRepository.save(
-						new Graduation(user.getReceiptCode())
+						new Graduation(user)
 				);
 			}
 		}

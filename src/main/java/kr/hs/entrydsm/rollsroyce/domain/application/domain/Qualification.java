@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Entity;
 
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +20,8 @@ public class Qualification extends Application {
 
 	private LocalDate qualifiedAt;
 
-	public Qualification(Long receiptCode) {
-		super(receiptCode);
+	public Qualification(User user) {
+		super(user);
 	}
 
 	@Builder
