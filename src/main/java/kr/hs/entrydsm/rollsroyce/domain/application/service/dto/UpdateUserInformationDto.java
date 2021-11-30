@@ -22,8 +22,6 @@ public class UpdateUserInformationDto {
 
 	private final String telephoneNumber;
 
-	private final String homeTel;
-
 	private final String address;
 
 	private final String postCode;

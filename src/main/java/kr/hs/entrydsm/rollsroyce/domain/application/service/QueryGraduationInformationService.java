@@ -39,7 +39,6 @@ public class QueryGraduationInformationService {
 				.schoolName(graduation.getSchoolName())
 				.schoolTel(graduation.getSchoolTel())
 				.studentNumber(graduation.getStudentNumber())
-				.homeTel(user.getHomeTel())
 				.name(user.getName())
 				.parentName(user.getParentName())
 				.parentTel(user.getParentTel())

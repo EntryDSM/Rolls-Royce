@@ -37,10 +37,6 @@ public class ChangeInformationRequest {
 	@Pattern(regexp = TEL_REGEXP, message = "INVALID TEL")
 	private String parentTel;
 
-	@Length(max = 11)
-	@Pattern(regexp = TEL_REGEXP, message = "INVALID TEL")
-	private String homeTel;
-
 	@NotEmpty(message = "address는 Null 또는 공백을 허용하지 않습니다.")
 	@Length(max = 300, message = "TOO LONG ADDRESS")
 	private String address;
