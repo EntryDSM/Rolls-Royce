@@ -18,6 +18,10 @@ public class QueryInformationResponse {
 	private final String address;
 	private final String detailAddress;
 	private final String postCode;
-	private final String photoFileName;
+	private String photoFileName;
+
+	public void setPhotoFileName(String photoFileName) {
+		this.photoFileName = photoFileName;
+	}
 
 }

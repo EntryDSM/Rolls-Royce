@@ -68,6 +68,8 @@ public class S3Util {
 	}
 
 	public String generateObjectUrl(String fileName) {
+		if(fileName == null)
+			return null;
 		Date expiration = new Date();
 		expiration.setTime(expiration.getTime() + EXP_TIME);
 
