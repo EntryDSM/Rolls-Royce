@@ -2,6 +2,8 @@ package kr.hs.entrydsm.rollsroyce.domain.user.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -131,7 +133,9 @@ public class User {
 	public QueryInformationResponse queryInformation() {
 		return QueryInformationResponse.builder()
 				.address(address)
-				.birthday(String.valueOf(birthday))
+				.birthday(DateTimeFormatter.ofPattern("yyyyMMdd")
+						.withZone(ZoneId.of("Asia/Seoul"))
+						.format(birthday))
 				.detailAddress(detailAddress)
 				.name(name)
 				.parentName(parentName)
