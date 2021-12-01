@@ -51,7 +51,7 @@ public class QueryGraduationInformationService {
 
 	private String dateToString(LocalDate date) {
 		return date == null ? null :
-				DateTimeFormatter.ofPattern("yyyyMM")
+				DateTimeFormatter.ofPattern("yyyyMMdd")
 						.withZone(ZoneId.of("Asia/Seoul"))
 						.format(date);
 	}
