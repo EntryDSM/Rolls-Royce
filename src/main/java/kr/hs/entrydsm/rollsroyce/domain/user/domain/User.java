@@ -94,7 +94,7 @@ public class User {
 	@Column(columnDefinition = "char(5)")
 	private String postCode;
 
-	@Column(columnDefinition = "char(45)")
+	@Column(columnDefinition = "char(255)")
 	private String photoFileName;
 
 	@Column(length = 1600)

@@ -26,9 +26,9 @@ public class UploadPhotoService {
 
 		String fileName = s3Util.upload(file);
 
-		user.updatePhotoFileName(fileName);
+		user.updatePhotoFileName(s3Util.generateObjectUrl(fileName));
 
-		return fileName;
+		return s3Util.generateObjectUrl(fileName);
 	}
 
 }
