@@ -261,6 +261,10 @@ public class User {
 		this.distance = distance;
 	}
 
+	public boolean isEducationalStatusEqual(String educationalStatus) {
+		return this.educationalStatus != null && this.educationalStatus.name().equals(educationalStatus);
+	}
+
 	private String getValue(Object obj) {
 		return obj == null ? null : String.valueOf(obj);
 	}
