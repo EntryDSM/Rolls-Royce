@@ -1,5 +1,10 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -28,5 +33,12 @@ public class ChangeTypeRequest {
 	private String graduatedAt;
 
 	private String headcount;
+
+	public LocalDate getGraduatedAt() {
+		return YearMonth.parse(graduatedAt,
+				DateTimeFormatter.ofPattern("yyyyMM")
+						.withZone(ZoneId.of("Asia/Seoul")))
+				.atDay(1);
+	}
 
 }
