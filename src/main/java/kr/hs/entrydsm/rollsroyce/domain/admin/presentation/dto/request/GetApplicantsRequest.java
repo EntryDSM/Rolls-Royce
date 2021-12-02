@@ -54,8 +54,8 @@ public class GetApplicantsRequest {
 
     public GetApplicantsRequest(String receiptCode, String name, String schoolName, boolean isDaejeon, boolean isNationwide, boolean isCommon, boolean isMeister, boolean isSocial, boolean inOfHeadcount, boolean outOfHeadcount, boolean isSubmitted) {
         try {
-            this.receiptCode =  "%" + Long.parseLong(receiptCode) + "%";
-        } catch (Exception e) {
+            this.receiptCode =  "%" + ((receiptCode != null)?Long.parseLong(receiptCode):"") + "%";
+        } catch (NumberFormatException e) {
             throw InvalidKeywordException.EXCEPTION;
         }
         this.name = "%" + ((name!=null)?name:"") + "%";
