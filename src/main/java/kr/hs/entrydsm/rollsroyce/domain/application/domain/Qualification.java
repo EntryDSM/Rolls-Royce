@@ -20,8 +20,9 @@ public class Qualification extends Application {
 
 	private LocalDate qualifiedAt;
 
-	public Qualification(User user) {
+	public Qualification(User user, LocalDate qualifiedAt) {
 		super(user);
+		this.qualifiedAt = qualifiedAt;
 	}
 
 	@Builder

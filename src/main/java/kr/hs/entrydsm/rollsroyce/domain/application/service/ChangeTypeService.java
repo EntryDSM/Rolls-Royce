@@ -35,11 +35,12 @@ public class ChangeTypeService {
 
 			if(request.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM.name())) {
 				qualificationRepository.save(
-						new Qualification(user)
+						new Qualification(user, request.getGraduatedAt())
 				);
 			} else {
 				graduationRepository.save(
-						new Graduation(user)
+						new Graduation(user, request.getGraduatedAt(),
+								EnumUtil.getEnum(EducationalStatus.class, request.getEducationalStatus()))
 				);
 			}
 		}
