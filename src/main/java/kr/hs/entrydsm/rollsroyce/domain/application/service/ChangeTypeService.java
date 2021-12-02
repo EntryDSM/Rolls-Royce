@@ -30,7 +30,7 @@ public class ChangeTypeService {
 	@Transactional
 	public void execute(ChangeTypeRequest request) {
 		User user = userFacade.getCurrentUser();
-		if(!request.getEducationalStatus().equals(user.getEducationalStatus().name())) {
+		if(!user.isEducationalStatusEqual(request.getEducationalStatus())) {
 			applicationFacade.deleteByReceiptCode(user.getReceiptCode());
 
 			if(request.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM.name())) {
