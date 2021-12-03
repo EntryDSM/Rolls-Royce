@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RestController("/admin/applicant")
+@RequestMapping("/admin/applicant")
+@RestController
 public class ApplicantController {
 
     private final UpdateApplicantIsPaidService updateApplicantIsPaidService;
@@ -20,7 +21,7 @@ public class ApplicantController {
         updateApplicantIsPaidService.execute(receiptCode);
     }
 
-    @GetMapping( "/{receipt-code}")
+    @GetMapping("/{receipt-code}")
     public ApplicantDetailsResponse getApplicantDetails(@PathVariable("receipt-code") long receiptCode) {
         return getApplicantDetailsService.execute(receiptCode);
     }
