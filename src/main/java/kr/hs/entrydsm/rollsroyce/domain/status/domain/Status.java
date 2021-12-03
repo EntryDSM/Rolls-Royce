@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
-import com.querydsl.core.annotations.QueryEntity;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +22,6 @@ import org.hibernate.annotations.ColumnDefault;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "tbl_status")
-@QueryEntity
 public class Status {
 
 	@Id
