@@ -9,7 +9,7 @@ public class AdminNotAccessibleException extends RollsException {
             new AdminNotAccessibleException();
 
     private AdminNotAccessibleException() {
-        super(ErrorCode.ADMIN_NOT_FOUND);
+        super(ErrorCode.ADMIN_NOT_ACCESSIBLE);
     }
 
 }

@@ -12,8 +12,6 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteAllTablesService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.GetApplicantsService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.QueryStaticsCountService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsScoreResponse;
-import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteAllTablesService;
-import kr.hs.entrydsm.rollsroyce.domain.admin.service.GetApplicantsService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.QueryStaticsScore;
 import lombok.RequiredArgsConstructor;
 
