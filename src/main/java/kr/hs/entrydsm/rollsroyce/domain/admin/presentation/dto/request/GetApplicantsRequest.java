@@ -50,21 +50,32 @@ public class GetApplicantsRequest {
 
     @Nullable
     @JsonProperty("is_submitted")
-    private final boolean isSubmitted;
+    private final Boolean isSubmitted;
 
-    public GetApplicantsRequest(String receiptCode, String name, String schoolName, boolean isDaejeon, boolean isNationwide, boolean isCommon, boolean isMeister, boolean isSocial, boolean inOfHeadcount, boolean outOfHeadcount, boolean isSubmitted) {
+    public GetApplicantsRequest(String receiptCode, String name, String schoolName, boolean isDaejeon, boolean isNationwide, boolean isCommon, boolean isMeister, boolean isSocial, boolean inOfHeadcount, boolean outOfHeadcount, Boolean isSubmitted) {
         try {
             this.receiptCode =  "%" + ((receiptCode != null)?Long.parseLong(receiptCode):"") + "%";
         } catch (NumberFormatException e) {
             throw InvalidKeywordException.EXCEPTION;
         }
         this.name = "%" + ((name!=null)?name:"") + "%";
-        this.schoolName = "%" + ((schoolName!=null)?schoolName:"") + "%";
+        if (schoolName != null) {
+            this.schoolName = "%" + schoolName + "%";
+        } else {
+            this.schoolName = null;
+        }
         this.isDaejeon = isDaejeon;
         this.isNationwide = isNationwide;
-        this.isCommon = isCommon;
-        this.isMeister = isMeister;
-        this.isSocial = isSocial;
+
+        if (!isCommon && !isMeister && !isSocial) {
+            this.isCommon = true;
+            this.isMeister = true;
+            this.isSocial = true;
+        } else {
+            this.isCommon = isCommon;
+            this.isMeister = isMeister;
+            this.isSocial = isSocial;
+        }
         this.inOfHeadcount = inOfHeadcount;
         this.outOfHeadcount = outOfHeadcount;
         this.isSubmitted = isSubmitted;
