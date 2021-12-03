@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-import com.querydsl.core.annotations.QueryEntity;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
@@ -36,7 +35,6 @@ import org.hibernate.annotations.CreationTimestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "tbl_user")
-@QueryEntity
 public class User {
 
 	@Id

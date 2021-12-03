@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.querydsl.core.annotations.QueryEntity;
 import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
@@ -23,7 +22,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity(name = "tbl_graduation_application")
-@QueryEntity
 public class Graduation extends Application {
 
 	private Boolean isGraduated;
