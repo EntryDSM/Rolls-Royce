@@ -8,7 +8,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.Applican
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserInformationRepositoryImpl;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Page;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetApplicantsService {
 
-    private final UserInformationRepositoryImpl userCustomRepository;
+    private final UserRepository userRepository;
     private final StatusFacade statusFacade;
 
     private final AdminFacade adminFacade;
@@ -31,10 +31,9 @@ public class GetApplicantsService {
         if (request.isDaejeon() == request.isNationwide()) isDaejeonQuery = null;
         else isDaejeonQuery = request.isDaejeon();
 
-        Page<User> users = userCustomRepository.findAllByUserInfo(request.getReceiptCode(), isDaejeonQuery,
-                request.getSchoolName(), request.getName(),
-                request.isInOfHeadcount(), request.isOutOfHeadcount(),
-                request.isCommon(), request.isMeister(), request.isSocial(), request.isSubmitted(), page);
+        Page<User> users = userRepository.findAllByUserInfo(request.getReceiptCode(), request.getSchoolName(), request.getName(),
+                isDaejeonQuery, request.isInOfHeadcount(), request.isOutOfHeadcount(),
+                request.isCommon(), request.isMeister(), request.isSocial(), request.getIsSubmitted(), page);
 
         return ApplicantsResponse.builder()
                 .totalElements(users.getTotalElements())
@@ -51,7 +50,7 @@ public class GetApplicantsService {
 											.applicationType(user.getApplicationType().name())
 											.isPrintsArrived(status.getIsPrintsArrived())
 											.isSubmitted(status.getIsSubmitted())
-											.headcount(user.getHeadcount().name())
+											.headcount(user.getHeadcount() != null ? user.getHeadcount().name() : null)
 											.build();
 								}
                         )
