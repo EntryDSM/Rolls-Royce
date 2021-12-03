@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/admin/application")
-@RestController
+@RestController("admin.presentation.ApplicationController")
 public class ApplicationController {
 
     private final CancelApplicationSubmitService cancelApplicationSubmitService;
