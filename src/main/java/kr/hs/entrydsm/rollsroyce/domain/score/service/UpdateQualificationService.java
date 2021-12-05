@@ -40,7 +40,7 @@ public class UpdateQualificationService {
                 .build();
         qualificationCaseRepository.save(qualificationCase);
 
-        scoreFacade.updateScore(receiptCode, qualificationCase);
+        scoreFacade.updateScore(user, qualificationCase);
     }
 
 }
