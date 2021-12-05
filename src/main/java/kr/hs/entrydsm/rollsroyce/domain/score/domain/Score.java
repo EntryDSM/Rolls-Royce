@@ -48,8 +48,8 @@ public class Score {
 	@Digits(integer = 3, fraction = 3)
 	private BigDecimal totalScore;
 
-	public Score(long receiptCode, ApplicationCase applicationCase) {
-		this.receiptCode = receiptCode;
+	public Score(User user, ApplicationCase applicationCase) {
+		this.user = user;
 		this.volunteerScore = applicationCase.calculateVolunteerScore();
 		this.attendanceScore = applicationCase.calculateAttendanceScore();
 
