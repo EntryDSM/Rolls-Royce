@@ -8,6 +8,7 @@ import java.util.List;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.ApplicationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.exception.ScoreNotFoundException;
@@ -22,8 +23,8 @@ public class ScoreFacade {
 	private final UserFacade userFacade;
     private final ScoreRepository scoreRepository;
 
-    public void updateScore(long receiptCode, ApplicationCase applicationCase) {
-        scoreRepository.save(new Score(receiptCode, applicationCase));
+    public void updateScore(User user, ApplicationCase applicationCase) {
+        scoreRepository.save(new Score(user, applicationCase));
     }
 
     public Score queryScore(long receiptCode) {

@@ -38,6 +38,6 @@ public class UpdateGraduationService {
                 user.getEducationalStatus());
         graduationCaseRepository.save(graduationCase);
 
-        scoreFacade.updateScore(receiptCode, graduationCase);
+        scoreFacade.updateScore(user, graduationCase);
     }
 }
