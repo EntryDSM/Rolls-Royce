@@ -25,24 +25,24 @@ public class UpdateGraduationRequest {
     @PositiveOrZero
     private int earlyLeaveCount;
 
-    @Pattern(regexp = "[A-E,X]{6}")
+    @Pattern(regexp = "[A-E,X]{4}")
     private String koreanGrade;
 
-    @Pattern(regexp = "[A-E,X]{6}")
+    @Pattern(regexp = "[A-E,X]{4}")
     private String socialGrade;
 
-    @Pattern(regexp = "[A-E,X]{6}")
+    @Pattern(regexp = "[A-E,X]{4}")
     private String historyGrade;
 
-    @Pattern(regexp = "[A-E,X]{6}")
+    @Pattern(regexp = "[A-E,X]{4}")
     private String mathGrade;
 
-    @Pattern(regexp = "[A-E,X]{6}")
+    @Pattern(regexp = "[A-E,X]{4}")
     private String scienceGrade;
 
-    @Pattern(regexp = "[A-E,X]{6}")
+    @Pattern(regexp = "[A-E,X]{4}")
     private String englishGrade;
 
-    @Pattern(regexp = "[A-E,X]{6}")
+    @Pattern(regexp = "[A-E,X]{4}")
     private String techAndHomeGrade;
 }
