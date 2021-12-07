@@ -147,9 +147,9 @@ public class GraduationCase extends ApplicationCase {
 			BigDecimal scoreToReplace = summedScore.divide(BigDecimal.valueOf(2), 5, RoundingMode.DOWN);
 			scoresToCalculate[0] = scoreToReplace;
 			scoresToCalculate[1] = scoreToReplace;
-		} else if (scoresToCalculate[0].equals(BigDecimal.ZERO)) {
+		} else if (BigDecimal.ZERO.equals(scoresToCalculate[0])) {
 			scoresToCalculate[0] = summedScore.divide(BigDecimal.valueOf(3), 5, RoundingMode.DOWN);
-		} else if (scoresToCalculate[1].equals(BigDecimal.ZERO)) {
+		} else if (BigDecimal.ZERO.equals(scoresToCalculate[1])) {
 			scoresToCalculate[1] = summedScore.divide(BigDecimal.valueOf(3), 5, RoundingMode.DOWN);
 		}
 

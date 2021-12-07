@@ -1,34 +1,22 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.domain;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
-
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.dto.UpdateUserInformationDto;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.HeadCount;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Builder
@@ -159,7 +147,7 @@ public class User {
 
 	public boolean isQualification() {
 		return educationalStatus != null &&
-				educationalStatus.equals(EducationalStatus.QUALIFICATION_EXAM);
+				EducationalStatus.QUALIFICATION_EXAM.equals(educationalStatus);
 	}
 
 	public void updateSelfIntroduce(String selfIntroduce) {
@@ -200,59 +188,59 @@ public class User {
 	}
 
 	public boolean isQualificationExam() {
-		return educationalStatus.equals(EducationalStatus.QUALIFICATION_EXAM);
+		return EducationalStatus.QUALIFICATION_EXAM.equals(educationalStatus);
 	}
 
 	public boolean isGraduate() {
-		return educationalStatus.equals(EducationalStatus.GRADUATE);
+		return EducationalStatus.GRADUATE.equals(educationalStatus);
 	}
 
 	public boolean isProspectiveGraduate() {
-		return educationalStatus.equals(EducationalStatus.PROSPECTIVE_GRADUATE);
+		return EducationalStatus.PROSPECTIVE_GRADUATE.equals(educationalStatus);
 	}
 
 	public boolean isBasicLiving() {
-		return applicationRemark.equals(ApplicationRemark.BASIC_LIVING);
+		return ApplicationRemark.BASIC_LIVING.equals(applicationRemark);
 	}
 
 	public boolean isFromNorth() {
-		return applicationRemark.equals(ApplicationRemark.FROM_NORTH);
+		return ApplicationRemark.FROM_NORTH.equals(applicationRemark);
 	}
 
 	public boolean isLowestIncome() {
-		return applicationRemark.equals(ApplicationRemark.LOWEST_INCOME);
+		return ApplicationRemark.LOWEST_INCOME.equals(applicationRemark);
 	}
 
 	public boolean isMulticultural() {
-		return applicationRemark.equals(ApplicationRemark.MULTICULTURAL);
+		return ApplicationRemark.MULTICULTURAL.equals(applicationRemark);
 	}
 
 	public boolean isOneParent() {
-		return applicationRemark.equals(ApplicationRemark.ONE_PARENT);
+		return ApplicationRemark.ONE_PARENT.equals(ApplicationRemark.ONE_PARENT);
 	}
 
 	public boolean isTeenHouseholder() {
-		return applicationRemark.equals(ApplicationRemark.TEEN_HOUSEHOLDER);
+		return ApplicationRemark.TEEN_HOUSEHOLDER.equals(applicationRemark);
 	}
 
 	public boolean isPrivilegedAdmission() {
-		return applicationRemark.equals(ApplicationRemark.PRIVILEGED_ADMISSION);
+		return ApplicationRemark.PRIVILEGED_ADMISSION.equals(applicationRemark);
 	}
 
 	public boolean isNationalMerit() {
-		return applicationRemark.equals(ApplicationRemark.NATIONAL_MERIT);
+		return ApplicationRemark.NATIONAL_MERIT.equals(applicationRemark);
 	}
 
 	public boolean isCommonApplicationType() {
-		return applicationType.equals(ApplicationType.COMMON);
+		return ApplicationType.COMMON.equals(applicationType);
 	}
 
 	public boolean isMeisterApplicationType() {
-		return applicationType.equals(ApplicationType.MEISTER);
+		return ApplicationType.MEISTER.equals(applicationType);
 	}
 
 	public boolean isSocialApplicationType() {
-		return applicationType.equals(ApplicationType.SOCIAL);
+		return ApplicationType.SOCIAL.equals(applicationType);
 	}
 
 	public void updateDistance(int distance) {

@@ -1,13 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Stream;
-
-import javax.servlet.http.HttpServletResponse;
-
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ExcelOException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.ApplicantInformation;
@@ -28,8 +20,14 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -84,13 +82,13 @@ public class ApplicantsExcelService {
         row.createCell(1).setCellValue(user.getReceiptCode());
         row.createCell(2).setCellValue(getApplicationType(user.getApplicationType()));
 
-        row.createCell(3).setCellValue(user.getIsDaejeon().equals(Boolean.TRUE) ? "대전" : "전국");
+        row.createCell(3).setCellValue(Boolean.TRUE.equals(user.getIsDaejeon()) ? "대전" : "전국");
         row.createCell(4).setCellValue(getApplicationRemark(user.getApplicationRemark()));
         row.createCell(5).setCellValue(user.getName());
         row.createCell(6).setCellValue(user.getBirthday().toString());
         row.createCell(7).setCellValue(user.getAddress());
         row.createCell(8).setCellValue(user.getTelephoneNumber());
-        row.createCell(9).setCellValue(user.getSex().equals(Sex.MALE) ? "남자" : "여자");
+        row.createCell(9).setCellValue(Sex.MALE.equals(user.getSex()) ? "남자" : "여자");
         row.createCell(10).setCellValue(getEducationalStatus(user.getEducationalStatus()));
         row.createCell(11).setCellValue(String.valueOf(graduation != null ? graduation.getGraduatedAt().getYear() : ""));
         row.createCell(12).setCellValue(graduation != null ? graduation.getSchoolName() : "");
@@ -167,8 +165,8 @@ public class ApplicantsExcelService {
     }
 
     private String getApplicationType(ApplicationType applicationType) {
-        if (applicationType.equals(ApplicationType.COMMON)) return "일반전형";
-        else if (applicationType.equals(ApplicationType.MEISTER)) return "마이스터인재전형";
+        if (ApplicationType.COMMON.equals(applicationType)) return "일반전형";
+        else if (ApplicationType.MEISTER.equals(applicationType)) return "마이스터인재전형";
         else return "사회통합전형";
     }
 
@@ -186,8 +184,8 @@ public class ApplicantsExcelService {
     }
 
     private String getEducationalStatus(EducationalStatus educationalStatus) {
-        if (educationalStatus.equals(EducationalStatus.PROSPECTIVE_GRADUATE)) return "졸업예정자";
-        else if (educationalStatus.equals(EducationalStatus.GRADUATE)) return "졸업자";
+        if (EducationalStatus.PROSPECTIVE_GRADUATE.equals(educationalStatus)) return "졸업예정자";
+        else if (EducationalStatus.GRADUATE.equals(educationalStatus)) return "졸업자";
         else return "검정고시";
     }
 
