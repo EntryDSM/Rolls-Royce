@@ -49,6 +49,7 @@ public class Score {
 	private BigDecimal totalScore;
 
 	public Score(User user, ApplicationCase applicationCase) {
+		this.receiptCode = user.getReceiptCode();
 		this.user = user;
 		this.volunteerScore = applicationCase.calculateVolunteerScore();
 		this.attendanceScore = applicationCase.calculateAttendanceScore();
