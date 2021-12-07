@@ -25,6 +25,10 @@ public class Qualification extends Application {
 		this.qualifiedAt = qualifiedAt;
 	}
 
+	public void updateQualifiedAt(LocalDate qualifiedAt) {
+		this.qualifiedAt = qualifiedAt;
+	}
+
 	@Builder
 	public Qualification(LocalDate qualifiedAt) {
 		this.qualifiedAt = qualifiedAt;
