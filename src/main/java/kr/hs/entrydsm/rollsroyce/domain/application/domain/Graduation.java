@@ -37,12 +37,12 @@ public class Graduation extends Application {
 	public Graduation(User user, LocalDate graduatedAt, EducationalStatus educationalStatus) {
 		super(user);
 		this.graduatedAt = graduatedAt;
-		this.isGraduated = educationalStatus.equals(EducationalStatus.GRADUATE);
+		this.isGraduated = EducationalStatus.GRADUATE.equals(educationalStatus);
 	}
 
 	public void updateInformation(LocalDate graduatedAt, EducationalStatus educationalStatus) {
 		this.graduatedAt = graduatedAt;
-		this.isGraduated = educationalStatus.equals(EducationalStatus.GRADUATE);
+		this.isGraduated = EducationalStatus.GRADUATE.equals(educationalStatus);
 	}
 
 	@Builder

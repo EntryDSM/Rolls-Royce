@@ -34,7 +34,7 @@ public class FinalSubmitService {
 	private boolean checkApplication(User user) {
 		Application application;
 
-		if(user.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM))
+		if(EducationalStatus.QUALIFICATION_EXAM.equals(user.getEducationalStatus()))
 			application = applicationFacade.getQualification(user.getReceiptCode());
 		else application = applicationFacade.getGraduation(user.getReceiptCode());
 

@@ -26,7 +26,7 @@ public class ChangeTypeService {
 	public void execute(ChangeTypeRequest request) {
 		User user = userFacade.getCurrentUser();
 
-		if (request.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM.name())) {
+		if (EducationalStatus.QUALIFICATION_EXAM.name().equals(request.getEducationalStatus())) {
 			applicationFacade.updateQualification(user, request.getGraduatedAt());
 		}
 		else {

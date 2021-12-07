@@ -37,7 +37,7 @@ public class GetApplicantDetailsService {
     private final S3Util s3Util;
 
     public ApplicantDetailsResponse execute(long receiptCode) {
-        if (adminFacade.getAdminRole().equals(Role.ROLE_CONFIRM_FEE)) {
+        if (Role.ROLE_CONFIRM_FEE.equals(adminFacade.getAdminRole())) {
             throw AdminNotAccessibleException.EXCEPTION;
         }
         User user = userFacade.getUserByCode(receiptCode);

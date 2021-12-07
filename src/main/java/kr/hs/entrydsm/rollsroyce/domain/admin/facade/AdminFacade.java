@@ -29,7 +29,7 @@ public class AdminFacade {
 
 	public Admin getRootAdmin() {
 		return adminRepository.findById(getEmail())
-				.filter(admin -> admin.getRole().equals(Role.ROLE_ROOT))
+				.filter(admin -> Role.ROLE_ROOT.equals(admin.getRole()))
 				.orElseThrow(() -> AdminNotAccessibleException.EXCEPTION);
 	}
 

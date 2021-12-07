@@ -1,16 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletResponse;
-
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ApplicationPeriodNotOverException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.InvalidFileException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
@@ -39,9 +28,18 @@ import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.Drawing;
 import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -125,14 +123,14 @@ public class AdmissionTicketExcelService {
 		for(Long receiptCode : applicantReceiptCodes) {
 			User user = userFacade.getUserByCode(receiptCode);
 			Application application;
-			if(user.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM))
+			if(EducationalStatus.QUALIFICATION_EXAM.equals(user.getEducationalStatus()))
 				application = applicationFacade.getQualification(receiptCode);
 			else application = applicationFacade.getGraduation(receiptCode);
 
 			String examCode = getExamCode(receiptCode);
 			String name = user.getName();
 			String middleSchool = application.getSchoolName();
-			String area = user.getIsDaejeon().equals(Boolean.TRUE) ? "대전" : "전국";
+			String area = Boolean.TRUE.equals(user.getIsDaejeon()) ? "대전" : "전국";
 			String applicationType = user.getApplicationType().toString();
 
 			byte[] imageBytes = s3Util.getObject("images/" + user.getPhotoFileName());
@@ -190,7 +188,7 @@ public class AdmissionTicketExcelService {
 				default:
 					examCode.append(3);
 			}
-			if (user.getIsDaejeon().equals(Boolean.TRUE)) examCode.append(1);
+			if (Boolean.TRUE.equals(user.getIsDaejeon())) examCode.append(1);
 				else examCode.append(2);
 			statusFacade.saveStatus(
 					statusFacade.getStatusByReceiptCode(user.getReceiptCode())
