@@ -4,7 +4,6 @@ import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Qualification;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
-import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
@@ -22,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ChangeTypeService {
 
-	private final ApplicationFacade applicationFacade;
 	private final UserFacade userFacade;
 	private final GraduationRepository graduationRepository;
 	private final QualificationRepository qualificationRepository;
@@ -30,20 +28,20 @@ public class ChangeTypeService {
 	@Transactional
 	public void execute(ChangeTypeRequest request) {
 		User user = userFacade.getCurrentUser();
-		if(!user.isEducationalStatusEqual(request.getEducationalStatus())) {
-			applicationFacade.deleteByReceiptCode(user.getReceiptCode());
 
-			if(request.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM.name())) {
-				qualificationRepository.save(
-						new Qualification(user, request.getGraduatedAt())
-				);
-			} else {
-				graduationRepository.save(
-						new Graduation(user, request.getGraduatedAt(),
-								EnumUtil.getEnum(EducationalStatus.class, request.getEducationalStatus()))
-				);
-			}
+		if(request.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM.name())) {
+			graduationRepository.deleteById(user.getReceiptCode());
+			qualificationRepository.save(
+					new Qualification(user, request.getGraduatedAt())
+			);
+		} else {
+			qualificationRepository.deleteById(user.getReceiptCode());
+			graduationRepository.save(
+					new Graduation(user, request.getGraduatedAt(),
+							EnumUtil.getEnum(EducationalStatus.class, request.getEducationalStatus()))
+			);
 		}
+
 		user.updateUserApplication(
 				EnumUtil.getEnum(EducationalStatus.class, request.getEducationalStatus()),
 				EnumUtil.getEnum(ApplicationType.class, request.getApplicationType()),
