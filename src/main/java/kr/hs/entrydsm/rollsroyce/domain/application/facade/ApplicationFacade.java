@@ -36,13 +36,6 @@ public class ApplicationFacade {
 				.orElse(null);
 	}
 
-	public void deleteByReceiptCode(Long receiptCode) {
-		graduationRepository.findById(receiptCode)
-				.ifPresent(graduationRepository::delete);
-		qualificationRepository.findById(receiptCode)
-				.ifPresent(qualificationRepository::delete);
-	}
-
 	public void deleteAll() {
 		graduationRepository.deleteAll();
 		qualificationRepository.deleteAll();
