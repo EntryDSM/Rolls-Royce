@@ -1,18 +1,16 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import java.math.BigDecimal;
-
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Entity
+@MappedSuperclass
 public abstract class ApplicationCase {
 
 	protected static final BigDecimal COMMON_GRADE_RATE = BigDecimal.valueOf(1.75);
