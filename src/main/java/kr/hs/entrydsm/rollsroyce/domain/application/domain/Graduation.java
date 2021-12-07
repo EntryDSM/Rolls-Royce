@@ -1,22 +1,17 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.domain;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -41,6 +36,11 @@ public class Graduation extends Application {
 
 	public Graduation(User user, LocalDate graduatedAt, EducationalStatus educationalStatus) {
 		super(user);
+		this.graduatedAt = graduatedAt;
+		this.isGraduated = educationalStatus.equals(EducationalStatus.GRADUATE);
+	}
+
+	public void updateInformation(LocalDate graduatedAt, EducationalStatus educationalStatus) {
 		this.graduatedAt = graduatedAt;
 		this.isGraduated = educationalStatus.equals(EducationalStatus.GRADUATE);
 	}
