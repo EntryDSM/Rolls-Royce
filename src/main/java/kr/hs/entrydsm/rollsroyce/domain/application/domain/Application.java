@@ -42,7 +42,6 @@ public abstract class Application extends BaseTimeEntity {
 	}
 
 	protected Application(User user) {
-		this.receiptCode = user.getReceiptCode();
 		this.user = user;
 	}
 

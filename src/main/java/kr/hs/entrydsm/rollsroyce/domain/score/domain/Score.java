@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.Digits;
 
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
@@ -24,6 +25,7 @@ public class Score {
 	private Long receiptCode;
 
 	@MapsId
+	@PrimaryKeyJoinColumn
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "receipt_code")
 	private User user;
@@ -49,8 +51,20 @@ public class Score {
 	private BigDecimal totalScore;
 
 	public Score(User user, ApplicationCase applicationCase) {
-		this.receiptCode = user.getReceiptCode();
 		this.user = user;
+		this.volunteerScore = applicationCase.calculateVolunteerScore();
+		this.attendanceScore = applicationCase.calculateAttendanceScore();
+
+		BigDecimal[] gradeScores = applicationCase.calculateGradeScores();
+		this.thirdBeforeBeforeScore = gradeScores[0];
+		this.thirdBeforeScore = gradeScores[1];
+		this.thirdGradeScore = gradeScores[2];
+
+		this.totalGradeScore = applicationCase.calculateTotalGradeScore();
+		this.totalScore = volunteerScore.add(BigDecimal.valueOf(attendanceScore)).add(totalGradeScore);
+	}
+
+	public void update(ApplicationCase applicationCase) {
 		this.volunteerScore = applicationCase.calculateVolunteerScore();
 		this.attendanceScore = applicationCase.calculateAttendanceScore();
 

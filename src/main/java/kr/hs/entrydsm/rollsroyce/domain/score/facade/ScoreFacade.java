@@ -5,6 +5,8 @@ import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.ApplicationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
@@ -23,8 +25,13 @@ public class ScoreFacade {
 	private final UserFacade userFacade;
     private final ScoreRepository scoreRepository;
 
+    @Transactional
     public void updateScore(User user, ApplicationCase applicationCase) {
-        scoreRepository.save(new Score(user, applicationCase));
+    	if(scoreRepository.findById(user.getReceiptCode()).isPresent())
+    		scoreRepository.findById(user.getReceiptCode())
+					.ifPresent(score -> score.update(applicationCase));
+    	else
+        	scoreRepository.save(new Score(user, applicationCase));
     }
 
     public Score queryScore(long receiptCode) {
