@@ -22,20 +22,25 @@ import org.springframework.transaction.annotation.Transactional;
 public class ChangeTypeService {
 
 	private final UserFacade userFacade;
+
 	private final GraduationRepository graduationRepository;
+
 	private final QualificationRepository qualificationRepository;
 
 	@Transactional
 	public void execute(ChangeTypeRequest request) {
 		User user = userFacade.getCurrentUser();
 
-		if(request.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM.name())) {
-			graduationRepository.deleteById(user.getReceiptCode());
+		if (request.getEducationalStatus().equals(EducationalStatus.QUALIFICATION_EXAM.name())) {
+			graduationRepository.findById(user.getReceiptCode())
+					.ifPresent(graduationRepository::delete);
 			qualificationRepository.save(
 					new Qualification(user, request.getGraduatedAt())
 			);
-		} else {
-			qualificationRepository.deleteById(user.getReceiptCode());
+		}
+		else {
+			qualificationRepository.findById(user.getReceiptCode())
+					.ifPresent(qualificationRepository::delete);
 			graduationRepository.save(
 					new Graduation(user, request.getGraduatedAt(),
 							EnumUtil.getEnum(EducationalStatus.class, request.getEducationalStatus()))
