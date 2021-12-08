@@ -44,8 +44,9 @@ auth:
 
 aws:
   s3:
+    prefix: ${AWS_S3_PREFIX}
     bucket: ${AWS_S3_BUCKET:bucket}
-    base-image-url: ${AWS_S3_URL:image/}
+    base-image-url: ${AWS_S3_URL:images/}
   ses:
     access-key: ${AWS_SES_ACCESS:ses_access}
     secret-key: ${AWS_SES_SECRET:ses_secret}
