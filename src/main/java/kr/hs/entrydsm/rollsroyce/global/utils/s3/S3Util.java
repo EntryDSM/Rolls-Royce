@@ -1,16 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.s3;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Date;
-import java.util.UUID;
-
-import javax.imageio.ImageIO;
-
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
@@ -23,116 +12,129 @@ import kr.hs.entrydsm.rollsroyce.global.exception.FileIsEmptyException;
 import kr.hs.entrydsm.rollsroyce.global.exception.ImageNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.imgscalr.Scalr;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Date;
+import java.util.UUID;
+
 
 @Component
 @RequiredArgsConstructor
 public class S3Util {
 
-	private static final int EXP_TIME = 1000 * 60 * 2;
-	
-	private final AmazonS3Client amazonS3Client;
+    private static final int EXP_TIME = 1000 * 60 * 2;
 
-	@Value("${aws.s3.bucket}")
-	private String bucketName;
+    private final AmazonS3Client amazonS3Client;
 
-	@Value("${aws.s3.base-image-url}")
-	private String baseImageUrl;
+    @Value("${aws.s3.bucket}")
+    private String bucketName;
 
-	public String upload(MultipartFile file) {
-		String ext = verificationFile(file);
+    @Value("${aws.s3.base-image-url}")
+    private String baseImageUrl;
 
-		String randomName = UUID.randomUUID().toString();
-		String filename = randomName + "." + ext;
+    @Value("${aws.s3.prefix}")
+    private String prefix;
 
-		BufferedImage outputImage = makeThumbnail(file);
+    public String upload(MultipartFile file) {
+        String ext = verificationFile(file);
 
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
+        String randomName = UUID.randomUUID().toString();
+        String filename = randomName + "." + ext;
 
-		try {
-			ImageIO.write(outputImage, "png", os);
-		} catch (IOException e) {
-			throw ImageNotFoundException.EXCEPTION;
-		}
+        BufferedImage outputImage = makeThumbnail(file);
 
-		InputStream is = new ByteArrayInputStream(os.toByteArray());
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+        try {
+            ImageIO.write(outputImage, "png", os);
+        } catch (IOException e) {
+            throw ImageNotFoundException.EXCEPTION;
+        }
+
+        InputStream is = new ByteArrayInputStream(os.toByteArray());
 
 
-		amazonS3Client.putObject(new PutObjectRequest(bucketName, baseImageUrl + filename, is, null)
-				.withCannedAcl(CannedAccessControlList.AuthenticatedRead));
+        amazonS3Client.putObject(new PutObjectRequest(bucketName, prefix + filename, is, null)
+                .withCannedAcl(CannedAccessControlList.AuthenticatedRead));
 
-		return filename;
-	}
+        return filename;
+    }
 
-	public String generateObjectUrl(String fileName) {
-		if(fileName == null)
-			return null;
-		Date expiration = new Date();
-		expiration.setTime(expiration.getTime() + EXP_TIME);
+    public String generateObjectUrl(String fileName) {
+        if (fileName == null)
+            return null;
+        Date expiration = new Date();
+        expiration.setTime(expiration.getTime() + EXP_TIME);
 
-		GeneratePresignedUrlRequest generatePresignedUrlRequest =
-				new GeneratePresignedUrlRequest(bucketName, baseImageUrl + fileName)
-						.withMethod(HttpMethod.GET)
-						.withExpiration(expiration);
+        GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                new GeneratePresignedUrlRequest(baseImageUrl, fileName)
+                        .withMethod(HttpMethod.GET)
+                        .withExpiration(expiration);
 
-		URL url = amazonS3Client.generatePresignedUrl(generatePresignedUrlRequest);
+        URL url = amazonS3Client.generatePresignedUrl(generatePresignedUrlRequest);
 
-		return url.toString();
-	}
+        return url.toString();
+    }
 
-	public byte[] getObject(String fileName) {
-		try {
-			S3Object object = amazonS3Client.getObject(bucketName, fileName);
-			return IOUtils.toByteArray(object.getObjectContent());
-		} catch (RuntimeException | IOException e) {
-			throw ImageNotFoundException.EXCEPTION;
-		}
-	}
+    public byte[] getObject(String fileName) {
+        try {
+            S3Object object = amazonS3Client.getObject(bucketName, fileName);
+            return IOUtils.toByteArray(object.getObjectContent());
+        } catch (RuntimeException | IOException e) {
+            throw ImageNotFoundException.EXCEPTION;
+        }
+    }
 
-	public void delete(String objectName) {
-		amazonS3Client.deleteObject(bucketName,"images/" + objectName);
-	}
+    public void delete(String objectName) {
+        amazonS3Client.deleteObject(bucketName, "images/" + objectName);
+    }
 
-	private BufferedImage makeThumbnail(MultipartFile file) {
-		BufferedImage srcImg;
+    private BufferedImage makeThumbnail(MultipartFile file) {
+        BufferedImage srcImg;
 
-		try {
-			srcImg = ImageIO.read(file.getInputStream());
-		} catch (IOException e) {
-			throw FileIsEmptyException.EXCEPTION;
-		}
+        try {
+            srcImg = ImageIO.read(file.getInputStream());
+        } catch (IOException e) {
+            throw FileIsEmptyException.EXCEPTION;
+        }
 
-		int dw = 300;
-		int dh = 400;
+        int dw = 300;
+        int dh = 400;
 
-		int ow = srcImg.getWidth();
-		int oh = srcImg.getHeight();
+        int ow = srcImg.getWidth();
+        int oh = srcImg.getHeight();
 
-		int nw = ow;
-		int nh = (ow * dh) / dw;
+        int nw = ow;
+        int nh = (ow * dh) / dw;
 
-		if (nh > oh) {
-			nw = (oh * dw) / dh;
-			nh = oh;
-		}
+        if (nh > oh) {
+            nw = (oh * dw) / dh;
+            nh = oh;
+        }
 
-		BufferedImage cropImg = Scalr.crop(srcImg, (ow - nw) / 2, (oh - nh) / 2, nw, nh);
+        BufferedImage cropImg = Scalr.crop(srcImg, (ow - nw) / 2, (oh - nh) / 2, nw, nh);
 
-		return Scalr.resize(cropImg, dw, dh);
-	}
+        return Scalr.resize(cropImg, dw, dh);
+    }
 
-	private String verificationFile(MultipartFile file) {
-		if(file == null || file.isEmpty() || file.getOriginalFilename() == null)
-			throw FileIsEmptyException.EXCEPTION;
-		String originalFilename = file.getOriginalFilename();
-		String ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+    private String verificationFile(MultipartFile file) {
+        if (file == null || file.isEmpty() || file.getOriginalFilename() == null)
+            throw FileIsEmptyException.EXCEPTION;
+        String originalFilename = file.getOriginalFilename();
+        String ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
 
-		if (!(ext.equals("jpg") || ext.equals("HEIC") || ext.equals("jpeg") || ext.equals("png") || ext.equals("heic")))
-			throw BadFileExtensionException.EXCEPTION;
-		return ext;
-	}
+        if (!(ext.equals("jpg") || ext.equals("HEIC") || ext.equals("jpeg") || ext.equals("png") || ext.equals("heic")))
+            throw BadFileExtensionException.EXCEPTION;
+        return ext;
+    }
 
 }
