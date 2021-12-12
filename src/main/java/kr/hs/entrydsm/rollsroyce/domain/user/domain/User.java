@@ -89,11 +89,10 @@ public class User {
 	@Column(length = 1600)
 	private String studyPlan;
 
+	private Integer distance;
+
 	@CreationTimestamp
 	private LocalDateTime createdAt;
-
-	@Transient
-	private int distance;
 
 	public void updateUserApplication(EducationalStatus educationalStatus, ApplicationType applicationType,
 			boolean isDaejeon, ApplicationRemark applicationRemark, HeadCount headcount) {
@@ -114,6 +113,7 @@ public class User {
 		this.address = information.getAddress();
 		this.postCode = information.getPostCode();
 		this.detailAddress = information.getDetailAddress();
+		this.distance = information.getDistance();
 	}
 
 	public QueryInformationResponse queryInformation() {
@@ -146,8 +146,7 @@ public class User {
 	}
 
 	public boolean isQualification() {
-		return educationalStatus != null &&
-				EducationalStatus.QUALIFICATION_EXAM.equals(educationalStatus);
+		return EducationalStatus.QUALIFICATION_EXAM.equals(educationalStatus);
 	}
 
 	public void updateSelfIntroduce(String selfIntroduce) {
@@ -216,7 +215,7 @@ public class User {
 	}
 
 	public boolean isOneParent() {
-		return ApplicationRemark.ONE_PARENT.equals(ApplicationRemark.ONE_PARENT);
+		return ApplicationRemark.ONE_PARENT.equals(applicationRemark);
 	}
 
 	public boolean isTeenHouseholder() {
@@ -241,10 +240,6 @@ public class User {
 
 	public boolean isSocialApplicationType() {
 		return ApplicationType.SOCIAL.equals(applicationType);
-	}
-
-	public void updateDistance(int distance) {
-		this.distance = distance;
 	}
 
 	public boolean isEducationalStatusEqual(String educationalStatus) {
