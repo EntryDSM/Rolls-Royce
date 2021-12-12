@@ -25,7 +25,6 @@ public class Score {
 	private Long receiptCode;
 
 	@MapsId
-	@PrimaryKeyJoinColumn
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "receipt_code")
 	private User user;
