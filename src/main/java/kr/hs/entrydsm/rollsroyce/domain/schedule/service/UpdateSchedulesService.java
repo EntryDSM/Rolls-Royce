@@ -24,7 +24,7 @@ public class UpdateSchedulesService {
     public void execute(ScheduleRequest request) {
         adminFacade.getRootAdmin();
 
-        if (request.getSchedules().isEmpty()) {
+        if (request.getSchedules() == null) {
             throw InvalidScheduleRequestException.EXCEPTION;
         }
 
