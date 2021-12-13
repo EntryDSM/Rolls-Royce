@@ -36,12 +36,14 @@ public enum ErrorCode {
 	INVALID_ADMIN_PASSWORD(401, "ADMIN401-1", "The password is not valid"),
 	APPLICATION_PERIOD_NOT_OVER(400, "ADMIN400-1","The application period is not over"),
 	ADMIN_NOT_FOUND(404, "ADMIN404-0","The account does not exist"),
-	SCHEDULE_NOT_FOUND(404, "ADMIN404-2","The schedule does not exist"),
 	IMAGE_PATH_NOT_FOUND(404, "ADMIN404-3", "The user's image file could not be found."),
 	APPLICATION_COUNT_NOT_FOUND(404, "ADMIN404-4", "Application count not found."),
 	ALREADY_EXIST_ADMIN_ID(409, "ADMIN409-0", "Already admin id exist"),
 	ADMIN_NOT_ACCESSIBLE(403, "ADMIN403-0", "Don't have permission"),
 	EXCEL_IO_EXCEPTION(400, "ADMIN400-2","The Excel file cannot be downloaded."),
+
+	SCHEDULE_NOT_FOUND(404, "SCHEDULE404-0","The schedule does not exist"),
+	INVALID_SCHEDULE(400, "SCHEDULE400-0", "Schedule object is null."),
 
 	FILE_IS_EMPTY(400, "APPLICATION400-0", "The file could not be found"),
 	INVALID_ENUM_CONSTANT(400, "APPLICATION400-1", "The enum constant is invalid"),
