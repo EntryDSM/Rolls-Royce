@@ -16,9 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-
 @Service
 @RequiredArgsConstructor
 public class ChangeInformationService {
@@ -34,7 +31,7 @@ public class ChangeInformationService {
         User user = userFacade.getCurrentUser();
 
 		CoordinateResponse coordinate =
-				tmapApi.getCoordinate(appKey, URLEncoder.encode(request.getAddress(), StandardCharsets.UTF_8));
+				tmapApi.getCoordinate(appKey, request.getAddress());
 		RouteResponse distance = tmapApi.routeGuidance(appKey,
 				RouteRequest.builder()
 						.startX(Double.parseDouble(coordinate.getLon()))
