@@ -119,15 +119,13 @@ public class User {
 	public QueryInformationResponse queryInformation() {
 		return QueryInformationResponse.builder()
 				.address(address)
-				.birthday(DateTimeFormatter.ofPattern("yyyyMMdd")
-						.withZone(ZoneId.of("Asia/Seoul"))
-						.format(birthday))
+				.birthday(getValue(birthday))
 				.detailAddress(detailAddress)
 				.name(name)
 				.parentName(parentName)
 				.parentTel(parentTel)
 				.postCode(postCode)
-				.sex(sex.name())
+				.sex(getValue(birthday))
 				.telephoneNumber(telephoneNumber)
 				.photoFileName(photoFileName)
 				.build();
