@@ -34,7 +34,7 @@ public class ChangeInformationService {
         User user = userFacade.getCurrentUser();
 
 		CoordinateResponse coordinate =
-				tmapApi.getCoordinate(appKey, URLEncoder.encode(user.getAddress(), StandardCharsets.UTF_8));
+				tmapApi.getCoordinate(appKey, URLEncoder.encode(request.getAddress(), StandardCharsets.UTF_8));
 		RouteResponse distance = tmapApi.routeGuidance(appKey,
 				RouteRequest.builder()
 						.startX(Double.parseDouble(coordinate.getLon()))
