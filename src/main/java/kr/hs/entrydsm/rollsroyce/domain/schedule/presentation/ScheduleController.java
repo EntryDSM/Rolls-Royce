@@ -11,19 +11,20 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
+@RequestMapping("/schedules")
 @RestController
 public class ScheduleController {
 
     private final GetSchedulesService getSchedulesService;
     private final UpdateSchedulesService updateSchedulesService;
 
-    @GetMapping("/schedules")
+    @GetMapping
     public SchedulesResponse getSchedule() {
         return getSchedulesService.execute();
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/schedule")
+    @PatchMapping
     public void updateSchedule(@RequestBody @Valid ScheduleRequest request) {
         updateSchedulesService.execute(request);
     }
