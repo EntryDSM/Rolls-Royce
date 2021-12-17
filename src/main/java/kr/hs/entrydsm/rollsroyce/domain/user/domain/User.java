@@ -125,7 +125,7 @@ public class User {
 				.parentName(parentName)
 				.parentTel(parentTel)
 				.postCode(postCode)
-				.sex(getValue(birthday))
+				.sex(getValue(sex))
 				.telephoneNumber(telephoneNumber)
 				.photoFileName(photoFileName)
 				.build();
