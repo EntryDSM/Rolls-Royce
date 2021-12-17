@@ -3,12 +3,13 @@ package kr.hs.entrydsm.rollsroyce.domain.application.service;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.exception.ProcessNotCompletedException;
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
+import kr.hs.entrydsm.rollsroyce.domain.status.exception.AlreadySubmitException;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +28,12 @@ public class FinalSubmitService {
 		if(user.hasEmptyInfo() || checkApplication(user))
 			throw ProcessNotCompletedException.EXCEPTION;
 
-		statusFacade.getStatusByReceiptCode(user.getReceiptCode())
-				.isSubmitToTrue();
+		Status status = statusFacade.getStatusByReceiptCode(user.getReceiptCode());
+
+		if(Boolean.TRUE.equals(status.getIsSubmitted()))
+			throw AlreadySubmitException.EXCEPTION;
+
+		status.isSubmitToTrue();
 	}
 
 	private boolean checkApplication(User user) {
