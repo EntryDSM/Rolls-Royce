@@ -3,35 +3,18 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Getter
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
 public class ApplicantDetailsResponse {
 
-    private Status status;
-    private CommonInformation commonInformation;
-    private MoreInformation moreInformation;
-    private Evaluation evaluation;
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public void setCommonInformation(CommonInformation commonInformation) {
-        this.commonInformation = commonInformation;
-    }
-
-    public void setMoreInformation(MoreInformation moreInformation) {
-        this.moreInformation = moreInformation;
-    }
-
-    public void setEvaluation(Evaluation evaluation) {
-        this.evaluation = evaluation;
-    }
+    private final Status status;
+    private final CommonInformation commonInformation;
+    private final MoreInformation moreInformation;
+    private final Evaluation evaluation;
 
     @Getter
     @AllArgsConstructor

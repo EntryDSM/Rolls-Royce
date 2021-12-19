@@ -43,16 +43,12 @@ public class GetApplicantDetailsService {
         User user = userFacade.getUserByCode(receiptCode);
         Status userStatus = statusFacade.getStatusByReceiptCode(receiptCode);
 
-        ApplicantDetailsResponse applicantDetailsResponse = new ApplicantDetailsResponse();
-        applicantDetailsResponse.setStatus(new ApplicantDetailsResponse.Status(userStatus.getIsSubmitted(), userStatus.getIsSubmitted()));
-        applicantDetailsResponse.setCommonInformation(getCommonInformation(user));
-
-        if (userStatus.getIsSubmitted()) {
-            applicantDetailsResponse.setMoreInformation(getMoreInformation(user));
-            applicantDetailsResponse.setEvaluation(getEvaluation(user));
-        }
-
-        return applicantDetailsResponse;
+        return ApplicantDetailsResponse.builder()
+                .status(new ApplicantDetailsResponse.Status(userStatus.getIsSubmitted(), userStatus.getIsSubmitted()))
+                .commonInformation(getCommonInformation(user))
+                .moreInformation(userStatus.getIsSubmitted() ? getMoreInformation(user) : null)
+                .evaluation(userStatus.getIsSubmitted() ? getEvaluation(user) : null)
+                .build();
     }
 
     private ApplicantDetailsResponse.CommonInformation getCommonInformation(User user) {
