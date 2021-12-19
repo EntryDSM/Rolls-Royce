@@ -1,15 +1,14 @@
 package kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.request;
 
 import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.ScheduleDto;
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ScheduleRequest {
 
     private List<ScheduleDto> schedules;
