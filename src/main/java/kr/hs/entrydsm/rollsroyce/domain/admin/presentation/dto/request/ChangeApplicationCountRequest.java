@@ -1,10 +1,11 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ChangeApplicationCountRequest {
 
 	private String applicationType;
