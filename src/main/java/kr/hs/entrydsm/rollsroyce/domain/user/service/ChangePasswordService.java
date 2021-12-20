@@ -23,7 +23,7 @@ public class ChangePasswordService {
 
         userRepository.findByEmail(email)
                 .filter(user -> authCodeFacade.checkVerified(
-                        authCodeFacade.getAuthCodeById(email).isVerified()
+                        authCodeFacade.isVerified(email)
                 ))
                 .map(user -> user.updatePassword(passwordEncoder.encode(request.getNewPassword())))
                 .map(userRepository::save)

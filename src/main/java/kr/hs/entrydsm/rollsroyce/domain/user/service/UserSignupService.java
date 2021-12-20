@@ -35,7 +35,7 @@ public class UserSignupService {
 
         userFacade.isAlreadyExists(email);
         
-        if(!authCodeFacade.getAuthCodeById(email).isVerified()) {
+        if(!authCodeFacade.isVerified(email)) {
             throw UnprovenAuthCodeException.EXCEPTION;
         }
 
