@@ -38,6 +38,7 @@ public class UpdateQualificationService {
                 .educationalStatus(user.getEducationalStatus())
                 .averageScore(request.getGedAverageScore())
                 .build();
+
         qualificationCaseRepository.save(qualificationCase);
 
         scoreFacade.updateScore(user, qualificationCase);

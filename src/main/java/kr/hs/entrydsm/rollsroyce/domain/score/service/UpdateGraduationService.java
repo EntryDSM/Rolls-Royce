@@ -36,6 +36,7 @@ public class UpdateGraduationService {
                 user.getIsDaejeon(),
                 user.getApplicationType(),
                 user.getEducationalStatus());
+
         graduationCaseRepository.save(graduationCase);
 
         scoreFacade.updateScore(user, graduationCase);
