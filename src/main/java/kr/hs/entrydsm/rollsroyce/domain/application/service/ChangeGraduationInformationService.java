@@ -12,24 +12,24 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class ChangeGraduationInformationService {
 
-	private final SchoolFacade schoolFacade;
-	private final ApplicationFacade applicationFacade;
-	private final UserFacade userFacade;
+    private final SchoolFacade schoolFacade;
+    private final ApplicationFacade applicationFacade;
+    private final UserFacade userFacade;
 
-	@Transactional
-	public void execute(ChangeGraduationInformationRequest request) {
-		School school = schoolFacade.getSchoolByCode(request.getSchoolCode());
-		User user = userFacade.getCurrentUser();
+    @Transactional
+    public void execute(ChangeGraduationInformationRequest request) {
+        School school = schoolFacade.getSchoolByCode(request.getSchoolCode());
+        User user = userFacade.getCurrentUser();
 
-		if(user.isQualification())
-			throw EducationalStatusUnmatchedException.EXCEPTION;
+        if (user.isQualification())
+            throw EducationalStatusUnmatchedException.EXCEPTION;
 
-		applicationFacade.getGraduation(user.getReceiptCode())
-				.changeGraduationInformation(school, request.getStudentNumber(), request.getSchoolTel());
-	}
+        applicationFacade.changeInformation(user.getReceiptCode(), school,
+                request.getStudentNumber(), request.getSchoolTel());
+    }
 
 }
