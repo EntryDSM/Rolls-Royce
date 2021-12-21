@@ -38,33 +38,40 @@ public class ApplicationFacade {
     public void updateQualification(User user, LocalDate qualifiedAt) {
         graduationRepository.findById(user.getReceiptCode())
                 .ifPresent(graduationRepository::delete);
-        if (qualificationRepository.findById(user.getReceiptCode()).isPresent())
+        if (qualificationRepository.findById(user.getReceiptCode()).isPresent()) {
             qualificationRepository.findById(user.getReceiptCode())
                     .ifPresent(qualification -> qualification.updateQualifiedAt(qualifiedAt));
-        else
+        }
+        else {
             qualificationRepository.save(
                     new Qualification(user, qualifiedAt)
             );
+        }
     }
 
     public void updateGraduation(User user, LocalDate graduatedAt, String educationalStatus) {
         qualificationRepository.findById(user.getReceiptCode())
                 .ifPresent(qualificationRepository::delete);
-        if (graduationRepository.findById(user.getReceiptCode()).isPresent())
+        if (graduationRepository.findById(user.getReceiptCode()).isPresent()) {
             graduationRepository.findById(user.getReceiptCode())
                     .ifPresent(graduation -> graduation.updateInformation(graduatedAt,
                             EnumUtil.getEnum(EducationalStatus.class, educationalStatus)));
-        else
+        }
+        else {
             graduationRepository.save(
                     new Graduation(user, graduatedAt,
                             EnumUtil.getEnum(EducationalStatus.class, educationalStatus))
             );
+        }
     }
 
     public Application getApplication(Long receiptCode, EducationalStatus educationalStatus) {
-        if(EducationalStatus.QUALIFICATION_EXAM.equals(educationalStatus))
+        if(EducationalStatus.QUALIFICATION_EXAM.equals(educationalStatus)) {
             return getQualification(receiptCode);
-        else return getGraduation(receiptCode);
+        }
+        else {
+            return getGraduation(receiptCode);
+        }
     }
 
     public Graduation getGraduation(Long receiptCode) {
@@ -75,16 +82,6 @@ public class ApplicationFacade {
     public Qualification getQualification(Long receiptCode) {
         return qualificationRepository.findById(receiptCode)
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
-    }
-
-    public Graduation getGraduationOrNull(Long receiptCode) {
-        return graduationRepository.findById(receiptCode)
-                .orElse(null);
-    }
-
-    public Qualification getQualificationOrNull(Long receiptCode) {
-        return qualificationRepository.findById(receiptCode)
-                .orElse(null);
     }
 
     public void deleteAll() {
