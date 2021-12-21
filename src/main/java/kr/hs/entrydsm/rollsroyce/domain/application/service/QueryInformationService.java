@@ -15,10 +15,10 @@ public class QueryInformationService {
 	private final S3Util s3Util;
 
 	public QueryInformationResponse execute() {
-		QueryInformationResponse response = userFacade
-				.getCurrentUser()
-				.queryInformation();
+		QueryInformationResponse response = userFacade.queryInformation();
+
 		response.setPhotoFileName(s3Util.generateObjectUrl(response.getPhotoFileName()));
+
 		return response;
 	}
 

@@ -13,8 +13,7 @@ public class QueryIntroduceService {
 
     public QueryIntroduceResponse execute() {
         return new QueryIntroduceResponse(
-                userFacade.getCurrentUser()
-						.getSelfIntroduce()
+                userFacade.querySelfIntroduce()
         );
     }
 }

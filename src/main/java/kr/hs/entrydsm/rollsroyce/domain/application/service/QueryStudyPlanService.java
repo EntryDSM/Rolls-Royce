@@ -14,8 +14,7 @@ public class QueryStudyPlanService {
 
     public QueryStudyPlanResponse execute() {
         return new QueryStudyPlanResponse(
-                userFacade.getCurrentUser()
-						.getStudyPlan()
+                userFacade.queryStudyPlan()
         );
     }
 }

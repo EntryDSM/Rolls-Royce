@@ -37,7 +37,7 @@ public class ApplicationPdfService {
 		Status status = statusRepository
 				.findById(userFacade.getCurrentReceiptCode())
 				.orElseThrow(() -> StatusNotFoundException.EXCEPTION);
-		if (!status.getIsSubmitted())
+		if (Boolean.FALSE.equals(status.getIsSubmitted()))
 			throw FinalSubmitRequiredException.EXCEPTION;
 
 		User user = userFacade.getCurrentUser();
