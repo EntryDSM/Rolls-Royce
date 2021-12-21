@@ -84,4 +84,8 @@ public class UserAuthCodeFacade {
         return isOverLimit(email) && userFacade.isAlreadyExists(email);
     }
 
+    public boolean isVerified(String email) {
+        return getAuthCodeById(email).isVerified();
+    }
+
 }
