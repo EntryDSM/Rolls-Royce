@@ -30,8 +30,9 @@ public class ScoreFacade {
 
         if (scoreEntity.isPresent()) {
             scoreEntity.ifPresent(score -> score.update(applicationCase));
-        } else
+        } else {
             scoreRepository.save(new Score(user, applicationCase));
+        }
     }
 
     public Score queryScore(long receiptCode) {
