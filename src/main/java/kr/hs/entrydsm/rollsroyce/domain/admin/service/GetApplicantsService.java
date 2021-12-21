@@ -31,9 +31,13 @@ public class GetApplicantsService {
         if (request.isDaejeon() == request.isNationwide()) isDaejeonQuery = null;
         else isDaejeonQuery = request.isDaejeon();
 
+        Boolean isSubmitted;
+        if (request.isSubmitted() == request.isNotSubmitted()) isSubmitted = null;
+        else isSubmitted = request.isSubmitted();
+
         Page<User> users = userRepository.findAllByUserInfo(request.getReceiptCode(), request.getSchoolName(), request.getName(),
                 isDaejeonQuery, request.isInOfHeadcount(), request.isOutOfHeadcount(),
-                request.isCommon(), request.isMeister(), request.isSocial(), request.getIsSubmitted(), page);
+                request.isCommon(), request.isMeister(), request.isSocial(), isSubmitted, page);
 
         return ApplicantsResponse.builder()
                 .totalElements(users.getTotalElements())
