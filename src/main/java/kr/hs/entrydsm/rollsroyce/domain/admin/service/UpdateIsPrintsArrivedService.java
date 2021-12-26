@@ -26,7 +26,6 @@ public class UpdateIsPrintsArrivedService {
 
     private final SESUtil sesUtil;
 
-    @Transactional
     public void execute(long receiptCode, boolean isArrived) {
         User user = userFacade.getUserByCode(receiptCode);
         Status status = statusFacade.getStatusByReceiptCode(receiptCode);
@@ -34,11 +33,13 @@ public class UpdateIsPrintsArrivedService {
         if (adminFacade.getAdminRole() == Role.ROLE_CONFIRM_FEE) {
             throw AdminNotAccessibleException.EXCEPTION;
         }
-        String template;
-        if (status.getIsPrintsArrived()) template = "PRINTED_NOT_ARRIVED";
-        else template = "PRINTED_ARRIVED";
 
-        status.updateIsPrintsArrived();
+        status.updateIsPrintsArrived(isArrived);
+        statusFacade.saveStatus(status);
+
+        String template;
+        if (!status.getIsPrintsArrived()) template = "PRINTED_NOT_ARRIVED";
+        else template = "PRINTED_ARRIVED";
 
         Map<String, String> params = new HashMap<>();
         params.put("name", user.getName());
