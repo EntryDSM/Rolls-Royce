@@ -14,7 +14,6 @@ import kr.hs.entrydsm.rollsroyce.global.utils.ses.SESUtil;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
