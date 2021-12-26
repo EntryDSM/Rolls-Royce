@@ -27,7 +27,7 @@ public class UpdateIsPrintsArrivedService {
     private final SESUtil sesUtil;
 
     @Transactional
-    public void execute(long receiptCode) {
+    public void execute(long receiptCode, boolean isArrived) {
         User user = userFacade.getUserByCode(receiptCode);
         Status status = statusFacade.getStatusByReceiptCode(receiptCode);
 
