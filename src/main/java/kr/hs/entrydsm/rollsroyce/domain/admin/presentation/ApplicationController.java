@@ -22,7 +22,7 @@ public class ApplicationController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/prints-arrived/{receipt-code}")
-    public void updateApplicationPrintsArrivedStatus(@PathVariable("receipt-code") long receiptCode, @RequestParam boolean isArrived) {
+    public void updateApplicationPrintsArrivedStatus(@PathVariable("receipt-code") long receiptCode, @RequestParam("is_prints_arrived") boolean isArrived) {
         updateIsPrintsArrivedService.execute(receiptCode, isArrived);
     }
 
