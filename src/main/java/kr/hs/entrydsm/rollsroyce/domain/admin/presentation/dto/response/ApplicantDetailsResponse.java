@@ -19,8 +19,8 @@ public class ApplicantDetailsResponse {
     @Getter
     @AllArgsConstructor
     public static class Status {
-        private final boolean isPrintsArrived;
-        private final boolean isSubmitted;
+        private final Boolean isPrintsArrived;
+        private final Boolean isSubmitted;
     }
 
     @Getter
