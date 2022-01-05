@@ -20,7 +20,9 @@ public class TokenRefreshUtil {
     private long ttl;
 
     public TokenResponse tokenRefresh(String refreshToken, String role) {
-        jwtTokenProvider.isRefreshToken(refreshToken);
+        if(!jwtTokenProvider.isRefreshToken(refreshToken)) {
+            throw InvalidTokenException.EXCEPTION;
+        }
 
         return refreshTokenRepository.findByToken(refreshToken)
                 .filter(token -> jwtTokenProvider.getRole(token.getToken()).equals(role))
