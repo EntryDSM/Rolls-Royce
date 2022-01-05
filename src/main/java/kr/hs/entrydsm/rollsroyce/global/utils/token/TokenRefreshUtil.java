@@ -20,7 +20,7 @@ public class TokenRefreshUtil {
     private long ttl;
 
     public TokenResponse tokenRefresh(String refreshToken, String role) {
-        if(!jwtTokenProvider.isRefreshToken(refreshToken)) {
+        if(jwtTokenProvider.isNotRefreshToken(refreshToken)) {
             throw InvalidTokenException.EXCEPTION;
         }
 

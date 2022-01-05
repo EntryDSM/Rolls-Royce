@@ -76,15 +76,15 @@ public class JwtTokenProvider {
 
 	public Authentication authentication(String token) {
 		Claims body = getTokenBody(token);
-		if(!isRefreshToken(token))
+		if(isNotRefreshToken(token))
 			return null;
 
 		UserDetails userDetails = getDetails(body);
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 	}
 
-	public boolean isRefreshToken(String token) {
-		return getTokenBody(token).get("type").equals("refresh_token");
+	public boolean isNotRefreshToken(String token) {
+		return !getTokenBody(token).get("type", String.class).equals("refresh_token");
 	}
 
 	public String getRole(String token) {
