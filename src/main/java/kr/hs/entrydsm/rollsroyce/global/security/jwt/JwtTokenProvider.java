@@ -26,10 +26,12 @@ public class JwtTokenProvider {
 	private final AdminDetailsService adminDetailsService;
 	private final RefreshTokenRepository refreshTokenRepository;
 
+	private static final String REFRESH_KEY = "refresh_token";
+
 	public String generateAccessToken(String id, String role) {
 		return Jwts.builder()
 				.setSubject(id)
-				.claim("type", "access_token")
+				.setHeaderParam("typ", "access_token")
 				.claim("role", role)
 				.signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
 				.setExpiration(
@@ -43,7 +45,7 @@ public class JwtTokenProvider {
 	public String generateRefreshToken(String id, String role) {
 		return Jwts.builder()
 				.setSubject(id)
-				.claim("type", "refresh_token")
+				.setHeaderParam("typ", REFRESH_KEY)
 				.claim("role", role)
 				.signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
 				.setExpiration(
@@ -75,29 +77,29 @@ public class JwtTokenProvider {
 	}
 
 	public Authentication authentication(String token) {
-		Claims body = getTokenBody(token);
-		if(isNotRefreshToken(token))
-			return null;
+		Claims body = getJws(token).getBody();
+		if(!isNotRefreshToken(token))
+			throw InvalidTokenException.EXCEPTION;
 
 		UserDetails userDetails = getDetails(body);
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 	}
 
 	public boolean isNotRefreshToken(String token) {
-		return !getTokenBody(token).get("type", String.class).equals("refresh_token");
+		return !REFRESH_KEY.equals(getJws(token).getHeader().get("typ").toString());
 	}
 
 	public String getRole(String token) {
-		return getTokenBody(token).get("role").toString();
+		return getJws(token).getBody().get("role").toString();
 	}
 
-	private Claims getTokenBody(String token) {
+	private Jws<Claims> getJws(String token) {
 		try {
 			return Jwts.parser().setSigningKey(jwtProperties.getSecretKey())
-					.parseClaimsJws(token).getBody();
+					.parseClaimsJws(token);
 		} catch (ExpiredJwtException e) {
 			throw ExpiredTokenException.EXCEPTION;
-		} catch (MalformedJwtException | SignatureException e) {
+		} catch (Exception e) {
 			throw InvalidTokenException.EXCEPTION;
 		}
 	}
