@@ -1,15 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.global.security.jwt;
 
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.*;
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.RefreshToken;
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import kr.hs.entrydsm.rollsroyce.global.exception.ExpiredTokenException;
@@ -18,11 +9,13 @@ import kr.hs.entrydsm.rollsroyce.global.security.auth.AdminDetailsService;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AuthDetailsService;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
@@ -83,17 +76,15 @@ public class JwtTokenProvider {
 
 	public Authentication authentication(String token) {
 		Claims body = getTokenBody(token);
-		if(!body.getExpiration().after(new Date()))
+		if(!isRefreshToken(token))
 			return null;
 
 		UserDetails userDetails = getDetails(body);
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 	}
 
-	public void isRefreshToken(String token) {
-		if (!getTokenBody(token).get("type").equals("refresh_token")) {
-			throw InvalidTokenException.EXCEPTION;
-		}
+	public boolean isRefreshToken(String token) {
+		return getTokenBody(token).get("type").equals("refresh_token");
 	}
 
 	public String getRole(String token) {
