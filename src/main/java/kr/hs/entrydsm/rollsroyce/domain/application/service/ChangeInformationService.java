@@ -1,11 +1,11 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.application.exception.RequestFailToTmapServerException;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.dto.UpdateUserInformationDto;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
-import kr.hs.entrydsm.rollsroyce.global.exception.RequestFailToOtherServerException;
 import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 import kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis.client.TmapApi;
 import kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis.dto.request.RouteRequest;
@@ -40,7 +40,7 @@ public class ChangeInformationService {
 						.build()
 		);
 		if(distance.getFeatures().isEmpty())
-			throw RequestFailToOtherServerException.EXCEPTION;
+			throw RequestFailToTmapServerException.EXCEPTION;
 
         user.updateUserInformation(
                 UpdateUserInformationDto.builder()
