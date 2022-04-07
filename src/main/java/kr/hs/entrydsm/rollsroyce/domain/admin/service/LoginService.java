@@ -21,8 +21,7 @@ public class LoginService {
     public TokenResponse execute(LoginRequest request) {
         return adminRepository.findById(request.getId())
                 .filter(admin -> passwordEncoder.matches(request.getPassword(), admin.getPassword()))
-                .map(Admin::getId)
-                .map(adminId -> jwtTokenProvider.generateToken(adminId, "admin"))
+                .map(admin -> jwtTokenProvider.generateToken(admin.getId(), admin.getRole().toString()))
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
     }
 
