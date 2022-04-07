@@ -13,21 +13,17 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 @RequiredArgsConstructor
 public class UserAuthCodeFacade {
 
-    @Value("${auth.code.limit}")
-    private long authCodeLimit;
-
-    @Value("${auth.code.limitExp}")
-    private long authCodeLimitTTL;
-
     private final UserFacade userFacade;
     private final AuthCodeRepository authCodeRepository;
     private final AuthCodeLimitRepository authCodeLimitRepository;
+    @Value("${auth.code.limit}")
+    private long authCodeLimit;
+    @Value("${auth.code.limitExp}")
+    private long authCodeLimitTTL;
 
     public AuthCode getAuthCodeById(String email) {
         return authCodeRepository.findById(email)
@@ -35,7 +31,7 @@ public class UserAuthCodeFacade {
     }
 
     public boolean isAlreadyVerified(boolean isVerified) {
-        if(isVerified) {
+        if (isVerified) {
             throw AuthCodeAlreadyVerifiedException.EXCEPTION;
         }
 
@@ -43,7 +39,7 @@ public class UserAuthCodeFacade {
     }
 
     public boolean checkVerified(boolean isVerified) {
-        if(!isVerified) {
+        if (!isVerified) {
             throw UnprovenAuthCodeException.EXCEPTION;
         }
 
@@ -51,7 +47,7 @@ public class UserAuthCodeFacade {
     }
 
     public boolean checkCount(int count) {
-        if(count >= authCodeLimit) {
+        if (count >= authCodeLimit) {
             throw AuthCodeRequestOverLimitException.EXCEPTION;
         }
 
@@ -66,22 +62,24 @@ public class UserAuthCodeFacade {
         return RandomStringUtils.randomNumeric(6);
     }
 
-    public boolean isOverLimit(String email) {
+    public void isOverLimit(String email) {
         authCodeLimitRepository.findById(email)
                 .filter(limit -> checkCount(limit.getCount()))
                 .map(AuthCodeLimit::addCount)
                 .map(authCodeLimitRepository::save)
-                .or(() -> Optional.of(authCodeLimitRepository.save(AuthCodeLimit.builder()
+                .orElseGet(() -> authCodeLimitRepository.save(AuthCodeLimit.builder()
                         .email(email)
                         .count(1)
                         .ttl(authCodeLimitTTL * 1000)
-                        .build())));
-
-        return true;
+                        .build()));
     }
 
     public boolean checkFilter(String email) {
-        return isOverLimit(email) && userFacade.isAlreadyExists(email);
+        isOverLimit(email);
+        if (!(userFacade.isAlreadyExists(email) && !isVerified(email))) {
+            throw AuthCodeAlreadyVerifiedException.EXCEPTION;
+        }
+        return true;
     }
 
     public boolean isVerified(String email) {
