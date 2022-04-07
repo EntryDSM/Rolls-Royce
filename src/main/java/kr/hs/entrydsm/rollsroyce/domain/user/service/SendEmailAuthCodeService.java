@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.AuthCode;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserAuthCodeFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SendEmailRequest;
@@ -17,15 +16,15 @@ import java.util.Map;
 @Service
 public class SendEmailAuthCodeService {
 
-    @Value("${auth.code.exp}")
-    private long authCodeTTL;
-
     private final SESUtil sesUtil;
     private final UserAuthCodeFacade authCodeFacade;
     private final AuthCodeRepository authCodeRepository;
 
+    @Value("${auth.code.exp}")
+    private long authCodeTTL;
+
     @Transactional
-    public void execute(SendEmailRequest request) {
+    public void execute(SendEmailRequest request, String templateName) {
         String email = request.getEmail();
         String code = authCodeFacade.getRandomCode();
 
@@ -33,17 +32,11 @@ public class SendEmailAuthCodeService {
         params.put("code", code);
 
         authCodeRepository.findById(email)
+                .or(() -> authCodeFacade.buildAuthCode(email, code, authCodeTTL))
                 .filter(s -> authCodeFacade.checkFilter(email))
-                .filter(s -> sesUtil.sendMessage(email, "MunchkinEmailTemplate", params))
+                .filter(s -> sesUtil.sendMessage(email, templateName, params))
                 .map(authCode -> authCode.updateAuthCode(code, authCodeTTL * 1000))
-                .map(authCodeRepository::save)
-                .orElseGet(() -> authCodeRepository.save(AuthCode.builder()
-                        .email(email)
-                        .code(code)
-                        .isVerified(false)
-                        .ttl(authCodeTTL * 1000)
-                        .build())
-                );
+                .map(authCodeRepository::save);
     }
 
 }
