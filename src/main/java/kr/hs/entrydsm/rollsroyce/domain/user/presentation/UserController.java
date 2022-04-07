@@ -22,7 +22,6 @@ public class UserController {
     private final VerifyAuthCodeService verifyAuthCodeService;
     private final ChangePasswordService changePasswordService;
     private final UserTokenRefreshService userTokenRefreshService;
-    private final SendPasswordAuthCodeService sendPasswordAuthCodeService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -42,7 +41,7 @@ public class UserController {
 
     @PostMapping("/email/verify")
     public void sendEmailAuthCode(@RequestBody @Valid SendEmailRequest request) {
-        sendEmailAuthCodeService.execute(request);
+        sendEmailAuthCodeService.execute(request, "MunchkinEmailTemplate");
     }
 
     @PutMapping("/email/verify")
@@ -52,7 +51,7 @@ public class UserController {
 
     @PostMapping("/password/email/verify")
     public void sendPasswordAuthCode(@RequestBody @Valid SendEmailRequest request) {
-        sendPasswordAuthCodeService.execute(request);
+        sendEmailAuthCodeService.execute(request, "RollsRoycePasswordTemplate");
     }
 
     @PutMapping("/password")
