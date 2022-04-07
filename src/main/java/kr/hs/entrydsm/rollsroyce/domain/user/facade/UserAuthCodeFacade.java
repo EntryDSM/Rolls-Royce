@@ -13,6 +13,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class UserAuthCodeFacade {
@@ -80,6 +82,15 @@ public class UserAuthCodeFacade {
             throw AuthCodeAlreadyVerifiedException.EXCEPTION;
         }
         return true;
+    }
+
+    public Optional<AuthCode> buildAuthCode(String email, String code, Long authCodeTTL) {
+        return Optional.of(authCodeRepository.save(AuthCode.builder()
+                .email(email)
+                .code(code)
+                .isVerified(false)
+                .ttl(authCodeTTL * 1000)
+                .build()));
     }
 
     public boolean isVerified(String email) {
