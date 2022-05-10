@@ -8,7 +8,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeRequestOverLimitException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.InvalidAuthCodeException;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnprovenAuthCodeException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnVerifiedAuthCodeException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -46,7 +46,7 @@ public class UserAuthCodeFacade {
 
     public boolean checkVerified(boolean isVerified) {
         if (!isVerified) {
-            throw UnprovenAuthCodeException.EXCEPTION;
+            throw UnVerifiedAuthCodeException.EXCEPTION;
         }
 
         return true;
@@ -93,8 +93,8 @@ public class UserAuthCodeFacade {
         if (userRepository.findByEmail(email).isEmpty()) {
             throw UserNotFoundException.EXCEPTION;
         }
-        if (!isVerified(email)) {
-            throw AuthCodeAlreadyVerifiedException.EXCEPTION;
+        if (isVerified(email)) {
+            throw UnVerifiedAuthCodeException.EXCEPTION;
         }
         return true;
     }
