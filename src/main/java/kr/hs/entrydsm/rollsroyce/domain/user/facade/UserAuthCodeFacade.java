@@ -4,16 +4,22 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.AuthCode;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.AuthCodeLimit;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeLimitRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeRepository;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Action;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeRequestOverLimitException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.InvalidAuthCodeException;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnprovenAuthCodeException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnVerifiedAuthCodeException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
+import kr.hs.entrydsm.rollsroyce.global.exception.MessageRejectedException;
+import kr.hs.entrydsm.rollsroyce.global.utils.ses.SESUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -22,6 +28,9 @@ public class UserAuthCodeFacade {
     private final UserFacade userFacade;
     private final AuthCodeRepository authCodeRepository;
     private final AuthCodeLimitRepository authCodeLimitRepository;
+    private final UserRepository userRepository;
+    private final SESUtil sesUtil;
+
     @Value("${auth.code.limit}")
     private long authCodeLimit;
     @Value("${auth.code.limitExp}")
@@ -42,7 +51,7 @@ public class UserAuthCodeFacade {
 
     public boolean checkVerified(boolean isVerified) {
         if (!isVerified) {
-            throw UnprovenAuthCodeException.EXCEPTION;
+            throw UnVerifiedAuthCodeException.EXCEPTION;
         }
 
         return true;
@@ -76,21 +85,54 @@ public class UserAuthCodeFacade {
                         .build()));
     }
 
-    public boolean checkFilter(String email) {
+    public void checkFilter(String email) {
         isOverLimit(email);
         if (!(userFacade.isAlreadyExists(email) && !isVerified(email))) {
             throw AuthCodeAlreadyVerifiedException.EXCEPTION;
         }
-        return true;
     }
 
-    public Optional<AuthCode> buildAuthCode(String email, String code, Long authCodeTTL) {
-        return Optional.of(authCodeRepository.save(AuthCode.builder()
+    public void verifySendEmail(String email, String templateName, Action action) {
+        String code = getRandomCode();
+
+        Map<String, String> params = new HashMap<>();
+        params.put("code", code);
+
+        AuthCode authCode = authCodeRepository.findById(email)
+                .orElseGet(() -> buildAuthCode(email, code, authCodeLimitTTL));
+
+        if (Action.PASSWORD.equals(action)) {
+            checkPasswordEmailFilter(email);
+        } else {
+            checkFilter(email);
+        }
+
+        if (sesUtil.sendMessage(email, templateName, params)) {
+            throw MessageRejectedException.EXCEPTION;
+        }
+
+        authCode.updateAuthCode(code, authCodeLimitTTL * 1000);
+
+        authCodeRepository.save(authCode);
+    }
+
+    public void checkPasswordEmailFilter(String email) {
+        isOverLimit(email);
+        if (userRepository.findByEmail(email).isEmpty()) {
+            throw UserNotFoundException.EXCEPTION;
+        }
+        if (isVerified(email)) {
+            throw UnVerifiedAuthCodeException.EXCEPTION;
+        }
+    }
+
+    public AuthCode buildAuthCode(String email, String code, Long authCodeTTL) {
+        return authCodeRepository.save(AuthCode.builder()
                 .email(email)
                 .code(code)
                 .isVerified(false)
                 .ttl(authCodeTTL * 1000)
-                .build()));
+                .build());
     }
 
     public boolean isVerified(String email) {

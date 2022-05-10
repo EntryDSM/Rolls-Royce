@@ -1,12 +1,30 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.presentation;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.*;
+import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.LoginRequest;
+import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.PasswordRequest;
+import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SendEmailRequest;
+import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
+import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.VerifyAuthCodeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response.StatusResponse;
-import kr.hs.entrydsm.rollsroyce.domain.user.service.*;
+import kr.hs.entrydsm.rollsroyce.domain.user.service.ChangePasswordService;
+import kr.hs.entrydsm.rollsroyce.domain.user.service.SendEmailAuthCodeService;
+import kr.hs.entrydsm.rollsroyce.domain.user.service.SendPasswordAuthCodeService;
+import kr.hs.entrydsm.rollsroyce.domain.user.service.UserLoginService;
+import kr.hs.entrydsm.rollsroyce.domain.user.service.UserSignupService;
+import kr.hs.entrydsm.rollsroyce.domain.user.service.UserStatusService;
+import kr.hs.entrydsm.rollsroyce.domain.user.service.UserTokenRefreshService;
+import kr.hs.entrydsm.rollsroyce.domain.user.service.VerifyAuthCodeService;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -22,6 +40,7 @@ public class UserController {
     private final VerifyAuthCodeService verifyAuthCodeService;
     private final ChangePasswordService changePasswordService;
     private final UserTokenRefreshService userTokenRefreshService;
+    private final SendPasswordAuthCodeService sendPasswordAuthCodeService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -51,7 +70,7 @@ public class UserController {
 
     @PostMapping("/password/email/verify")
     public void sendPasswordAuthCode(@RequestBody @Valid SendEmailRequest request) {
-        sendEmailAuthCodeService.execute(request, "RollsRoycePasswordTemplate");
+        sendPasswordAuthCodeService.execute(request, "RollsRoycePasswordTemplate");
     }
 
     @PutMapping("/password")
