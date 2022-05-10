@@ -11,9 +11,11 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor
 public class ChangeGraduationInformationRequest {
 
-	private static final String TEL_REGEXP = "^\\d{3}\\d{3,4}\\d{4}$";
+	private static final String TEL_REGEXP = "^\\d{1,5}\\d{3,4}\\d{4}$";
+	private static final String NUMERIC_REGEXP = "^\\d{1,5}";
 
 	@Length(max = 5, message = "student_number는 5자 이하여야 합니다.")
+	@Pattern(regexp = NUMERIC_REGEXP, message = "student_number는 숫자여야합니다.")
 	private String studentNumber;
 
 	@Length(max = 7, min = 7, message = "schoolCode는 7자여야 합니다.")
