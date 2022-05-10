@@ -1,11 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.admin.exception.PasswordNotValidException;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.LoginRequest;
-import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
+import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,14 @@ public class UserLoginService {
     private final PasswordEncoder passwordEncoder;
 
     public TokenResponse execute(LoginRequest request) {
-        return userRepository.findByEmail(request.getEmail())
-                .filter(user -> passwordEncoder.matches(request.getPassword(), user.getPassword()))
-                .map(User::getReceiptCode)
-                .map(code -> tokenProvider.generateToken(code.toString(), "user"))
+        User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw PasswordNotValidException.EXCEPTION;
+        }
+
+        return tokenProvider.generateToken(user.getReceiptCode().toString(), "user");
     }
 
 }
