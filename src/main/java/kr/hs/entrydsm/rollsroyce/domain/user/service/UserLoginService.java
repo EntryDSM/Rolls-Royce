@@ -20,9 +20,7 @@ public class UserLoginService {
     private final PasswordEncoder passwordEncoder;
 
     public TokenResponse execute(LoginRequest request) {
-        String email = request.getEmail();
-
-        User user = userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
