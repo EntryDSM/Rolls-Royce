@@ -4,10 +4,12 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.AuthCode;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.AuthCodeLimit;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeLimitRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeRepository;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeRequestOverLimitException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.InvalidAuthCodeException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnprovenAuthCodeException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +24,8 @@ public class UserAuthCodeFacade {
     private final UserFacade userFacade;
     private final AuthCodeRepository authCodeRepository;
     private final AuthCodeLimitRepository authCodeLimitRepository;
+    private final UserRepository userRepository;
+
     @Value("${auth.code.limit}")
     private long authCodeLimit;
     @Value("${auth.code.limitExp}")
@@ -79,6 +83,17 @@ public class UserAuthCodeFacade {
     public boolean checkFilter(String email) {
         isOverLimit(email);
         if (!(userFacade.isAlreadyExists(email) && !isVerified(email))) {
+            throw AuthCodeAlreadyVerifiedException.EXCEPTION;
+        }
+        return true;
+    }
+
+    public boolean checkPasswordEmailFilter(String email) {
+        isOverLimit(email);
+        if (userRepository.findByEmail(email).isEmpty()) {
+            throw UserNotFoundException.EXCEPTION;
+        }
+        if (!isVerified(email)) {
             throw AuthCodeAlreadyVerifiedException.EXCEPTION;
         }
         return true;
