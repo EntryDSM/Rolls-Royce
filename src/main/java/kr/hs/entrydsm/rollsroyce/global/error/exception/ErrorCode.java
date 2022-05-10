@@ -53,6 +53,7 @@ public enum ErrorCode {
 	SCORE_NOT_FOUND(400, "APPLICATION400-5", "Score not found"),
 	EDUCATIONAL_STATUS_NULL(400, "APPLICATION400-6", "Educational status is null"),
 	REQUEST_FAIL_TO_TMAP_SERVER(400, "APPLICATION400-7", "Request fail to tmap server."),
+	INVALID_GRADUATE_AT(400, "APPLICATION400-8", "Invalid graduate at"),
 	APPLICATION_NOT_FOUND(404, "APPLICATION404-0","The application could not be found"),
 	SCHOOL_NOT_FOUND(404, "APPLICATION404-1", "The school could not be found"),
 	EDUCATIONAL_STATUS_NOT_FOUND(404, "APPLICATION404-2", "The educational status could not be found"),
