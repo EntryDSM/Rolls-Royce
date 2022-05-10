@@ -33,7 +33,7 @@ public class SendEmailAuthCodeService {
 
         authCodeRepository.findById(email)
                 .or(() -> authCodeFacade.buildAuthCode(email, code, authCodeTTL))
-                .filter(s -> authCodeFacade.checkPasswordEmailFilter(email))
+                .filter(s -> authCodeFacade.checkFilter(email))
                 .filter(s -> sesUtil.sendMessage(email, templateName, params))
                 .map(authCode -> authCode.updateAuthCode(code, authCodeTTL * 1000))
                 .map(authCodeRepository::save);
