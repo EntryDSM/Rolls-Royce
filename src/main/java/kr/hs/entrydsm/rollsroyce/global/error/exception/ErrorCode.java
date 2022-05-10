@@ -18,7 +18,7 @@ public enum ErrorCode {
 	NOT_FOUND(404, "COMMON404-0", "Not Found"),
 
 	INVALID_AUTH_CODE(401, "USER401-0", "Invalid Auth Code"),
-	UNPROVEN_AUTH_CODE(401, "USER401-1", "Unproven Auth Code"),
+	UNVERIFIED_AUTH_CODE(401, "USER401-1", "UnVerified Auth Code"),
 	CREDENTIALS_NOT_FOUND(401, "USER401-2", "User credentials not found"),
 	USER_NOT_FOUND(404, "USER404-0", "User Not Found"),
 	STATUS_NOT_FOUND(404, "USER404-1", "Status Not Found"),

@@ -4,7 +4,7 @@ import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnprovenAuthCodeException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnVerifiedAuthCodeException;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserAuthCodeFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
@@ -36,7 +36,7 @@ public class UserSignupService {
         userFacade.isAlreadyExists(email);
         
         if(!authCodeFacade.isVerified(email)) {
-            throw UnprovenAuthCodeException.EXCEPTION;
+            throw UnVerifiedAuthCodeException.EXCEPTION;
         }
 
         User user = userRepository.save(User.builder()

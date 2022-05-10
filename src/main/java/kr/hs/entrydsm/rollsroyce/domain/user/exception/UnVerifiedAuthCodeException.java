@@ -3,13 +3,13 @@ package kr.hs.entrydsm.rollsroyce.domain.user.exception;
 import kr.hs.entrydsm.rollsroyce.global.error.exception.ErrorCode;
 import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
-public class UnprovenAuthCodeException extends RollsException {
+public class UnVerifiedAuthCodeException extends RollsException {
 
     public static final RollsException EXCEPTION =
-            new UnprovenAuthCodeException();
+            new UnVerifiedAuthCodeException();
 
-    private UnprovenAuthCodeException() {
-        super(ErrorCode.UNPROVEN_AUTH_CODE);
+    private UnVerifiedAuthCodeException() {
+        super(ErrorCode.UNVERIFIED_AUTH_CODE);
     }
 
 }
