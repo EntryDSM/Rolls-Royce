@@ -34,7 +34,7 @@ public class AuthController {
     }
 
     @PostMapping("/check")
-    public void checkPassword(@RequestBody CheckPasswordRequest request) {
+    public void checkPassword(@RequestBody @Valid CheckPasswordRequest request) {
         checkPasswordService.execute(request);
     }
 
