@@ -20,7 +20,7 @@ public class ChangeTypeService {
 
     @Transactional
     public void execute(ChangeTypeRequest request) {
-        if (LocalDate.now().getYear() >= request.getGraduatedAt().getYear()) {
+        if (LocalDate.now().getYear() + 1 < request.getGraduatedAt().getYear()) {
             throw InvalidGraduateAtException.EXCEPTION;
         }
 
