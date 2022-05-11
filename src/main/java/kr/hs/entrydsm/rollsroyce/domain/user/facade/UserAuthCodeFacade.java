@@ -111,7 +111,7 @@ public class UserAuthCodeFacade {
             throw MessageRejectedException.EXCEPTION;
         }
 
-        authCode.updateAuthCode(code, authCodeLimitTTL * 1000);
+        authCode.updateAuthCode(code, authCodeLimitTTL);
 
         authCodeRepository.save(authCode);
     }
