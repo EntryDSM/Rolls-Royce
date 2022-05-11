@@ -31,8 +31,8 @@ public class AdminController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/data")
-    public void deleteAllTables(@RequestBody @Valid CheckPasswordRequest request) {
-        deleteAllTablesService.execute(request.getPassword());
+    public void deleteAllTables() {
+        deleteAllTablesService.execute();
     }
 
     @GetMapping("/applicants")
