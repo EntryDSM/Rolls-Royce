@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -16,6 +17,8 @@ import org.hibernate.validator.constraints.Length;
 @Getter
 @NoArgsConstructor
 public class ChangeTypeRequest {
+
+	private static final String NUMERIC_REGEXP = "^\\d{1,5}";
 
 	@NotEmpty(message = "educational_status는 Null 또는 공백을 허용하지 않습니다.")
 	private String educationalStatus;
@@ -30,6 +33,7 @@ public class ChangeTypeRequest {
 	private String applicationRemark;
 
 	@Length(min = 6, max = 6, message = "INVALID DATE")
+	@Pattern(regexp = NUMERIC_REGEXP, message = "graduated_at은 숫자여야합니다.")
 	private String graduatedAt;
 
 	private String headcount;
