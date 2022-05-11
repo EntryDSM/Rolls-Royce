@@ -1,6 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Admin;
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.CheckPasswordLimitRepository;
+import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotAccessibleException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ApplicationPeriodNotOverException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
@@ -20,6 +22,7 @@ import java.time.LocalDateTime;
 @Service
 public class DeleteAllTablesService {
 
+    private final CheckPasswordLimitRepository checkPasswordLimitRepository;
     private final ScheduleFacade scheduleFacade;
     private final UserRepository userRepository;
     private final StatusRepository statusRepository;
@@ -37,6 +40,9 @@ public class DeleteAllTablesService {
         }
 
         Admin admin = adminFacade.getRootAdmin();
+        if(!checkPasswordLimitRepository.existsById(admin.getId())) {
+            throw AdminNotAccessibleException.EXCEPTION;
+        }
 
         scoreRepository.deleteAll();
         graduationCaseRepository.deleteAll();
