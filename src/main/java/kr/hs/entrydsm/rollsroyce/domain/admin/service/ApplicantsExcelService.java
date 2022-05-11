@@ -90,21 +90,21 @@ public class ApplicantsExcelService {
         row.createCell(8).setCellValue(user.getTelephoneNumber());
         row.createCell(9).setCellValue(Sex.MALE.equals(user.getSex()) ? "남자" : "여자");
         row.createCell(10).setCellValue(getEducationalStatus(user.getEducationalStatus()));
-        row.createCell(11).setCellValue(String.valueOf(graduation != null ? graduation.getGraduatedAt().getYear() : ""));
-        row.createCell(12).setCellValue(graduation != null ? graduation.getSchoolName() : "");
-        row.createCell(13).setCellValue(graduation != null ? graduation.getStudentNumber() : "");
+        row.createCell(11).setCellValue(String.valueOf(graduation != null ? graduation.getGraduatedAt().getYear() : "공란"));
+        row.createCell(12).setCellValue(graduation != null ? graduation.getSchoolName() : "공란");
+        row.createCell(13).setCellValue(graduation != null ? graduation.getStudentNumber() : "공란");
         row.createCell(14).setCellValue(user.getParentName());
         row.createCell(15).setCellValue(user.getParentTel());
     }
 
     private void insertRating(Row row, GraduationCase graduationCase) {
-        String[] koreanScore = getSplitScores(graduationCase != null ? graduationCase.getKoreanGrade() : "");
-        String[] socialScore = getSplitScores(graduationCase != null ? graduationCase.getSocialGrade() : "");
-        String[] historyScore = getSplitScores(graduationCase != null ? graduationCase.getHistoryGrade() : "");
-        String[] mathScore = getSplitScores(graduationCase != null ? graduationCase.getMathGrade() : "");
-        String[] scienceScore = getSplitScores(graduationCase != null ? graduationCase.getScienceGrade() : "");
-        String[] techAndHomeScore = getSplitScores(graduationCase != null ? graduationCase.getTechAndHomeGrade() : "");
-        String[] englishScore = getSplitScores(graduationCase != null ? graduationCase.getEnglishGrade() : "");
+        String[] koreanScore = getSplitScores(graduationCase != null ? graduationCase.getKoreanGrade() : "공란");
+        String[] socialScore = getSplitScores(graduationCase != null ? graduationCase.getSocialGrade() : "공란");
+        String[] historyScore = getSplitScores(graduationCase != null ? graduationCase.getHistoryGrade() : "공란");
+        String[] mathScore = getSplitScores(graduationCase != null ? graduationCase.getMathGrade() : "공란");
+        String[] scienceScore = getSplitScores(graduationCase != null ? graduationCase.getScienceGrade() : "공란");
+        String[] techAndHomeScore = getSplitScores(graduationCase != null ? graduationCase.getTechAndHomeGrade() : "공란");
+        String[] englishScore = getSplitScores(graduationCase != null ? graduationCase.getEnglishGrade() : "공란");
 
         row.createCell(16).setCellValue(koreanScore[3]);
         row.createCell(17).setCellValue(socialScore[3]);
@@ -138,7 +138,7 @@ public class ApplicantsExcelService {
         row.createCell(42).setCellValue(techAndHomeScore[0]);
         row.createCell(43).setCellValue(englishScore[0]);
 
-        row.createCell(48).setCellValue(graduationCase != null ? graduationCase.getVolunteerTime().toString() : "");
+        row.createCell(48).setCellValue(graduationCase != null ? graduationCase.getVolunteerTime().toString() : "공란");
 
         row.createCell(50).setCellValue(graduationCase != null ? graduationCase.getDayAbsenceCount() : 0);
         row.createCell(51).setCellValue(graduationCase != null ? graduationCase.getLatenessCount() : 0);
