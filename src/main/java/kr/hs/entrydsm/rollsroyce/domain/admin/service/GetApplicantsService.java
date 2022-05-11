@@ -25,7 +25,7 @@ public class GetApplicantsService {
     private final AdminFacade adminFacade;
 
     public ApplicantsResponse execute(Pageable page, GetApplicantsRequest request) {
-        adminFacade.getAdmin();
+        adminFacade.findAdmin();
 
         Boolean isDaejeonQuery;
         if (request.isDaejeon() == request.isNationwide()) isDaejeonQuery = null;

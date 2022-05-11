@@ -22,8 +22,13 @@ public class AdminFacade {
 				.orElseThrow(() -> AdminNotFoundException.EXCEPTION);
 	}
 
-	public void getAdmin() {
+	public void findAdmin() {
 		adminRepository.findById(getEmail())
+				.orElseThrow(() -> AdminNotFoundException.EXCEPTION);
+	}
+
+	public Admin getAdmin() {
+		return adminRepository.findById(getEmail())
 				.orElseThrow(() -> AdminNotFoundException.EXCEPTION);
 	}
 
