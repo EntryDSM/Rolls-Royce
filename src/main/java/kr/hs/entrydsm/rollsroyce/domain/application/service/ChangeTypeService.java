@@ -4,7 +4,9 @@ import kr.hs.entrydsm.rollsroyce.domain.application.exception.InvalidGraduateAtE
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
+import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +22,15 @@ public class ChangeTypeService {
 
     @Transactional
     public void execute(ChangeTypeRequest request) {
-        if (LocalDate.now().getYear() + 1 < request.getGraduatedAt().getYear()) {
+        EducationalStatus applicationType = EnumUtil.getEnum(EducationalStatus.class, request.getEducationalStatus());
+
+        int now = LocalDate.now().getYear();
+
+        if (EducationalStatus.PROSPECTIVE_GRADUATE.equals(applicationType)) {
+            now++;
+        }
+        
+        if (now < request.getGraduatedAt().getYear()) {
             throw InvalidGraduateAtException.EXCEPTION;
         }
 
