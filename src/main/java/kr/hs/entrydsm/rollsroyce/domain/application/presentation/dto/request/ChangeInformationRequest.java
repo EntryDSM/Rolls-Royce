@@ -19,6 +19,7 @@ public class ChangeInformationRequest {
 	@Length(max = 5, message = "name은 5글자 이하여야합니다.")
 	private String name;
 
+	@NotNull(message = "sex는 null일 수 없습니다.")
 	@Pattern(regexp = "^(MALE|FEMALE)$", message = "INVALID SEX")
 	private String sex;
 
