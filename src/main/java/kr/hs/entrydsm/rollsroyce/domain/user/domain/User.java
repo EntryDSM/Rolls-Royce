@@ -161,11 +161,11 @@ public class User {
     }
 
     public boolean isMale() {
-        return sex.equals(Sex.MALE);
+        return Sex.MALE.equals(sex);
     }
 
     public boolean isFemale() {
-        return sex.equals(Sex.FEMALE);
+        return Sex.FEMALE.equals(sex);
     }
 
     public void updateStudyPlan(String studyPlan) {
