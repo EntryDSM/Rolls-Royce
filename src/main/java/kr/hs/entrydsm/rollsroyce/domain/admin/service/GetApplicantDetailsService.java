@@ -4,6 +4,9 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotAccessibleException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.CommonInformation;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.Evaluation;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.MoreInformation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
@@ -25,7 +28,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetApplicantDetailsService {
 
-	private final GraduationRepository graduationRepository;
+    private final GraduationRepository graduationRepository;
     private final GraduationCaseRepository graduationCaseRepository;
     private final QualificationCaseRepository qualificationCaseRepository;
     private final ScoreRepository scoreRepository;
@@ -51,10 +54,10 @@ public class GetApplicantDetailsService {
                 .build();
     }
 
-    private ApplicantDetailsResponse.CommonInformation getCommonInformation(User user) {
-    	Graduation graduation = graduationRepository.findById(user.getReceiptCode())
-				.orElse(null);
-        return ApplicantDetailsResponse.CommonInformation.builder()
+    private CommonInformation getCommonInformation(User user) {
+        Graduation graduation = graduationRepository.findById(user.getReceiptCode())
+                .orElse(null);
+        return CommonInformation.builder()
                 .name(user.getName())
                 .email(user.getEmail())
                 .telephoneNumber(user.getTelephoneNumber())
@@ -64,8 +67,8 @@ public class GetApplicantDetailsService {
                 .build();
     }
 
-    private ApplicantDetailsResponse.MoreInformation getMoreInformation(User user) {
-        return ApplicantDetailsResponse.MoreInformation.builder()
+    private MoreInformation getMoreInformation(User user) {
+        return MoreInformation.builder()
                 .photoUrl(s3Util.generateObjectUrl(user.getPhotoFileName()))
                 .birthday(user.getBirthday().toString())
                 .educationStatus(user.getEducationalStatus().name())
@@ -77,7 +80,7 @@ public class GetApplicantDetailsService {
                 .build();
     }
 
-    private ApplicantDetailsResponse.Evaluation getEvaluation(User user) {
+    private Evaluation getEvaluation(User user) {
         long receiptCode = user.getReceiptCode();
         Score score = scoreRepository.findById(receiptCode)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
@@ -87,7 +90,8 @@ public class GetApplicantDetailsService {
                 .orElse(null);
         Integer[] graduationInfo = graduationInfo(graduationCase);
 
-        return ApplicantDetailsResponse.Evaluation.builder()
+        return Evaluation.builder()
+                .volunteerTime(graduationCase.getVolunteerTime())
                 .conversionScore(score.getTotalScore())
                 .dayAbsenceCount(graduationInfo[0])
                 .lectureAbsenceCount(graduationInfo[1])
