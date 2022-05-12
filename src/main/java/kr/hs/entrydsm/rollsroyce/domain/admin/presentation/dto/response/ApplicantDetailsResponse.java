@@ -53,6 +53,7 @@ public class ApplicantDetailsResponse {
     @Builder
     @AllArgsConstructor
     public static class Evaluation {
+        private final Integer volunteerTime;
         private final BigDecimal conversionScore;
         private final Integer dayAbsenceCount;
         private final Integer lectureAbsenceCount;
