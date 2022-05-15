@@ -138,7 +138,7 @@ public class ApplicantsExcelService {
         row.createCell(42).setCellValue(techAndHomeScore[0].equals("") ? techAndHomeScore[0] : "x");
         row.createCell(43).setCellValue(englishScore[0].equals("") ? englishScore[0] : "x");
 
-        row.createCell(48).setCellValue(graduationCase != null ? graduationCase.getVolunteerTime().toString() : "공란");
+        row.createCell(48).setCellValue(graduationCase != null ? graduationCase.getVolunteerTime().toString() : "-");
 
         row.createCell(50).setCellValue(graduationCase != null ? graduationCase.getDayAbsenceCount() : 0);
         row.createCell(51).setCellValue(graduationCase != null ? graduationCase.getLatenessCount() : 0);
