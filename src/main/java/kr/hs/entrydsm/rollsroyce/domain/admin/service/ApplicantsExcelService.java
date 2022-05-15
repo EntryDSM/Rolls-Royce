@@ -98,45 +98,45 @@ public class ApplicantsExcelService {
     }
 
     private void insertRating(Row row, GraduationCase graduationCase) {
-        String[] koreanScore = getSplitScores(graduationCase != null ? graduationCase.getKoreanGrade() : "");
-        String[] socialScore = getSplitScores(graduationCase != null ? graduationCase.getSocialGrade() : "");
-        String[] historyScore = getSplitScores(graduationCase != null ? graduationCase.getHistoryGrade() : "");
-        String[] mathScore = getSplitScores(graduationCase != null ? graduationCase.getMathGrade() : "");
-        String[] scienceScore = getSplitScores(graduationCase != null ? graduationCase.getScienceGrade() : "");
-        String[] techAndHomeScore = getSplitScores(graduationCase != null ? graduationCase.getTechAndHomeGrade() : "");
-        String[] englishScore = getSplitScores(graduationCase != null ? graduationCase.getEnglishGrade() : "");
+        String[] koreanScore = getSplitScores(graduationCase != null ? graduationCase.getKoreanGrade() : null);
+        String[] socialScore = getSplitScores(graduationCase != null ? graduationCase.getSocialGrade() : null);
+        String[] historyScore = getSplitScores(graduationCase != null ? graduationCase.getHistoryGrade() : null);
+        String[] mathScore = getSplitScores(graduationCase != null ? graduationCase.getMathGrade() : null);
+        String[] scienceScore = getSplitScores(graduationCase != null ? graduationCase.getScienceGrade() : null);
+        String[] techAndHomeScore = getSplitScores(graduationCase != null ? graduationCase.getTechAndHomeGrade() : null);
+        String[] englishScore = getSplitScores(graduationCase != null ? graduationCase.getEnglishGrade() : null);
 
-        row.createCell(16).setCellValue(koreanScore[3].equals("") ? "-" : koreanScore[3]);
-        row.createCell(17).setCellValue(socialScore[3].equals("") ? "-" : socialScore[3]);
-        row.createCell(18).setCellValue(historyScore[3].equals("") ? "-" : historyScore[3]);
-        row.createCell(19).setCellValue(mathScore[3].equals("") ? "-" : mathScore[3]);
-        row.createCell(20).setCellValue(scienceScore[3].equals("") ? "-" : scienceScore[3]);
-        row.createCell(21).setCellValue(techAndHomeScore[3].equals("") ? "-" : techAndHomeScore[3]);
-        row.createCell(22).setCellValue(englishScore[3].equals("") ? "-" : englishScore[3]);
+        row.createCell(16).setCellValue(koreanScore[3]);
+        row.createCell(17).setCellValue(socialScore[3]);
+        row.createCell(18).setCellValue(historyScore[3]);
+        row.createCell(19).setCellValue(mathScore[3]);
+        row.createCell(20).setCellValue(scienceScore[3]);
+        row.createCell(21).setCellValue(techAndHomeScore[3]);
+        row.createCell(22).setCellValue(englishScore[3]);
 
-        row.createCell(23).setCellValue(koreanScore[2].equals("") ? "-" : koreanScore[2]);
-        row.createCell(24).setCellValue(socialScore[2].equals("") ? "-" : socialScore[2]);
-        row.createCell(25).setCellValue(historyScore[2].equals("") ? "-" : historyScore[2]);
-        row.createCell(26).setCellValue(mathScore[2].equals("") ? "-" : mathScore[2]);
-        row.createCell(27).setCellValue(scienceScore[2].equals("") ? "-" : scienceScore[2]);
-        row.createCell(28).setCellValue(techAndHomeScore[2].equals("") ? "-" : techAndHomeScore[2]);
-        row.createCell(29).setCellValue(englishScore[2].equals("") ? "-" : englishScore[2]);
+        row.createCell(23).setCellValue(koreanScore[2]);
+        row.createCell(24).setCellValue(socialScore[2]);
+        row.createCell(25).setCellValue(historyScore[2]);
+        row.createCell(26).setCellValue(mathScore[2]);
+        row.createCell(27).setCellValue(scienceScore[2]);
+        row.createCell(28).setCellValue(techAndHomeScore[2]);
+        row.createCell(29).setCellValue(englishScore[2]);
 
-        row.createCell(30).setCellValue(koreanScore[1].equals("") ? "-" : koreanScore[1]);
-        row.createCell(31).setCellValue(socialScore[1].equals("") ? "-" : socialScore[1]);
-        row.createCell(32).setCellValue(historyScore[1].equals("") ? "-" : historyScore[1]);
-        row.createCell(33).setCellValue(mathScore[1].equals("") ? "-" : mathScore[1]);
-        row.createCell(34).setCellValue(scienceScore[1].equals("") ? "-" : scienceScore[1]);
-        row.createCell(35).setCellValue(techAndHomeScore[1].equals("") ? "-" : techAndHomeScore[1]);
-        row.createCell(36).setCellValue(englishScore[1].equals("") ? "-" : englishScore[1]);
+        row.createCell(30).setCellValue(koreanScore[1]);
+        row.createCell(31).setCellValue(socialScore[1]);
+        row.createCell(32).setCellValue(historyScore[1]);
+        row.createCell(33).setCellValue(mathScore[1]);
+        row.createCell(34).setCellValue(scienceScore[1]);
+        row.createCell(35).setCellValue(techAndHomeScore[1]);
+        row.createCell(36).setCellValue(englishScore[1]);
 
-        row.createCell(37).setCellValue(koreanScore[0].equals("") ? "-" : koreanScore[0]);
-        row.createCell(38).setCellValue(socialScore[0].equals("") ? "-" : socialScore[0]);
-        row.createCell(39).setCellValue(historyScore[0].equals("") ? "-" : historyScore[0]);
-        row.createCell(40).setCellValue(mathScore[0].equals("") ? "-" : mathScore[0]);
-        row.createCell(41).setCellValue(scienceScore[0].equals("") ? "-" : scienceScore[0]);
-        row.createCell(42).setCellValue(techAndHomeScore[0].equals("") ? "-" : techAndHomeScore[0]);
-        row.createCell(43).setCellValue(englishScore[0].equals("") ? "-" : englishScore[0]);
+        row.createCell(37).setCellValue(koreanScore[0]);
+        row.createCell(38).setCellValue(socialScore[0]);
+        row.createCell(39).setCellValue(historyScore[0]);
+        row.createCell(40).setCellValue(mathScore[0]);
+        row.createCell(41).setCellValue(scienceScore[0]);
+        row.createCell(42).setCellValue(techAndHomeScore[0]);
+        row.createCell(43).setCellValue(englishScore[0]);
 
         row.createCell(48).setCellValue(graduationCase != null ? graduationCase.getVolunteerTime().toString() : "공란");
 
@@ -190,8 +190,8 @@ public class ApplicantsExcelService {
     }
 
     private String[] getSplitScores(String scores) {
-        if(scores.equals("")) {
-            return  Stream.of("", "", "", "").toArray(String[]::new);
+        if(scores == null) {
+            return  Stream.of("-", "-", "-", "-").toArray(String[]::new);
         } else {
             return scores.split("");
         }
