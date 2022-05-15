@@ -90,9 +90,9 @@ public class ApplicantsExcelService {
         row.createCell(8).setCellValue(user.getTelephoneNumber());
         row.createCell(9).setCellValue(Sex.MALE.equals(user.getSex()) ? "남자" : "여자");
         row.createCell(10).setCellValue(getEducationalStatus(user.getEducationalStatus()));
-        row.createCell(11).setCellValue(String.valueOf(graduation != null ? graduation.getGraduatedAt().getYear() : "공란"));
-        row.createCell(12).setCellValue(graduation != null ? graduation.getSchoolName() : "공란");
-        row.createCell(13).setCellValue(graduation != null ? graduation.getStudentNumber() : "공란");
+        row.createCell(11).setCellValue(String.valueOf(graduation != null ? graduation.getGraduatedAt().getYear() : "-"));
+        row.createCell(12).setCellValue(graduation != null ? graduation.getSchoolName() : "-");
+        row.createCell(13).setCellValue(graduation != null ? graduation.getStudentNumber() : "-");
         row.createCell(14).setCellValue(user.getParentName());
         row.createCell(15).setCellValue(user.getParentTel());
     }
