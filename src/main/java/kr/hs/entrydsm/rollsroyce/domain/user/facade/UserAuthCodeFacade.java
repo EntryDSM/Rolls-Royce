@@ -11,7 +11,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeRequestOverLimitE
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.InvalidAuthCodeException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnVerifiedAuthCodeException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
-import kr.hs.entrydsm.rollsroyce.global.exception.MessageRejectedException;
 import kr.hs.entrydsm.rollsroyce.global.utils.ses.SESUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -92,7 +91,7 @@ public class UserAuthCodeFacade {
         }
     }
 
-    public void verifySendEmail(String email, String templateName, Action action) {
+    public void sendEmail(String email, String templateName, Action action) {
         if (Action.PASSWORD.equals(action)) {
             checkPasswordEmailFilter(email);
         } else {

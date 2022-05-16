@@ -16,7 +16,7 @@ public class SendEmailAuthCodeService {
     @Transactional
     public void execute(SendEmailRequest request, String templateName) {
 
-        authCodeFacade.verifySendEmail(request.getEmail(), templateName, Action.EMAIL);
+        authCodeFacade.sendEmail(request.getEmail(), templateName, Action.EMAIL);
 
     }
 
