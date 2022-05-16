@@ -109,9 +109,9 @@ public class UserAuthCodeFacade {
 
         sesUtil.sendMessage(email, templateName, params);
 
-        authCode.updateAuthCode(code, authCodeLimitTTL);
-
-        authCodeRepository.save(authCode);
+        authCodeRepository.save(
+                authCode.updateAuthCode(code, authCodeLimitTTL)
+        );
     }
 
     public void checkPasswordEmailFilter(String email) {

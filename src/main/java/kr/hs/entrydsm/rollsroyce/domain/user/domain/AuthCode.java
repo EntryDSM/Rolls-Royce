@@ -23,10 +23,11 @@ public class AuthCode {
     @TimeToLive
     private long ttl;
 
-    public void updateAuthCode(String code, long ttl) {
+    public AuthCode updateAuthCode(String code, long ttl) {
         this.code = code;
         this.ttl = ttl;
         this.isVerified = false;
+        return this;
     }
 
     public AuthCode verify() {
