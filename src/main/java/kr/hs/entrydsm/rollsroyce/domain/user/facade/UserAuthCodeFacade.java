@@ -129,7 +129,7 @@ public class UserAuthCodeFacade {
                 .email(email)
                 .code(code)
                 .isVerified(false)
-                .ttl(authCodeTTL * 1000)
+                .ttl(authCodeTTL)
                 .build());
     }
 
