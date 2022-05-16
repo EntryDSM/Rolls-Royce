@@ -107,9 +107,7 @@ public class UserAuthCodeFacade {
             checkFilter(email);
         }
 
-        if (sesUtil.sendMessage(email, templateName, params)) {
-            throw MessageRejectedException.EXCEPTION;
-        }
+        sesUtil.sendMessage(email, templateName, params);
 
         authCode.updateAuthCode(code, authCodeLimitTTL);
 
