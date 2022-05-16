@@ -24,7 +24,7 @@ public class SESUtil {
     private final ObjectMapper objectMapper;
     private final AmazonSimpleEmailServiceAsync amazonSimpleEmailServiceAsync;
 
-    public boolean sendMessage(String email, String templateName, Map<String, String> params) {
+    public void sendMessage(String email, String templateName, Map<String, String> params) {
         SendTemplatedEmailRequest request = new SendTemplatedEmailRequest()
                 .withDestination(new Destination().withToAddresses(email))
                 .withTemplate(templateName)
@@ -34,7 +34,6 @@ public class SESUtil {
         try {
             Future<SendTemplatedEmailResult> result = amazonSimpleEmailServiceAsync.sendTemplatedEmailAsync(request);
             log.info(result.toString());
-            return result.isDone();
         } catch (MessageRejectedException e) {
             throw kr.hs.entrydsm.rollsroyce.global.exception.MessageRejectedException.EXCEPTION;
         }
