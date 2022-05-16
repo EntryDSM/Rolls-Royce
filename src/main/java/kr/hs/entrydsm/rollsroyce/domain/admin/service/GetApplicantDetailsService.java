@@ -91,7 +91,7 @@ public class GetApplicantDetailsService {
         Integer[] graduationInfo = graduationInfo(graduationCase);
 
         return Evaluation.builder()
-                .volunteerTime(graduationCase.getVolunteerTime())
+                .volunteerTime(graduationCase != null ? graduationCase.getVolunteerTime() : null)
                 .conversionScore(score.getTotalScore())
                 .dayAbsenceCount(graduationInfo[0])
                 .lectureAbsenceCount(graduationInfo[1])
