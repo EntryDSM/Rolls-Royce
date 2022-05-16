@@ -33,6 +33,9 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserController {
 
+    private static final String SIGN_UP_EMAIL_TEMPLATE = "RollsRoyceEmailTemplate";
+    private static final String CHANGE_PASSWORD_EMAIL_TEMPLATE = "RollsRoycePasswordTemplate";
+
     private final UserLoginService loginService;
     private final UserStatusService statusService;
     private final UserSignupService signupService;
@@ -60,7 +63,7 @@ public class UserController {
 
     @PostMapping("/email/verify")
     public void sendEmailAuthCode(@RequestBody @Valid SendEmailRequest request) {
-        sendEmailAuthCodeService.execute(request, "MunchkinEmailTemplate");
+        sendEmailAuthCodeService.execute(request, SIGN_UP_EMAIL_TEMPLATE);
     }
 
     @PutMapping("/email/verify")
@@ -70,7 +73,7 @@ public class UserController {
 
     @PostMapping("/password/email/verify")
     public void sendPasswordAuthCode(@RequestBody @Valid SendEmailRequest request) {
-        sendPasswordAuthCodeService.execute(request, "RollsRoycePasswordTemplate");
+        sendPasswordAuthCodeService.execute(request, CHANGE_PASSWORD_EMAIL_TEMPLATE);
     }
 
     @PutMapping("/password")

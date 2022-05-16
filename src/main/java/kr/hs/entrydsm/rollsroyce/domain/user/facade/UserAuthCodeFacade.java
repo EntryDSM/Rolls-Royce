@@ -6,12 +6,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeLimitRepo
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Action;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeAlreadyVerifiedException;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeRequestOverLimitException;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.InvalidAuthCodeException;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnVerifiedAuthCodeException;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
-import kr.hs.entrydsm.rollsroyce.global.exception.MessageRejectedException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.*;
 import kr.hs.entrydsm.rollsroyce.global.utils.ses.SESUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -92,7 +87,13 @@ public class UserAuthCodeFacade {
         }
     }
 
-    public void verifySendEmail(String email, String templateName, Action action) {
+    public void sendEmail(String email, String templateName, Action action) {
+        if (Action.PASSWORD.equals(action)) {
+            checkPasswordEmailFilter(email);
+        } else {
+            checkFilter(email);
+        }
+
         String code = getRandomCode();
 
         Map<String, String> params = new HashMap<>();
@@ -101,19 +102,9 @@ public class UserAuthCodeFacade {
         AuthCode authCode = authCodeRepository.findById(email)
                 .orElseGet(() -> buildAuthCode(email, code, authCodeLimitTTL));
 
-        if (Action.PASSWORD.equals(action)) {
-            checkPasswordEmailFilter(email);
-        } else {
-            checkFilter(email);
-        }
-
-        if (sesUtil.sendMessage(email, templateName, params)) {
-            throw MessageRejectedException.EXCEPTION;
-        }
+        sesUtil.sendMessage(email, templateName, params);
 
         authCode.updateAuthCode(code, authCodeLimitTTL);
-
-        authCodeRepository.save(authCode);
     }
 
     public void checkPasswordEmailFilter(String email) {
@@ -131,7 +122,7 @@ public class UserAuthCodeFacade {
                 .email(email)
                 .code(code)
                 .isVerified(false)
-                .ttl(authCodeTTL * 1000)
+                .ttl(authCodeTTL)
                 .build());
     }
 
