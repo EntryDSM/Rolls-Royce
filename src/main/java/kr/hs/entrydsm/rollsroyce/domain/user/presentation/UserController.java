@@ -33,7 +33,7 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserController {
 
-    private static final String SIGN_UP_EMAIL_TEMPLATE = "MunchkinEmailTemplate";
+    private static final String SIGN_UP_EMAIL_TEMPLATE = "RollsRoyceEmailTemplate";
     private static final String CHANGE_PASSWORD_EMAIL_TEMPLATE = "RollsRoycePasswordTemplate";
 
     private final UserLoginService loginService;
