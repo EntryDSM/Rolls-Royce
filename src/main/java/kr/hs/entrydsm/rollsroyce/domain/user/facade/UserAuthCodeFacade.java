@@ -93,6 +93,12 @@ public class UserAuthCodeFacade {
     }
 
     public void verifySendEmail(String email, String templateName, Action action) {
+        if (Action.PASSWORD.equals(action)) {
+            checkPasswordEmailFilter(email);
+        } else {
+            checkFilter(email);
+        }
+
         String code = getRandomCode();
 
         Map<String, String> params = new HashMap<>();
@@ -100,12 +106,6 @@ public class UserAuthCodeFacade {
 
         AuthCode authCode = authCodeRepository.findById(email)
                 .orElseGet(() -> buildAuthCode(email, code, authCodeLimitTTL));
-
-        if (Action.PASSWORD.equals(action)) {
-            checkPasswordEmailFilter(email);
-        } else {
-            checkFilter(email);
-        }
 
         sesUtil.sendMessage(email, templateName, params);
 
