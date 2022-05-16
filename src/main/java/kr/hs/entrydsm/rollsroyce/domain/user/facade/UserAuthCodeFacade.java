@@ -6,11 +6,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeLimitRepo
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Action;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeAlreadyVerifiedException;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeRequestOverLimitException;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.InvalidAuthCodeException;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnVerifiedAuthCodeException;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.*;
 import kr.hs.entrydsm.rollsroyce.global.utils.ses.SESUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -108,9 +104,7 @@ public class UserAuthCodeFacade {
 
         sesUtil.sendMessage(email, templateName, params);
 
-        authCodeRepository.save(
-                authCode.updateAuthCode(code, authCodeLimitTTL)
-        );
+        authCode.updateAuthCode(code, authCodeLimitTTL);
     }
 
     public void checkPasswordEmailFilter(String email) {
