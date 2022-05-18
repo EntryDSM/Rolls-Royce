@@ -92,7 +92,7 @@ public class UserAuthCodeFacade {
         }
     }
 
-    public void sendEmail(String email, String templateName, Action action) {
+    public void sendEmail(String email, Action action, String templateName) {
         String code = getRandomCode();
         AuthCode authCode = getAuthCodeByIdOrCreate(email, code);
 
