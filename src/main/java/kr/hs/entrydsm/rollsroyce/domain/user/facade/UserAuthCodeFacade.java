@@ -76,7 +76,7 @@ public class UserAuthCodeFacade {
                 .orElseGet(() -> authCodeLimitRepository.save(AuthCodeLimit.builder()
                         .email(email)
                         .count(1)
-                        .ttl(authCodeLimitTTL * 1000)
+                        .ttl(authCodeLimitTTL)
                         .build()));
     }
 
