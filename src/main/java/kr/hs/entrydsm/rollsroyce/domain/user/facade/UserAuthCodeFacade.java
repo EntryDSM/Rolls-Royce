@@ -36,6 +36,11 @@ public class UserAuthCodeFacade {
                 .orElseThrow(() -> InvalidAuthCodeException.EXCEPTION);
     }
 
+    public AuthCode getAuthCodeByIdOrCreate(String email, String code) {
+        return authCodeRepository.findById(email)
+                .orElseGet(() -> buildAuthCode(email, code, authCodeLimitTTL));
+    }
+
     public boolean isAlreadyVerified(boolean isVerified) {
         if (isVerified) {
             throw AuthCodeAlreadyVerifiedException.EXCEPTION;
@@ -88,19 +93,17 @@ public class UserAuthCodeFacade {
     }
 
     public void sendEmail(String email, String templateName, Action action) {
+        String code = getRandomCode();
+        AuthCode authCode = getAuthCodeByIdOrCreate(email, code);
+
         if (Action.PASSWORD.equals(action)) {
             checkPasswordEmailFilter(email);
         } else {
             checkFilter(email);
         }
 
-        String code = getRandomCode();
-
         Map<String, String> params = new HashMap<>();
         params.put("code", code);
-
-        AuthCode authCode = authCodeRepository.findById(email)
-                .orElseGet(() -> buildAuthCode(email, code, authCodeLimitTTL));
 
         sesUtil.sendMessage(email, templateName, params);
 
