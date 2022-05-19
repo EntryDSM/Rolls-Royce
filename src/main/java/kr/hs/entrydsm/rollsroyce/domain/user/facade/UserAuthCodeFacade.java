@@ -68,7 +68,7 @@ public class UserAuthCodeFacade {
         AuthCode authCode = getAuthCodeByIdOrCreate(email, code);
 
         isOverLimit(email);
-        if (Action.CHANGE_PASSWORD.equals(action)) {
+        if (Action.UPDATE_PASSWORD.equals(action)) {
             checkPasswordEmailFilter(email);
         } else {
             checkFilter(email);

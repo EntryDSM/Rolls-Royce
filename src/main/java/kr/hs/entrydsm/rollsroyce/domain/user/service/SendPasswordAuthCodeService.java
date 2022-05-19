@@ -16,7 +16,7 @@ public class SendPasswordAuthCodeService {
     @Transactional
     public void execute(SendEmailRequest request, String templateName) {
 
-        authCodeFacade.sendEmail(request.getEmail(), Action.CHANGE_PASSWORD, templateName);
+        authCodeFacade.sendEmail(request.getEmail(), Action.UPDATE_PASSWORD, templateName);
 
     }
 }
