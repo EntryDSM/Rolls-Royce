@@ -38,11 +38,6 @@ public class UserAuthCodeFacade {
                 .orElseThrow(() -> InvalidAuthCodeException.EXCEPTION);
     }
 
-    public AuthCode getAuthCodeByIdOrCreate(String email, String code) {
-        return authCodeRepository.findById(email)
-                .orElseGet(() -> buildAuthCode(email, code));
-    }
-
     public boolean isAlreadyVerified(boolean isVerified) {
         if (isVerified) {
             throw AuthCodeAlreadyVerifiedException.EXCEPTION;
@@ -84,6 +79,11 @@ public class UserAuthCodeFacade {
 
     private String getRandomCode() {
         return RandomStringUtils.randomNumeric(6);
+    }
+
+    private AuthCode getAuthCodeByIdOrCreate(String email, String code) {
+        return authCodeRepository.findById(email)
+                .orElseGet(() -> buildAuthCode(email, code));
     }
 
     private void isOverLimit(String email) {
