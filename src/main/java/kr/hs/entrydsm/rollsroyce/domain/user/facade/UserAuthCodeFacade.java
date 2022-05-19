@@ -26,6 +26,8 @@ public class UserAuthCodeFacade {
     private final UserRepository userRepository;
     private final SESUtil sesUtil;
 
+    @Value("${auth.code.exp}")
+    private Long authCodeTTL;
     @Value("${auth.code.limit}")
     private long authCodeLimit;
     @Value("${auth.code.limitExp}")
@@ -38,7 +40,7 @@ public class UserAuthCodeFacade {
 
     public AuthCode getAuthCodeByIdOrCreate(String email, String code) {
         return authCodeRepository.findById(email)
-                .orElseGet(() -> buildAuthCode(email, code, authCodeLimitTTL));
+                .orElseGet(() -> buildAuthCode(email, code));
     }
 
     public boolean isAlreadyVerified(boolean isVerified) {
@@ -77,7 +79,7 @@ public class UserAuthCodeFacade {
 
         sesUtil.sendMessage(email, templateName, params);
 
-        authCode.updateAuthCode(code, authCodeLimitTTL);
+        authCode.updateAuthCode(code, authCodeTTL);
     }
 
     private String getRandomCode() {
@@ -119,7 +121,7 @@ public class UserAuthCodeFacade {
         }
     }
 
-    private AuthCode buildAuthCode(String email, String code, Long authCodeTTL) {
+    private AuthCode buildAuthCode(String email, String code) {
         return authCodeRepository.save(AuthCode.builder()
                 .email(email)
                 .code(code)
