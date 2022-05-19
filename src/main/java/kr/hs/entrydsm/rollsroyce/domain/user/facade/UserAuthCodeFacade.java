@@ -57,45 +57,15 @@ public class UserAuthCodeFacade {
         return true;
     }
 
-    public boolean checkCount(int count) {
-        if (count >= authCodeLimit) {
-            throw AuthCodeRequestOverLimitException.EXCEPTION;
-        }
-
-        return true;
-    }
-
     public boolean compareCode(String reqCode, String code) {
         return reqCode.equals(code);
-    }
-
-    public String getRandomCode() {
-        return RandomStringUtils.randomNumeric(6);
-    }
-
-    public void isOverLimit(String email) {
-        authCodeLimitRepository.findById(email)
-                .filter(limit -> checkCount(limit.getCount()))
-                .map(AuthCodeLimit::addCount)
-                .map(authCodeLimitRepository::save)
-                .orElseGet(() -> authCodeLimitRepository.save(AuthCodeLimit.builder()
-                        .email(email)
-                        .count(1)
-                        .ttl(authCodeLimitTTL)
-                        .build()));
-    }
-
-    public void checkFilter(String email) {
-        isOverLimit(email);
-        if (userFacade.isAlreadyExists(email) && isVerified(email)) {
-            throw AuthCodeAlreadyVerifiedException.EXCEPTION;
-        }
     }
 
     public void sendEmail(String email, Action action, String templateName) {
         String code = getRandomCode();
         AuthCode authCode = getAuthCodeByIdOrCreate(email, code);
 
+        isOverLimit(email);
         if (Action.CHANGE_PASSWORD.equals(action)) {
             checkPasswordEmailFilter(email);
         } else {
@@ -110,8 +80,31 @@ public class UserAuthCodeFacade {
         authCode.updateAuthCode(code, authCodeLimitTTL);
     }
 
-    public void checkPasswordEmailFilter(String email) {
-        isOverLimit(email);
+    private String getRandomCode() {
+        return RandomStringUtils.randomNumeric(6);
+    }
+
+    private void isOverLimit(String email) {
+        authCodeLimitRepository.findById(email)
+                .filter(limit -> checkCount(limit.getCount()))
+                .map(AuthCodeLimit::addCount)
+                .map(authCodeLimitRepository::save)
+                .orElseGet(() -> authCodeLimitRepository.save(AuthCodeLimit.builder()
+                        .email(email)
+                        .count(1)
+                        .ttl(authCodeLimitTTL)
+                        .build()));
+    }
+
+    private boolean checkCount(int count) {
+        if (count >= authCodeLimit) {
+            throw AuthCodeRequestOverLimitException.EXCEPTION;
+        }
+
+        return true;
+    }
+
+    private void checkPasswordEmailFilter(String email) {
         if (userRepository.findByEmail(email).isEmpty()) {
             throw UserNotFoundException.EXCEPTION;
         }
@@ -120,7 +113,13 @@ public class UserAuthCodeFacade {
         }
     }
 
-    public AuthCode buildAuthCode(String email, String code, Long authCodeTTL) {
+    private void checkFilter(String email) {
+        if (userFacade.isAlreadyExists(email) && isVerified(email)) {
+            throw AuthCodeAlreadyVerifiedException.EXCEPTION;
+        }
+    }
+
+    private AuthCode buildAuthCode(String email, String code, Long authCodeTTL) {
         return authCodeRepository.save(AuthCode.builder()
                 .email(email)
                 .code(code)
