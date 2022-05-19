@@ -96,7 +96,7 @@ public class UserAuthCodeFacade {
         String code = getRandomCode();
         AuthCode authCode = getAuthCodeByIdOrCreate(email, code);
 
-        if (Action.PASSWORD.equals(action)) {
+        if (Action.CHANGE_PASSWORD.equals(action)) {
             checkPasswordEmailFilter(email);
         } else {
             checkFilter(email);
