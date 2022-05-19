@@ -87,7 +87,7 @@ public class UserAuthCodeFacade {
 
     public void checkFilter(String email) {
         isOverLimit(email);
-        if (!(userFacade.isAlreadyExists(email) && !isVerified(email))) {
+        if (userFacade.isAlreadyExists(email) && isVerified(email)) {
             throw AuthCodeAlreadyVerifiedException.EXCEPTION;
         }
     }
