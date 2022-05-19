@@ -89,7 +89,7 @@ public class UserAuthCodeFacade {
     private void isOverLimit(String email) {
         authCodeLimitRepository.findById(email)
                 .filter(limit -> checkCount(limit.getCount()))
-                .map(AuthCodeLimit::addCount)
+                .map(limit -> limit.addCount(authCodeLimitTTL))
                 .map(authCodeLimitRepository::save)
                 .orElseGet(() -> authCodeLimitRepository.save(AuthCodeLimit.builder()
                         .email(email)

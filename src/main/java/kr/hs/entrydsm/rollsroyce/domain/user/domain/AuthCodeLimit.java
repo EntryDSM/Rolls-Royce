@@ -20,10 +20,11 @@ public class AuthCodeLimit {
 	private int count;
 
 	@TimeToLive
-	private final long ttl;
+	private long ttl;
 
-	public AuthCodeLimit addCount() {
+	public AuthCodeLimit addCount(Long ttl) {
 		this.count++;
+		this.ttl = ttl;
 		return this;
 	}
 
