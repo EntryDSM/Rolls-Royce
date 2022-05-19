@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.domain.types;
 
 public enum Action {
-    EMAIL,
-    PASSWORD
+    SIGN_UP,
+    UPDATE_PASSWORD
 }

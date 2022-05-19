@@ -26,6 +26,8 @@ public class UserAuthCodeFacade {
     private final UserRepository userRepository;
     private final SESUtil sesUtil;
 
+    @Value("${auth.code.exp}")
+    private Long authCodeTTL;
     @Value("${auth.code.limit}")
     private long authCodeLimit;
     @Value("${auth.code.limitExp}")
@@ -52,7 +54,51 @@ public class UserAuthCodeFacade {
         return true;
     }
 
-    public boolean checkCount(int count) {
+    public boolean compareCode(String reqCode, String code) {
+        return reqCode.equals(code);
+    }
+
+    public void sendEmail(String email, Action action, String templateName) {
+        String code = getRandomCode();
+        AuthCode authCode = getAuthCodeByIdOrCreate(email, code);
+
+        isOverLimit(email);
+        if (Action.UPDATE_PASSWORD.equals(action)) {
+            checkPasswordEmailFilter(email);
+        } else {
+            checkFilter(email);
+        }
+
+        Map<String, String> params = new HashMap<>();
+        params.put("code", code);
+
+        sesUtil.sendMessage(email, templateName, params);
+
+        authCode.updateAuthCode(code, authCodeTTL);
+    }
+
+    private String getRandomCode() {
+        return RandomStringUtils.randomNumeric(6);
+    }
+
+    private AuthCode getAuthCodeByIdOrCreate(String email, String code) {
+        return authCodeRepository.findById(email)
+                .orElseGet(() -> buildAuthCode(email, code));
+    }
+
+    private void isOverLimit(String email) {
+        authCodeLimitRepository.findById(email)
+                .filter(limit -> checkCount(limit.getCount()))
+                .map(limit -> limit.addCount(authCodeLimitTTL))
+                .map(authCodeLimitRepository::save)
+                .orElseGet(() -> authCodeLimitRepository.save(AuthCodeLimit.builder()
+                        .email(email)
+                        .count(1)
+                        .ttl(authCodeLimitTTL)
+                        .build()));
+    }
+
+    private boolean checkCount(int count) {
         if (count >= authCodeLimit) {
             throw AuthCodeRequestOverLimitException.EXCEPTION;
         }
@@ -60,55 +106,7 @@ public class UserAuthCodeFacade {
         return true;
     }
 
-    public boolean compareCode(String reqCode, String code) {
-        return reqCode.equals(code);
-    }
-
-    public String getRandomCode() {
-        return RandomStringUtils.randomNumeric(6);
-    }
-
-    public void isOverLimit(String email) {
-        authCodeLimitRepository.findById(email)
-                .filter(limit -> checkCount(limit.getCount()))
-                .map(AuthCodeLimit::addCount)
-                .map(authCodeLimitRepository::save)
-                .orElseGet(() -> authCodeLimitRepository.save(AuthCodeLimit.builder()
-                        .email(email)
-                        .count(1)
-                        .ttl(authCodeLimitTTL * 1000)
-                        .build()));
-    }
-
-    public void checkFilter(String email) {
-        isOverLimit(email);
-        if (!(userFacade.isAlreadyExists(email) && !isVerified(email))) {
-            throw AuthCodeAlreadyVerifiedException.EXCEPTION;
-        }
-    }
-
-    public void sendEmail(String email, String templateName, Action action) {
-        if (Action.PASSWORD.equals(action)) {
-            checkPasswordEmailFilter(email);
-        } else {
-            checkFilter(email);
-        }
-
-        String code = getRandomCode();
-
-        Map<String, String> params = new HashMap<>();
-        params.put("code", code);
-
-        AuthCode authCode = authCodeRepository.findById(email)
-                .orElseGet(() -> buildAuthCode(email, code, authCodeLimitTTL));
-
-        sesUtil.sendMessage(email, templateName, params);
-
-        authCode.updateAuthCode(code, authCodeLimitTTL);
-    }
-
-    public void checkPasswordEmailFilter(String email) {
-        isOverLimit(email);
+    private void checkPasswordEmailFilter(String email) {
         if (userRepository.findByEmail(email).isEmpty()) {
             throw UserNotFoundException.EXCEPTION;
         }
@@ -117,7 +115,13 @@ public class UserAuthCodeFacade {
         }
     }
 
-    public AuthCode buildAuthCode(String email, String code, Long authCodeTTL) {
+    private void checkFilter(String email) {
+        if (userFacade.isAlreadyExists(email) && isVerified(email)) {
+            throw AuthCodeAlreadyVerifiedException.EXCEPTION;
+        }
+    }
+
+    private AuthCode buildAuthCode(String email, String code) {
         return authCodeRepository.save(AuthCode.builder()
                 .email(email)
                 .code(code)
