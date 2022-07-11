@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <style>
+        .title {
+            font-size: x-large;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        table {
+            margin: 0 auto;
+            height: 880px;
+            width: 100%;
+        }
+
+        .top {
+            height: 880px !important;
+        }
+
+        table:not(.checkTable),
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            height: 35px;
+        }
+
+        td {
+            font-size: 11pt;
+        }
+
+        .info {
+            width: 7%;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+        .info > p {
+            line-height: 6px;
+        }
+
+        .thirdTr > td {
+            text-align: center;
+        }
+
+        .addressblank {
+            width: 492px;
+            text-align: center;
+        }
+
+        .firstTd {
+            width: 20%;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+        .secondTd {
+            width: 27.5%;
+            text-align: center;
+        }
+
+        .thirdTd {
+            width: 20%;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+        .forthTd {
+            width: 27.5%;
+            text-align: center;
+            text-align: center;
+        }
+
+        .address {
+            background-color: #f2f2f2;
+        }
+
+        .privateFTr > td {
+            background-color: #f2f2f2;
+            width: 208px;
+            height: 27px;
+            text-align: center;
+        }
+
+        .privateSTr {
+            text-align: center;
+            height: 56px;
+            line-height: 4px;
+        }
+
+        .agree {
+            font-size: 12pt;
+            margin-bottom: 30px;
+        }
+
+        .agreement {
+            padding: 0 15px 0 15px;
+            border: none;
+        }
+
+        .agree > p {
+            line-height: 30px;
+        }
+        .agree strong {
+            text-decoration: underline;
+        }
+
+        .fifthTr {
+            height: 666px;
+        }
+
+        .blank {
+            margin-bottom: 30px;
+        }
+
+        .collection {
+            font-weight: bold;
+            margin: 0px;
+            margin-bottom: 5px;
+            margin-left: -3px;
+        }
+
+        .collectionTable {
+            margin-bottom: -10px;
+        }
+
+        .agreement > p {
+            line-height: 20px;
+            margin-bottom: 30px;
+        }
+
+        .checkTable {
+            border: 1px solid black;
+            border-collapse: collapse;
+            height: 20px;
+        }
+
+        .checkTable td {
+            border: none;
+            height: 24px;
+        }
+
+        .checkTr {
+        }
+
+        .checkTd {
+            /*width: 336px;*/
+            width: 50%;
+            line-height: 0;
+            text-align: start;
+        }
+
+        .checknote {
+            width: 290px;
+            text-align: center;
+        }
+
+        .yes {
+            width: 25%;
+        }
+
+        .no {
+            width: 25%;
+        }
+
+        .table {
+        }
+
+        .date {
+            text-align: center;
+        }
+
+        .date > span:nth-child(2) {
+            margin: 0 40px;
+        }
+
+        .empty {
+            border-top: none;
+            border-right: none;
+        }
+
+        .emptyy {
+            border: none;
+            padding: 0;
+            height: 30px;
+            display: block;
+        }
+
+        .emptyy > div > span {
+            font-size: 13px;
+        }
+
+        .emptyy > div {
+            float: right;
+            margin-right: 50px;
+        }
+
+        .emptyy > div > span:first-child {
+            margin-right: 100px;
+        }
+
+        .emptyy > span:nth-child(3) {
+            float: right;
+            margin-right: 33px;
+        }
+
+        .last {
+            padding-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="title">흡 연 검 사 동 의 서</div>
+<br />
+<table class="top">
+    <tr class="firstTr">
+        <td rowspan="3" class="info">
+            <p>인적</p>
+            <p>사항</p>
+        </td>
+        <td class="firstTd">성 &nbsp;명</td>
+        <td class="secondTd" th:text="${userName}" colspan="2"></td>
+        <td class="thirdTd">접 수 번 호</td>
+        <td class="forthTd" th:text="${receiptCode}" colspan="2"></td>
+    </tr>
+    <tr class="secondTr">
+        <td class="firstTd">연락처</td>
+        <td class="secondTd" th:text="${applicantTel}" colspan="2"></td>
+        <td class="thirdTd">출신 중학교</td>
+        <td class="forthTd" th:text="${schoolName}" colspan="2"></td>
+    </tr>
+    <tr class="thirdTr">
+        <td class="firstTd">주 &nbsp;소</td>
+        <td colspan="5" th:text="${address}" class="addressblank"></td>
+    </tr>
+    <tr class="fifthTr">
+        <td colspan="7" class="agreement">
+            <div class="agree">
+                <p>
+                    &nbsp; 대덕소프트웨어마이스터고등학교에서는 안전한 기숙사 생활과
+                    학생들의 건강을 위해 신입생 입학 전형자를 대상으로 소변 니코틴
+                    검사 측정을 합니다. 이에 흡연검사에
+                    <strong>학생과 보호자의 동의</strong>를 구합니다.<br />
+                    &nbsp; 검사 시 약간의 불편이 있더라도 흡연자 지도를 위해서는
+                    필요한 사안이므로 양해와 적극적인 협조를 부탁드립니다.
+                    <br />
+                    &nbsp; 학생들의 건강을 위해 흡연을 규제하고 예방하도록 학생 지도에
+                    최선을 다하겠습니다. 학부모님께서도 귀 자녀가 흡연의 위험성을
+                    인지하고 흡연하지 않도록 지도와 협조를 부탁드립니다.
+                </p>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div>
+                <p class="collection">□ 개인정보 수집 · 이용 동의</p>
+                <table class="collectionTable">
+                    <tr class="privateFTr">
+                        <td>항 목</td>
+                        <td>수집목적</td>
+                        <td>보유기간</td>
+                    </tr>
+                    <tr class="privateSTr">
+                        <td>
+                            <p>학생(성명, 연락처,</p>
+                            <p>출신 중학교, 주소)</p>
+                        </td>
+                        <td>흡연검사동의</td>
+                        <td><strong>1년</strong></td>
+                    </tr>
+                </table>
+            </div>
+            <p>
+                ※ 개인정보 수집 · 이용에 대한 동의를 거부할 권리가 있습니다.<br />
+                &nbsp;&nbsp;&nbsp;그러나 동의를 거부할 경우 최종 입학에 제한을 받을
+                수 있습니다.
+            </p>
+            <div class="table">
+                <table class="checkTable">
+                    <tr class="checkTr">
+                        <td class="checkTd">
+                            &nbsp;&nbsp;&nbsp;&nbsp;개인정보 수집 · 이용 동의
+                        </td>
+                        <td class="checknote">
+                            <span class="yes">□ 예</span>
+                            <span
+                            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+                            >
+                            <span class="no">□ 아니요</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br />
+            <br />
+            <p class="date">
+                <span th:text="${year} + '년'">2022년</span>
+                <span>월</span>
+                <span>일</span>
+            </p>
+            <br />
+            <table
+                    style="
+              border: none;
+              float: right;
+              width: 40%;
+              font-size: 12px;
+              text-align: center;
+              margin-bottom: 20px;
+            "
+            >
+                <tr>
+                    <td style="width: 15%; border: none">지원자 성명:</td>
+                    <td style="width: 15%; border: none" th:text="${userName}"></td>
+                    <td style="width: 10%; border: none">(서명)</td>
+                </tr>
+                <tr>
+                    <td style="width: 15%; border: none">보호자 성명:</td>
+                    <td style="width: 15%; border: none" th:text="${parentName}"></td>
+                    <td style="width: 10%; border: none">(서명)</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
