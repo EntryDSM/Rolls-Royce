@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.global.security.jwt;
 
 import io.jsonwebtoken.*;
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.RefreshToken;
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import kr.hs.entrydsm.rollsroyce.global.exception.ExpiredTokenException;
@@ -105,7 +106,9 @@ public class JwtTokenProvider {
 	}
 
 	private UserDetails getDetails(Claims body) {
-		if(body.get("role").equals("admin")) {
+		Role role = Role.valueOf(body.get("role").toString());
+
+		if(Role.ROOT.equals(role) || Role.CONFIRM_APPLICATION.equals(role)) {
 			return adminDetailsService
 					.loadUserByUsername(body.getSubject());
 		} else {
