@@ -8,6 +8,7 @@ import kr.hs.entrydsm.rollsroyce.global.exception.ExpiredTokenException;
 import kr.hs.entrydsm.rollsroyce.global.exception.InvalidTokenException;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AdminDetailsService;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AuthDetailsService;
+import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -106,7 +107,7 @@ public class JwtTokenProvider {
 	}
 
 	private UserDetails getDetails(Claims body) {
-		Role role = Role.valueOf(body.get("role").toString());
+		Role role = EnumUtil.getEnum(Role.class, body.get("role").toString());
 
 		if(Role.ROOT.equals(role) || Role.CONFIRM_APPLICATION.equals(role)) {
 			return adminDetailsService
