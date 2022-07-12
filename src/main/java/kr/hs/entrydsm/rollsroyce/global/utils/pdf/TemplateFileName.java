@@ -7,5 +7,6 @@ public class TemplateFileName {
 	public static final String NON_SMOKING = "/templates/nonsmoking";
 	public static final String RECOMMENDATION = "/templates/recommendation";
 	public static final String ADMISSION_AGREEMENT = "/templates/admission_agreement";
+	public static final String SMOKING_EXAMINE = "/templates/smoking_examine";
 
 }
