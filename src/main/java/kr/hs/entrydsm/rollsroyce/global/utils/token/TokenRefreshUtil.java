@@ -28,10 +28,9 @@ public class TokenRefreshUtil {
                 .filter(token -> jwtTokenProvider.getRole(token.getToken()).equals(role))
                 .map(token -> {
                     String id = token.getId();
-                    String accessToken = jwtTokenProvider.generateAccessToken(id, role);
-                    String newRefreshToken = jwtTokenProvider.generateRefreshToken(id, role);
-                    token.update(newRefreshToken, ttl);
-                    return new TokenResponse(accessToken, newRefreshToken);
+                    TokenResponse tokenResponse = jwtTokenProvider.generateToken(id, role);
+                    token.update(tokenResponse.getRefreshToken(), ttl);
+                    return new TokenResponse(tokenResponse.getAccessToken(), tokenResponse.getRefreshToken());
                 })
                 .orElseThrow(()-> InvalidTokenException.EXCEPTION);
     }
