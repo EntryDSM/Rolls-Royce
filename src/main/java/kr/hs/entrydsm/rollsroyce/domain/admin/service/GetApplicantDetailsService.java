@@ -1,7 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
-import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotAccessibleException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.CommonInformation;
@@ -40,9 +38,6 @@ public class GetApplicantDetailsService {
     private final S3Util s3Util;
 
     public ApplicantDetailsResponse execute(long receiptCode) {
-        if (Role.ROLE_CONFIRM_FEE.equals(adminFacade.getAdminRole())) {
-            throw AdminNotAccessibleException.EXCEPTION;
-        }
         User user = userFacade.getUserByCode(receiptCode);
         Status userStatus = statusFacade.getStatusByReceiptCode(receiptCode);
 
