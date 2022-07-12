@@ -27,7 +27,7 @@ public class UserLoginService {
             throw PasswordNotValidException.EXCEPTION;
         }
 
-        return tokenProvider.generateToken(user.getReceiptCode().toString(), "user");
+        return tokenProvider.generateToken(user.getReceiptCode().toString(), "USER");
     }
 
 }

@@ -20,7 +20,7 @@ public class UpdateApplicantIsPaidService {
     public void execute(long receiptCode) {
         Status status = statusFacade.getStatusByReceiptCode(receiptCode);
 
-        if (adminFacade.getAdminRole() == Role.ROLE_CONFIRM_APPLICATION) {
+        if (adminFacade.getAdminRole() == Role.CONFIRM_APPLICATION) {
             throw AdminNotAccessibleException.EXCEPTION;
         }
         status.updateIsPaid();

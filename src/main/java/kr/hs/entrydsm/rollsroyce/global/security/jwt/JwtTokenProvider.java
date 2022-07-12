@@ -1,12 +1,14 @@
 package kr.hs.entrydsm.rollsroyce.global.security.jwt;
 
 import io.jsonwebtoken.*;
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.RefreshToken;
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import kr.hs.entrydsm.rollsroyce.global.exception.ExpiredTokenException;
 import kr.hs.entrydsm.rollsroyce.global.exception.InvalidTokenException;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AdminDetailsService;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AuthDetailsService;
+import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,7 +30,20 @@ public class JwtTokenProvider {
 
 	private static final String REFRESH_KEY = "refresh_token";
 
-	public String generateAccessToken(String id, String role) {
+	public TokenResponse generateToken(String id, String role) {
+		String accessToken = generateAccessToken(id, role);
+		String refreshToken = generateRefreshToken(id, role);
+
+		refreshTokenRepository.save(RefreshToken.builder()
+				.id(id)
+				.token(refreshToken)
+				.ttl(jwtProperties.getRefreshExp() * 1000)
+				.build());
+
+		return new TokenResponse(accessToken, refreshToken);
+	}
+
+	private String generateAccessToken(String id, String role) {
 		return Jwts.builder()
 				.setSubject(id)
 				.setHeaderParam("typ", "access_token")
@@ -42,7 +57,7 @@ public class JwtTokenProvider {
 
 	}
 
-	public String generateRefreshToken(String id, String role) {
+	private String generateRefreshToken(String id, String role) {
 		return Jwts.builder()
 				.setSubject(id)
 				.setHeaderParam("typ", REFRESH_KEY)
@@ -53,19 +68,6 @@ public class JwtTokenProvider {
 				)
 				.setIssuedAt(new Date())
 				.compact();
-	}
-
-	public TokenResponse generateToken(String id, String role) {
-		String accessToken = generateAccessToken(id, role);
-		String refreshToken = generateRefreshToken(id, role);
-
-		refreshTokenRepository.save(RefreshToken.builder()
-				.id(id)
-				.token(refreshToken)
-				.ttl(jwtProperties.getRefreshExp() * 1000)
-				.build());
-
-		return new TokenResponse(accessToken, refreshToken);
 	}
 
 	public String resolveToken(HttpServletRequest request) {
@@ -105,7 +107,9 @@ public class JwtTokenProvider {
 	}
 
 	private UserDetails getDetails(Claims body) {
-		if(body.get("role").equals("admin")) {
+		Role role = EnumUtil.getEnum(Role.class, body.get("role").toString());
+
+		if(Role.ROOT.equals(role) || Role.CONFIRM_APPLICATION.equals(role)) {
 			return adminDetailsService
 					.loadUserByUsername(body.getSubject());
 		} else {

@@ -14,7 +14,7 @@ public class TokenRefreshService {
 
     @Transactional
     public TokenResponse execute(String refreshToken) {
-        return tokenRefreshUtil.tokenRefresh(refreshToken, "admin");
+        return tokenRefreshUtil.tokenRefresh(refreshToken);
     }
 
 }

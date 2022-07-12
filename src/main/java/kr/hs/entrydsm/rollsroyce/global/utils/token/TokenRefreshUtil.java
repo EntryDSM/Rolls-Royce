@@ -19,19 +19,19 @@ public class TokenRefreshUtil {
     @Value("${auth.jwt.refreshExp}")
     private long ttl;
 
-    public TokenResponse tokenRefresh(String refreshToken, String role) {
+    public TokenResponse tokenRefresh(String refreshToken) {
         if(jwtTokenProvider.isNotRefreshToken(refreshToken)) {
             throw InvalidTokenException.EXCEPTION;
         }
 
         return refreshTokenRepository.findByToken(refreshToken)
-                .filter(token -> jwtTokenProvider.getRole(token.getToken()).equals(role))
                 .map(token -> {
                     String id = token.getId();
-                    String accessToken = jwtTokenProvider.generateAccessToken(id, role);
-                    String newRefreshToken = jwtTokenProvider.generateRefreshToken(id, role);
-                    token.update(newRefreshToken, ttl);
-                    return new TokenResponse(accessToken, newRefreshToken);
+                    String role = jwtTokenProvider.getRole(token.getToken());
+
+                    TokenResponse tokenResponse = jwtTokenProvider.generateToken(id, role);
+                    token.update(tokenResponse.getRefreshToken(), ttl);
+                    return new TokenResponse(tokenResponse.getAccessToken(), tokenResponse.getRefreshToken());
                 })
                 .orElseThrow(()-> InvalidTokenException.EXCEPTION);
     }
