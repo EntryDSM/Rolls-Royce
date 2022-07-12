@@ -53,7 +53,7 @@ public class UserSignupService {
 				.isPaid(false)
                 .build());
 
-        return tokenProvider.generateToken(user.getReceiptCode().toString(), "user");
+        return tokenProvider.generateToken(user.getReceiptCode().toString(), "USER");
     }
 
 }
