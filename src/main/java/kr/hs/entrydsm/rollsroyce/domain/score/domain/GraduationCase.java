@@ -77,8 +77,6 @@ public class GraduationCase extends ApplicationCase {
 			return BigDecimal.valueOf(MAX_VOLUNTEER_SCORE);
 		} else if (MIN_VOLUNTEER_TIME <= volunteerTime) {
 			return BigDecimal.valueOf(volunteerTime)
-					.subtract(BigDecimal.valueOf(6))
-					.divide(BigDecimal.valueOf(2), 3, RoundingMode.HALF_UP)
 					.add(BigDecimal.valueOf(3));
 		} else {
 			return BigDecimal.valueOf(MIN_VOLUNTEER_SCORE);
