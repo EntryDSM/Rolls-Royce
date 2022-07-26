@@ -49,7 +49,7 @@ public class ApplicantsExcelService {
         List<User> applicants = userRepository.findAllByStatusIsSubmittedTrue();
 
         int i = 0;
-        for(User user : applicants) {
+        for (User user : applicants) {
             long receiptCode = user.getReceiptCode();
 
             GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode).orElse(null);
@@ -65,14 +65,14 @@ public class ApplicantsExcelService {
         }
 
         try {
-			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             String formatFilename = "attachment;filename=\"지원자 목록";
             String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일_HH시mm분"));
             String fileName = new String((formatFilename + time + ".xlsx\"").getBytes("KSC5601"), "8859_1");
             response.setHeader("Content-Disposition", fileName);
 
             applicantInformation.getWorkbook().write(response.getOutputStream());
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw ExcelOException.EXCEPTION;
         }
     }
@@ -191,8 +191,8 @@ public class ApplicantsExcelService {
     }
 
     private String[] getSplitScores(String scores) {
-        if(scores == null) {
-            return  Stream.of("-", "-", "-", "-").toArray(String[]::new);
+        if (scores == null) {
+            return Stream.of("-", "-", "-", "-").toArray(String[]::new);
         } else {
             return scores.split("");
         }
