@@ -149,6 +149,7 @@ public class PdfDataConverter {
 		values.put("isTeenHouseholder", toBallotBox(user.isTeenHouseholder()));
 		values.put("isPrivilegedAdmission", toBallotBox(user.isPrivilegedAdmission()));
 		values.put("isNationalMerit", toBallotBox(user.isNationalMerit()));
+		values.put("isProtectedChildren", toBallotBox(user.isProtectedChildren()));
 		values.put("isCommon", toBallotBox(user.isCommonApplicationType()));
 		values.put("isMeister", toBallotBox(user.isMeisterApplicationType()));
 		values.put("isSocialMerit", toBallotBox(user.isSocialApplicationType()));
