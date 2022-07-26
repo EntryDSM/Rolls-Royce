@@ -172,14 +172,15 @@ public class ApplicantsExcelService {
 
     private String getApplicationRemark(ApplicationRemark applicationRemark) {
         if (applicationRemark == null) return "일반";
-        else if (applicationRemark.equals(ApplicationRemark.ONE_PARENT)) return "한부모가족";
-        else if (applicationRemark.equals(ApplicationRemark.FROM_NORTH)) return "북한이탈주민";
-        else if (applicationRemark.equals(ApplicationRemark.MULTICULTURAL)) return "다문화가정";
-        else if (applicationRemark.equals(ApplicationRemark.BASIC_LIVING)) return "기초생활수급자";
-        else if (applicationRemark.equals(ApplicationRemark.LOWEST_INCOME)) return "차상위계층";
-        else if (applicationRemark.equals(ApplicationRemark.TEEN_HOUSEHOLDER)) return "소년소녀가장";
-        else if (applicationRemark.equals(ApplicationRemark.PRIVILEGED_ADMISSION)) return "특례입학대상자";
-        else if (applicationRemark.equals(ApplicationRemark.NATIONAL_MERIT)) return "국가유공자";
+        else if (ApplicationRemark.ONE_PARENT.equals(applicationRemark)) return "한부모가족";
+        else if (ApplicationRemark.FROM_NORTH.equals(applicationRemark)) return "북한이탈주민";
+        else if (ApplicationRemark.MULTICULTURAL.equals(applicationRemark)) return "다문화가정";
+        else if (ApplicationRemark.BASIC_LIVING.equals(applicationRemark)) return "기초생활수급자";
+        else if (ApplicationRemark.LOWEST_INCOME.equals(applicationRemark)) return "차상위계층";
+        else if (ApplicationRemark.TEEN_HOUSEHOLDER.equals(applicationRemark)) return "소년소녀가장";
+        else if (ApplicationRemark.PRIVILEGED_ADMISSION.equals(applicationRemark)) return "특례입학대상자";
+        else if (ApplicationRemark.NATIONAL_MERIT.equals(applicationRemark)) return "국가유공자";
+        else if (ApplicationRemark.PROTECTED_CHILDREN.equals(applicationRemark)) return "보호대상아동";
         else return "";
     }
 
