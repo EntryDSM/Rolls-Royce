@@ -229,6 +229,10 @@ public class User {
         return ApplicationRemark.NATIONAL_MERIT.equals(applicationRemark);
     }
 
+    public boolean isProtectedChildren() {
+        return ApplicationRemark.PROTECTED_CHILDREN.equals(applicationRemark);
+    }
+
     public boolean isCommonApplicationType() {
         return ApplicationType.COMMON.equals(applicationType);
     }
