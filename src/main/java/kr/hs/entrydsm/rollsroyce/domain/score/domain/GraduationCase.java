@@ -73,7 +73,7 @@ public class GraduationCase extends ApplicationCase {
 
     @Override
     public BigDecimal calculateVolunteerScore() {
-        if (volunteerTime >= MAX_VOLUNTEER_TIME) {
+        if (MAX_VOLUNTEER_TIME <= volunteerTime) {
             return BigDecimal.valueOf(MAX_VOLUNTEER_SCORE);
         } else if (MIN_VOLUNTEER_TIME <= volunteerTime) {
             return BigDecimal.valueOf(volunteerTime)
