@@ -49,7 +49,7 @@ public class ApplicantsExcelService {
         List<User> applicants = userRepository.findAllByStatusIsSubmittedTrue();
 
         int i = 0;
-        for(User user : applicants) {
+        for (User user : applicants) {
             long receiptCode = user.getReceiptCode();
 
             GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode).orElse(null);
@@ -65,14 +65,14 @@ public class ApplicantsExcelService {
         }
 
         try {
-			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             String formatFilename = "attachment;filename=\"지원자 목록";
             String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일_HH시mm분"));
             String fileName = new String((formatFilename + time + ".xlsx\"").getBytes("KSC5601"), "8859_1");
             response.setHeader("Content-Disposition", fileName);
 
             applicantInformation.getWorkbook().write(response.getOutputStream());
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw ExcelOException.EXCEPTION;
         }
     }
@@ -172,14 +172,15 @@ public class ApplicantsExcelService {
 
     private String getApplicationRemark(ApplicationRemark applicationRemark) {
         if (applicationRemark == null) return "일반";
-        else if (applicationRemark.equals(ApplicationRemark.ONE_PARENT)) return "한부모가족";
-        else if (applicationRemark.equals(ApplicationRemark.FROM_NORTH)) return "북한이탈주민";
-        else if (applicationRemark.equals(ApplicationRemark.MULTICULTURAL)) return "다문화가정";
-        else if (applicationRemark.equals(ApplicationRemark.BASIC_LIVING)) return "기초생활수급자";
-        else if (applicationRemark.equals(ApplicationRemark.LOWEST_INCOME)) return "차상위계층";
-        else if (applicationRemark.equals(ApplicationRemark.TEEN_HOUSEHOLDER)) return "소년소녀가장";
-        else if (applicationRemark.equals(ApplicationRemark.PRIVILEGED_ADMISSION)) return "특례입학대상자";
-        else if (applicationRemark.equals(ApplicationRemark.NATIONAL_MERIT)) return "국가유공자";
+        else if (ApplicationRemark.ONE_PARENT.equals(applicationRemark)) return "한부모가족";
+        else if (ApplicationRemark.FROM_NORTH.equals(applicationRemark)) return "북한이탈주민";
+        else if (ApplicationRemark.MULTICULTURAL.equals(applicationRemark)) return "다문화가정";
+        else if (ApplicationRemark.BASIC_LIVING.equals(applicationRemark)) return "기초생활수급자";
+        else if (ApplicationRemark.LOWEST_INCOME.equals(applicationRemark)) return "차상위계층";
+        else if (ApplicationRemark.TEEN_HOUSEHOLDER.equals(applicationRemark)) return "소년소녀가장";
+        else if (ApplicationRemark.PRIVILEGED_ADMISSION.equals(applicationRemark)) return "특례입학대상자";
+        else if (ApplicationRemark.NATIONAL_MERIT.equals(applicationRemark)) return "국가유공자";
+        else if (ApplicationRemark.PROTECTED_CHILDREN.equals(applicationRemark)) return "보호대상아동";
         else return "";
     }
 
@@ -190,8 +191,8 @@ public class ApplicantsExcelService {
     }
 
     private String[] getSplitScores(String scores) {
-        if(scores == null) {
-            return  Stream.of("-", "-", "-", "-").toArray(String[]::new);
+        if (scores == null) {
+            return Stream.of("-", "-", "-", "-").toArray(String[]::new);
         } else {
             return scores.split("");
         }
