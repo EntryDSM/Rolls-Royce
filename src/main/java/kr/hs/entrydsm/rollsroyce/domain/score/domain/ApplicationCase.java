@@ -51,23 +51,23 @@ public abstract class ApplicationCase {
     }
 
     public boolean isMeister() {
-        return applicationType == ApplicationType.MEISTER;
+        return ApplicationType.MEISTER.equals(applicationType);
     }
 
     public boolean isCommon() {
-        return applicationType == ApplicationType.COMMON;
+        return ApplicationType.COMMON.equals(applicationType);
     }
 
     public boolean isQualificationExam() {
-        return educationalStatus == EducationalStatus.QUALIFICATION_EXAM;
+        return EducationalStatus.QUALIFICATION_EXAM.equals(educationalStatus);
     }
 
     public boolean isProspectiveGraduate() {
-        return educationalStatus == EducationalStatus.PROSPECTIVE_GRADUATE;
+        return EducationalStatus.PROSPECTIVE_GRADUATE.equals(educationalStatus);
     }
 
     public boolean isGraduated() {
-        return educationalStatus == EducationalStatus.GRADUATE;
+        return EducationalStatus.GRADUATE.equals(educationalStatus);
     }
 
 }
