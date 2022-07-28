@@ -120,7 +120,7 @@ public class GraduationCase extends ApplicationCase {
     }
 
     private BigDecimal[] gradeScoreFormula() {
-        BigDecimal[] gradeScores = new BigDecimal[]{BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO};
+        BigDecimal[] gradeScores = new BigDecimal[3];
         BigDecimal[] scoresToCalculate = zeroCheckScoresToCalculate();
 
         for (int index = 0; index < scoresToCalculate.length - 2; index++) {
@@ -156,7 +156,7 @@ public class GraduationCase extends ApplicationCase {
 
     private BigDecimal[] scoresToCalculate() {
         BigDecimal[] scoresPerSemester = scoresPerSemester();
-        BigDecimal[] scoresToCalculate = new BigDecimal[]{BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO};
+        BigDecimal[] scoresToCalculate = new BigDecimal[4];
 
         int toCalculateLength = scoresToCalculate.length;
         int semesterLength = scoresPerSemester.length;
@@ -179,12 +179,7 @@ public class GraduationCase extends ApplicationCase {
 
     private BigDecimal[] scoresPerSemester() {
         String[] gradesPerSemester = gradesPerSemester();
-        BigDecimal[] scoresPerSemester = new BigDecimal[]{BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO};
+        BigDecimal[] scoresPerSemester = new BigDecimal[6];
 
         for (int semester = 0; semester < gradesPerSemester.length; semester++) {
             scoresPerSemester[semester] = gradesToScore(gradesPerSemester[semester]);
@@ -201,7 +196,7 @@ public class GraduationCase extends ApplicationCase {
                 scienceGrade,
                 englishGrade,
                 techAndHomeGrade};
-        String[] gradesPerSemester = new String[]{"", "", "", "", "", ""};
+        String[] gradesPerSemester = new String[6];
 
         for (String grades : gradesPerSubject) {
             for (int semester = 0; semester < grades.length(); semester++) {
