@@ -85,18 +85,21 @@ public class GraduationCase extends ApplicationCase {
 
     @Override
     public Integer calculateAttendanceScore() {
-        return Math.max((MAX_ATTENDANCE_SCORE
-                        - dayAbsenceCount
-                        - (lectureAbsenceCount + latenessCount + earlyLeaveCount) / 3),
-                0);
+        int attendanceScore = MAX_ATTENDANCE_SCORE
+                - dayAbsenceCount
+                - (lectureAbsenceCount + latenessCount + earlyLeaveCount) / 3;
+
+        return Math.max(attendanceScore, 0);
     }
 
     @Override
     public BigDecimal[] calculateGradeScores() {
         BigDecimal[] gradeScores = gradeScoreFormula();
+
         for (int i = 0; i < gradeScores.length; i++) {
             gradeScores[i] = gradeScores[i].setScale(3, RoundingMode.HALF_UP);
         }
+
         return gradeScores;
     }
 
@@ -126,6 +129,7 @@ public class GraduationCase extends ApplicationCase {
         for (int index = 0; index < scoresToCalculate.length - 2; index++) {
             gradeScores[index] = scoresToCalculate[index].multiply(GRADE_RATE);
         }
+
         gradeScores[gradeScores.length - 1] = scoresToCalculate[scoresToCalculate.length - 2]
                 .add(scoresToCalculate[scoresToCalculate.length - 1])
                 .multiply(GRADE_RATE);
@@ -189,13 +193,15 @@ public class GraduationCase extends ApplicationCase {
     }
 
     private String[] gradesPerSemester() {
-        String[] gradesPerSubject = new String[]{koreanGrade,
+        String[] gradesPerSubject = new String[]{
+                koreanGrade,
                 socialGrade,
                 historyGrade,
                 mathGrade,
                 scienceGrade,
                 englishGrade,
-                techAndHomeGrade};
+                techAndHomeGrade
+        };
         String[] gradesPerSemester = new String[6];
 
         for (String grades : gradesPerSubject) {
@@ -204,7 +210,9 @@ public class GraduationCase extends ApplicationCase {
             }
         }
 
-        if (isProspectiveGraduate()) gradesPerSemester[5] = gradesPerSemester[4];
+        if (isProspectiveGraduate()) {
+            gradesPerSemester[5] = gradesPerSemester[4];
+        }
 
         return gradesPerSemester;
     }
@@ -225,6 +233,7 @@ public class GraduationCase extends ApplicationCase {
                     semesterScore++;
                 case 'E':
                     semesterScore++;
+                default:
                     subjectCount++;
             }
         }
@@ -234,8 +243,7 @@ public class GraduationCase extends ApplicationCase {
         }
 
         return BigDecimal.valueOf(semesterScore)
-                .divide(BigDecimal.valueOf(subjectCount),
-                        5,
+                .divide(BigDecimal.valueOf(subjectCount), 5,
                         RoundingMode.DOWN);
     }
 
