@@ -126,8 +126,8 @@ public class GraduationCase extends ApplicationCase {
         BigDecimal[] gradeScores = new BigDecimal[3];
         BigDecimal[] scoresToCalculate = zeroCheckScoresToCalculate();
 
-        for (int index = 0; index < scoresToCalculate.length - 2; index++) {
-            gradeScores[index] = scoresToCalculate[index].multiply(GRADE_RATE);
+        for (int i = 0; i < scoresToCalculate.length - 2; i++) {
+            gradeScores[i] = scoresToCalculate[i].multiply(GRADE_RATE);
         }
 
         gradeScores[gradeScores.length - 1] = scoresToCalculate[scoresToCalculate.length - 2]
