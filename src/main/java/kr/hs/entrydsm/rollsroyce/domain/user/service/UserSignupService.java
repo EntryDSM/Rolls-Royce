@@ -11,21 +11,23 @@ import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequ
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class UserSignupService {
 
+    private final JwtTokenProvider tokenProvider;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final StatusRepository statusRepository;
+
+    private final UserAuthCodeFacade authCodeFacade;
     private final UserFacade userFacade;
     private final UserRepository userRepository;
-    private final JwtTokenProvider tokenProvider;
-    private final PasswordEncoder passwordEncoder;
-    private final UserAuthCodeFacade authCodeFacade;
-    private final StatusRepository statusRepository;
 
     @Transactional
     public TokenResponse execute(SignupRequest request) {
@@ -34,8 +36,8 @@ public class UserSignupService {
         String password = passwordEncoder.encode(request.getPassword());
 
         userFacade.isAlreadyExists(email);
-        
-        if(!authCodeFacade.isVerified(email)) {
+
+        if (!authCodeFacade.isVerified(email)) {
             throw UnVerifiedAuthCodeException.EXCEPTION;
         }
 
@@ -50,7 +52,6 @@ public class UserSignupService {
                 .isPrintsArrived(false)
                 .isSubmitted(false)
                 .isFirstRoundPass(false)
-				.isPaid(false)
                 .build());
 
         return tokenProvider.generateToken(user.getReceiptCode().toString(), "USER");

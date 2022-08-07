@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
@@ -16,11 +15,11 @@ import java.util.Map;
 @Service
 public class UpdateIsPrintsArrivedService {
 
-    private final AdminFacade adminFacade;
-    private final UserFacade userFacade;
+    private final SESUtil sesUtil;
+
     private final StatusFacade statusFacade;
 
-    private final SESUtil sesUtil;
+    private final UserFacade userFacade;
 
     public void execute(long receiptCode, boolean isArrived) {
         User user = userFacade.getUserByCode(receiptCode);

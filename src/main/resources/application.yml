@@ -44,7 +44,7 @@ auth:
 
 aws:
   s3:
-    prefix: ${AWS_S3_PREFIX}
+    prefix: ${AWS_S3_PREFIX:adsf}
     bucket: ${AWS_S3_BUCKET:bucket}
     base-image-url: ${AWS_S3_URL:images/}
   ses:

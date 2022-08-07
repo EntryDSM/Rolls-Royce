@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.CommonInformation;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.Evaluation;
@@ -26,16 +25,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetApplicantDetailsService {
 
+    private final S3Util s3Util;
+
+    private final StatusFacade statusFacade;
+
+    private final UserFacade userFacade;
+
     private final GraduationRepository graduationRepository;
     private final GraduationCaseRepository graduationCaseRepository;
     private final QualificationCaseRepository qualificationCaseRepository;
+
     private final ScoreRepository scoreRepository;
-
-    private final AdminFacade adminFacade;
-    private final UserFacade userFacade;
-    private final StatusFacade statusFacade;
-
-    private final S3Util s3Util;
+    
 
     public ApplicantDetailsResponse execute(long receiptCode) {
         User user = userFacade.getUserByCode(receiptCode);
@@ -71,7 +72,6 @@ public class GetApplicantDetailsService {
                 .applicationRemark(user.getApplicationRemark() != null ? user.getApplicationRemark().name() : null)
                 .address(user.getAddress())
                 .detailAddress(user.getDetailAddress())
-                .headCount(user.getHeadcount() != null ? user.getHeadcount().name() : null)
                 .build();
     }
 

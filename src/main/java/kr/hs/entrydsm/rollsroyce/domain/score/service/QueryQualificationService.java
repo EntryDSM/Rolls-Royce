@@ -11,8 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class QueryQualificationService {
 
-    private final QualificationCaseRepository qualificationCaseRepository;
     private final UserFacade userFacade;
+
+    private final QualificationCaseRepository qualificationCaseRepository;
 
     public QueryQualificationResponse execute() {
         return new QueryQualificationResponse(
@@ -20,4 +21,5 @@ public class QueryQualificationService {
                         .orElseThrow(() -> GradeNotFoundException.EXCEPTION)
         );
     }
+
 }

@@ -18,4 +18,5 @@ public class ChangeStudyPlanService {
         User user = userFacade.getCurrentUser();
         user.updateStudyPlan(request.getContent());
     }
+
 }

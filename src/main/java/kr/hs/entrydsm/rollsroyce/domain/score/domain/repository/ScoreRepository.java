@@ -1,13 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain.repository;
 
-import java.util.List;
-
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ScoreRepository extends CrudRepository<Score, Long> {

@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
 @RequiredArgsConstructor
+@Configuration
 public class AwsSESConfig {
 
     private final AwsProperties awsProperties;

@@ -1,7 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ExcelOException;
-import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.ApplicantInformation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
@@ -33,16 +32,15 @@ import java.util.stream.Stream;
 @Service
 public class ApplicantsExcelService {
 
+    private final ScoreFacade scoreFacade;
+
+    private final StatusFacade statusFacade;
+
     private final UserRepository userRepository;
     private final GraduationCaseRepository graduationCaseRepository;
     private final GraduationRepository graduationRepository;
 
-    private final AdminFacade adminFacade;
-    private final StatusFacade statusFacade;
-    private final ScoreFacade scoreFacade;
-
     public void execute(HttpServletResponse response) {
-        adminFacade.getRootAdmin();
         ApplicantInformation applicantInformation = new ApplicantInformation();
         Sheet sheet = applicantInformation.getSheet();
         applicantInformation.format();

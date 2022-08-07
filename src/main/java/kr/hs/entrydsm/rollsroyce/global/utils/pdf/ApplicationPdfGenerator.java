@@ -20,8 +20,8 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
-@Component
 @RequiredArgsConstructor
+@Component
 public class ApplicationPdfGenerator {
 
     private final PdfProcessor pdfProcessor;

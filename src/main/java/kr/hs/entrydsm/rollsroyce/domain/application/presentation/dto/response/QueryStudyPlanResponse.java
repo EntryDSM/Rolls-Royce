@@ -6,5 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class QueryStudyPlanResponse {
-    private String content;
+
+    private final String content;
+
 }

@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UpdateQualificationRequest {
 
     @DecimalMin("60.0")

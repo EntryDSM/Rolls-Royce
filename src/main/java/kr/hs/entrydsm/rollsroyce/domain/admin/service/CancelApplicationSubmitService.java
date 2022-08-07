@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
@@ -16,11 +15,11 @@ import java.util.Map;
 @Service
 public class CancelApplicationSubmitService {
 
-    private final AdminFacade adminFacade;
-    private final UserFacade userFacade;
+    private final SESUtil sesUtil;
+
     private final StatusFacade statusFacade;
 
-    private final SESUtil sesUtil;
+    private final UserFacade userFacade;
 
     private static final String TEMPLATE = "SUBMIT_FALSE";
 
@@ -29,7 +28,7 @@ public class CancelApplicationSubmitService {
         User user = userFacade.getUserByCode(receiptCode);
 
         statusFacade.getStatusByReceiptCode(user.getReceiptCode())
-				.cancelIsSubmitted();
+                .cancelIsSubmitted();
 
         Map<String, String> params = new HashMap<>();
         params.put("name", user.getName());

@@ -5,11 +5,10 @@ import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.repository.ScheduleRepos
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.exception.ScheduleNotFoundException;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
+@Component
 public class ScheduleFacade {
 
 	private final ScheduleRepository scheduleRepository;

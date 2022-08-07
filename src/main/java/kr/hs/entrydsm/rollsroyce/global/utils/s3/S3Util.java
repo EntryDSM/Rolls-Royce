@@ -26,9 +26,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
 
-
-@Component
 @RequiredArgsConstructor
+@Component
 public class S3Util {
 
     private static final int EXP_TIME = 1000 * 60 * 2;
@@ -63,22 +62,17 @@ public class S3Util {
         InputStream is = new ByteArrayInputStream(os.toByteArray());
 
 
-        amazonS3Client.putObject(new PutObjectRequest(bucketName, prefix + filename, is, null)
-                .withCannedAcl(CannedAccessControlList.AuthenticatedRead));
+        amazonS3Client.putObject(new PutObjectRequest(bucketName, prefix + filename, is, null).withCannedAcl(CannedAccessControlList.AuthenticatedRead));
 
         return filename;
     }
 
     public String generateObjectUrl(String fileName) {
-        if (fileName == null)
-            return null;
+        if (fileName == null) return null;
         Date expiration = new Date();
         expiration.setTime(expiration.getTime() + EXP_TIME);
 
-        GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                new GeneratePresignedUrlRequest(baseImageUrl, fileName)
-                        .withMethod(HttpMethod.GET)
-                        .withExpiration(expiration);
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(baseImageUrl, fileName).withMethod(HttpMethod.GET).withExpiration(expiration);
 
         URL url = amazonS3Client.generatePresignedUrl(generatePresignedUrlRequest);
 
@@ -127,8 +121,7 @@ public class S3Util {
     }
 
     private String verificationFile(MultipartFile file) {
-        if (file == null || file.isEmpty() || file.getOriginalFilename() == null)
-            throw FileIsEmptyException.EXCEPTION;
+        if (file == null || file.isEmpty() || file.getOriginalFilename() == null) throw FileIsEmptyException.EXCEPTION;
         String originalFilename = file.getOriginalFilename();
         String ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
 

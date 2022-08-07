@@ -9,12 +9,13 @@ import kr.hs.entrydsm.rollsroyce.global.exception.EducationalStatusNullException
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class QueryTypeService {
 
-    private final UserFacade userFacade;
     private final ApplicationFacade applicationFacade;
+
+    private final UserFacade userFacade;
 
     public QueryTypeResponse execute() {
         User user = userFacade
@@ -24,7 +25,7 @@ public class QueryTypeService {
             throw EducationalStatusNullException.EXCEPTION;
 
         Application application = applicationFacade
-				.getApplication(user.getReceiptCode(), user.getEducationalStatus());
+                .getApplication(user.getReceiptCode(), user.getEducationalStatus());
 
         return user.queryUserApplication(application);
     }

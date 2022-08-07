@@ -1,7 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
-import java.util.stream.Collectors;
-
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
@@ -10,19 +8,21 @@ import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class GetApplicantsService {
 
-    private final UserRepository userRepository;
+    private final AdminFacade adminFacade;
+
     private final StatusFacade statusFacade;
 
-    private final AdminFacade adminFacade;
+    private final UserRepository userRepository;
 
     public ApplicantsResponse execute(Pageable page, GetApplicantsRequest request) {
         adminFacade.findAdmin();
@@ -44,21 +44,20 @@ public class GetApplicantsService {
                 .totalPages(users.getTotalPages())
                 .applicants(
                         users.stream().map(
-                                user -> {
-                                	Status status = statusFacade.getStatusByReceiptCode(user.getReceiptCode());
-									return ApplicantsResponse.ApplicantDto.builder()
-											.receiptCode(user.getReceiptCode())
-											.name(user.getName())
-											.email(user.getEmail())
-											.isDaejeon(user.getIsDaejeon())
-											.applicationType(user.getApplicationType().name())
-											.isPrintsArrived(status.getIsPrintsArrived())
-											.isSubmitted(status.getIsSubmitted())
-											.headcount(user.getHeadcount() != null ? user.getHeadcount().name() : null)
-											.build();
-								}
-                        )
-                        .collect(Collectors.toList())
+                                        user -> {
+                                            Status status = statusFacade.getStatusByReceiptCode(user.getReceiptCode());
+                                            return ApplicantsResponse.ApplicantDto.builder()
+                                                    .receiptCode(user.getReceiptCode())
+                                                    .name(user.getName())
+                                                    .email(user.getEmail())
+                                                    .isDaejeon(user.getIsDaejeon())
+                                                    .applicationType(user.getApplicationType().name())
+                                                    .isPrintsArrived(status.getIsPrintsArrived())
+                                                    .isSubmitted(status.getIsSubmitted())
+                                                    .build();
+                                        }
+                                )
+                                .collect(Collectors.toList())
                 )
                 .build();
     }

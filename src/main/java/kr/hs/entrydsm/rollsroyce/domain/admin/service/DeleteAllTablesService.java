@@ -22,26 +22,31 @@ import java.time.LocalDateTime;
 @Service
 public class DeleteAllTablesService {
 
-    private final CheckPasswordLimitRepository checkPasswordLimitRepository;
-    private final ScheduleFacade scheduleFacade;
-    private final UserRepository userRepository;
-    private final StatusRepository statusRepository;
-    private final ScoreRepository scoreRepository;
-    private final GraduationCaseRepository graduationCaseRepository;
-    private final QualificationCaseRepository qualificationCaseRepository;
-    private final ApplicationFacade applicationFacade;
-
     private final AdminFacade adminFacade;
 
+    private final ScheduleFacade scheduleFacade;
+
+    private final ApplicationFacade applicationFacade;
+    private final GraduationCaseRepository graduationCaseRepository;
+    private final QualificationCaseRepository qualificationCaseRepository;
+
+    private final CheckPasswordLimitRepository checkPasswordLimitRepository;
+
+    private final ScoreRepository scoreRepository;
+
+    private final StatusRepository statusRepository;
+
+    private final UserRepository userRepository;
+
     public void execute() {
-        if (!scheduleFacade.getScheduleByType(Type.SECOND_ANNOUNCEMENT)
-				.isAfter(LocalDateTime.now())) {
-            throw ApplicationPeriodNotOverException.EXCEPTION;
+        Admin admin = adminFacade.getRootAdmin();
+        if (!checkPasswordLimitRepository.existsById(admin.getId())) {
+            throw AdminNotAccessibleException.EXCEPTION;
         }
 
-        Admin admin = adminFacade.getRootAdmin();
-        if(!checkPasswordLimitRepository.existsById(admin.getId())) {
-            throw AdminNotAccessibleException.EXCEPTION;
+        if (!scheduleFacade.getScheduleByType(Type.SECOND_ANNOUNCEMENT)
+                .isAfter(LocalDateTime.now())) {
+            throw ApplicationPeriodNotOverException.EXCEPTION;
         }
 
         scoreRepository.deleteAll();

@@ -3,6 +3,7 @@ package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateGraduationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "tbl_graduation_case")
 public class GraduationCase extends ApplicationCase {
 

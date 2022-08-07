@@ -4,22 +4,22 @@ import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.Qu
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class QueryInformationService {
 
-	private final UserFacade userFacade;
-	private final S3Util s3Util;
+    private final S3Util s3Util;
 
-	public QueryInformationResponse execute() {
-		QueryInformationResponse response = userFacade.queryInformation();
+    private final UserFacade userFacade;
 
-		response.setPhotoFileName(s3Util.generateObjectUrl(response.getPhotoFileName()));
+    public QueryInformationResponse execute() {
+        QueryInformationResponse response = userFacade.queryInformation();
 
-		return response;
-	}
+        response.setPhotoFileName(s3Util.generateObjectUrl(response.getPhotoFileName()));
+
+        return response;
+    }
 
 }

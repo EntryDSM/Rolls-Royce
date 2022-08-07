@@ -73,4 +73,5 @@ public class GetApplicantsRequest {
         this.isSubmitted = isSubmitted;
         this.isNotSubmitted = isNotSubmitted;
     }
+
 }

@@ -8,12 +8,13 @@ import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response.StatusRes
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class UserStatusService {
 
-    private final UserFacade userFacade;
     private final StatusFacade statusFacade;
+
+    private final UserFacade userFacade;
 
     public StatusResponse execute() {
         final User user = userFacade.getCurrentUser();

@@ -10,13 +10,13 @@ import static feign.FeignException.errorStatus;
 @Slf4j
 public class FeignClientErrorDecoder implements ErrorDecoder {
 
-	@Override
-	public Exception decode(String methodKey, Response response) {
+    @Override
+    public Exception decode(String methodKey, Response response) {
 
-		if(response.status() >= 400)
-			throw RequestFailToOtherServerException.EXCEPTION;
+        if (response.status() >= 400)
+            throw RequestFailToOtherServerException.EXCEPTION;
 
-		return errorStatus(methodKey, response);
-	}
+        return errorStatus(methodKey, response);
+    }
 
 }

@@ -3,7 +3,6 @@ package kr.hs.entrydsm.rollsroyce.domain.application.service;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryStudyPlanResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -17,4 +16,5 @@ public class QueryStudyPlanService {
                 userFacade.queryStudyPlan()
         );
     }
+
 }

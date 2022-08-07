@@ -15,8 +15,8 @@ import java.util.Map;
 import java.util.concurrent.Future;
 
 @Slf4j
-@Component
 @RequiredArgsConstructor
+@Component
 public class SESUtil {
 
     private static final String UTF_8_ENCODED_SOURCE_NAME = "=?utf-8?B?7J6F7ZWZ7KCE7ZiV7Iuc7Iqk7YWc?=";

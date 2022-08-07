@@ -15,8 +15,9 @@ import java.util.Optional;
 @Service
 public class VerifyAuthCodeService {
 
-    private final UserAuthCodeFacade authCodeFacade;
     private final AuthCodeRepository authCodeRepository;
+
+    private final UserAuthCodeFacade authCodeFacade;
 
     @Transactional
     public void execute(VerifyAuthCodeRequest request) {
@@ -24,7 +25,7 @@ public class VerifyAuthCodeService {
         String code = request.getCode();
 
         AuthCode authCode = authCodeFacade.getAuthCodeById(email);
-    
+
         Optional.of(authCode)
                 .filter(s -> authCodeFacade.isAlreadyVerified(s.isVerified()))
                 .filter(s -> authCodeFacade.compareCode(code, s.getCode()))

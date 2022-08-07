@@ -21,23 +21,13 @@ public class ApplicantsResponse {
     @Builder
     @AllArgsConstructor
     public static class ApplicantDto {
-
         private final Long receiptCode;
-
         private final String name;
-
         private final String email;
-
         private final Boolean isDaejeon;
-
         private final String applicationType;
-
         private final Boolean isPrintsArrived;
-
         private final Boolean isSubmitted;
-
-        private final String headcount;
-
     }
 
 }

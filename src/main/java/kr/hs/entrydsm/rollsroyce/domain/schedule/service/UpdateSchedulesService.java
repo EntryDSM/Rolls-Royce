@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.schedule.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.Schedule;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.repository.ScheduleRepository;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
@@ -18,12 +17,8 @@ public class UpdateSchedulesService {
 
     private final ScheduleRepository scheduleRepository;
 
-    private final AdminFacade adminFacade;
-
     @Transactional
     public void execute(ScheduleRequest request) {
-        adminFacade.getRootAdmin();
-
         if (request.getSchedules() == null) {
             throw InvalidScheduleRequestException.EXCEPTION;
         }
@@ -32,6 +27,7 @@ public class UpdateSchedulesService {
             Schedule existedSchedule = scheduleRepository
 					.findByType(Type.valueOf(schedule.getType()))
 					.orElse(null);
+
             if (existedSchedule == null) {
                 throw ScheduleNotFoundException.EXCEPTION;
             }

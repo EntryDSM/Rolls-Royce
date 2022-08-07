@@ -11,49 +11,49 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
+@Component
 public class UserFacade {
 
-	private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-	public User getCurrentUser() {
-		Object detail =
-				SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if(!(detail instanceof AuthDetails)) {
-			throw CredentialsNotFoundException.EXCEPTION;
-		}
-		return userRepository.findById(Long.valueOf(((AuthDetails) detail).getUsername()))
-				.orElseThrow(() -> UserNotFoundException.EXCEPTION);
-	}
+    public User getCurrentUser() {
+        Object detail =
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!(detail instanceof AuthDetails)) {
+            throw CredentialsNotFoundException.EXCEPTION;
+        }
+        return userRepository.findById(Long.valueOf(((AuthDetails) detail).getUsername()))
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+    }
 
-	public Long getCurrentReceiptCode() {
-		return getCurrentUser().getReceiptCode();
-	}
+    public Long getCurrentReceiptCode() {
+        return getCurrentUser().getReceiptCode();
+    }
 
-	public User getUserByCode(Long receiptCode) {
-		return userRepository.findById(receiptCode)
-				.orElseThrow(() -> UserNotFoundException.EXCEPTION);
-	}
+    public User getUserByCode(Long receiptCode) {
+        return userRepository.findById(receiptCode)
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+    }
 
-	public boolean isAlreadyExists(String email) {
-		if(userRepository.findByEmail(email).isPresent()) {
-			throw UserAlreadyExistsException.EXCEPTION;
-		}
-		return true;
-	}
+    public boolean isAlreadyExists(String email) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw UserAlreadyExistsException.EXCEPTION;
+        }
+        return true;
+    }
 
-	public QueryInformationResponse queryInformation() {
-		return getCurrentUser().queryInformation();
-	}
+    public QueryInformationResponse queryInformation() {
+        return getCurrentUser().queryInformation();
+    }
 
-	public String querySelfIntroduce() {
-		return getCurrentUser().getSelfIntroduce();
-	}
+    public String querySelfIntroduce() {
+        return getCurrentUser().getSelfIntroduce();
+    }
 
-	public String queryStudyPlan() {
-		return getCurrentUser().getStudyPlan();
-	}
+    public String queryStudyPlan() {
+        return getCurrentUser().getStudyPlan();
+    }
 
 
 }

@@ -5,17 +5,21 @@ import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateQua
 import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.response.QueryGraduationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.response.QueryQualificationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.score.service.QueryGraduationService;
-import kr.hs.entrydsm.rollsroyce.domain.score.service.UpdateGraduationService;
 import kr.hs.entrydsm.rollsroyce.domain.score.service.QueryQualificationService;
+import kr.hs.entrydsm.rollsroyce.domain.score.service.UpdateGraduationService;
 import kr.hs.entrydsm.rollsroyce.domain.score.service.UpdateQualificationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-@RestController
 @RequestMapping("/score")
+@RestController
 public class ScoreController {
 
     private final QueryGraduationService queryGraduationService;
@@ -32,7 +36,7 @@ public class ScoreController {
     public void updateGraduation(@RequestBody @Valid UpdateGraduationRequest request) {
         updateGraduationService.execute(request);
     }
-  
+
     @GetMapping("/qualification")
     public QueryQualificationResponse queryQualification() {
         return queryQualificationService.execute();

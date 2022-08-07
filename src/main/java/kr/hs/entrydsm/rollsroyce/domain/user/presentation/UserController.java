@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-@RestController
 @RequestMapping("/user")
+@RestController
 public class UserController {
 
     private static final String SIGN_UP_EMAIL_TEMPLATE = "RollsRoyceEmailTemplate";
