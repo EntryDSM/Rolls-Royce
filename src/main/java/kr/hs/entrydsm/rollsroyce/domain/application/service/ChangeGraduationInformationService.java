@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.exception.EducationalStatusUnmatchedException;
+import kr.hs.entrydsm.rollsroyce.domain.application.exception.EducationalStatusUnmatchedException;
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeGraduationInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
@@ -8,7 +8,6 @@ import kr.hs.entrydsm.rollsroyce.domain.school.facade.SchoolFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ChangeGraduationInformationService {
 
-    private final SchoolFacade schoolFacade;
     private final ApplicationFacade applicationFacade;
+
+    private final SchoolFacade schoolFacade;
+
     private final UserFacade userFacade;
 
     @Transactional

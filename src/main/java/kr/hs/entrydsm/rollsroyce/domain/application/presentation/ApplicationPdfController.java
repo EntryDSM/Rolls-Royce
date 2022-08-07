@@ -1,25 +1,23 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.presentation;
 
-import java.nio.charset.StandardCharsets;
-
-import javax.servlet.http.HttpServletResponse;
-
 import kr.hs.entrydsm.rollsroyce.global.utils.pdf.ApplicationPdfService;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
 
-@RestController
-@RequestMapping("/pdf")
 @RequiredArgsConstructor
+@RequestMapping("/pdf")
+@RestController
 public class ApplicationPdfController {
 
-	private static final String FILE_NAME = "대덕소프트웨어마이스터고등학교_입학원서";
 	private final ApplicationPdfService applicationPdfService;
+
+	private static final String FILE_NAME = "대덕소프트웨어마이스터고등학교_입학원서";
 
 	@GetMapping(value = "/preview", produces = MediaType.APPLICATION_PDF_VALUE)
 	public byte[] getPreviewApplicationPdf() {

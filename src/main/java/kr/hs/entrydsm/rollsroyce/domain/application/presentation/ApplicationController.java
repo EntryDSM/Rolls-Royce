@@ -1,7 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.presentation;
 
-import javax.validation.Valid;
-
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeStudyPlanRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryIntroduceResponse;
@@ -14,7 +12,6 @@ import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryIntroduceServic
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QuerySchoolService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryStudyPlanService;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("application.presentation.ApplicationController")
-@RequestMapping("/application")
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
+@RequestMapping("/application")
+@RestController("application.presentation.ApplicationController")
 public class ApplicationController {
   
     private final ChangeIntroduceService changeIntroduceService;

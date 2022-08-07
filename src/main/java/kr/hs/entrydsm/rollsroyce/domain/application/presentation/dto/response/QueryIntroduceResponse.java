@@ -6,5 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class QueryIntroduceResponse {
-    private String content;
+
+    private final String content;
+
 }

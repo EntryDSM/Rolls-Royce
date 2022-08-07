@@ -10,24 +10,24 @@ import java.time.LocalDate;
 @Builder
 public class UpdateUserInformationDto {
 
-	private final String name;
+    private final String name;
 
-	private final Sex sex;
+    private final Sex sex;
 
-	private final LocalDate birthday;
+    private final LocalDate birthday;
 
-	private final String parentName;
+    private final String parentName;
 
-	private final String parentTel;
+    private final String parentTel;
 
-	private final String telephoneNumber;
+    private final String telephoneNumber;
 
-	private final String address;
+    private final String address;
 
-	private final String postCode;
+    private final String postCode;
 
-	private final String detailAddress;
+    private final String detailAddress;
 
-	private final Integer distance;
+    private final Integer distance;
 
 }

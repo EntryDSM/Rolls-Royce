@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
-@Component
 @RequiredArgsConstructor
+@Component
 public class ApplicationFacade {
 
     private final GraduationRepository graduationRepository;
@@ -41,8 +41,7 @@ public class ApplicationFacade {
         if (qualificationRepository.findById(user.getReceiptCode()).isPresent()) {
             qualificationRepository.findById(user.getReceiptCode())
                     .ifPresent(qualification -> qualification.updateQualifiedAt(qualifiedAt));
-        }
-        else {
+        } else {
             qualificationRepository.save(
                     new Qualification(user, qualifiedAt)
             );
@@ -56,8 +55,7 @@ public class ApplicationFacade {
             graduationRepository.findById(user.getReceiptCode())
                     .ifPresent(graduation -> graduation.updateInformation(graduatedAt,
                             EnumUtil.getEnum(EducationalStatus.class, educationalStatus)));
-        }
-        else {
+        } else {
             graduationRepository.save(
                     new Graduation(user, graduatedAt,
                             EnumUtil.getEnum(EducationalStatus.class, educationalStatus))
@@ -66,10 +64,9 @@ public class ApplicationFacade {
     }
 
     public Application getApplication(Long receiptCode, EducationalStatus educationalStatus) {
-        if(EducationalStatus.QUALIFICATION_EXAM.equals(educationalStatus)) {
+        if (EducationalStatus.QUALIFICATION_EXAM.equals(educationalStatus)) {
             return getQualification(receiptCode);
-        }
-        else {
+        } else {
             return getGraduation(receiptCode);
         }
     }

@@ -1,17 +1,17 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request;
 
-import java.time.LocalDate;
-
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
+
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ChangeInformationRequest {
 
 	private static final String TEL_REGEXP = "^\\d{3}\\d{3,4}\\d{4}$";

@@ -1,7 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.presentation;
 
-import javax.validation.Valid;
-
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeGraduationInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
@@ -16,7 +14,6 @@ import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryInformationServ
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryTypeService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.UploadPhotoService;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +26,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@RestController
-@RequestMapping("/application/users")
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
+@RequestMapping("/application/users")
+@RestController
 public class ApplicationUserController {
 
 	private final ChangeTypeService changeTypeService;

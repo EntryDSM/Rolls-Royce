@@ -1,8 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.exception.EducationalStatusUnmatchedException;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
+import kr.hs.entrydsm.rollsroyce.domain.application.exception.EducationalStatusUnmatchedException;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryGraduationInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.ApplicationNotFoundException;
@@ -19,8 +19,10 @@ import java.time.format.DateTimeFormatter;
 @Service
 public class QueryGraduationInformationService {
 
-    private final UserFacade userFacade;
     private final S3Util s3Util;
+
+    private final UserFacade userFacade;
+
     private final GraduationRepository graduationRepository;
 
     public QueryGraduationInformationResponse execute() {

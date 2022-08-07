@@ -23,24 +23,24 @@ public class ChangeInformationService {
     private final UserFacade userFacade;
     private final TmapApi tmapApi;
 
-	@Value("${tmap.app.key}")
-	private String appKey;
+    @Value("${tmap.app.key}")
+    private String appKey;
 
     @Transactional
     public void execute(ChangeInformationRequest request) {
         User user = userFacade.getCurrentUser();
 
-		CoordinateResponse coordinate =
-				tmapApi.getCoordinate(appKey, request.getAddress());
-		RouteResponse distance = tmapApi.routeGuidance(appKey,
-				RouteRequest.builder()
-						.startX(Double.parseDouble(coordinate.getLon()))
-						.startY(Double.parseDouble(coordinate.getLat()))
-						.totalValue(2)
-						.build()
-		);
-		if(distance.getFeatures().isEmpty())
-			throw RequestFailToTmapServerException.EXCEPTION;
+        CoordinateResponse coordinate =
+                tmapApi.getCoordinate(appKey, request.getAddress());
+        RouteResponse distance = tmapApi.routeGuidance(appKey,
+                RouteRequest.builder()
+                        .startX(Double.parseDouble(coordinate.getLon()))
+                        .startY(Double.parseDouble(coordinate.getLat()))
+                        .totalValue(2)
+                        .build()
+        );
+        if (distance.getFeatures().isEmpty())
+            throw RequestFailToTmapServerException.EXCEPTION;
 
         user.updateUserInformation(
                 UpdateUserInformationDto.builder()
@@ -53,7 +53,7 @@ public class ChangeInformationService {
                         .address(request.getAddress())
                         .postCode(request.getPostCode())
                         .detailAddress(request.getDetailAddress())
-						.distance(distance.getTotalDistance())
+                        .distance(distance.getTotalDistance())
                         .build()
         );
     }

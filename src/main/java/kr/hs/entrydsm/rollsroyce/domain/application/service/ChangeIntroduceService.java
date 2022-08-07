@@ -4,7 +4,6 @@ import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.Cha
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,4 +18,5 @@ public class ChangeIntroduceService {
 		User user = userFacade.getCurrentUser();
 		user.updateSelfIntroduce(request.getContent());
 	}
+
 }

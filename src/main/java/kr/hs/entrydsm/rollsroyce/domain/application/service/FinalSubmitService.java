@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.exception.ProcessNotCompletedException;
+import kr.hs.entrydsm.rollsroyce.domain.application.exception.ProcessNotCompletedException;
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
@@ -16,9 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class FinalSubmitService {
 
-    private final UserFacade userFacade;
-    private final StatusFacade statusFacade;
     private final ApplicationFacade applicationFacade;
+
+    private final StatusFacade statusFacade;
+
+    private final UserFacade userFacade;
 
     @Transactional
     public void execute() {
@@ -37,7 +39,7 @@ public class FinalSubmitService {
 
     private boolean checkApplication(User user) {
         Application application = applicationFacade
-				.getApplication(user.getReceiptCode(), user.getEducationalStatus());
+                .getApplication(user.getReceiptCode(), user.getEducationalStatus());
 
         return application.hasEmptyInfo();
     }

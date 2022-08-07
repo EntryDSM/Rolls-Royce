@@ -18,6 +18,7 @@ import java.time.LocalDate;
 public class ChangeTypeService {
 
     private final ApplicationFacade applicationFacade;
+
     private final UserFacade userFacade;
 
     @Transactional
@@ -29,7 +30,7 @@ public class ChangeTypeService {
         if (EducationalStatus.PROSPECTIVE_GRADUATE.equals(applicationType)) {
             now++;
         }
-        
+
         if (now < request.getGraduatedAt().getYear()) {
             throw InvalidGraduateAtException.EXCEPTION;
         }
