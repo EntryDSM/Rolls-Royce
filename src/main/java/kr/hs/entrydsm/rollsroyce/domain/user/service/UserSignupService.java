@@ -53,7 +53,6 @@ public class UserSignupService {
                 .isPrintsArrived(false)
                 .isSubmitted(false)
                 .isFirstRoundPass(false)
-				.isPaid(false)
                 .build());
 
         return tokenProvider.generateToken(user.getReceiptCode().toString(), "USER");

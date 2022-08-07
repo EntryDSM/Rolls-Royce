@@ -62,10 +62,6 @@ public class Status {
 		this.isPrintsArrived = isArrived;
 	}
 
-	public void updateIsPaid() {
-		this.isPaid = !this.isPaid;
-	}
-
 	public Status updateExamCode(String examCode) {
 		this.examCode = examCode;
 		return this;
