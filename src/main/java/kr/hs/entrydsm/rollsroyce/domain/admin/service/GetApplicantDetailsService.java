@@ -72,7 +72,6 @@ public class GetApplicantDetailsService {
                 .applicationRemark(user.getApplicationRemark() != null ? user.getApplicationRemark().name() : null)
                 .address(user.getAddress())
                 .detailAddress(user.getDetailAddress())
-                .headCount(user.getHeadcount() != null ? user.getHeadcount().name() : null)
                 .build();
     }
 

@@ -48,7 +48,6 @@ public class ApplicantDetailsResponse {
         private final String applicationRemark;
         private final String address;
         private final String detailAddress;
-        private final String headCount;
     }
 
     @Getter
