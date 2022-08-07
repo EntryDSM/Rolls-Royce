@@ -11,12 +11,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class QueryGraduationService {
 
-    private final GraduationCaseRepository graduationCaseRepository;
     private final UserFacade userFacade;
+
+    private final GraduationCaseRepository graduationCaseRepository;
 
     public QueryGraduationResponse execute() {
         return new QueryGraduationResponse(graduationCaseRepository
                 .findById(userFacade.getCurrentReceiptCode())
                 .orElseThrow(() -> GradeNotFoundException.EXCEPTION));
     }
+
 }

@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -7,7 +8,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UpdateGraduationRequest {
 
     @PositiveOrZero
@@ -45,4 +46,5 @@ public class UpdateGraduationRequest {
 
     @Pattern(regexp = "[A-E,X]{4}")
     private String techAndHomeGrade;
+
 }

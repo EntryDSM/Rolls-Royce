@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 public class UpdateGraduationService {
 
     private final UserFacade userFacade;
+
     private final ScoreFacade scoreFacade;
+
     private final GraduationCaseRepository graduationCaseRepository;
     private final QualificationCaseRepository qualificationCaseRepository;
 
@@ -41,4 +43,5 @@ public class UpdateGraduationService {
 
         scoreFacade.updateScore(user, graduationCase);
     }
+
 }

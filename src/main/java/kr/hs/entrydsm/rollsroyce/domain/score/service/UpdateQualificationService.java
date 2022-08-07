@@ -11,12 +11,14 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class UpdateQualificationService {
 
     private final UserFacade userFacade;
+
     private final ScoreFacade scoreFacade;
+
     private final GraduationCaseRepository graduationCaseRepository;
     private final QualificationCaseRepository qualificationCaseRepository;
 
@@ -24,7 +26,7 @@ public class UpdateQualificationService {
         User user = userFacade.getCurrentUser();
         long receiptCode = user.getReceiptCode();
 
-        if(!user.isQualification()) {
+        if (!user.isQualification()) {
             throw ApplicationTypeUnmatchedException.EXCEPTION;
         }
 

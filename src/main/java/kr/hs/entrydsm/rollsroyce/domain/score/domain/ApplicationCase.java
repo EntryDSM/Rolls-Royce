@@ -24,8 +24,11 @@ public abstract class ApplicationCase {
 
     @Id
     protected Long receiptCode;
+
     protected boolean isDaejeon;
+
     protected ApplicationType applicationType;
+
     protected EducationalStatus educationalStatus;
 
     protected ApplicationCase(Long receiptCode,
