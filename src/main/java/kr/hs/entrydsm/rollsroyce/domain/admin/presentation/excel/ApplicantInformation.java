@@ -4,7 +4,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import org.springframework.stereotype.Component;
 
 @Component
@@ -88,7 +87,9 @@ public class ApplicantInformation {
         row.createCell(46).setCellValue("직전전 학기 성적 총합");
         row.createCell(47).setCellValue("교과성적환산점수");
 
-        for (int index = 16 ; index <= 47 ; index++) { sheet.setColumnWidth(index, 4800); }
+        for (int index = 16; index <= 47; index++) {
+            sheet.setColumnWidth(index, 4800);
+        }
 
         row.createCell(48).setCellValue("봉사시간");
         row.createCell(49).setCellValue("봉사점수");
@@ -109,4 +110,5 @@ public class ApplicantInformation {
         sheet.setColumnWidth(56, 10000);
         sheet.setColumnWidth(57, 10000);
     }
+
 }
