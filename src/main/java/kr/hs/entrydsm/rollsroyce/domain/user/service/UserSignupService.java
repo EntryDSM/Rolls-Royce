@@ -11,13 +11,12 @@ import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequ
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class UserSignupService {
 
     private final JwtTokenProvider tokenProvider;
@@ -37,8 +36,8 @@ public class UserSignupService {
         String password = passwordEncoder.encode(request.getPassword());
 
         userFacade.isAlreadyExists(email);
-        
-        if(!authCodeFacade.isVerified(email)) {
+
+        if (!authCodeFacade.isVerified(email)) {
             throw UnVerifiedAuthCodeException.EXCEPTION;
         }
 

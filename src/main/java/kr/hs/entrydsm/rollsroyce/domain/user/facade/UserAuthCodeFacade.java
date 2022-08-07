@@ -6,7 +6,11 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeLimitRepo
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Action;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.*;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeAlreadyVerifiedException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.AuthCodeRequestOverLimitException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.InvalidAuthCodeException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnVerifiedAuthCodeException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.rollsroyce.global.utils.ses.SESUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -16,8 +20,8 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
 @RequiredArgsConstructor
+@Component
 public class UserAuthCodeFacade {
 
     private final AuthCodeLimitRepository authCodeLimitRepository;

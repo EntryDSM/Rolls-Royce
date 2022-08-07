@@ -25,7 +25,7 @@ public class VerifyAuthCodeService {
         String code = request.getCode();
 
         AuthCode authCode = authCodeFacade.getAuthCodeById(email);
-    
+
         Optional.of(authCode)
                 .filter(s -> authCodeFacade.isAlreadyVerified(s.isVerified()))
                 .filter(s -> authCodeFacade.compareCode(code, s.getCode()))

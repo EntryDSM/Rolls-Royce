@@ -1,13 +1,11 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response;
 
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-@AllArgsConstructor
 public class StatusResponse {
 
     private final String name;

@@ -8,8 +8,8 @@ import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response.StatusRes
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class UserStatusService {
 
     private final StatusFacade statusFacade;

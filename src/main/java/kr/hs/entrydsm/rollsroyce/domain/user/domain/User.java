@@ -9,9 +9,9 @@ import kr.hs.entrydsm.rollsroyce.domain.application.service.dto.UpdateUserInform
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.HeadCount;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
 import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +30,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity(name = "tbl_user")
 public class User {
@@ -56,10 +56,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private EducationalStatus educationalStatus;
-
-    @Enumerated(EnumType.STRING)
-    @Column(length = 16)
-    private HeadCount headcount;
 
     private Boolean isDaejeon;
 
@@ -109,7 +105,6 @@ public class User {
         this.applicationType = EnumUtil.getEnum(ApplicationType.class, request.getApplicationType());
         this.isDaejeon = request.getIsDaejeon();
         this.applicationRemark = EnumUtil.getEnum(ApplicationRemark.class, request.getApplicationRemark());
-        this.headcount = EnumUtil.getEnum(HeadCount.class, request.getHeadcount());
     }
 
     public void updateUserInformation(UpdateUserInformationDto information) {
