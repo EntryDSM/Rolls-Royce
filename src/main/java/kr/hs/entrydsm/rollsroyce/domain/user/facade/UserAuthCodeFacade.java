@@ -20,11 +20,13 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserAuthCodeFacade {
 
-    private final UserFacade userFacade;
-    private final AuthCodeRepository authCodeRepository;
     private final AuthCodeLimitRepository authCodeLimitRepository;
-    private final UserRepository userRepository;
+    private final AuthCodeRepository authCodeRepository;
+
     private final SESUtil sesUtil;
+
+    private final UserFacade userFacade;
+    private final UserRepository userRepository;
 
     @Value("${auth.code.exp}")
     private Long authCodeTTL;
