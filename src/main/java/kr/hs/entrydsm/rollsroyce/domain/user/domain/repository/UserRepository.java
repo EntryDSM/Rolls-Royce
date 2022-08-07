@@ -28,13 +28,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
             + "join tbl_status s on u.receipt_code = s.receipt_code "
             + "left outer join tbl_school c on a.school_code = c.code "
             + "where (u.receipt_code like ?1) and (?2 is null or c.name like ?2) and (u.name like ?3) "
-            + "and (?4 is null or u.is_daejeon = ?4) "
-            + "and (u.is_out_of_headcount = 1 and ?5)"
+            + "and (?4 is null or u.is_daejeon = ?4)"
+            + "and (?5 is null or u.is_out_of_headcount = ?5)"
             + "and ((u.application_type = 'COMMON' and ?6) or (u.application_type = 'MEISTER' and ?7) or (u.application_type = 'SOCIAL' and ?8)) "
             + "and (?9 is null or s.is_submitted = ?9)", nativeQuery = true)
     Page<User> findAllByUserInfo(String receiptCode, String schoolName, String name,
                                  Boolean isDaejeon,
-                                 boolean outOfHeadcount,
+                                 Boolean outOfHeadcount,
                                  boolean isCommon, boolean isMeister, boolean isSocial,
                                  Boolean isSubmitted,
                                  Pageable pageable);

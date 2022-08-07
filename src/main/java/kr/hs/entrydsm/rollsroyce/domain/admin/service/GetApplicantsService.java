@@ -31,12 +31,15 @@ public class GetApplicantsService {
         if (request.isDaejeon() == request.isNationwide()) isDaejeonQuery = null;
         else isDaejeonQuery = request.isDaejeon();
 
+        Boolean isOutOfHeadcount = true;
+        if(!request.isOutOfHeadcount()) isOutOfHeadcount = null;
+
         Boolean isSubmitted;
         if (request.isSubmitted() == request.isNotSubmitted()) isSubmitted = null;
         else isSubmitted = request.isSubmitted();
 
         Page<User> users = userRepository.findAllByUserInfo(request.getReceiptCode(), request.getSchoolName(), request.getName(),
-                isDaejeonQuery, request.isOutOfHeadcount(),
+                isDaejeonQuery, isOutOfHeadcount,
                 request.isCommon(), request.isMeister(), request.isSocial(), isSubmitted, page);
 
         return ApplicantsResponse.builder()
