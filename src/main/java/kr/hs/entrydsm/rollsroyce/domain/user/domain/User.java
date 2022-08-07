@@ -108,6 +108,7 @@ public class User {
         this.applicationType = EnumUtil.getEnum(ApplicationType.class, request.getApplicationType());
         this.isDaejeon = request.getIsDaejeon();
         this.applicationRemark = EnumUtil.getEnum(ApplicationRemark.class, request.getApplicationRemark());
+        this.isOutOfHeadcount = request.getIsOutOfHeadcount();
     }
 
     public void updateUserInformation(UpdateUserInformationDto information) {

@@ -36,6 +36,8 @@ public class ChangeTypeRequest {
     @Pattern(regexp = NUMERIC_REGEXP, message = "graduated_at은 숫자여야합니다.")
     private String graduatedAt;
 
+    private Boolean isOutOfHeadcount;
+
     public LocalDate getGraduatedAt() {
         return YearMonth.parse(graduatedAt,
                         DateTimeFormatter.ofPattern("yyyyMM")
