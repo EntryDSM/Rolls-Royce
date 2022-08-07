@@ -2,7 +2,6 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ApplicationPeriodNotOverException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.InvalidFileException;
-import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.ApplicationCountFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.AdmissionTicket;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
@@ -32,23 +31,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class AdmissionTicketExcelService {
 
     private final S3Util s3Util;
-    private final StatusFacade statusFacade;
-    private final ScheduleFacade scheduleFacade;
-    private final AdminFacade adminFacade;
-    private final ScoreFacade scoreFacade;
-    private final UserFacade userFacade;
-    private final ApplicationCountFacade applicationCountFacade;
-    private final ApplicationFacade applicationFacade;
 
+    private final ApplicationFacade applicationFacade;
+    private final ApplicationCountFacade applicationCountFacade;
+
+    private final ScheduleFacade scheduleFacade;
+
+    private final ScoreFacade scoreFacade;
+
+    private final StatusFacade statusFacade;
+
+    private final UserFacade userFacade;
 
     public void execute(HttpServletResponse response) {
-        adminFacade.getRootAdmin();
-
         if (scheduleFacade.getScheduleByType(Type.END_DATE)
                 .isAfter(LocalDateTime.now())) {
             throw ApplicationPeriodNotOverException.EXCEPTION;
@@ -156,7 +156,7 @@ public class AdmissionTicketExcelService {
         List<User> users = statusFacade.findAllPassStatusTrue();
         List<User> userSort = new ArrayList<>(users);
 
-		userSort.sort((o1, o2) -> Double.compare(o2.getDistance(), o1.getDistance()));
+        userSort.sort((o1, o2) -> Double.compare(o2.getDistance(), o1.getDistance()));
 
         int commonDaejeon = 1;
         int commonNationwide = 1;
@@ -181,22 +181,22 @@ public class AdmissionTicketExcelService {
             else examCode.append(2);
             //전형 지역 앞 두 글자
 
-			int examOrder = 0;
+            int examOrder = 0;
 
-			if (examCode.toString().startsWith("11")) {
-				examOrder = commonDaejeon++;
-			} else if (examCode.toString().startsWith("12")) {
-				examOrder = commonNationwide++;
-			} else if (examCode.toString().startsWith("21")) {
-				examOrder = meisterDaejeon++;
-			} else if (examCode.toString().startsWith("22")) {
-				examOrder = meisterNationwide++;
-			} else if (examCode.toString().startsWith("31")) {
-				examOrder = socialDaejeon++;
-			} else if (examCode.toString().startsWith("32")) {
-				examOrder = socialNationwide++;
-			}
-			// 뒤 세글자
+            if (examCode.toString().startsWith("11")) {
+                examOrder = commonDaejeon++;
+            } else if (examCode.toString().startsWith("12")) {
+                examOrder = commonNationwide++;
+            } else if (examCode.toString().startsWith("21")) {
+                examOrder = meisterDaejeon++;
+            } else if (examCode.toString().startsWith("22")) {
+                examOrder = meisterNationwide++;
+            } else if (examCode.toString().startsWith("31")) {
+                examOrder = socialDaejeon++;
+            } else if (examCode.toString().startsWith("32")) {
+                examOrder = socialNationwide++;
+            }
+            // 뒤 세글자
 
             statusFacade.saveStatus(
                     statusFacade.getStatusByReceiptCode(user.getReceiptCode())

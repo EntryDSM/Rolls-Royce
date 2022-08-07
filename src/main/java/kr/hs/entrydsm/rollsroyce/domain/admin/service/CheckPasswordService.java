@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class CheckPasswordService {
-    private final CheckPasswordLimitRepository checkPasswordLimitRepository;
 
     private final AdminFacade adminFacade;
+
+    private final CheckPasswordLimitRepository checkPasswordLimitRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     public void execute(CheckPasswordRequest request) {
