@@ -21,8 +21,8 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
-@Component
 @RequiredArgsConstructor
+@Component
 public class JwtTokenProvider {
 
     private final JwtProperties jwtProperties;
@@ -32,7 +32,7 @@ public class JwtTokenProvider {
 
     private static final String REFRESH_KEY = "refresh_token";
 
-    private static final String USER_ROLE = "USER";
+    private static final String USER_ROLE = "ROLE_USER";
 
     public TokenResponse generateToken(String id, String role) {
         String accessToken = generateAccessToken(id, role);
