@@ -2,8 +2,8 @@ package kr.hs.entrydsm.rollsroyce.global.utils.token;
 
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import kr.hs.entrydsm.rollsroyce.global.exception.InvalidTokenException;
-import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
+import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ public class TokenRefreshUtil {
     private long ttl;
 
     public TokenResponse tokenRefresh(String refreshToken) {
-        if(jwtTokenProvider.isNotRefreshToken(refreshToken)) {
+        if (jwtTokenProvider.isNotRefreshToken(refreshToken)) {
             throw InvalidTokenException.EXCEPTION;
         }
 
@@ -33,7 +33,7 @@ public class TokenRefreshUtil {
                     token.update(tokenResponse.getRefreshToken(), ttl);
                     return new TokenResponse(tokenResponse.getAccessToken(), tokenResponse.getRefreshToken());
                 })
-                .orElseThrow(()-> InvalidTokenException.EXCEPTION);
+                .orElseThrow(() -> InvalidTokenException.EXCEPTION);
     }
 
 }

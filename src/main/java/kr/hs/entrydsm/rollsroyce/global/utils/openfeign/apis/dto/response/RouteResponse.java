@@ -9,34 +9,34 @@ import java.util.List;
 @Getter
 public class RouteResponse {
 
-	private String type;
-	private List<Feature> features;
+    private String type;
+    private List<Feature> features;
 
-	public int getTotalDistance() {
-		try {
-			return features.get(0).getProperties().getTotalDistance();
-		} catch (NullPointerException e) {
-			throw RequestFailToOtherServerException.EXCEPTION;
-		}
-	}
+    public int getTotalDistance() {
+        try {
+            return features.get(0).getProperties().getTotalDistance();
+        } catch (NullPointerException e) {
+            throw RequestFailToOtherServerException.EXCEPTION;
+        }
+    }
 
-	@Getter
-	public static class Feature {
-		private String type;
-		private Properties properties;
+    @Getter
+    public static class Feature {
+        private String type;
+        private Properties properties;
 
-		@Getter
-		public static class Properties {
-			@JsonProperty("totalDistance")
-			private int totalDistance;
-			@JsonProperty("totalTime")
-			private int totalTime;
-			@JsonProperty("totalFare")
-			private int totalFare;
-			@JsonProperty("taxiFare")
-			private int taxiFare;
-		}
+        @Getter
+        public static class Properties {
+            @JsonProperty("totalDistance")
+            private int totalDistance;
+            @JsonProperty("totalTime")
+            private int totalTime;
+            @JsonProperty("totalFare")
+            private int totalFare;
+            @JsonProperty("taxiFare")
+            private int taxiFare;
+        }
 
-	}
+    }
 
 }
