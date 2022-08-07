@@ -1,6 +1,11 @@
 package kr.hs.entrydsm.rollsroyce.domain.status.domain;
 
-import java.time.LocalDateTime;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,13 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -39,10 +38,6 @@ public class Status {
 	@ColumnDefault("0")
 	@Column(nullable = false)
 	private Boolean isSubmitted;
-
-	@ColumnDefault("0")
-	@Column(nullable = false)
-	private Boolean isPaid;
 
 	private LocalDateTime submittedAt;
 
