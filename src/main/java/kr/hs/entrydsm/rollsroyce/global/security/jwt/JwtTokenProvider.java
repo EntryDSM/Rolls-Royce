@@ -32,7 +32,7 @@ public class JwtTokenProvider {
 
     private static final String REFRESH_KEY = "refresh_token";
 
-    private static final String USER_ROLE = "ROLE_USER";
+    private static final String USER_ROLE = "USER";
 
     public TokenResponse generateToken(String id, String role) {
         String accessToken = generateAccessToken(id, role);
