@@ -5,7 +5,8 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class InvalidScheduleRequestException extends RollsException {
 
-    public static final InvalidScheduleRequestException EXCEPTION = new InvalidScheduleRequestException();
+    public static final InvalidScheduleRequestException EXCEPTION
+            = new InvalidScheduleRequestException();
 
     private InvalidScheduleRequestException() {
         super(ErrorCode.INVALID_SCHEDULE);
