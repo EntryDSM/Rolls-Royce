@@ -15,8 +15,9 @@ import java.util.Optional;
 @Service
 public class VerifyAuthCodeService {
 
-    private final UserAuthCodeFacade authCodeFacade;
     private final AuthCodeRepository authCodeRepository;
+
+    private final UserAuthCodeFacade authCodeFacade;
 
     @Transactional
     public void execute(VerifyAuthCodeRequest request) {

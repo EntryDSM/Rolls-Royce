@@ -12,8 +12,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserStatusService {
 
-    private final UserFacade userFacade;
     private final StatusFacade statusFacade;
+
+    private final UserFacade userFacade;
 
     public StatusResponse execute() {
         final User user = userFacade.getCurrentUser();

@@ -13,9 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ChangePasswordService {
 
-    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
     private final UserAuthCodeFacade authCodeFacade;
+    private final UserRepository userRepository;
 
     @Transactional
     public void execute(PasswordRequest request) {

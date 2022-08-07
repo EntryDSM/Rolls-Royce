@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserLoginService {
 
-    private final UserRepository userRepository;
     private final JwtTokenProvider tokenProvider;
+
     private final PasswordEncoder passwordEncoder;
+
+    private final UserRepository userRepository;
 
     public TokenResponse execute(LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail())

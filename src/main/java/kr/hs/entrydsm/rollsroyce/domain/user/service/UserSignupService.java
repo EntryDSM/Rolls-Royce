@@ -20,12 +20,15 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserSignupService {
 
+    private final JwtTokenProvider tokenProvider;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final StatusRepository statusRepository;
+
+    private final UserAuthCodeFacade authCodeFacade;
     private final UserFacade userFacade;
     private final UserRepository userRepository;
-    private final JwtTokenProvider tokenProvider;
-    private final PasswordEncoder passwordEncoder;
-    private final UserAuthCodeFacade authCodeFacade;
-    private final StatusRepository statusRepository;
 
     @Transactional
     public TokenResponse execute(SignupRequest request) {
