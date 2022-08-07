@@ -31,7 +31,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             + "and (?4 is null or u.is_daejeon = ?4) "
             + "and (u.is_out_of_headcount = 1 and ?5)"
             + "and ((u.application_type = 'COMMON' and ?6) or (u.application_type = 'MEISTER' and ?7) or (u.application_type = 'SOCIAL' and ?8)) "
-            + "and (?10 is null or s.is_submitted = ?9)", nativeQuery = true)
+            + "and (?9 is null or s.is_submitted = ?9)", nativeQuery = true)
     Page<User> findAllByUserInfo(String receiptCode, String schoolName, String name,
                                  Boolean isDaejeon,
                                  boolean outOfHeadcount,
