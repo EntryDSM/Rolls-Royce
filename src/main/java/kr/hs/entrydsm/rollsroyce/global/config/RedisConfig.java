@@ -29,7 +29,7 @@ public class RedisConfig {
     public RedisConnectionFactory redisConnectionFactory() {
         RedisStandaloneConfiguration redisConfig =
                 new RedisStandaloneConfiguration(redisHost, redisPort);
-        if(redisPassword != null && !redisPassword.isBlank())
+        if (redisPassword != null && !redisPassword.isBlank())
             redisConfig.setPassword(redisPassword);
 
         LettuceClientConfiguration clientConfiguration = LettuceClientConfiguration.builder()
