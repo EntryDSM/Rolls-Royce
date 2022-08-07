@@ -36,7 +36,7 @@ public class GetApplicantsService {
         else isSubmitted = request.isSubmitted();
 
         Page<User> users = userRepository.findAllByUserInfo(request.getReceiptCode(), request.getSchoolName(), request.getName(),
-                isDaejeonQuery, request.isInOfHeadcount(), request.isOutOfHeadcount(),
+                isDaejeonQuery, request.isOutOfHeadcount(),
                 request.isCommon(), request.isMeister(), request.isSocial(), isSubmitted, page);
 
         return ApplicantsResponse.builder()
@@ -54,6 +54,7 @@ public class GetApplicantsService {
                                                     .applicationType(user.getApplicationType().name())
                                                     .isPrintsArrived(status.getIsPrintsArrived())
                                                     .isSubmitted(status.getIsSubmitted())
+                                                    .isOutOfHeadcount(user.getIsOutOfHeadcount())
                                                     .build();
                                         }
                                 )

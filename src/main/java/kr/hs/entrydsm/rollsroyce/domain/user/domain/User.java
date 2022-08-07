@@ -57,6 +57,9 @@ public class User {
     @Column(length = 20)
     private EducationalStatus educationalStatus;
 
+    @Column(columnDefinition = "BIT(1)", nullable = false)
+    private Boolean isOutOfHeadcount;
+
     private Boolean isDaejeon;
 
     @Column(columnDefinition = "char(5)", nullable = false)
@@ -105,6 +108,7 @@ public class User {
         this.applicationType = EnumUtil.getEnum(ApplicationType.class, request.getApplicationType());
         this.isDaejeon = request.getIsDaejeon();
         this.applicationRemark = EnumUtil.getEnum(ApplicationRemark.class, request.getApplicationRemark());
+        this.isOutOfHeadcount = request.getIsOutOfHeadcount();
     }
 
     public void updateUserInformation(UpdateUserInformationDto information) {
@@ -141,6 +145,7 @@ public class User {
                 .applicationType(getValue(applicationType))
                 .educationalStatus(getValue(educationalStatus))
                 .isDaejeon(isDaejeon)
+                .isOutOfHeadcount(isOutOfHeadcount)
                 .build();
 
         changeGraduationInformation(application, response);
