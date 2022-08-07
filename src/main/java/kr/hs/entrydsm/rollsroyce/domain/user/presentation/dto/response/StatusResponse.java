@@ -9,12 +9,21 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class StatusResponse {
+
     private final String name;
+
     private final String phoneNumber;
+
     private final String email;
+
     private final boolean isSubmitted;
+
     private final boolean isPrintedArrived;
+
     private final ApplicationType applicationType;
+
     private final String selfIntroduce;
+
     private final String studyPlan;
+
 }
