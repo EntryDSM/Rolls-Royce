@@ -36,6 +36,7 @@ public class ChangeTypeRequest {
     @Pattern(regexp = NUMERIC_REGEXP, message = "graduated_at은 숫자여야합니다.")
     private String graduatedAt;
 
+    @NotNull(message = "is_out_of_headcount는 Null을 허용하지 않습니다.")
     private Boolean isOutOfHeadcount;
 
     public LocalDate getGraduatedAt() {
