@@ -57,6 +57,9 @@ public class User {
     @Column(length = 20)
     private EducationalStatus educationalStatus;
 
+    @Column(columnDefinition = "BIT(1)", nullable = false)
+    private Boolean isOutOfHeadcount;
+
     private Boolean isDaejeon;
 
     @Column(columnDefinition = "char(5)", nullable = false)
