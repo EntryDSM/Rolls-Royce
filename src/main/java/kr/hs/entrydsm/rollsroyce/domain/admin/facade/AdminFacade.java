@@ -6,13 +6,12 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotAccessibleException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotFoundException;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
+@Component
 public class AdminFacade {
 
 	private final AdminRepository adminRepository;
