@@ -9,7 +9,9 @@ import lombok.Getter;
 public class QueryApplicationCountResponse {
 
 	private final ApplicationType applicationType;
-	private final boolean isDaejeon;
+
+	private final Boolean isDaejeon;
+
 	private final int count;
 
 }

@@ -8,12 +8,14 @@ import java.math.BigDecimal;
 
 @Getter
 @Builder
-@AllArgsConstructor
 public class ApplicantDetailsResponse {
 
     private final Status status;
+
     private final CommonInformation commonInformation;
+
     private final MoreInformation moreInformation;
+
     private final Evaluation evaluation;
 
     @Getter
