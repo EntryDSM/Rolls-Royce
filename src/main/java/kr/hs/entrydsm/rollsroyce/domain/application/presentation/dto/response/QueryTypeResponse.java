@@ -13,6 +13,7 @@ public class QueryTypeResponse {
     private final String applicationRemark;
     private String graduatedAt;
     private boolean isGraduated;
+    private boolean isOutOfHeadcount;
 
     public void setGraduatedAt(String graduatedAt) {
         this.graduatedAt = graduatedAt;

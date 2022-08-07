@@ -145,6 +145,7 @@ public class User {
                 .applicationType(getValue(applicationType))
                 .educationalStatus(getValue(educationalStatus))
                 .isDaejeon(isDaejeon)
+                .isOutOfHeadcount(isOutOfHeadcount)
                 .build();
 
         changeGraduationInformation(application, response);
