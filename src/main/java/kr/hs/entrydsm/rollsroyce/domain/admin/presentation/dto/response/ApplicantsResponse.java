@@ -28,6 +28,7 @@ public class ApplicantsResponse {
         private final String applicationType;
         private final Boolean isPrintsArrived;
         private final Boolean isSubmitted;
+        private final Boolean isOutOfHeadcount;
     }
 
 }
