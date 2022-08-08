@@ -57,7 +57,7 @@ public class User {
     @Column(length = 20)
     private EducationalStatus educationalStatus;
 
-    @Column(columnDefinition = "BIT(1)", nullable = false)
+    @Column(columnDefinition = "BIT(1) default 0", nullable = false)
     private Boolean isOutOfHeadcount;
 
     private Boolean isDaejeon;

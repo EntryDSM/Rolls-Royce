@@ -30,13 +30,14 @@ public class JwtTokenProvider {
     private final AdminDetailsService adminDetailsService;
     private final RefreshTokenRepository refreshTokenRepository;
 
+    private static final String ACCESS_KEY = "access_token";
     private static final String REFRESH_KEY = "refresh_token";
 
-    private static final String USER_ROLE = "ROLE_USER";
+    private static final String USER_ROLE = "USER";
 
     public TokenResponse generateToken(String id, String role) {
-        String accessToken = generateAccessToken(id, role);
-        String refreshToken = generateRefreshToken(id, role);
+        String accessToken = generateToken(id, role, ACCESS_KEY, jwtProperties.getAccessExp());
+        String refreshToken = generateToken(id, role, REFRESH_KEY, jwtProperties.getRefreshExp());
 
         refreshTokenRepository.save(RefreshToken.builder()
                 .id(id)
@@ -47,31 +48,18 @@ public class JwtTokenProvider {
         return new TokenResponse(accessToken, refreshToken);
     }
 
-    private String generateAccessToken(String id, String role) {
+    private String generateToken(String id, String role, String type, Long exp) {
         return Jwts.builder()
                 .setSubject(id)
-                .setHeaderParam("typ", "access_token")
+                .setHeaderParam("typ", type)
                 .claim("role", role)
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .setExpiration(
-                        new Date(System.currentTimeMillis() + jwtProperties.getAccessExp() * 1000)
+                        new Date(System.currentTimeMillis() + exp * 1000)
                 )
                 .setIssuedAt(new Date())
                 .compact();
 
-    }
-
-    private String generateRefreshToken(String id, String role) {
-        return Jwts.builder()
-                .setSubject(id)
-                .setHeaderParam("typ", REFRESH_KEY)
-                .claim("role", role)
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
-                .setExpiration(
-                        new Date(System.currentTimeMillis() + jwtProperties.getRefreshExp() * 1000)
-                )
-                .setIssuedAt(new Date())
-                .compact();
     }
 
     public String resolveToken(HttpServletRequest request) {
