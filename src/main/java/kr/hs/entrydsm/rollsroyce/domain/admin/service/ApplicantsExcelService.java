@@ -53,7 +53,7 @@ public class ApplicantsExcelService {
             GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode).orElse(null);
             Graduation graduation = graduationRepository.findById(receiptCode).orElse(null);
             Status status = statusFacade.getStatusByReceiptCode(receiptCode);
-            Score score = scoreFacade.queryScore(user.getReceiptCode());
+            Score score = scoreFacade.queryScore(receiptCode);
 
             Row row = sheet.createRow(++i);
             insertUserInfo(row, user, graduation, status);
