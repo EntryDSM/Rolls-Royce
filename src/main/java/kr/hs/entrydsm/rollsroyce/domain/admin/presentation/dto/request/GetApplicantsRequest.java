@@ -43,16 +43,13 @@ public class GetApplicantsRequest {
     public GetApplicantsRequest(String receiptCode, String name, String schoolName, boolean isDaejeon, boolean isNationwide, boolean isCommon, boolean isMeister, boolean isSocial, boolean outOfHeadcount, boolean isSubmitted, boolean isNotSubmitted) {
         try {
             String r = receiptCode != null ? receiptCode.replaceAll(" ", "") : "";
-            this.receiptCode =  "%" + ((r.equals("")) ? r : Long.parseLong(receiptCode)) + "%";
+            this.receiptCode =  ((r.equals("")) ? r : Long.parseLong(receiptCode)) + "%";
         } catch (NumberFormatException e) {
             throw InvalidKeywordException.EXCEPTION;
         }
-        this.name = "%" + ((name!=null)?name:"") + "%";
-        if (schoolName != null) {
-            this.schoolName = "%" + schoolName + "%";
-        } else {
-            this.schoolName = null;
-        }
+        this.name = ((name!=null)?name:"");
+        this.schoolName = ((schoolName!=null)?schoolName:"");
+
         this.isDaejeon = isDaejeon;
         this.isNationwide = isNationwide;
 
