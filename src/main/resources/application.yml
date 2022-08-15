@@ -18,7 +18,11 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
   jpa:
-    show-sql: ${SHOW_SQL:false}
+    show-sql: ${SHOW_SQL:true}
+    properties:
+      hibernate:
+        format_sql: ${FORMAT_SQL:true}
+    open-in-view: false
 
 cloud:
   aws:
