@@ -3,7 +3,6 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
-import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.ApplicantVo;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +17,6 @@ import java.util.stream.Collectors;
 public class GetApplicantsService {
 
     private final AdminFacade adminFacade;
-
-    private final StatusFacade statusFacade;
 
     private final UserRepository userRepository;
 
