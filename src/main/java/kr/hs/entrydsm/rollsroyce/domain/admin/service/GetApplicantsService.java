@@ -48,7 +48,7 @@ public class GetApplicantsService {
                                                     .name(a.getName())
                                                     .email(a.getEmail())
                                                     .isDaejeon(a.getIsDaejeon())
-                                                    .applicationType(a.getApplicationType().name())
+                                                    .applicationType(a.getApplicationType())
                                                     .isPrintsArrived(a.getIsPrintsArrived())
                                                     .isSubmitted(a.getIsSubmitted())
                                                     .isOutOfHeadcount(a.getIsOutOfHeadcount())

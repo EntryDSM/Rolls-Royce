@@ -4,6 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.ApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.QApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-import static com.querydsl.core.types.Projections.constructor;
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation;
 import static kr.hs.entrydsm.rollsroyce.domain.school.domain.QSchool.school;
 import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
@@ -39,8 +39,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                                                Boolean isSubmitted,
                                                Pageable pageable) {
         List<ApplicantVo> users = jpaQueryFactory.select(
-                        constructor(
-                                ApplicantVo.class,
+                        new QApplicantVo(
                                 user.receiptCode,
                                 user.name,
                                 user.email,
