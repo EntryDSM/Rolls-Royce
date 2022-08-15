@@ -18,11 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByApplicationTypeAndIsDaejeon(ApplicationType applicationType, boolean isDaejeon);
 
-    @Query("select A from tbl_user A "
-            + "join tbl_status B on B.receiptCode = A.receiptCode and B.isSubmitted = true "
-            + "where A.applicationType = :applicationType and A.isDaejeon = :isDaejeon")
-    List<User> findByApplicationTypeAndIsDaejeonAndIsSubmittedTrue(ApplicationType applicationType, boolean isDaejeon);
-
     @Query(value = "select * from tbl_user u "
             + "left outer join tbl_graduation_application a on u.receipt_code = a.receipt_code "
             + "join tbl_status s on u.receipt_code = s.receipt_code "
