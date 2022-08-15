@@ -1,9 +1,9 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.ApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
+import static com.querydsl.core.types.Projections.constructor;
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation;
 import static kr.hs.entrydsm.rollsroyce.domain.school.domain.QSchool.school;
 import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
@@ -31,13 +32,26 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     @Override
-    public Page<User> findAllByUserInfo(String receiptCode, String schoolName, String name,
-                                        Boolean isDaejeon,
-                                        Boolean outOfHeadcount,
-                                        boolean isCommon, boolean isMeister, boolean isSocial,
-                                        Boolean isSubmitted,
-                                        Pageable pageable) {
-        JPQLQuery<User> query = jpaQueryFactory.selectFrom(user)
+    public Page<ApplicantVo> findAllByUserInfo(String receiptCode, String schoolName, String name,
+                                               Boolean isDaejeon,
+                                               Boolean outOfHeadcount,
+                                               boolean isCommon, boolean isMeister, boolean isSocial,
+                                               Boolean isSubmitted,
+                                               Pageable pageable) {
+        List<ApplicantVo> users = jpaQueryFactory.select(
+                        constructor(
+                                ApplicantVo.class,
+                                user.receiptCode,
+                                user.name,
+                                user.email,
+                                user.isDaejeon,
+                                user.applicationType,
+                                status.isPrintsArrived,
+                                status.isSubmitted,
+                                user.isOutOfHeadcount
+                        )
+                )
+                .from(user)
                 .leftJoin(graduation).on(user.receiptCode.eq(graduation.receiptCode))
                 .leftJoin(graduation.school, school)
                 .join(status).on(user.receiptCode.eq(status.receiptCode))
@@ -46,12 +60,11 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         .and(user.name.contains(name))
                         .and(isDeajeonEq(isDaejeon))
                         .and(outOfHeadcountEq(outOfHeadcount))
-                        .and(isCommon(isCommon)).and(isMeister(isMeister)).and(isSocial(isSocial))
+                        .and(isCommon(isCommon)).or(isMeister(isMeister)).or(isSocial(isSocial))
                         .and(isSubmittedEq(isSubmitted))
-                );
-        List<User> users = query.fetch();
+                ).fetch();
 
-        return new PageImpl<>(users, pageable, query.fetchCount());
+        return new PageImpl<>(users, pageable, users.size());
     }
 
     private BooleanExpression isDeajeonEq(Boolean isDaejeon) {
