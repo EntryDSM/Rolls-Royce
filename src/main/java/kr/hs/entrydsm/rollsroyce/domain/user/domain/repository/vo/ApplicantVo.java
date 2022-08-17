@@ -1,6 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,16 +27,15 @@ public class ApplicantVo {
     private final Boolean isOutOfHeadcount;
 
     @QueryProjection
-    public ApplicantVo(Long receiptCode, String name, String email, Boolean isDaejeon, ApplicationType applicationType,
-                       Boolean isPrintsArrived, Boolean isSubmitted, Boolean isOutOfHeadcount) {
-        this.receiptCode = receiptCode;
-        this.name = name;
-        this.email = email;
-        this.isDaejeon = isDaejeon;
-        this.applicationType = applicationType.name();
-        this.isPrintsArrived = isPrintsArrived;
-        this.isSubmitted = isSubmitted;
-        this.isOutOfHeadcount = isOutOfHeadcount;
+    public ApplicantVo(User user, Status status) {
+        this.receiptCode = user.getReceiptCode();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.isDaejeon = user.getIsDaejeon();
+        this.applicationType = user.getApplicationType().name();
+        this.isPrintsArrived = status.getIsPrintsArrived();
+        this.isSubmitted = status.getIsSubmitted();
+        this.isOutOfHeadcount = user.getIsOutOfHeadcount();
     }
 
 }

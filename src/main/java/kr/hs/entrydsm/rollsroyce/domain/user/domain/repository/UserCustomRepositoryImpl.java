@@ -40,14 +40,8 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                                                Pageable pageable) {
         List<ApplicantVo> users = jpaQueryFactory.select(
                         new QApplicantVo(
-                                user.receiptCode,
-                                user.name,
-                                user.email,
-                                user.isDaejeon,
-                                user.applicationType,
-                                status.isPrintsArrived,
-                                status.isSubmitted,
-                                user.isOutOfHeadcount
+                                user,
+                                status
                         )
                 )
                 .from(user)
