@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
 
     private static final String USER = "USER";
-    private static final String ADMIN_ROOT = "ADMIN";
+    private static final String ADMIN_ROOT = "ROOT";
     private static final String ADMIN_CONFIRM_APPLICATION = "CONFIRM_APPLICATION";
 
     //TODO url을 enum으로 빼서 관리하면 오타를 줄일 수 있을 것 같음.
