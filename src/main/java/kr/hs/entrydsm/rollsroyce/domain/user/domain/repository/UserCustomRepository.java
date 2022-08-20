@@ -15,5 +15,5 @@ public interface UserCustomRepository {
                                         Boolean outOfHeadcount,
                                         boolean isCommon, boolean isMeister, boolean isSocial,
                                         Boolean isSubmitted,
-                                        Pageable pageable);
+                                        Pageable page);
 }

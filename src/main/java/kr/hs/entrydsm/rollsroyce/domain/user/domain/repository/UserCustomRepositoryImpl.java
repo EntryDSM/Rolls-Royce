@@ -37,7 +37,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                                                Boolean outOfHeadcount,
                                                boolean isCommon, boolean isMeister, boolean isSocial,
                                                Boolean isSubmitted,
-                                               Pageable pageable) {
+                                               Pageable page) {
         List<ApplicantVo> users = jpaQueryFactory.select(
                         new QApplicantVo(
                                 user,
@@ -55,9 +55,13 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         .and(outOfHeadcountEq(outOfHeadcount))
                         .and(isCommon(isCommon)).or(isMeister(isMeister)).or(isSocial(isSocial))
                         .and(isSubmittedEq(isSubmitted))
-                ).fetch();
+                )
+                .limit(page.getPageSize())
+                .offset(page.getOffset())
+                .orderBy(user.receiptCode.asc())
+                .fetch();
 
-        return new PageImpl<>(users, pageable, users.size());
+        return new PageImpl<>(users, page, users.size());
     }
 
     private BooleanExpression isDeajeonEq(Boolean isDaejeon) {
