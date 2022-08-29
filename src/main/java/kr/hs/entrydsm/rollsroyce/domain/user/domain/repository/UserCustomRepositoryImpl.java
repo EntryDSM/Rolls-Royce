@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation;
@@ -53,9 +54,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         .and(user.name.contains(name))
                         .and(isDeajeonEq(isDaejeon))
                         .and(outOfHeadcountEq(outOfHeadcount))
-                        .and(isCommon(isCommon))
-                        .and(isMeister(isMeister))
-                        .and(isSocial(isSocial))
+                        .and(applicationTypeEq(isCommon, isMeister, isSocial))
                         .and(isSubmittedEq(isSubmitted))
                 )
                 .orderBy(user.receiptCode.asc())
@@ -74,19 +73,20 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
         return user.isOutOfHeadcount.eq(outOfHeadcount);
     }
 
-    private BooleanExpression isCommon(boolean isCommon) {
-        if (!isCommon) return null;
-        return user.applicationType.eq(ApplicationType.COMMON);
-    }
+    private BooleanExpression applicationTypeEq(boolean isCommon, boolean isMeister, boolean isSocial) {
+        List<ApplicationType> condition = new ArrayList<>();
 
-    private BooleanExpression isMeister(boolean isMeister) {
-        if (!isMeister) return null;
-        return user.applicationType.eq(ApplicationType.MEISTER);
-    }
+        if (isCommon) {
+            condition.add(ApplicationType.COMMON);
+        }
+        if (isMeister) {
+            condition.add(ApplicationType.MEISTER);
+        }
+        if (isSocial) {
+            condition.add(ApplicationType.SOCIAL);
+        }
 
-    private BooleanExpression isSocial(boolean isSocial) {
-        if (!isSocial) return null;
-        return user.applicationType.eq(ApplicationType.SOCIAL);
+        return user.applicationType.in(condition);
     }
 
     private BooleanExpression isSubmittedEq(Boolean isSubmitted) {
