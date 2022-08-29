@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.ApplicantVo;
@@ -39,7 +40,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                                                boolean isCommon, boolean isMeister, boolean isSocial,
                                                Boolean isSubmitted,
                                                Pageable page) {
-        List<ApplicantVo> users = jpaQueryFactory.select(
+        JPAQuery<ApplicantVo> query = jpaQueryFactory.select(
                         new QApplicantVo(
                                 user,
                                 status
@@ -57,10 +58,14 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         .and(applicationTypeEq(isCommon, isMeister, isSocial))
                         .and(isSubmittedEq(isSubmitted))
                 )
-                .orderBy(user.receiptCode.asc())
+                .orderBy(user.receiptCode.asc());
+
+        List<ApplicantVo> users = query
+                .limit(page.getPageSize())
+                .offset(page.getOffset())
                 .fetch();
 
-        return new PageImpl<>(users, page, users.size());
+        return new PageImpl<>(users, page, query.fetchCount());
     }
 
     private BooleanExpression isDeajeonEq(Boolean isDaejeon) {
