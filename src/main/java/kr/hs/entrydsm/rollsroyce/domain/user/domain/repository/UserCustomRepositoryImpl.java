@@ -53,11 +53,11 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         .and(user.name.contains(name))
                         .and(isDeajeonEq(isDaejeon))
                         .and(outOfHeadcountEq(outOfHeadcount))
-                        .and(isCommon(isCommon)).or(isMeister(isMeister)).or(isSocial(isSocial))
+                        .and(isCommon(isCommon))
+                        .and(isMeister(isMeister))
+                        .and(isSocial(isSocial))
                         .and(isSubmittedEq(isSubmitted))
                 )
-                .limit(page.getPageSize())
-                .offset(page.getOffset())
                 .orderBy(user.receiptCode.asc())
                 .fetch();
 
