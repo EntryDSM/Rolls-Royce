@@ -5,6 +5,7 @@ import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepositor
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnVerifiedAuthCodeException;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserAlreadyExistsException;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserAuthCodeFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
@@ -26,7 +27,7 @@ public class UserSignupService {
     private final StatusRepository statusRepository;
 
     private final UserAuthCodeFacade authCodeFacade;
-    private final UserFacade userFacade;
+
     private final UserRepository userRepository;
 
     @Transactional
@@ -35,7 +36,9 @@ public class UserSignupService {
         String email = request.getEmail();
         String password = passwordEncoder.encode(request.getPassword());
 
-        userFacade.isAlreadyExists(email);
+        if (userRepository.isAlreadyExistByEmail(email)) {
+            throw UserAlreadyExistsException.EXCEPTION;
+        }
 
         if (!authCodeFacade.isVerified(email)) {
             throw UnVerifiedAuthCodeException.EXCEPTION;

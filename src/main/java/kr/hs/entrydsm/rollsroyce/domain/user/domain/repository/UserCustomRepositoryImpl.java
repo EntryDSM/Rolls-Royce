@@ -68,6 +68,16 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
         return new PageImpl<>(users, page, query.fetchCount());
     }
 
+    @Override
+    public boolean isAlreadyExistByEmail(String email) {
+        Integer fetchOne = jpaQueryFactory
+            .selectOne()
+            .from(user)
+            .where(user.email.lower().contains(email.toLowerCase()))
+        .fetchFirst();
+        return fetchOne != null;
+    }
+
     private BooleanExpression isDeajeonEq(Boolean isDaejeon) {
         if (isDaejeon == null) return null;
         return user.isDaejeon.eq(isDaejeon);

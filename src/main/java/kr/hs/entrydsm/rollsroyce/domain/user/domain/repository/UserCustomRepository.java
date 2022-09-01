@@ -16,4 +16,6 @@ public interface UserCustomRepository {
                                         boolean isCommon, boolean isMeister, boolean isSocial,
                                         Boolean isSubmitted,
                                         Pageable page);
+
+    boolean isAlreadyExistByEmail(String email);
 }
