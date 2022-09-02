@@ -36,7 +36,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     @Override
     public Page<ApplicantVo> findAllByUserInfo(String receiptCode, String schoolName, String name,
                                                Boolean isDaejeon,
-                                               Boolean outOfHeadcount,
+                                               Boolean isOutOfHeadcount,
                                                boolean isCommon, boolean isMeister, boolean isSocial,
                                                Boolean isSubmitted,
                                                Pageable page) {
@@ -54,7 +54,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         .and(school.name.contains(schoolName))
                         .and(user.name.contains(name))
                         .and(isDeajeonEq(isDaejeon))
-                        .and(outOfHeadcountEq(outOfHeadcount))
+                        .and(isOutOfHeadcountEq(isOutOfHeadcount))
                         .and(applicationTypeEq(isCommon, isMeister, isSocial))
                         .and(isSubmittedEq(isSubmitted))
                 )
@@ -83,9 +83,9 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
         return user.isDaejeon.eq(isDaejeon);
     }
 
-    private BooleanExpression outOfHeadcountEq(Boolean outOfHeadcount) {
-        if (outOfHeadcount == null) return null;
-        return user.isOutOfHeadcount.eq(outOfHeadcount);
+    private BooleanExpression isOutOfHeadcountEq(Boolean isOutOfHeadcount) {
+        if (isOutOfHeadcount == null) return null;
+        return user.isOutOfHeadcount.eq(isOutOfHeadcount);
     }
 
     private BooleanExpression applicationTypeEq(boolean isCommon, boolean isMeister, boolean isSocial) {

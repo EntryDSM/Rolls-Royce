@@ -12,7 +12,7 @@ public interface UserCustomRepository {
 
     Page<ApplicantVo> findAllByUserInfo(String receiptCode, String schoolName, String name,
                                         Boolean isDaejeon,
-                                        Boolean outOfHeadcount,
+                                        Boolean isOutOfHeadcount,
                                         boolean isCommon, boolean isMeister, boolean isSocial,
                                         Boolean isSubmitted,
                                         Pageable page);

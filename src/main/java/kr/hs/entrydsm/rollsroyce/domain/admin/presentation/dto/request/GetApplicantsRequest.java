@@ -32,7 +32,7 @@ public class GetApplicantsRequest {
     private final boolean isSocial;
 
     @Nullable
-    private final boolean outOfHeadcount;
+    private final boolean isOutOfHeadcount;
 
     @Nullable
     private final boolean isSubmitted;
@@ -40,7 +40,7 @@ public class GetApplicantsRequest {
     @Nullable
     private final boolean isNotSubmitted;
 
-    public GetApplicantsRequest(String receiptCode, String name, String schoolName, boolean isDaejeon, boolean isNationwide, boolean isCommon, boolean isMeister, boolean isSocial, boolean outOfHeadcount, boolean isSubmitted, boolean isNotSubmitted) {
+    public GetApplicantsRequest(String receiptCode, String name, String schoolName, boolean isDaejeon, boolean isNationwide, boolean isCommon, boolean isMeister, boolean isSocial, boolean isOutOfHeadcount, boolean isSubmitted, boolean isNotSubmitted) {
         try {
             String r = receiptCode != null ? receiptCode.replaceAll(" ", "") : "";
             this.receiptCode = ((r.equals("")) ? r : Long.parseLong(receiptCode)) + "%";
@@ -62,7 +62,7 @@ public class GetApplicantsRequest {
             this.isMeister = isMeister;
             this.isSocial = isSocial;
         }
-        this.outOfHeadcount = outOfHeadcount;
+        this.isOutOfHeadcount = isOutOfHeadcount;
         this.isSubmitted = isSubmitted;
         this.isNotSubmitted = isNotSubmitted;
     }
