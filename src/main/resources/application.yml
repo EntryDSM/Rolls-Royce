@@ -69,7 +69,7 @@ tmap:
     key: ${TMAP_KEY}
 
 cors:
-  origins: ${CORS_HOSTS}
+  origins: ${CORS_ORIGINS}
 
 logging:
   level:
