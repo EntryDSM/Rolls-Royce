@@ -68,6 +68,9 @@ tmap:
   app:
     key: ${TMAP_KEY}
 
+cors:
+  origins: ${CORS-HOSTS}
+
 logging:
   level:
     com:
