@@ -9,14 +9,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Value("${cors.origins}")
-    private String allowedOrigins;
+    @Value("${cors.user-origin}")
+    private String userOrigin;
+
+    @Value("${cors.admin-origin}")
+    private String adminOrigin;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT")
-                .allowedOrigins(allowedOrigins);
+                .allowedOrigins(userOrigin, adminOrigin,
+                        "http://localhost:3000", "http://localhost:3001", "http://localhost:3002");
     }
 
 }
