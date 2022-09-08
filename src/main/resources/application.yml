@@ -69,7 +69,8 @@ tmap:
     key: ${TMAP_KEY}
 
 cors:
-  origins: ${CORS_ORIGINS}
+  user-origin: ${USER_ORIGIN}
+  admin-origin: ${ADMIN_ORIGIN}
 
 logging:
   level:
