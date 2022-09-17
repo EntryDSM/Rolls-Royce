@@ -16,7 +16,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +34,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@DynamicInsert
 @Entity(name = "tbl_user")
 public class User {
 
@@ -57,7 +60,7 @@ public class User {
     @Column(length = 20)
     private EducationalStatus educationalStatus;
 
-    @Column(columnDefinition = "BIT(1) default 0", nullable = false)
+    @Column(columnDefinition = "BIT(1) default 0")
     private Boolean isOutOfHeadcount;
 
     private Boolean isDaejeon;
