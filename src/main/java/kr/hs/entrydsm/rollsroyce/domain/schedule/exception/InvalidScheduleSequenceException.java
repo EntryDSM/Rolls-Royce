@@ -7,6 +7,8 @@ public class InvalidScheduleSequenceException extends RollsException {
 
     public static final InvalidScheduleSequenceException EXCEPTION = new InvalidScheduleSequenceException();
 
-    public InvalidScheduleSequenceException() { super(ErrorCode.DATE_SEQUENCE_NOT_VALID);}
+    public InvalidScheduleSequenceException() {
+        super(ErrorCode.DATE_SEQUENCE_NOT_VALID);
+    }
 
 }
