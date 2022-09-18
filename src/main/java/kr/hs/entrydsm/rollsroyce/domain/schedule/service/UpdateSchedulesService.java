@@ -4,12 +4,16 @@ import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.Schedule;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.repository.ScheduleRepository;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.exception.InvalidScheduleRequestException;
+import kr.hs.entrydsm.rollsroyce.domain.schedule.exception.InvalidScheduleSequenceException;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.exception.ScheduleNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.ScheduleDto;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.request.ScheduleRequest;
+import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -23,24 +27,20 @@ public class UpdateSchedulesService {
             throw InvalidScheduleRequestException.EXCEPTION;
         }
 
-        Schedule beforeSchedule = null;
+        List<ScheduleDto> scheduleDtoList = request.getSchedules();
 
-        for (ScheduleDto schedule : request.getSchedules()) {
-            Schedule existedSchedule = scheduleRepository
-					.findByType(Type.valueOf(schedule.getType()))
-					.orElse(null);
+        for (int index = 0; index < scheduleDtoList.size(); index++) {
+            ScheduleDto schedule = scheduleDtoList.get(index);
 
-            if (existedSchedule == null) {
-                throw ScheduleNotFoundException.EXCEPTION;
+            Schedule existSchedule = scheduleRepository.
+                    findByType(Type.valueOf(schedule.getType()))
+                    .orElseThrow(() -> ScheduleNotFoundException.EXCEPTION);
+
+            if (index != 0 && scheduleDtoList.get(index - 1).getDate().isAfter(schedule.getDate())) {
+                throw InvalidScheduleSequenceException.EXCEPTION;
             }
 
-            if (beforeSchedule != null && beforeSchedule.isAfter(existedSchedule.getDate())) {
-                throw InvalidScheduleRequestException.EXCEPTION;
-            }
-
-            existedSchedule.updateDate(schedule.getDate());
-
-            beforeSchedule = existedSchedule;
+            existSchedule.updateDate(schedule.getDate());
         }
     }
 
