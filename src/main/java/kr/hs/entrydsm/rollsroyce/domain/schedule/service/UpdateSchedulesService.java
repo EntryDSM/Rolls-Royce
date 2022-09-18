@@ -23,6 +23,8 @@ public class UpdateSchedulesService {
             throw InvalidScheduleRequestException.EXCEPTION;
         }
 
+        Schedule beforeSchedule = null;
+
         for (ScheduleDto schedule : request.getSchedules()) {
             Schedule existedSchedule = scheduleRepository
 					.findByType(Type.valueOf(schedule.getType()))
@@ -31,7 +33,14 @@ public class UpdateSchedulesService {
             if (existedSchedule == null) {
                 throw ScheduleNotFoundException.EXCEPTION;
             }
+
+            if (beforeSchedule != null && beforeSchedule.isAfter(existedSchedule.getDate())) {
+                throw InvalidScheduleRequestException.EXCEPTION;
+            }
+
             existedSchedule.updateDate(schedule.getDate());
+
+            beforeSchedule = existedSchedule;
         }
     }
 
