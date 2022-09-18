@@ -23,7 +23,7 @@ public class GetSchedulesService {
         return SchedulesResponse.builder()
                 .schedules(
                         scheduleRepository.findAllBy().stream()
-                                .map(schedule -> new ScheduleDto(schedule.getType().toString(), schedule.getDate())
+                                .map(schedule -> new ScheduleDto(schedule.getType(), schedule.getDate())
                                 ).collect(Collectors.toList())
                 )
                 .currentStatus(getCurrentStatus())

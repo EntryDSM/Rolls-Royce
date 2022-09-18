@@ -2,14 +2,16 @@ package kr.hs.entrydsm.rollsroyce.domain.schedule.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.Schedule;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.repository.ScheduleRepository;
-import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.exception.InvalidScheduleRequestException;
+import kr.hs.entrydsm.rollsroyce.domain.schedule.exception.InvalidScheduleSequenceException;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.exception.ScheduleNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.ScheduleDto;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.request.ScheduleRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -23,15 +25,19 @@ public class UpdateSchedulesService {
             throw InvalidScheduleRequestException.EXCEPTION;
         }
 
-        for (ScheduleDto schedule : request.getSchedules()) {
-            Schedule existedSchedule = scheduleRepository
-					.findByType(Type.valueOf(schedule.getType()))
-					.orElse(null);
+        List<ScheduleDto> scheduleDtoList = request.getSchedules();
 
-            if (existedSchedule == null) {
-                throw ScheduleNotFoundException.EXCEPTION;
+        for (int index = 0; index < scheduleDtoList.size(); index++) {
+            ScheduleDto schedule = scheduleDtoList.get(index);
+
+            Schedule existSchedule = scheduleRepository.findByType(schedule.getType())
+                    .orElseThrow(() -> ScheduleNotFoundException.EXCEPTION);
+
+            if (index != 0 && scheduleDtoList.get(index - 1).getDate().isAfter(schedule.getDate())) {
+                throw InvalidScheduleSequenceException.EXCEPTION;
             }
-            existedSchedule.updateDate(schedule.getDate());
+
+            existSchedule.updateDate(schedule.getDate());
         }
     }
 
