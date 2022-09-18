@@ -43,6 +43,7 @@ public enum ErrorCode {
 	ALREADY_EXIST_ADMIN_ID(409, "ADMIN409-0", "Already admin id exist"),
 
 	INVALID_SCHEDULE(400, "SCHEDULE400-0", "Schedule object is null."),
+	DATE_SEQUENCE_NOT_VALID(400, "SCHEDULE400-1","Schedule sequence is not valid"),
 	SCHEDULE_NOT_FOUND(404, "SCHEDULE404-0","The schedule does not exist"),
 
 	FILE_IS_EMPTY(400, "APPLICATION400-0", "The file could not be found"),
