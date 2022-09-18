@@ -8,7 +8,6 @@ import kr.hs.entrydsm.rollsroyce.domain.schedule.exception.InvalidScheduleSequen
 import kr.hs.entrydsm.rollsroyce.domain.schedule.exception.ScheduleNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.ScheduleDto;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.request.ScheduleRequest;
-import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
