@@ -10,6 +10,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -22,6 +23,7 @@ public class UpdateGraduationService {
     private final GraduationCaseRepository graduationCaseRepository;
     private final QualificationCaseRepository qualificationCaseRepository;
 
+    @Transactional
     public void execute(UpdateGraduationRequest request) {
         User user = userFacade.getCurrentUser();
         long receiptCode = user.getReceiptCode();
@@ -37,7 +39,8 @@ public class UpdateGraduationService {
                 receiptCode,
                 user.getIsDaejeon(),
                 user.getApplicationType(),
-                user.getEducationalStatus());
+                user.getEducationalStatus()
+        );
 
         graduationCaseRepository.save(graduationCase);
 
