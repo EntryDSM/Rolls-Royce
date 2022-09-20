@@ -1,17 +1,16 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateGraduationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -203,7 +202,7 @@ public class GraduationCase extends ApplicationCase {
                 englishGrade,
                 techAndHomeGrade
         };
-        String[] gradesPerSemester = new String[6];
+        String[] gradesPerSemester = new String[]{"", "", "", "", "", ""};
 
         for (String grades : gradesPerSubject) {
             for (int semester = 0; semester < grades.length(); semester++) {
