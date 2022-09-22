@@ -77,7 +77,7 @@ public class UserController {
     }
 
     @PutMapping("/password")
-    public void changePassword(PasswordRequest request) {
+    public void changePassword(@RequestBody @Valid PasswordRequest request) {
         changePasswordService.execute(request);
     }
 
