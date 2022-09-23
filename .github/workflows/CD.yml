@@ -22,7 +22,7 @@ jobs:
         run: docker build -t rolls .
 
       - name: publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@3.04
+        uses: elgohr/Publish-Docker-Github-Action@v4
         with:
           name: rolls-royce
           username: ${{ secrets.DOCKER_USERNAME }}
