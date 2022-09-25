@@ -111,7 +111,7 @@ public class NewApplicantInformation {
 		getCell(DH+3, 5).setCellValue("학년반");
 		getCell(DH+3, 7).setCellValue("반");
 		getCell(DH+4, 5).setCellValue("학생");
-		getCell(DH+5, 5).setCellValue("학생");
+		getCell(DH+5, 5).setCellValue("보호자");
 		getCell(DH+7, 1).setCellValue("과목");
 		getCell(DH+7, 2).setCellValue("3_2학기");
 		getCell(DH+7, 3).setCellValue("3_1학기");
