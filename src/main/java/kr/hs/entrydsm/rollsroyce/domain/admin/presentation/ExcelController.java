@@ -2,6 +2,7 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.presentation;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.AdmissionTicketExcelService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.ApplicantsExcelService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.NewApplicantsExcelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ public class ExcelController {
 
     private final ApplicantsExcelService applicantsExcelService;
     private final AdmissionTicketExcelService admissionTicketExcelService;
+    private final NewApplicantsExcelService newApplicantsExcelService;
 
     @GetMapping("/applicants")
     public void createApplicantInformation(HttpServletResponse response) {
@@ -25,6 +27,11 @@ public class ExcelController {
 	@GetMapping("/admission-ticket")
 	public void createAdmissionTicket(HttpServletResponse response) {
 		admissionTicketExcelService.execute(response);
+	}
+
+	@GetMapping("/applicants/new")
+	public void createNewApplicantInformation(HttpServletResponse response) {
+    	newApplicantsExcelService.execute(response);
 	}
 
 }
