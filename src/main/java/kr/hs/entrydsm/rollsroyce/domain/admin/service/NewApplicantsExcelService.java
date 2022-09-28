@@ -87,7 +87,7 @@ public class NewApplicantsExcelService {
 		applicantInformation.getCell(DH + 3, 1)
 			.setCellValue(getApplicationType(user.getApplicationType()));
 		applicantInformation.getCell(DH + 3, 2).setCellValue(user.getName());
-		applicantInformation.getCell(DH + 3, 6).setCellValue(graduation.getStudentNumber());
+		applicantInformation.getCell(DH + 3, 6).setCellValue(graduation != null ? graduation.getStudentNumber() : "-");
 
 		applicantInformation.getCell(DH + 4, 1)
 			.setCellValue(Boolean.TRUE.equals(user.getIsDaejeon()) ? "대전" : "전국");
