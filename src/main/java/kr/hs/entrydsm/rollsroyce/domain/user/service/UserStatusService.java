@@ -29,6 +29,7 @@ public class UserStatusService {
                 .applicationType(user.getApplicationType())
                 .selfIntroduce(user.getSelfIntroduce())
                 .studyPlan(user.getStudyPlan())
+                .educationalStatus(user.getEducationalStatus())
                 .build();
     }
 
