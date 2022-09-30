@@ -29,7 +29,7 @@
     <td style="width: 11.5%; background-color: #f2f2f2">접수번호</td>
     <td style="width: 24%" th:text="${receiptCode}"></td>
     <td style="width: 12%; background-color: #f2f2f2">중학교 코드</td>
-    <td style="width: 6.72%" th:text="${schoolClass}"></td>
+    <td style="width: 6.72%" th:text="${schoolCode}"></td>
     <td style="width: 13.44%; background-color: #f2f2f2">수험번호</td>
     <td style="width: 13.44%; color: #b8b8b8">*기재하지 않음</td>
   </tr>
@@ -72,7 +72,7 @@
       졸업구분
     </td>
     <td style="width: 40.32%; text-align: left; padding-left: 8px"
-        th:text="|${isProspectiveGraduate} ${entranceYear} ${prospectiveGraduateMonth}월 중학교 졸업예정|">
+        th:text="|${isProspectiveGraduate} ${entranceYear}년 ${prospectiveGraduateMonth}월 중학교 졸업예정|">
       <div style="width: 10px; height: 10px; border: 1px solid black"></div>
     </td>
   </tr>

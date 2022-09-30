@@ -1,5 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.pdf;
 
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
@@ -9,14 +16,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.exception.ApplicationNotFoundExcept
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
@@ -220,9 +219,13 @@ public class PdfDataConverter {
     private String toFormattedPhoneNumber(String phoneNumber) {
         if (phoneNumber == null || phoneNumber.isBlank()) {
             return "";
-        } else {
-            return phoneNumber.replace("-", " - ");
         }
+
+        if (phoneNumber.length() == 8) {
+            return phoneNumber.replaceAll("(\\d{4})(\\d{4})", "$1-$2");
+        }
+
+        return phoneNumber.replaceAll("(\\d{2,3})(\\d{3,4})(\\d{4})", "$1-$2-$3");
     }
 
     private String setBlankIfNull(String input) {
