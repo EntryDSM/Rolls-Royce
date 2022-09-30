@@ -8,17 +8,16 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
@@ -82,8 +81,7 @@ public class ApplicationPdfGenerator {
                 TemplateFileName.APPLICATION_FOR_ADMISSION,
                 TemplateFileName.INTRODUCTION,
                 TemplateFileName.NON_SMOKING,
-                TemplateFileName.SMOKING_EXAMINE,
-                TemplateFileName.ADMISSION_AGREEMENT
+                TemplateFileName.SMOKING_EXAMINE
         ));
 
         if (!user.isQualificationExam() && !user.isCommonApplicationType())
