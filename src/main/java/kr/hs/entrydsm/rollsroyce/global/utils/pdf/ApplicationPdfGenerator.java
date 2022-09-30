@@ -49,11 +49,6 @@ public class ApplicationPdfGenerator {
             mergeDocument(pdfMerger, pdfDoc);
         }
 
-        for (int i = 1; i <= mergedDocument.getNumberOfPages(); i++) {
-            document.showTextAligned(new Paragraph(String.format("- %s -", i)),
-                    300, 25, i, TextAlignment.CENTER, VerticalAlignment.BOTTOM, 0);
-        }
-
         document.close();
 
         return outputStream.toByteArray();
