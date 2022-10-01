@@ -5,8 +5,10 @@ spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
   datasource:
-    url: ${MYSQL_URL}
     driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
     hikari:
       maxLifetime: 580000
   redis:
