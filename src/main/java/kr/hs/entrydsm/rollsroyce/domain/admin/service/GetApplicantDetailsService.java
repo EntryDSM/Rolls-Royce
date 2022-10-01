@@ -43,7 +43,7 @@ public class GetApplicantDetailsService {
         Status userStatus = statusFacade.getStatusByReceiptCode(receiptCode);
 
         return ApplicantDetailsResponse.builder()
-                .status(new ApplicantDetailsResponse.Status(userStatus.getIsSubmitted(), userStatus.getIsSubmitted()))
+                .status(new ApplicantDetailsResponse.Status(userStatus.getIsPrintsArrived(), userStatus.getIsSubmitted()))
                 .commonInformation(getCommonInformation(user))
                 .moreInformation(userStatus.getIsSubmitted() ? getMoreInformation(user) : null)
                 .evaluation(userStatus.getIsSubmitted() ? getEvaluation(user) : null)
