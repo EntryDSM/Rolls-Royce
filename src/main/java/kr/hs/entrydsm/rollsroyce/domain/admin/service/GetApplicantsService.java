@@ -16,12 +16,10 @@ import java.util.stream.Collectors;
 @Service
 public class GetApplicantsService {
 
-    private final AdminFacade adminFacade;
 
     private final UserRepository userRepository;
 
     public ApplicantsResponse execute(Pageable page, GetApplicantsRequest request) {
-        adminFacade.findAdmin();
 
         Boolean isDaejeonQuery;
         if (request.isDaejeon() == request.isNationwide()) isDaejeonQuery = null;
