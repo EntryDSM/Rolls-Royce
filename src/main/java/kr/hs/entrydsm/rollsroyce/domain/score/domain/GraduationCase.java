@@ -232,8 +232,6 @@ public class GraduationCase extends ApplicationCase {
             }
         }
 
-        if (isProspectiveGraduate()) gradesPerSemester[5] = gradesPerSemester[4];
-
         return gradesPerSemester;
     }
 
