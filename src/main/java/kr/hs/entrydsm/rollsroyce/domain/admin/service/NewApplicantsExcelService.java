@@ -120,40 +120,40 @@ public class NewApplicantsExcelService {
 			graduationCase != null ? graduationCase.getEnglishGrade() : null);
 
 		//과목별 성적
-		applicantInformation.getCell(DH + 8, 2).setCellValue(koreanScore[3]);
-		applicantInformation.getCell(DH + 8, 3).setCellValue(koreanScore[2]);
-		applicantInformation.getCell(DH + 8, 4).setCellValue(koreanScore[1]);
-		applicantInformation.getCell(DH + 8, 5).setCellValue(koreanScore[0]);
+		applicantInformation.getCell(DH + 8, 2).setCellValue(koreanScore[0]);
+		applicantInformation.getCell(DH + 8, 3).setCellValue(koreanScore[1]);
+		applicantInformation.getCell(DH + 8, 4).setCellValue(koreanScore[2]);
+		applicantInformation.getCell(DH + 8, 5).setCellValue(koreanScore[3]);
 
-		applicantInformation.getCell(DH + 9, 2).setCellValue(socialScore[3]);
-		applicantInformation.getCell(DH + 9, 3).setCellValue(socialScore[2]);
-		applicantInformation.getCell(DH + 9, 4).setCellValue(socialScore[1]);
-		applicantInformation.getCell(DH + 9, 5).setCellValue(socialScore[0]);
+		applicantInformation.getCell(DH + 9, 2).setCellValue(socialScore[0]);
+		applicantInformation.getCell(DH + 9, 3).setCellValue(socialScore[1]);
+		applicantInformation.getCell(DH + 9, 4).setCellValue(socialScore[2]);
+		applicantInformation.getCell(DH + 9, 5).setCellValue(socialScore[3]);
 
-		applicantInformation.getCell(DH + 10, 2).setCellValue(historyScore[3]);
-		applicantInformation.getCell(DH + 10, 3).setCellValue(historyScore[2]);
-		applicantInformation.getCell(DH + 10, 4).setCellValue(historyScore[1]);
-		applicantInformation.getCell(DH + 10, 5).setCellValue(historyScore[0]);
+		applicantInformation.getCell(DH + 10, 2).setCellValue(historyScore[0]);
+		applicantInformation.getCell(DH + 10, 3).setCellValue(historyScore[1]);
+		applicantInformation.getCell(DH + 10, 4).setCellValue(historyScore[2]);
+		applicantInformation.getCell(DH + 10, 5).setCellValue(historyScore[3]);
 
-		applicantInformation.getCell(DH + 11, 2).setCellValue(mathScore[3]);
-		applicantInformation.getCell(DH + 11, 3).setCellValue(mathScore[2]);
-		applicantInformation.getCell(DH + 11, 4).setCellValue(mathScore[1]);
-		applicantInformation.getCell(DH + 11, 5).setCellValue(mathScore[0]);
+		applicantInformation.getCell(DH + 11, 2).setCellValue(mathScore[0]);
+		applicantInformation.getCell(DH + 11, 3).setCellValue(mathScore[1]);
+		applicantInformation.getCell(DH + 11, 4).setCellValue(mathScore[2]);
+		applicantInformation.getCell(DH + 11, 5).setCellValue(mathScore[3]);
 
-		applicantInformation.getCell(DH + 12, 2).setCellValue(scienceScore[3]);
-		applicantInformation.getCell(DH + 12, 3).setCellValue(scienceScore[2]);
-		applicantInformation.getCell(DH + 12, 4).setCellValue(scienceScore[1]);
-		applicantInformation.getCell(DH + 12, 5).setCellValue(scienceScore[0]);
+		applicantInformation.getCell(DH + 12, 2).setCellValue(scienceScore[0]);
+		applicantInformation.getCell(DH + 12, 3).setCellValue(scienceScore[1]);
+		applicantInformation.getCell(DH + 12, 4).setCellValue(scienceScore[2]);
+		applicantInformation.getCell(DH + 12, 5).setCellValue(scienceScore[3]);
 
-		applicantInformation.getCell(DH + 13, 2).setCellValue(techAndHomeScore[3]);
-		applicantInformation.getCell(DH + 13, 3).setCellValue(techAndHomeScore[2]);
-		applicantInformation.getCell(DH + 13, 4).setCellValue(techAndHomeScore[1]);
-		applicantInformation.getCell(DH + 13, 5).setCellValue(techAndHomeScore[0]);
+		applicantInformation.getCell(DH + 13, 2).setCellValue(techAndHomeScore[0]);
+		applicantInformation.getCell(DH + 13, 3).setCellValue(techAndHomeScore[1]);
+		applicantInformation.getCell(DH + 13, 4).setCellValue(techAndHomeScore[2]);
+		applicantInformation.getCell(DH + 13, 5).setCellValue(techAndHomeScore[3]);
 
-		applicantInformation.getCell(DH + 14, 2).setCellValue(englishScore[3]);
-		applicantInformation.getCell(DH + 14, 3).setCellValue(englishScore[2]);
-		applicantInformation.getCell(DH + 14, 4).setCellValue(englishScore[1]);
-		applicantInformation.getCell(DH + 14, 5).setCellValue(englishScore[0]);
+		applicantInformation.getCell(DH + 14, 2).setCellValue(englishScore[0]);
+		applicantInformation.getCell(DH + 14, 3).setCellValue(englishScore[1]);
+		applicantInformation.getCell(DH + 14, 4).setCellValue(englishScore[2]);
+		applicantInformation.getCell(DH + 14, 5).setCellValue(englishScore[3]);
 
 		//점수
 		applicantInformation.getCell(DH + 15, 2)
