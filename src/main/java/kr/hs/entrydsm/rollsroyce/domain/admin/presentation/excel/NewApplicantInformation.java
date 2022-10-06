@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class NewApplicantInformation {
 
 	private final Workbook workbook = new XSSFWorkbook();
-	private final Sheet sheet = workbook.createSheet("지원자 목록");
+	private final Sheet sheet = workbook.createSheet("1차 검증");
 
 	private final short uselessRowSize = 150;
 	private final short uselessColumnSize = 250;

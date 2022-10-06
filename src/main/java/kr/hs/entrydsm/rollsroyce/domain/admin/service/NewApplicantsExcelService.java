@@ -59,7 +59,7 @@ public class NewApplicantsExcelService {
 		try {
 			response.setContentType(
 				"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-			String formatFilename = "attachment;filename=\"지원자 목록";
+			String formatFilename = "attachment;filename=\"1차 검증";
 			String time = LocalDateTime.now()
 				.format(DateTimeFormatter.ofPattern("yyyy년MM월dd일_HH시mm분"));
 			String fileName = new String((formatFilename + time + ".xlsx\"").getBytes("KSC5601"),
