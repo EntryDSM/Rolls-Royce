@@ -104,37 +104,37 @@ public class ApplicantsExcelService {
         String[] techAndHomeScore = getSplitScores(graduationCase != null ? graduationCase.getTechAndHomeGrade() : null);
         String[] englishScore = getSplitScores(graduationCase != null ? graduationCase.getEnglishGrade() : null);
 
-        row.createCell(16).setCellValue(koreanScore[3]);
-        row.createCell(17).setCellValue(socialScore[3]);
-        row.createCell(18).setCellValue(historyScore[3]);
-        row.createCell(19).setCellValue(mathScore[3]);
-        row.createCell(20).setCellValue(scienceScore[3]);
-        row.createCell(21).setCellValue(techAndHomeScore[3]);
-        row.createCell(22).setCellValue(englishScore[3]);
+        row.createCell(16).setCellValue(koreanScore[0]);
+        row.createCell(17).setCellValue(socialScore[0]);
+        row.createCell(18).setCellValue(historyScore[0]);
+        row.createCell(19).setCellValue(mathScore[0]);
+        row.createCell(20).setCellValue(scienceScore[0]);
+        row.createCell(21).setCellValue(techAndHomeScore[0]);
+        row.createCell(22).setCellValue(englishScore[0]);
 
-        row.createCell(23).setCellValue(koreanScore[2]);
-        row.createCell(24).setCellValue(socialScore[2]);
-        row.createCell(25).setCellValue(historyScore[2]);
-        row.createCell(26).setCellValue(mathScore[2]);
-        row.createCell(27).setCellValue(scienceScore[2]);
-        row.createCell(28).setCellValue(techAndHomeScore[2]);
-        row.createCell(29).setCellValue(englishScore[2]);
+        row.createCell(23).setCellValue(koreanScore[1]);
+        row.createCell(24).setCellValue(socialScore[1]);
+        row.createCell(25).setCellValue(historyScore[1]);
+        row.createCell(26).setCellValue(mathScore[1]);
+        row.createCell(27).setCellValue(scienceScore[1]);
+        row.createCell(28).setCellValue(techAndHomeScore[1]);
+        row.createCell(29).setCellValue(englishScore[1]);
 
-        row.createCell(30).setCellValue(koreanScore[1]);
-        row.createCell(31).setCellValue(socialScore[1]);
-        row.createCell(32).setCellValue(historyScore[1]);
-        row.createCell(33).setCellValue(mathScore[1]);
-        row.createCell(34).setCellValue(scienceScore[1]);
-        row.createCell(35).setCellValue(techAndHomeScore[1]);
-        row.createCell(36).setCellValue(englishScore[1]);
+        row.createCell(30).setCellValue(koreanScore[2]);
+        row.createCell(31).setCellValue(socialScore[2]);
+        row.createCell(32).setCellValue(historyScore[2]);
+        row.createCell(33).setCellValue(mathScore[2]);
+        row.createCell(34).setCellValue(scienceScore[2]);
+        row.createCell(35).setCellValue(techAndHomeScore[2]);
+        row.createCell(36).setCellValue(englishScore[2]);
 
-        row.createCell(37).setCellValue(koreanScore[0]);
-        row.createCell(38).setCellValue(socialScore[0]);
-        row.createCell(39).setCellValue(historyScore[0]);
-        row.createCell(40).setCellValue(mathScore[0]);
-        row.createCell(41).setCellValue(scienceScore[0]);
-        row.createCell(42).setCellValue(techAndHomeScore[0]);
-        row.createCell(43).setCellValue(englishScore[0]);
+        row.createCell(37).setCellValue(koreanScore[3]);
+        row.createCell(38).setCellValue(socialScore[3]);
+        row.createCell(39).setCellValue(historyScore[3]);
+        row.createCell(40).setCellValue(mathScore[3]);
+        row.createCell(41).setCellValue(scienceScore[3]);
+        row.createCell(42).setCellValue(techAndHomeScore[3]);
+        row.createCell(43).setCellValue(englishScore[3]);
 
         row.createCell(48).setCellValue(graduationCase != null ? graduationCase.getVolunteerTime().toString() : "-");
 
