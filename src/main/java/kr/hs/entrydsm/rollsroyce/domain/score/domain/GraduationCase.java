@@ -150,24 +150,19 @@ public class GraduationCase extends ApplicationCase {
         BigDecimal[] scoresToCalculate = scoresToCalculate();
         BigDecimal summedScore = BigDecimal.ZERO;
 
-        System.out.println("b " + scoresToCalculate[0] + " / "+ scoresToCalculate[1] + " / "+ scoresToCalculate[2] + " / "+ scoresToCalculate[3] + " / ");
-
         for (BigDecimal scorePerYear: scoresToCalculate) {
             summedScore = summedScore.add(scorePerYear);
         }
 
-        System.out.println("daadsasd " + summedScore);
         if (scoresToCalculate[3].equals(BigDecimal.ZERO) && scoresToCalculate[2].equals(BigDecimal.ZERO)) {
             BigDecimal scoreToReplace = summedScore.divide(BigDecimal.valueOf(2), 5, RoundingMode.DOWN);
             scoresToCalculate[3] = scoreToReplace;
             scoresToCalculate[2] = scoreToReplace;
-            System.out.println("aslkigafdlkgjaslkg");
         } else if (scoresToCalculate[3].equals(BigDecimal.ZERO)) {
             scoresToCalculate[3] = summedScore.divide(BigDecimal.valueOf(3), 5, RoundingMode.DOWN);
         } else if (scoresToCalculate[2].equals(BigDecimal.ZERO)) {
             scoresToCalculate[2] = summedScore.divide(BigDecimal.valueOf(3), 5, RoundingMode.DOWN);
         }
-        System.out.println("c " + scoresToCalculate[0] + " / "+ scoresToCalculate[1] + " / "+ scoresToCalculate[2] + " / "+ scoresToCalculate[3] + " / ");
 
         return scoresToCalculate;
     }
@@ -178,8 +173,6 @@ public class GraduationCase extends ApplicationCase {
 
         int toCalculateLength = scoresToCalculate.length; //4
         int semesterLength = scoresPerSemester.length - 2; //6
-
-        System.out.println("ddddsfs" + scoresPerSemester[0] + "/" + scoresPerSemester[1] + "/" + scoresPerSemester[2] + "/" + scoresPerSemester[3] + "/");
 
         scoresToCalculate[0] = scoresPerSemester[0];
         if (scoresToCalculate[0].equals(BigDecimal.ZERO)) {
