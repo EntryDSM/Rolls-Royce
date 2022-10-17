@@ -7,16 +7,6 @@ import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.util.IOUtils;
-import kr.hs.entrydsm.rollsroyce.global.exception.BadFileExtensionException;
-import kr.hs.entrydsm.rollsroyce.global.exception.FileIsEmptyException;
-import kr.hs.entrydsm.rollsroyce.global.exception.ImageNotFoundException;
-import lombok.RequiredArgsConstructor;
-import org.imgscalr.Scalr;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -25,6 +15,15 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
+import javax.imageio.ImageIO;
+import kr.hs.entrydsm.rollsroyce.global.exception.BadFileExtensionException;
+import kr.hs.entrydsm.rollsroyce.global.exception.FileIsEmptyException;
+import kr.hs.entrydsm.rollsroyce.global.exception.ImageNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.imgscalr.Scalr;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @Component
@@ -124,8 +123,9 @@ public class S3Util {
         if (file == null || file.isEmpty() || file.getOriginalFilename() == null) throw FileIsEmptyException.EXCEPTION;
         String originalFilename = file.getOriginalFilename();
         String ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+        String lowerExt = ext.toLowerCase();
 
-        if (!(ext.equals("jpg") || ext.equals("HEIC") || ext.equals("jpeg") || ext.equals("png") || ext.equals("heic")))
+        if (!(lowerExt.equals("jpg") || lowerExt.equals("jpeg") || lowerExt.equals("png") || lowerExt.equals("heic")))
             throw BadFileExtensionException.EXCEPTION;
         return ext;
     }
