@@ -126,7 +126,10 @@ public class PdfDataConverter {
             case EducationalStatus.PROSPECTIVE_GRADUATE:
                 graduationRepository.findById(user.getReceiptCode())
                         .filter(graduation -> graduation.getGraduatedAt() != null)
-                        .ifPresent(graduation -> values.put("prospectiveGraduateMonth", String.valueOf(graduation.getGraduatedAt().getMonthValue())));
+                        .ifPresent(graduation -> {
+                            values.put("prospectiveGraduateYear", String.valueOf(graduation.getGraduatedAt().getYear()));
+                            values.put("prospectiveGraduateMonth", String.valueOf(graduation.getGraduatedAt().getMonthValue()));
+                        });
                 break;
             default:
                 break;

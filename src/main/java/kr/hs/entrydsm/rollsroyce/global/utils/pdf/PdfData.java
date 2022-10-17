@@ -85,6 +85,10 @@ public class PdfData {
         return (String) data.get("graduateMonth");
     }
 
+    public String getProspectiveGraduateYear() {
+        return (String) data.get("prospectiveGraduateYear");
+    }
+
     public String getProspectiveGraduateMonth() {
         return (String) data.get("prospectiveGraduateMonth");
     }
