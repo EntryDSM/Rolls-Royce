@@ -71,21 +71,24 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     @Override
     public boolean isAlreadyExistByEmail(String email) {
         Integer fetchOne = jpaQueryFactory
-            .selectOne()
-            .from(user)
-            .where(user.email.lower().contains(email.toLowerCase()))
-        .fetchFirst();
+                .selectOne()
+                .from(user)
+                .where(user.email.lower().contains(email.toLowerCase()))
+                .fetchFirst();
         return fetchOne != null;
     }
 
     @Override
     public List<User> queryStaticsCount(ApplicationType applicationType, boolean isDaejeon) {
         return jpaQueryFactory.selectFrom(user)
-            .join(status).on(user.receiptCode.eq(status.receiptCode))
-            .where(user.applicationType.eq(applicationType))
-            .where(user.isDaejeon.eq(isDaejeon))
-            .where(status.isSubmitted.eq(true))
-            .fetch();
+                .join(status)
+                .on(user.receiptCode.eq(status.receiptCode))
+                .where(
+                        user.applicationType.eq(applicationType),
+                        user.isDaejeon.eq(isDaejeon),
+                        status.isSubmitted.eq(Boolean.TRUE)
+                )
+                .fetch();
     }
 
     private BooleanExpression isDeajeonEq(Boolean isDaejeon) {
