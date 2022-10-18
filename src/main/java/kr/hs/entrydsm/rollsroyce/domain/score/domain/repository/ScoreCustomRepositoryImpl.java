@@ -20,7 +20,8 @@ public class ScoreCustomRepositoryImpl implements ScoreCustomRepository {
     public List<Score> queryScoreByApplicationTypeAndIsDaejeon(ApplicationType applicationType, boolean isDaejeon) {
         return jpaQueryFactory.selectFrom(score)
                 .innerJoin(score.user, user)
-                .innerJoin(status.user, user)
+                .innerJoin(status)
+                .on(status.user.eq(user))
                 .where(
                         user.applicationType.eq(applicationType),
                         user.isDaejeon.eq(isDaejeon),
