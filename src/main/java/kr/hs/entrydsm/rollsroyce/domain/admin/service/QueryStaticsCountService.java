@@ -1,6 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsCountResponse;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserCustomRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +15,7 @@ import java.util.List;
 @Service
 public class QueryStaticsCountService {
 
-    private final UserRepository userRepository;
+    private final UserCustomRepository userRepository;
 
     public List<StaticsCountResponse> execute() {
         List<StaticsCountResponse> responseList = new ArrayList<>();
@@ -21,7 +23,7 @@ public class QueryStaticsCountService {
             for (int i = 0; i < 2; i++) {
                 int count =
                         userRepository
-                                .findByApplicationTypeAndIsDaejeon(type, i != 0).size();
+                                .queryStaticsCount(type, i != 0).size();
                 responseList.add(
                         new StaticsCountResponse(type, i != 0, count)
                 );
@@ -29,5 +31,4 @@ public class QueryStaticsCountService {
         }
         return responseList;
     }
-
 }

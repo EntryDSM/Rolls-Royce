@@ -9,6 +9,4 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Long>, UserCustomRepository {
     Optional<User> findByEmail(String email);
-
-    List<User> findByApplicationTypeAndIsDaejeon(ApplicationType applicationType, boolean isDaejeon);
 }

@@ -78,6 +78,16 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
         return fetchOne != null;
     }
 
+    @Override
+    public List<User> queryStaticsCount(ApplicationType applicationType, boolean isDaejeon) {
+        return jpaQueryFactory.selectFrom(user)
+            .join(status).on(user.receiptCode.eq(status.receiptCode))
+            .where(user.applicationType.eq(applicationType))
+            .where(user.isDaejeon.eq(isDaejeon))
+            .where(status.isSubmitted.eq(true))
+            .fetch();
+    }
+
     private BooleanExpression isDeajeonEq(Boolean isDaejeon) {
         if (isDaejeon == null) return null;
         return user.isDaejeon.eq(isDaejeon);

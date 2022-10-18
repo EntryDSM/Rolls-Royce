@@ -2,6 +2,7 @@ package kr.hs.entrydsm.rollsroyce.domain.user.domain.repository;
 
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.ApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,4 +19,6 @@ public interface UserCustomRepository {
                                         Pageable page);
 
     boolean isAlreadyExistByEmail(String email);
+
+    List<User> queryStaticsCount(ApplicationType applicationType, boolean isDaejeon);
 }
