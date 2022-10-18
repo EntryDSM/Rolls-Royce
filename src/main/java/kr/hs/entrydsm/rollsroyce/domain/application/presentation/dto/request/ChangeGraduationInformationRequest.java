@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
@@ -19,6 +20,7 @@ public class ChangeGraduationInformationRequest {
 	@Pattern(regexp = NUMERIC_REGEXP, message = "student_number는 숫자여야합니다.")
 	private String studentNumber;
 
+	@NotBlank(message = "school_code는 Null, 공백, 띄어쓰기를 허용하지 않습니다.")
 	@Length(max = 7, min = 7, message = "schoolCode는 7자여야 합니다.")
 	private String schoolCode;
 
