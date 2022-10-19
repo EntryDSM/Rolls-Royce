@@ -1,5 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 
+import java.util.HashMap;
+import java.util.Map;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.AuthCode;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.AuthCodeLimit;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeLimitRepository;
@@ -16,9 +18,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
@@ -81,6 +80,7 @@ public class UserAuthCodeFacade {
         sesUtil.sendMessage(email, templateName, params);
 
         authCode.updateAuthCode(code, authCodeTTL);
+        authCodeRepository.save(authCode);
     }
 
     private String getRandomCode() {
