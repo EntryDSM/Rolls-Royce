@@ -18,78 +18,79 @@ import java.util.Map;
 
 public class RequestWrapper extends HttpServletRequestWrapper {
 
-	private byte[] bytes;
+    private byte[] bytes;
 
-	public RequestWrapper(HttpServletRequest request) {
-		super(request);
-		try {
-			InputStream inputStream = request.getInputStream();
-			this.bytes = IOUtils.toByteArray(inputStream);
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public RequestWrapper(HttpServletRequest request) {
+        super(request);
+        try {
+            InputStream inputStream = request.getInputStream();
+            this.bytes = IOUtils.toByteArray(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public ServletInputStream getInputStream() throws IOException {
-		final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-		return new ServletInputStream() {
-			@Override
-			public boolean isFinished() {
-				return false;
-			}
+    @Override
+    public ServletInputStream getInputStream() throws IOException {
+        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+        return new ServletInputStream() {
+            @Override
+            public boolean isFinished() {
+                return false;
+            }
 
-			@Override
-			public boolean isReady() {
-				return false;
-			}
+            @Override
+            public boolean isReady() {
+                return false;
+            }
 
-			@Override
-			public void setReadListener(ReadListener readListener) {
+            @Override
+            public void setReadListener(ReadListener readListener) {
 
-			}
+            }
 
-			@Override
-			public int read() throws IOException {
-				return byteArrayInputStream.read();
-			}
-		};
-	}
+            @Override
+            public int read() throws IOException {
+                return byteArrayInputStream.read();
+            }
+        };
+    }
 
-	@Override
-	public BufferedReader getReader() throws IOException {
-		return new BufferedReader(new InputStreamReader(this.getInputStream(), StandardCharsets.UTF_8));
-	}
+    @Override
+    public BufferedReader getReader() throws IOException {
+        return new BufferedReader(new InputStreamReader(this.getInputStream(), StandardCharsets.UTF_8));
+    }
 
-	public String getBody() {
-		String body = new String(bytes).replaceAll("\r\n", "");
+    public String getBody() {
+        String body = new String(bytes).replaceAll("\r\n", "");
 
-		ObjectMapper objectMapper = new ObjectMapper();
-		try {
-			if (body.isEmpty() || body.isBlank())
-				return "{}";
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            if (body.isEmpty() || body.isBlank())
+                return "{}";
 
-			Map bodyMap = objectMapper.readValue(body, Map.class);
+            Map bodyMap = objectMapper.readValue(body, Map.class);
 
-			if(bodyMap == null)
-				return "{}";
+            if (bodyMap == null)
+                return "{}";
 
-			if (bodyMap.get("password") != null)
-				bodyMap.put("password", "SECURED");
+            if (bodyMap.get("password") != null || bodyMap.get("new_password") != null)
+                bodyMap.put("password", "SECURED");
 
-			body = objectMapper.writeValueAsString(bodyMap);
-			return body;
-		} catch (JsonProcessingException ignored) { }
+            body = objectMapper.writeValueAsString(bodyMap);
+            return body;
+        } catch (JsonProcessingException ignored) {
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
-	public String getParamsString() {
-		StringBuilder params = new StringBuilder();
-		getParameterMap().forEach((key, value) -> params.append(key).append("=").append(value[0]).append("&"));
-		if(params.length() == 0) return "";
-		params.deleteCharAt(params.lastIndexOf("&"));
-		return params.insert(0, "?").toString();
-	}
+    public String getParamsString() {
+        StringBuilder params = new StringBuilder();
+        getParameterMap().forEach((key, value) -> params.append(key).append("=").append(value[0]).append("&"));
+        if (params.length() == 0) return "";
+        params.deleteCharAt(params.lastIndexOf("&"));
+        return params.insert(0, "?").toString();
+    }
 
 }
