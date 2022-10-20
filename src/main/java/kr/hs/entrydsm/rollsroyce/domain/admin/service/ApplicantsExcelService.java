@@ -1,5 +1,11 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Stream;
+import javax.servlet.http.HttpServletResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ExcelOException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.ApplicantInformation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
@@ -20,13 +26,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -140,8 +139,8 @@ public class ApplicantsExcelService {
 
         row.createCell(50).setCellValue(graduationCase != null ? graduationCase.getDayAbsenceCount() : 0);
         row.createCell(51).setCellValue(graduationCase != null ? graduationCase.getLatenessCount() : 0);
-        row.createCell(52).setCellValue(graduationCase != null ? graduationCase.getLectureAbsenceCount() : 0);
-        row.createCell(53).setCellValue(graduationCase != null ? graduationCase.getEarlyLeaveCount() : 0);
+        row.createCell(52).setCellValue(graduationCase != null ? graduationCase.getEarlyLeaveCount() : 0);
+        row.createCell(53).setCellValue(graduationCase != null ? graduationCase.getLectureAbsenceCount() : 0);
     }
 
     private void insertScore(Row row, Score score) {
