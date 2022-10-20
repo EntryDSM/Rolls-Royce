@@ -3,18 +3,17 @@ package kr.hs.entrydsm.rollsroyce.domain.user.domain.repository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.ArrayList;
+import java.util.List;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.ApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.QApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation;
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QQualification.qualification;
 import static kr.hs.entrydsm.rollsroyce.domain.school.domain.QSchool.school;
@@ -116,7 +115,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
             condition.add(ApplicationType.SOCIAL);
         }
 
-        return user.applicationType.in(condition);
+        return user.applicationType.in(condition).or(user.educationalStatus.eq(EducationalStatus.QUALIFICATION_EXAM));
     }
 
     private BooleanExpression isSubmittedEq(Boolean isSubmitted) {
