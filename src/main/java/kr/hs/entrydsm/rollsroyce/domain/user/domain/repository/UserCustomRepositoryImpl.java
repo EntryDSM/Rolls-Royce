@@ -48,9 +48,9 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                 .leftJoin(graduation).on(user.receiptCode.eq(graduation.receiptCode))
                 .leftJoin(graduation.school, school)
                 .join(status).on(user.receiptCode.eq(status.receiptCode))
-                .where(user.receiptCode.like(receiptCode)
-                        .and(school.name.contains(schoolName))
-                        .and(user.name.contains(name))
+                .where(receiptCodeContainsFilter(receiptCode)
+                        .and(schoolNameContainsFilter(schoolName))
+                        .and(userNameContainsFilter(name))
                         .and(isDeajeonEq(isDaejeon))
                         .and(isOutOfHeadcountEq(isOutOfHeadcount))
                         .and(applicationTypeEq(isCommon, isMeister, isSocial))
@@ -87,6 +87,18 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         status.isSubmitted.eq(Boolean.TRUE)
                 )
                 .fetch();
+    }
+
+    private BooleanExpression receiptCodeContainsFilter(String receiptCode) {
+        return receiptCode != null ? user.receiptCode.stringValue().contains(receiptCode) : null;
+    }
+
+    private BooleanExpression schoolNameContainsFilter(String schoolName) {
+        return schoolName != null ? school.name.contains(schoolName) : null;
+    }
+
+    private BooleanExpression userNameContainsFilter(String name) {
+        return name != null ? user.name.contains(name) : null;
     }
 
     private BooleanExpression isDeajeonEq(Boolean isDaejeon) {
