@@ -46,13 +46,14 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         .leftJoin(graduation).on(user.receiptCode.eq(graduation.receiptCode))
                         .leftJoin(graduation.school, school)
                         .join(status).on(user.receiptCode.eq(status.receiptCode))
-                        .where(user.receiptCode.like(receiptCode)
-                                .and(school.name.contains(schoolName))
-                                .and(user.name.contains(name))
-                                .and(isDeajeonEq(isDaejeon))
-                                .and(isOutOfHeadcountEq(isOutOfHeadcount))
-                                .and(applicationTypeEq(isCommon, isMeister, isSocial))
-                                .and(isSubmittedEq(isSubmitted))
+                        .where(
+//                                user.receiptCode.like(receiptCode),
+                                school.name.contains(schoolName),
+                                user.name.contains(name),
+                                isDeajeonEq(isDaejeon),
+                                isOutOfHeadcountEq(isOutOfHeadcount),
+                                applicationTypeEq(isCommon, isMeister, isSocial),
+                                isSubmittedEq(isSubmitted)
                         )
                         .orderBy(user.receiptCode.asc());
 

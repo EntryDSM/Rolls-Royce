@@ -12,11 +12,9 @@ public interface UserCustomRepository {
     List<User> findAllByStatusIsSubmittedTrue();
 
     Page<ApplicantVo> findAllByUserInfo(String receiptCode, String schoolName, String name,
-                                        Boolean isDaejeon,
-                                        Boolean isOutOfHeadcount,
+                                        Boolean isDaejeon, Boolean isOutOfHeadcount,
                                         boolean isCommon, boolean isMeister, boolean isSocial,
-                                        Boolean isSubmitted,
-                                        Pageable page);
+                                        Boolean isSubmitted, Pageable page);
 
     boolean isAlreadyExistByEmail(String email);
 
