@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation;
+import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QQualification.qualification;
 import static kr.hs.entrydsm.rollsroyce.domain.school.domain.QSchool.school;
 import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
 import static kr.hs.entrydsm.rollsroyce.domain.user.domain.QUser.user;
@@ -48,6 +49,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                 )
                 .from(user)
                 .leftJoin(graduation).on(user.receiptCode.eq(graduation.receiptCode))
+                .leftJoin(qualification).on(user.receiptCode.eq(qualification.receiptCode))
                 .leftJoin(graduation.school, school)
                 .join(status).on(user.receiptCode.eq(status.receiptCode))
                 .where(user.receiptCode.like(receiptCode)
