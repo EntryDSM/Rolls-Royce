@@ -47,6 +47,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         .leftJoin(graduation.school, school)
                         .join(status).on(user.receiptCode.eq(status.receiptCode))
                         .where(
+                                user.receiptCode.like(receiptCode),
                                 school.name.contains(schoolName),
                                 user.name.contains(name),
                                 isDeajeonEq(isDaejeon),
