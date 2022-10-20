@@ -200,7 +200,7 @@ public class AdmissionTicketExcelService {
 
             statusFacade.saveStatus(
                     statusFacade.getStatusByReceiptCode(user.getReceiptCode())
-                            .updateExamCode(examCode.toString() + String.format("%03d", examOrder))
+                            .updateExamCode(examCode + String.format("%03d", examOrder))
             );
         }
     }

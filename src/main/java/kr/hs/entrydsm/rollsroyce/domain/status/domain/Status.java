@@ -27,7 +27,7 @@ public class Status {
 	private Long receiptCode;
 
 	@MapsId
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "receipt_code")
 	private User user;
 
