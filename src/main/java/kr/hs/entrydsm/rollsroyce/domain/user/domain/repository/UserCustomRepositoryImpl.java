@@ -50,10 +50,10 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                                 user.receiptCode.like(receiptCode),
                                 school.name.contains(schoolName),
                                 user.name.contains(name),
+                                isSubmittedEq(isSubmitted),
                                 isDeajeonEq(isDaejeon),
                                 isOutOfHeadcountEq(isOutOfHeadcount),
-                                applicationTypeEq(isCommon, isMeister, isSocial),
-                                isSubmittedEq(isSubmitted)
+                                applicationTypeEq(isCommon, isMeister, isSocial)
                         )
                         .orderBy(user.receiptCode.asc());
 
