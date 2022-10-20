@@ -3,18 +3,17 @@ package kr.hs.entrydsm.rollsroyce.domain.user.domain.repository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.ArrayList;
+import java.util.List;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.ApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.QApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation;
 import static kr.hs.entrydsm.rollsroyce.domain.school.domain.QSchool.school;
 import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
@@ -47,9 +46,9 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         .leftJoin(graduation.school, school)
                         .join(status).on(user.receiptCode.eq(status.receiptCode))
                         .where(
-                                user.receiptCode.like(receiptCode),
-                                school.name.contains(schoolName),
-                                user.name.contains(name),
+                                receiptCodeContainsFilter(receiptCode),
+                                schoolNameContainsFilter(schoolName),
+                                userNameContainsFilter(name),
                                 isSubmittedEq(isSubmitted),
                                 isDeajeonEq(isDaejeon),
                                 isOutOfHeadcountEq(isOutOfHeadcount),
@@ -89,15 +88,15 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     private BooleanExpression receiptCodeContainsFilter(String receiptCode) {
-        return receiptCode != null ? user.receiptCode.stringValue().contains(receiptCode) : null;
+        return StringUtils.isBlank(receiptCode) ? user.receiptCode.stringValue().contains(receiptCode) : null;
     }
 
     private BooleanExpression schoolNameContainsFilter(String schoolName) {
-        return schoolName != null ? school.name.contains(schoolName) : null;
+        return StringUtils.isBlank(schoolName) ? school.name.contains(schoolName) : null;
     }
 
     private BooleanExpression userNameContainsFilter(String name) {
-        return name != null ? user.name.contains(name) : null;
+        return StringUtils.isBlank(name) ? user.name.contains(name) : null;
     }
 
     private BooleanExpression isDeajeonEq(Boolean isDaejeon) {
