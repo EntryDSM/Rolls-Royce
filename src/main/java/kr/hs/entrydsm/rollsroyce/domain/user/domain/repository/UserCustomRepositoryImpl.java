@@ -3,8 +3,6 @@ package kr.hs.entrydsm.rollsroyce.domain.user.domain.repository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.ArrayList;
-import java.util.List;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.ApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.QApplicantVo;
@@ -13,6 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation;
 import static kr.hs.entrydsm.rollsroyce.domain.school.domain.QSchool.school;
 import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
@@ -38,25 +40,21 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                                                boolean isCommon, boolean isMeister, boolean isSocial,
                                                Boolean isSubmitted,
                                                Pageable page) {
-        JPAQuery<ApplicantVo> query = jpaQueryFactory.select(
-                        new QApplicantVo(
-                                user,
-                                status
+        JPAQuery<ApplicantVo> query =
+                jpaQueryFactory.select(new QApplicantVo(user, status))
+                        .from(user)
+                        .leftJoin(graduation).on(user.receiptCode.eq(graduation.receiptCode))
+                        .leftJoin(graduation.school, school)
+                        .join(status).on(user.receiptCode.eq(status.receiptCode))
+                        .where(
+                                school.name.contains(schoolName),
+                                user.name.contains(name),
+                                isDeajeonEq(isDaejeon),
+                                isOutOfHeadcountEq(isOutOfHeadcount),
+                                applicationTypeEq(isCommon, isMeister, isSocial),
+                                isSubmittedEq(isSubmitted)
                         )
-                )
-                .from(user)
-                .leftJoin(graduation).on(user.receiptCode.eq(graduation.receiptCode))
-                .leftJoin(graduation.school, school)
-                .join(status).on(user.receiptCode.eq(status.receiptCode))
-                .where(user.receiptCode.like(receiptCode)
-                        .and(school.name.contains(schoolName))
-                        .and(user.name.contains(name))
-                        .and(isDeajeonEq(isDaejeon))
-                        .and(isOutOfHeadcountEq(isOutOfHeadcount))
-                        .and(applicationTypeEq(isCommon, isMeister, isSocial))
-                        .and(isSubmittedEq(isSubmitted))
-                )
-                .orderBy(user.receiptCode.asc());
+                        .orderBy(user.receiptCode.asc());
 
         List<ApplicantVo> users = query
                 .limit(page.getPageSize())
@@ -102,13 +100,11 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     private BooleanExpression isDeajeonEq(Boolean isDaejeon) {
-        if (isDaejeon == null) return null;
-        return user.isDaejeon.eq(isDaejeon);
+        return isDaejeon != null ? user.isDaejeon.eq(isDaejeon) : null;
     }
 
     private BooleanExpression isOutOfHeadcountEq(Boolean isOutOfHeadcount) {
-        if (isOutOfHeadcount == null) return null;
-        return user.isOutOfHeadcount.eq(isOutOfHeadcount);
+        return isOutOfHeadcount != null ? user.isOutOfHeadcount.eq(isOutOfHeadcount) : null;
     }
 
     private BooleanExpression applicationTypeEq(boolean isCommon, boolean isMeister, boolean isSocial) {
@@ -128,8 +124,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     private BooleanExpression isSubmittedEq(Boolean isSubmitted) {
-        if (isSubmitted == null) return null;
-        return status.isSubmitted.eq(isSubmitted);
+        return isSubmitted == null ? status.isSubmitted.eq(isSubmitted) : null;
     }
 
 }
