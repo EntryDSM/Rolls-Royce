@@ -124,7 +124,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     private BooleanExpression isSubmittedEq(Boolean isSubmitted) {
-        return isSubmitted == null ? status.isSubmitted.eq(isSubmitted) : null;
+        return isSubmitted != null ? status.isSubmitted.eq(isSubmitted) : null;
     }
 
 }
