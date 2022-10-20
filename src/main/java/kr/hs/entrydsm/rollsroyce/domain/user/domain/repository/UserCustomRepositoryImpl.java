@@ -9,13 +9,11 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.ApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.QApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation;
-import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QQualification.qualification;
 import static kr.hs.entrydsm.rollsroyce.domain.school.domain.QSchool.school;
 import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
 import static kr.hs.entrydsm.rollsroyce.domain.user.domain.QUser.user;
@@ -48,7 +46,6 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                 )
                 .from(user)
                 .leftJoin(graduation).on(user.receiptCode.eq(graduation.receiptCode))
-                .leftJoin(qualification).on(user.receiptCode.eq(qualification.receiptCode))
                 .leftJoin(graduation.school, school)
                 .join(status).on(user.receiptCode.eq(status.receiptCode))
                 .where(user.receiptCode.like(receiptCode)
@@ -56,7 +53,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         .and(user.name.contains(name))
                         .and(isDeajeonEq(isDaejeon))
                         .and(isOutOfHeadcountEq(isOutOfHeadcount))
-//                        .and(applicationTypeEq(isCommon, isMeister, isSocial))
+                        .and(applicationTypeEq(isCommon, isMeister, isSocial))
                         .and(isSubmittedEq(isSubmitted))
                 )
                 .orderBy(user.receiptCode.asc());
@@ -115,7 +112,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
             condition.add(ApplicationType.SOCIAL);
         }
 
-        return user.applicationType.in(condition).or(user.educationalStatus.eq(EducationalStatus.QUALIFICATION_EXAM));
+        return user.applicationType.in(condition);
     }
 
     private BooleanExpression isSubmittedEq(Boolean isSubmitted) {
