@@ -88,15 +88,15 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     private BooleanExpression receiptCodeContainsFilter(String receiptCode) {
-        return StringUtils.isBlank(receiptCode) ? user.receiptCode.stringValue().contains(receiptCode) : null;
+        return StringUtils.isNotBlank(receiptCode) ? user.receiptCode.stringValue().contains(receiptCode) : null;
     }
 
     private BooleanExpression schoolNameContainsFilter(String schoolName) {
-        return StringUtils.isBlank(schoolName) ? school.name.contains(schoolName) : null;
+        return StringUtils.isNotBlank(schoolName) ? school.name.contains(schoolName) : null;
     }
 
     private BooleanExpression userNameContainsFilter(String name) {
-        return StringUtils.isBlank(name) ? user.name.contains(name) : null;
+        return StringUtils.isNotBlank(name) ? user.name.contains(name) : null;
     }
 
     private BooleanExpression isDeajeonEq(Boolean isDaejeon) {
