@@ -56,7 +56,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         .and(user.name.contains(name))
                         .and(isDeajeonEq(isDaejeon))
                         .and(isOutOfHeadcountEq(isOutOfHeadcount))
-                        .and(applicationTypeEq(isCommon, isMeister, isSocial))
+//                        .and(applicationTypeEq(isCommon, isMeister, isSocial))
                         .and(isSubmittedEq(isSubmitted))
                 )
                 .orderBy(user.receiptCode.asc());
