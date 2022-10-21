@@ -46,9 +46,9 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                         .leftJoin(graduation.school, school)
                         .join(status).on(user.receiptCode.eq(status.receiptCode))
                         .where(
-                                receiptCodeContainsFilter(receiptCode),
-                                schoolNameContainsFilter(schoolName),
-                                userNameContainsFilter(name),
+                                user.receiptCode.like(receiptCode),
+                                school.name.contains(schoolName),
+                                user.name.contains(name),
                                 isSubmittedEq(isSubmitted),
                                 isDeajeonEq(isDaejeon),
                                 isOutOfHeadcountEq(isOutOfHeadcount),
