@@ -3,17 +3,18 @@ package kr.hs.entrydsm.rollsroyce.domain.user.domain.repository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.ArrayList;
-import java.util.List;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.ApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.QApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation;
 import static kr.hs.entrydsm.rollsroyce.domain.school.domain.QSchool.school;
 import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
@@ -23,6 +24,19 @@ import static kr.hs.entrydsm.rollsroyce.domain.user.domain.QUser.user;
 public class UserCustomRepositoryImpl implements UserCustomRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
+
+    @Override
+    public List<User> findAllDistanceByTypeAndDaejeon(ApplicationType applicationType, Boolean isDaejeon) {
+        return jpaQueryFactory.selectFrom(user)
+                .join(status).on(user.receiptCode.eq(status.receiptCode))
+                .where(
+                        user.applicationType.eq(applicationType),
+                        user.isDaejeon.eq(isDaejeon),
+                        status.isSubmitted.eq(Boolean.TRUE)
+                )
+                .orderBy(user.distance.desc())
+                .fetch();
+    }
 
     @Override
     public List<User> findAllByStatusIsSubmittedTrue() {

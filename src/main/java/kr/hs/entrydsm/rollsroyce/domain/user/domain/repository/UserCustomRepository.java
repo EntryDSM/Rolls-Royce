@@ -19,4 +19,6 @@ public interface UserCustomRepository {
     boolean isAlreadyExistByEmail(String email);
 
     List<User> queryStaticsCount(ApplicationType applicationType, boolean isDaejeon);
+
+    List<User> findAllDistanceByTypeAndDaejeon(ApplicationType applicationType, Boolean isDaejeon);
 }
