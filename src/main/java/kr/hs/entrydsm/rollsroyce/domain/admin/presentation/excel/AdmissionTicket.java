@@ -34,7 +34,7 @@ public class AdmissionTicket {
         CellStyle alignCenter = alignCenter();
         Font bold = bold();
 
-        XSSFRichTextString title = new XSSFRichTextString("2022학년도 대덕소프트웨어마이스터고등학교\n입학전형 수험표");
+        XSSFRichTextString title = new XSSFRichTextString("2023학년도 대덕소프트웨어마이스터고등학교\n입학전형 수험표");
         title.applyFont(24, 32, bold);
         CellRangeAddress titleAddress = new CellRangeAddress(rowIndex, rowIndex + 1, colIndex, colIndex + 5);
         merge(titleAddress, title, alignCenter);
