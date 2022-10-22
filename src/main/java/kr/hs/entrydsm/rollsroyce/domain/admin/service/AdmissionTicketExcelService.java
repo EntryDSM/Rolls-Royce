@@ -169,12 +169,12 @@ public class AdmissionTicketExcelService {
                         .limit(userCount)
                         .map(j -> {
                             User user = users.get(j);
-//                            StringBuilder examCode = createExamCode(user);
                             int index = j % 3 * line + Math.min(last, j % 3) + j / 3 + 1;
                             String examCode = createExamCode(user) + String.format("%03d", index);
                             statusFacade.saveStatus(
-                                    statusFacade.getStatusByReceiptCode(user.getReceiptCode())
-                                            .updateExamCode(examCode)
+                                    statusFacade.getStatusByReceiptCode(
+                                            user.getReceiptCode()
+                                    ).updateExamCode(examCode)
                             );
                             return examCode;
                         });

@@ -7,15 +7,6 @@ import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.util.IOUtils;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Date;
-import java.util.UUID;
-import javax.imageio.ImageIO;
 import kr.hs.entrydsm.rollsroyce.global.exception.BadFileExtensionException;
 import kr.hs.entrydsm.rollsroyce.global.exception.FileIsEmptyException;
 import kr.hs.entrydsm.rollsroyce.global.exception.ImageNotFoundException;
@@ -24,6 +15,16 @@ import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Date;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
