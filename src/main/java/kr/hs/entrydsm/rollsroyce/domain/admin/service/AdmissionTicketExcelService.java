@@ -12,6 +12,7 @@ import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.facade.ScoreFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
@@ -30,6 +31,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -47,6 +49,8 @@ public class AdmissionTicketExcelService {
     private final StatusFacade statusFacade;
 
     private final UserFacade userFacade;
+
+    private final UserRepository userRepository;
 
     public void execute(HttpServletResponse response) {
         if (scheduleFacade.getScheduleByType(Type.END_DATE)
@@ -140,6 +144,7 @@ public class AdmissionTicketExcelService {
         }
 
         try {
+            response.setCharacterEncoding("utf-8");
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             String formatFilename = "attachment;filename=\"";
             String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일_HH시mm분"));
@@ -153,56 +158,47 @@ public class AdmissionTicketExcelService {
     }
 
     private void saveAllApplicantsExamCode() {
-        List<User> users = statusFacade.findAllPassStatusTrue();
-        List<User> userSort = new ArrayList<>(users);
+        for (ApplicationType type : ApplicationType.values()) {
+            for (int i = 0; i < 2; i++) {
+                List<User> users = userRepository.findAllDistanceByTypeAndDaejeon(type, i != 0);
+                int userCount = users.size();
+                int line = userCount / 3;
+                int last = userCount % 3;
 
-        userSort.sort((o1, o2) -> Double.compare(o2.getDistance(), o1.getDistance()));
-
-        int commonDaejeon = 1;
-        int commonNationwide = 1;
-        int meisterDaejeon = 1;
-        int meisterNationwide = 1;
-        int socialDaejeon = 1;
-        int socialNationwide = 1;
-
-        for (User user : userSort) {
-            StringBuilder examCode = new StringBuilder();
-            switch (user.getApplicationType()) {
-                case COMMON:
-                    examCode.append(1);
-                    break;
-                case MEISTER:
-                    examCode.append(2);
-                    break;
-                default:
-                    examCode.append(3);
+                Stream.iterate(0, j -> j + 1)
+                        .limit(userCount)
+                        .map(j -> {
+                            User user = users.get(j);
+//                            StringBuilder examCode = createExamCode(user);
+                            int index = j % 3 * line + Math.min(last, j % 3) + j / 3 + 1;
+                            String examCode = createExamCode(user) + String.format("%03d", index);
+                            statusFacade.saveStatus(
+                                    statusFacade.getStatusByReceiptCode(user.getReceiptCode())
+                                            .updateExamCode(examCode)
+                            );
+                            return examCode;
+                        });
             }
-            if (Boolean.TRUE.equals(user.getIsDaejeon())) examCode.append(1);
-            else examCode.append(2);
-            //전형 지역 앞 두 글자
-
-            int examOrder = 0;
-
-            if (examCode.toString().startsWith("11")) {
-                examOrder = commonDaejeon++;
-            } else if (examCode.toString().startsWith("12")) {
-                examOrder = commonNationwide++;
-            } else if (examCode.toString().startsWith("21")) {
-                examOrder = meisterDaejeon++;
-            } else if (examCode.toString().startsWith("22")) {
-                examOrder = meisterNationwide++;
-            } else if (examCode.toString().startsWith("31")) {
-                examOrder = socialDaejeon++;
-            } else if (examCode.toString().startsWith("32")) {
-                examOrder = socialNationwide++;
-            }
-            // 뒤 세글자
-
-            statusFacade.saveStatus(
-                    statusFacade.getStatusByReceiptCode(user.getReceiptCode())
-                            .updateExamCode(examCode + String.format("%03d", examOrder))
-            );
         }
+    }
+
+    private StringBuilder createExamCode(User user) {
+        StringBuilder examCode = new StringBuilder();
+        switch (user.getApplicationType()) {
+            case COMMON:
+                examCode.append(1);
+                break;
+            case MEISTER:
+                examCode.append(2);
+                break;
+            default:
+                examCode.append(3);
+        }
+
+        if (Boolean.TRUE.equals(user.getIsDaejeon())) examCode.append(1);
+        else examCode.append(2);
+
+        return examCode;
     }
 
     private String getExamCode(Long receiptCode) {
