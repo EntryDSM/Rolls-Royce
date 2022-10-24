@@ -199,8 +199,7 @@ public class AdmissionTicketExcelService {
     }
 
     private String getExamCode(Long receiptCode) {
-        return statusFacade.getStatusByReceiptCode(receiptCode)
-                .getExamCode();
+        return statusFacade.getStatusByReceiptCode(receiptCode).getExamCode();
     }
 
 }
