@@ -165,7 +165,7 @@ public class AdmissionTicketExcelService {
                 int line = userCount / 3;
                 int last = userCount % 3;
 
-                Stream.iterate(0, j -> j + 1)
+                List<String> test = Stream.iterate(0, j -> j + 1)
                         .limit(userCount)
                         .map(j -> {
                             User user = users.get(j);
@@ -177,7 +177,7 @@ public class AdmissionTicketExcelService {
                                     ).updateExamCode(examCode)
                             );
                             return examCode;
-                        });
+                        }).collect(Collectors.toList());
             }
         }
     }
