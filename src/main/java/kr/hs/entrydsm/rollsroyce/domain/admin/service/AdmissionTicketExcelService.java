@@ -162,22 +162,19 @@ public class AdmissionTicketExcelService {
             for (int i = 0; i < 2; i++) {
                 List<User> users = userRepository.findAllDistanceByTypeAndDaejeon(type, i != 0);
                 int userCount = users.size();
-                int line = userCount / 3;
-                int last = userCount % 3;
 
-                List<String> test = Stream.iterate(0, j -> j + 1)
+                Stream.iterate(0, j -> j + 1)
                         .limit(userCount)
-                        .map(j -> {
+                        .forEach(j -> {
                             User user = users.get(j);
-                            int index = j % 3 * line + Math.min(last, j % 3) + j / 3 + 1;
+                            int index = j % 3 * (userCount / 3) + Math.min((userCount % 3), j % 3) + j / 3 + 1;
                             String examCode = createExamCode(user) + String.format("%03d", index);
                             statusFacade.saveStatus(
                                     statusFacade.getStatusByReceiptCode(
                                             user.getReceiptCode()
                                     ).updateExamCode(examCode)
                             );
-                            return examCode;
-                        }).collect(Collectors.toList());
+                        });
             }
         }
     }
