@@ -21,10 +21,9 @@ public class RefreshToken {
 	@TimeToLive
 	private long ttl;
 
-	public RefreshToken update(String token, long ttl) {
+	public void update(String token, long ttl) {
 		this.token = token;
 		this.ttl = ttl;
-		return this;
 	}
 
 }
