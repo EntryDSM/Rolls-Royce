@@ -16,8 +16,6 @@ public interface UserCustomRepository {
                                         boolean isCommon, boolean isMeister, boolean isSocial,
                                         Boolean isSubmitted, Pageable page);
 
-    boolean isAlreadyExistByEmail(String email);
-
     List<User> queryStaticsCount(ApplicationType applicationType, boolean isDaejeon);
 
     List<User> findAllDistanceByTypeAndDaejeon(ApplicationType applicationType, Boolean isDaejeon);

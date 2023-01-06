@@ -22,14 +22,14 @@ public class UserLoginService {
     private final UserRepository userRepository;
 
     public TokenResponse execute(LoginRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
+        User user = userRepository.findByTelephoneNumber(request.getTelephoneNumber())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw PasswordNotValidException.EXCEPTION;
         }
 
-        return tokenProvider.generateToken(user.getReceiptCode().toString(), "USER");
+        return tokenProvider.generateToken(user.getTelephoneNumber(), "USER");
     }
 
 }

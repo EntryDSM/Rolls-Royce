@@ -79,16 +79,6 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     @Override
-    public boolean isAlreadyExistByEmail(String email) {
-        Integer fetchOne = jpaQueryFactory
-                .selectOne()
-                .from(user)
-                .where(user.email.lower().contains(email.toLowerCase()))
-                .fetchFirst();
-        return fetchOne != null;
-    }
-
-    @Override
     public List<User> queryStaticsCount(ApplicationType applicationType, boolean isDaejeon) {
         return jpaQueryFactory.selectFrom(user)
                 .join(status)

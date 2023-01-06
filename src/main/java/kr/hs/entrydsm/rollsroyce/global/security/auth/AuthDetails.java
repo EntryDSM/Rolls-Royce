@@ -13,7 +13,7 @@ import java.util.Collections;
 @AllArgsConstructor
 public class AuthDetails implements UserDetails {
 
-    private final String receiptCode;
+    private final String telephoneNumber;
 
     private static final String ROLE_USER = "ROLE_USER";
 
@@ -31,7 +31,7 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return receiptCode;
+        return telephoneNumber;
     }
 
     @Override
