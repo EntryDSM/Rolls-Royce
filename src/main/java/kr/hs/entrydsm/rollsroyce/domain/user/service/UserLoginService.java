@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class UserLoginService {
+    private static final String USER_ROLE = "USER";
 
     private final JwtTokenProvider tokenProvider;
 
@@ -29,7 +30,7 @@ public class UserLoginService {
             throw PasswordNotValidException.EXCEPTION;
         }
 
-        return tokenProvider.generateToken(user.getTelephoneNumber(), "USER");
+        return tokenProvider.generateToken(user.getTelephoneNumber(), USER_ROLE);
     }
 
 }

@@ -4,10 +4,7 @@ import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnVerifiedAuthCodeException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserAlreadyExistsException;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserAuthCodeFacade;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
@@ -19,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class UserSignupService {
+    private static final String USER_ROLE = "USER";
 
     private final JwtTokenProvider tokenProvider;
 
@@ -26,27 +24,21 @@ public class UserSignupService {
 
     private final StatusRepository statusRepository;
 
-    private final UserAuthCodeFacade authCodeFacade;
-
     private final UserRepository userRepository;
 
     @Transactional
     public TokenResponse execute(SignupRequest request) {
         String name = request.getName();
-        String email = request.getEmail();
+        String telephoneNumber = request.getTelephoneNumber();
         String password = passwordEncoder.encode(request.getPassword());
 
-        if (userRepository.isAlreadyExistByEmail(email)) {
+        if (userRepository.existsByTelephoneNumber(request.getTelephoneNumber())) {
             throw UserAlreadyExistsException.EXCEPTION;
-        }
-
-        if (!authCodeFacade.isVerified(email)) {
-            throw UnVerifiedAuthCodeException.EXCEPTION;
         }
 
         User user = userRepository.save(User.builder()
                 .name(name)
-                .email(email)
+                .telephoneNumber(telephoneNumber)
                 .password(password)
                 .build());
 
@@ -57,7 +49,7 @@ public class UserSignupService {
                 .isFirstRoundPass(false)
                 .build());
 
-        return tokenProvider.generateToken(user.getReceiptCode().toString(), "USER");
+        return tokenProvider.generateToken(user.getTelephoneNumber(), USER_ROLE);
     }
 
 }
