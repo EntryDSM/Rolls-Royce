@@ -32,7 +32,6 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@DynamicInsert
 @Entity(name = "tbl_user")
 public class User extends BaseTimeEntity {
 
@@ -40,7 +39,7 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "char(11)", unique = true)
+    @Column(columnDefinition = "char(11)", nullable = false, unique = true)
     private String telephoneNumber;
 
     @Column(columnDefinition = "char(60)", nullable = false)
