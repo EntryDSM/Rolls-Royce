@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response;
 
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.types.ApplicationType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.rollsroyce.domain.entry_info.exception;
+package kr.hs.entrydsm.rollsroyce.domain.entryInfo.exception;
 
 import kr.hs.entrydsm.rollsroyce.global.error.exception.ErrorCode;
 import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;

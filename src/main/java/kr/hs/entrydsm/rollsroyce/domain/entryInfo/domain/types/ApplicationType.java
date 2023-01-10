@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types;
+package kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.types;
 
 public enum ApplicationType {
     COMMON,
