@@ -1,32 +1,14 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.dto.UpdateUserInformationDto;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.DynamicInsert;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import javax.persistence.*;
 
 @Getter
 @Builder
@@ -47,6 +29,9 @@ public class User extends BaseTimeEntity {
 
     @Column(columnDefinition = "char(5)", nullable = false)
     private String name;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private EntryInfo entryInfo;
 
     public User updatePassword(String password) {
         this.password = password;
