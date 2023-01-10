@@ -2,9 +2,8 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository.EntryInfoRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository.vo.ApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.repository.EntryInfoRepository;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.repository.vo.ApplicantVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

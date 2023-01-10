@@ -1,6 +1,6 @@
-package kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository;
+package kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.repository;
 
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.EntryInfo;
 import org.springframework.data.repository.CrudRepository;
 
 

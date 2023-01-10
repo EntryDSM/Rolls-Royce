@@ -1,10 +1,10 @@
-package kr.hs.entrydsm.rollsroyce.domain.entry_info.service;
+package kr.hs.entrydsm.rollsroyce.domain.entryInfo.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.presentation.dto.response.StatusResponse;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.presentation.dto.response.StatusResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

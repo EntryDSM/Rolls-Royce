@@ -1,14 +1,14 @@
-package kr.hs.entrydsm.rollsroyce.domain.entry_info.domain;
+package kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.dto.UpdateUserInformationDto;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationRemark;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.EducationalStatus;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.Sex;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.types.ApplicationRemark;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.types.Sex;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;

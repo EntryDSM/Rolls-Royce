@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.pdf;
 
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;

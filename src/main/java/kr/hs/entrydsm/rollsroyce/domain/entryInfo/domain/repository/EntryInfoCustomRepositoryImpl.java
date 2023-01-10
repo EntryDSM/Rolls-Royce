@@ -1,12 +1,12 @@
-package kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository;
+package kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository.vo.ApplicantVo;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository.vo.QApplicantVo;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.repository.vo.ApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.repository.vo.QApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.types.ApplicationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,7 +18,7 @@ import java.util.List;
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation;
 import static kr.hs.entrydsm.rollsroyce.domain.school.domain.QSchool.school;
 import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
-import static kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.QEntryInfo.entryInfo;
+import static kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.QEntryInfo.entryInfo;
 import static kr.hs.entrydsm.rollsroyce.domain.user.domain.QUser.user;
 
 @RequiredArgsConstructor

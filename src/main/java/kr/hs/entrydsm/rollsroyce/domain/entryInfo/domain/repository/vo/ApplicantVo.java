@@ -1,9 +1,8 @@
-package kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository.vo;
+package kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import lombok.Getter;
 
 @Getter

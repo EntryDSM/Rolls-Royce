@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entryInfo.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.QualificationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.QualificationCaseRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.exception.GradeNotFoundException;
