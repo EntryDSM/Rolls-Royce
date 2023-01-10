@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class Score {
 	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "receipt_code")
-	private User user;
+	private EntryInfo entryInfo;
 
 	@Digits(integer = 2, fraction = 3)
 	private BigDecimal volunteerScore;
@@ -47,8 +47,8 @@ public class Score {
 	@Digits(integer = 3, fraction = 3)
 	private BigDecimal totalScore;
 
-	public Score(User user, ApplicationCase applicationCase) {
-		this.user = user;
+	public Score(EntryInfo entryInfo, ApplicationCase applicationCase) {
+		this.entryInfo = entryInfo;
 		this.volunteerScore = applicationCase.calculateVolunteerScore();
 		this.attendanceScore = applicationCase.calculateAttendanceScore();
 
