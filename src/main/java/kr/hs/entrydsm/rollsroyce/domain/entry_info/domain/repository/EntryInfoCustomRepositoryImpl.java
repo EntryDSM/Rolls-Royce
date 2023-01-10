@@ -1,12 +1,12 @@
-package kr.hs.entrydsm.rollsroyce.domain.user.domain.repository;
+package kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.ApplicantVo;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.QApplicantVo;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository.vo.ApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository.vo.QApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,57 +18,59 @@ import java.util.List;
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation;
 import static kr.hs.entrydsm.rollsroyce.domain.school.domain.QSchool.school;
 import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
+import static kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.QEntryInfo.entryInfo;
 import static kr.hs.entrydsm.rollsroyce.domain.user.domain.QUser.user;
 
 @RequiredArgsConstructor
-public class UserCustomRepositoryImpl implements UserCustomRepository {
+public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<User> findAllDistanceByTypeAndDaejeon(ApplicationType applicationType, Boolean isDaejeon) {
-        return jpaQueryFactory.selectFrom(user)
-                .join(status).on(user.receiptCode.eq(status.receiptCode))
+    public List<EntryInfo> findAllDistanceByTypeAndDaejeon(ApplicationType applicationType, Boolean isDaejeon) {
+        return jpaQueryFactory.selectFrom(entryInfo)
+                .join(status).on(entryInfo.receiptCode.eq(status.receiptCode))
                 .where(
-                        user.applicationType.eq(applicationType),
-                        user.isDaejeon.eq(isDaejeon),
+                        entryInfo.applicationType.eq(applicationType),
+                        entryInfo.isDaejeon.eq(isDaejeon),
                         status.isSubmitted.eq(Boolean.TRUE)
                 )
-                .orderBy(user.distance.desc())
+                .orderBy(entryInfo.distance.desc())
                 .fetch();
     }
 
     @Override
-    public List<User> findAllByStatusIsSubmittedTrue() {
-        return jpaQueryFactory.selectFrom(user)
-                .join(status).on(user.receiptCode.eq(status.receiptCode))
+    public List<EntryInfo> findAllByStatusIsSubmittedTrue() {
+        return jpaQueryFactory.selectFrom(entryInfo)
+                .join(status).on(entryInfo.receiptCode.eq(status.receiptCode))
                 .where(status.isSubmitted.eq(true))
                 .fetch();
     }
 
     @Override
-    public Page<ApplicantVo> findAllByUserInfo(String receiptCode, String schoolName, String name,
-                                               Boolean isDaejeon,
-                                               Boolean isOutOfHeadcount,
-                                               boolean isCommon, boolean isMeister, boolean isSocial,
-                                               Boolean isSubmitted,
-                                               Pageable page) {
+    public Page<ApplicantVo> findAllByEntryInfo(String receiptCode, String schoolName, String name,
+                                                Boolean isDaejeon,
+                                                Boolean isOutOfHeadcount,
+                                                boolean isCommon, boolean isMeister, boolean isSocial,
+                                                Boolean isSubmitted,
+                                                Pageable page) {
         JPAQuery<ApplicantVo> query =
-                jpaQueryFactory.select(new QApplicantVo(user, status))
-                        .from(user)
-                        .leftJoin(graduation).on(user.receiptCode.eq(graduation.receiptCode))
+                jpaQueryFactory.select(new QApplicantVo(entryInfo, status))
+                        .from(entryInfo)
+                        .leftJoin(graduation).on(entryInfo.receiptCode.eq(graduation.receiptCode))
                         .leftJoin(graduation.school, school)
-                        .join(status).on(user.receiptCode.eq(status.receiptCode))
+                        .join(status).on(entryInfo.receiptCode.eq(status.receiptCode))
+                        .join(entryInfo.user, user)
                         .where(
-                                user.receiptCode.like(receiptCode),
+                                entryInfo.receiptCode.like(receiptCode),
                                 school.name.contains(schoolName),
-                                user.name.contains(name),
+                                entryInfo.user.name.contains(name),
                                 isSubmittedEq(isSubmitted),
                                 isDeajeonEq(isDaejeon),
                                 isOutOfHeadcountEq(isOutOfHeadcount),
                                 applicationTypeEq(isCommon, isMeister, isSocial)
                         )
-                        .orderBy(user.receiptCode.asc());
+                        .orderBy(entryInfo.receiptCode.asc());
 
         List<ApplicantVo> users = query
                 .limit(page.getPageSize())
@@ -79,20 +81,20 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     @Override
-    public List<User> queryStaticsCount(ApplicationType applicationType, boolean isDaejeon) {
-        return jpaQueryFactory.selectFrom(user)
+    public List<EntryInfo> queryStaticsCount(ApplicationType applicationType, boolean isDaejeon) {
+        return jpaQueryFactory.selectFrom(entryInfo)
                 .join(status)
-                .on(user.receiptCode.eq(status.receiptCode))
+                .on(entryInfo.receiptCode.eq(status.receiptCode))
                 .where(
-                        user.applicationType.eq(applicationType),
-                        user.isDaejeon.eq(isDaejeon),
+                        entryInfo.applicationType.eq(applicationType),
+                        entryInfo.isDaejeon.eq(isDaejeon),
                         status.isSubmitted.eq(Boolean.TRUE)
                 )
                 .fetch();
     }
 
     private BooleanExpression receiptCodeContainsFilter(String receiptCode) {
-        return receiptCode != null ? user.receiptCode.stringValue().contains(receiptCode) : null;
+        return receiptCode != null ? entryInfo.receiptCode.stringValue().contains(receiptCode) : null;
     }
 
     private BooleanExpression schoolNameContainsFilter(String schoolName) {
@@ -104,11 +106,11 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     private BooleanExpression isDeajeonEq(Boolean isDaejeon) {
-        return isDaejeon != null ? user.isDaejeon.eq(isDaejeon) : null;
+        return isDaejeon != null ? entryInfo.isDaejeon.eq(isDaejeon) : null;
     }
 
     private BooleanExpression isOutOfHeadcountEq(Boolean isOutOfHeadcount) {
-        return isOutOfHeadcount != null ? user.isOutOfHeadcount.eq(isOutOfHeadcount) : null;
+        return isOutOfHeadcount != null ? entryInfo.isOutOfHeadcount.eq(isOutOfHeadcount) : null;
     }
 
     private BooleanExpression applicationTypeEq(boolean isCommon, boolean isMeister, boolean isSocial) {
@@ -124,7 +126,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
             condition.add(ApplicationType.SOCIAL);
         }
 
-        return user.applicationType.in(condition);
+        return entryInfo.applicationType.in(condition);
     }
 
     private BooleanExpression isSubmittedEq(Boolean isSubmitted) {
