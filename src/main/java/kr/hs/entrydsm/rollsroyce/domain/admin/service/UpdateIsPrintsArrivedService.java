@@ -1,5 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
@@ -18,24 +20,14 @@ public class UpdateIsPrintsArrivedService {
     private final SESUtil sesUtil;
 
     private final StatusFacade statusFacade;
-
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
 
     public void execute(long receiptCode, boolean isArrived) {
-        User user = userFacade.getUserByCode(receiptCode);
+        EntryInfo entryInfo = entryInfoFacade.getEntryInfoByCode(receiptCode);
         Status status = statusFacade.getStatusByReceiptCode(receiptCode);
 
         status.updateIsPrintsArrived(isArrived);
         statusFacade.saveStatus(status);
-
-        String template;
-        if (!status.getIsPrintsArrived()) template = "PRINTED_NOT_ARRIVED";
-        else template = "PRINTED_ARRIVED";
-
-        Map<String, String> params = new HashMap<>();
-        params.put("name", user.getName());
-
-        sesUtil.sendMessage(user.getEmail(), template, params);
     }
 
 }

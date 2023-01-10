@@ -1,5 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
@@ -15,24 +17,18 @@ import java.util.Map;
 @Service
 public class CancelApplicationSubmitService {
 
-    private final SESUtil sesUtil;
-
     private final StatusFacade statusFacade;
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
 
     private static final String TEMPLATE = "SUBMIT_FALSE";
 
     @Transactional
     public void execute(long receiptCode) {
-        User user = userFacade.getUserByCode(receiptCode);
+        EntryInfo entryInfo = entryInfoFacade.getEntryInfoByCode(receiptCode);
 
-        statusFacade.getStatusByReceiptCode(user.getReceiptCode())
+        statusFacade.getStatusByReceiptCode(entryInfo.getReceiptCode())
                 .cancelIsSubmitted();
-
-        Map<String, String> params = new HashMap<>();
-        params.put("name", user.getName());
-        sesUtil.sendMessage(user.getEmail(), TEMPLATE, params);
     }
 
 }
