@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.global.aop;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.Schedule;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.facade.ScheduleFacade;

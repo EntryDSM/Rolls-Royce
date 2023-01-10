@@ -6,8 +6,8 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.Applican
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.MoreInformation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.QualificationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;

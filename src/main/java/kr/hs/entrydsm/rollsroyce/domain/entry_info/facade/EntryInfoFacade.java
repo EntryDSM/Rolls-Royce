@@ -1,8 +1,8 @@
-package kr.hs.entrydsm.rollsroyce.domain.entryInfo.facade;
+package kr.hs.entrydsm.rollsroyce.domain.entry_info.facade;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.repository.EntryInfoRepository;
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.exception.EntryInfoNotFoundException;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository.EntryInfoRepository;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.exception.EntryInfoNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;

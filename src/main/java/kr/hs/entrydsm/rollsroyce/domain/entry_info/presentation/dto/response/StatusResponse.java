@@ -1,7 +1,7 @@
-package kr.hs.entrydsm.rollsroyce.domain.entryInfo.presentation.dto.response;
+package kr.hs.entrydsm.rollsroyce.domain.entry_info.presentation.dto.response;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.EducationalStatus;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -2,7 +2,7 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.facade;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.ApplicationCountRepository;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ApplicationCountNotFoundException;
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

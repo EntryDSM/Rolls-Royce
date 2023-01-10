@@ -2,14 +2,14 @@ package kr.hs.entrydsm.rollsroyce.domain.score.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 import static kr.hs.entrydsm.rollsroyce.domain.score.domain.QScore.score;
 import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
-import static kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.QEntryInfo.entryInfo;
+import static kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.QEntryInfo.entryInfo;
 
 @RequiredArgsConstructor
 public class ScoreCustomRepositoryImpl implements ScoreCustomRepository {

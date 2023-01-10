@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.status.domain.facade;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.exception.StatusNotFoundException;

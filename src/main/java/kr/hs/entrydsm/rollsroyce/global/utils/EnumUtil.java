@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.global.utils;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.exception.InvalidEnumConstantException;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.exception.InvalidEnumConstantException;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

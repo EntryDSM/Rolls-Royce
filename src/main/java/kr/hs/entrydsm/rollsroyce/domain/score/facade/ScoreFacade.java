@@ -1,11 +1,11 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.facade;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.ApplicationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.global.exception.ScoreNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryInfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
