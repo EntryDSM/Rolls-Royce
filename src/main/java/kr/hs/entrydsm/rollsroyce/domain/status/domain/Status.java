@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.status.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,9 +27,9 @@ public class Status {
 	private Long receiptCode;
 
 	@MapsId
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne
 	@JoinColumn(name = "receipt_code")
-	private User user;
+	private EntryInfo entryInfo;
 
 	@ColumnDefault("0")
 	@Column(nullable = false)
