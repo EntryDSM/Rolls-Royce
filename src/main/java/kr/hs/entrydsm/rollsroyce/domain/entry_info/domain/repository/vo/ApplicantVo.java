@@ -1,10 +1,9 @@
-package kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo;
+package kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
@@ -14,7 +13,7 @@ public class ApplicantVo {
 
     private final String name;
 
-    private final String email;
+    private final String telephoneNumber;
 
     private final Boolean isDaejeon;
 
@@ -27,15 +26,15 @@ public class ApplicantVo {
     private final Boolean isOutOfHeadcount;
 
     @QueryProjection
-    public ApplicantVo(User user, Status status) {
-        this.receiptCode = user.getReceiptCode();
-        this.name = user.getName();
-        this.email = user.getEmail();
-        this.isDaejeon = user.getIsDaejeon();
-        this.applicationType = user.getApplicationType().name();
+    public ApplicantVo(EntryInfo entryInfo, Status status) {
+        this.receiptCode = entryInfo.getReceiptCode();
+        this.name = entryInfo.getUserName();
+        this.telephoneNumber = entryInfo.getUserTelephoneNumber();
+        this.isDaejeon = entryInfo.getIsDaejeon();
+        this.applicationType = entryInfo.getApplicationType().name();
         this.isPrintsArrived = status.getIsPrintsArrived();
         this.isSubmitted = status.getIsSubmitted();
-        this.isOutOfHeadcount = user.getIsOutOfHeadcount();
+        this.isOutOfHeadcount = entryInfo.getIsOutOfHeadcount();
     }
 
 }
