@@ -3,9 +3,9 @@ package kr.hs.entrydsm.rollsroyce.domain.application.service;
 import kr.hs.entrydsm.rollsroyce.domain.application.exception.InvalidGraduateAtException;
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class ChangeTypeService {
 
     private final ApplicationFacade applicationFacade;
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
 
     @Transactional
     public void execute(ChangeTypeRequest request) {
@@ -35,13 +35,13 @@ public class ChangeTypeService {
             throw InvalidGraduateAtException.EXCEPTION;
         }
 
-        User user = userFacade.getCurrentUser();
+        EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
 
         applicationFacade.updateInformation(
-                user, request.getGraduatedAt(), request.getEducationalStatus()
+                entryInfo, request.getGraduatedAt(), request.getEducationalStatus()
         );
 
-        user.updateUserApplication(request);
+        entryInfo.updateUserApplication(request);
     }
 
 }

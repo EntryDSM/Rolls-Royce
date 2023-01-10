@@ -3,6 +3,8 @@ package kr.hs.entrydsm.rollsroyce.domain.application.service;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.exception.EducationalStatusNullException;
@@ -15,19 +17,18 @@ public class QueryTypeService {
 
     private final ApplicationFacade applicationFacade;
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
 
     public QueryTypeResponse execute() {
-        User user = userFacade
-                .getCurrentUser();
+        EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
 
-        if (user.getEducationalStatus() == null)
+        if (entryInfo.getEducationalStatus() == null)
             throw EducationalStatusNullException.EXCEPTION;
 
         Application application = applicationFacade
-                .getApplication(user.getReceiptCode(), user.getEducationalStatus());
+                .getApplication(entryInfo.getReceiptCode(), entryInfo.getEducationalStatus());
 
-        return user.queryUserApplication(application);
+        return entryInfo.queryUserApplication(application);
     }
 
 }

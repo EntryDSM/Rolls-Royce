@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
 import lombok.Getter;
 
 @Getter

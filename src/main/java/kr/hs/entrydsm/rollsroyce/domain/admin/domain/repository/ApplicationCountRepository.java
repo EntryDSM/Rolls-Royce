@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.ApplicationCount;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

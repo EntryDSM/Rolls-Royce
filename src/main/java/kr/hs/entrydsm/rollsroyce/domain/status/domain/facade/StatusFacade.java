@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.status.domain.facade;
 
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.exception.StatusNotFoundException;
@@ -22,10 +23,10 @@ public class StatusFacade {
                 .orElseThrow(() -> StatusNotFoundException.EXCEPTION);
     }
 
-    public List<User> findAllPassStatusTrue() {
-        return statusRepository.findAllByIsFirstRoundPassTrue()
+    public List<EntryInfo> findAllPassStatusTrue() {
+        return statusRepository.findAllByFirstRoundPassIsTrue()
                 .stream()
-                .map(Status::getUser)
+                .map(Status::getEntryInfo)
                 .collect(Collectors.toList());
     }
 

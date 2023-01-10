@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,8 +18,8 @@ public class Qualification extends Application {
 
     private LocalDate qualifiedAt;
 
-    public Qualification(User user, LocalDate qualifiedAt) {
-        super(user);
+    public Qualification(EntryInfo entryInfo, LocalDate qualifiedAt) {
+        super(entryInfo);
         this.qualifiedAt = qualifiedAt;
     }
 

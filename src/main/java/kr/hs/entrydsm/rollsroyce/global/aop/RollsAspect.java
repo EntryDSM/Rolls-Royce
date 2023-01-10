@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.global.aop;
 
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.Schedule;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.facade.ScheduleFacade;
@@ -21,14 +22,14 @@ import java.time.LocalDateTime;
 @Component
 public class RollsAspect {
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
     private final StatusFacade statusFacade;
     private final ScheduleFacade scheduleFacade;
 
     @Around("applicationController() && scoreController()")
     public Object checkSubmit(ProceedingJoinPoint joinPoint) throws Throwable {
         if (statusFacade.getStatusByReceiptCode(
-                userFacade.getCurrentReceiptCode()
+                entryInfoFacade.getCurrentReceiptCode()
         ).getIsSubmitted().equals(Boolean.TRUE))
             throw AlreadySubmitException.EXCEPTION;
         return joinPoint.proceed();

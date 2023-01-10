@@ -4,8 +4,10 @@ import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.application.exception.EducationalStatusUnmatchedException;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryGraduationInformationResponse;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.ApplicationNotFoundException;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.exception.ApplicationNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 import lombok.RequiredArgsConstructor;
@@ -21,36 +23,36 @@ public class QueryGraduationInformationService {
 
     private final S3Util s3Util;
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
 
     private final GraduationRepository graduationRepository;
 
     public QueryGraduationInformationResponse execute() {
-        User user = userFacade.getCurrentUser();
+        EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
 
-        if (user.isQualification())
+        if (entryInfo.isQualification())
             throw EducationalStatusUnmatchedException.EXCEPTION;
 
         Graduation graduation =
-                graduationRepository.findById(user.getReceiptCode())
+                graduationRepository.findById(entryInfo.getReceiptCode())
                         .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
         return QueryGraduationInformationResponse.builder()
-                .postCode(user.getPostCode())
-                .address(user.getAddress())
-                .detailAddress(user.getDetailAddress())
-                .birthday(dateToString(user.getBirthday()))
+                .postCode(entryInfo.getPostCode())
+                .address(entryInfo.getAddress())
+                .detailAddress(entryInfo.getDetailAddress())
+                .birthday(dateToString(entryInfo.getBirthday()))
                 .schoolCode(graduation.getSchoolCode())
                 .schoolName(graduation.getSchoolName())
                 .schoolTel(graduation.getSchoolTel())
                 .studentNumber(graduation.getStudentNumber())
-                .name(user.getName())
-                .parentName(user.getParentName())
-                .parentTel(user.getParentTel())
-                .photoFileName(s3Util.generateObjectUrl(user.getPhotoFileName()))
-                .sex(user.getSex() != null ? user.getSex().name()
+                .name(entryInfo.getUserName())
+                .parentName(entryInfo.getParentName())
+                .parentTel(entryInfo.getParentTel())
+                .photoFileName(s3Util.generateObjectUrl(entryInfo.getPhotoFileName()))
+                .sex(entryInfo.getSex() != null ? entryInfo.getSex().name()
                         : null)
-                .telephoneNumber(user.getTelephoneNumber())
+                .telephoneNumber(entryInfo.getUserTelephoneNumber())
                 .build();
     }
 

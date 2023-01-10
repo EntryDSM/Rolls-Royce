@@ -1,9 +1,10 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.exception.GradeNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.response.QueryGraduationResponse;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +12,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class QueryGraduationService {
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
 
     private final GraduationCaseRepository graduationCaseRepository;
 
     public QueryGraduationResponse execute() {
-        return new QueryGraduationResponse(graduationCaseRepository
-                .findById(userFacade.getCurrentReceiptCode())
-                .orElseThrow(() -> GradeNotFoundException.EXCEPTION));
+        GraduationCase graduationCase = graduationCaseRepository
+                .findById(entryInfoFacade.getCurrentReceiptCode())
+                .orElseThrow(() -> GradeNotFoundException.EXCEPTION);
+        return new QueryGraduationResponse(graduationCase);
     }
 
 }

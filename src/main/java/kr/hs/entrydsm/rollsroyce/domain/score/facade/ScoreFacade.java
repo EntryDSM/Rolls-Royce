@@ -1,11 +1,11 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.facade;
 
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.ApplicationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.global.exception.ScoreNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,17 +21,17 @@ import java.util.Optional;
 @Component
 public class ScoreFacade {
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
     private final ScoreRepository scoreRepository;
 
     @Transactional
-    public void updateScore(User user, ApplicationCase applicationCase) {
-        Optional<Score> scoreEntity = scoreRepository.findById(user.getReceiptCode());
+    public void updateScore(EntryInfo entryInfo, ApplicationCase applicationCase) {
+        Optional<Score> scoreEntity = scoreRepository.findById(entryInfo.getReceiptCode());
 
         if (scoreEntity.isPresent()) {
             scoreEntity.ifPresent(score -> score.update(applicationCase));
         } else {
-            scoreRepository.save(new Score(user, applicationCase));
+            scoreRepository.save(new Score(entryInfo, applicationCase));
         }
     }
 
@@ -51,7 +51,7 @@ public class ScoreFacade {
         scores.sort(Comparator.comparing(o -> {
             Score score = (Score) o;
             BigDecimal totalScore = score.getTotalScore();
-            if (!userFacade.getUserByCode(score.getReceiptCode()).isCommonApplicationType()) {
+            if (!entryInfoFacade.getEntryInfoByCode(score.getReceiptCode()).isCommonApplicationType()) {
                 totalScore = totalScore.multiply(BigDecimal.valueOf(1.75)).setScale(3, RoundingMode.HALF_UP);
             }
             return totalScore;

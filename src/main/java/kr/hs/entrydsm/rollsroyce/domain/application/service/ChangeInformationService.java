@@ -3,9 +3,9 @@ package kr.hs.entrydsm.rollsroyce.domain.application.service;
 import kr.hs.entrydsm.rollsroyce.domain.application.exception.RequestFailToTmapServerException;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeInformationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.dto.UpdateUserInformationDto;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.Sex;
 import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 import kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis.client.TmapApi;
 import kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis.dto.request.RouteRequest;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ChangeInformationService {
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
     private final TmapApi tmapApi;
 
     @Value("${tmap.app.key}")
@@ -28,7 +28,7 @@ public class ChangeInformationService {
 
     @Transactional
     public void execute(ChangeInformationRequest request) {
-        User user = userFacade.getCurrentUser();
+        EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
 
         CoordinateResponse coordinate =
                 tmapApi.getCoordinate(appKey, request.getAddress());
@@ -42,7 +42,7 @@ public class ChangeInformationService {
         if (distance.getFeatures().isEmpty())
             throw RequestFailToTmapServerException.EXCEPTION;
 
-        user.updateUserInformation(
+        entryInfo.updateEntryInformation(
                 UpdateUserInformationDto.builder()
                         .name(request.getName())
                         .sex(EnumUtil.getEnum(Sex.class, request.getSex()))

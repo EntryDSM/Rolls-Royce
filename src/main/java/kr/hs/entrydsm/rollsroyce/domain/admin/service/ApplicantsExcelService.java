@@ -10,18 +10,18 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ExcelOException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.ApplicantInformation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository.EntryInfoRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.facade.ScoreFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationRemark;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.Sex;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -35,7 +35,7 @@ public class ApplicantsExcelService {
 
     private final StatusFacade statusFacade;
 
-    private final UserRepository userRepository;
+    private final EntryInfoRepository entryInfoRepository;
     private final GraduationCaseRepository graduationCaseRepository;
     private final GraduationRepository graduationRepository;
 
@@ -43,11 +43,11 @@ public class ApplicantsExcelService {
         ApplicantInformation applicantInformation = new ApplicantInformation();
         Sheet sheet = applicantInformation.getSheet();
         applicantInformation.format();
-        List<User> applicants = userRepository.findAllByStatusIsSubmittedTrue();
+        List<EntryInfo> applicants = entryInfoRepository.findAllByStatusIsSubmittedTrue();
 
         int i = 0;
-        for (User user : applicants) {
-            long receiptCode = user.getReceiptCode();
+        for (EntryInfo entryInfo : applicants) {
+            long receiptCode = entryInfo.getReceiptCode();
 
             GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode).orElse(null);
             Graduation graduation = graduationRepository.findById(receiptCode).orElse(null);
@@ -55,10 +55,10 @@ public class ApplicantsExcelService {
             Score score = scoreFacade.queryScore(receiptCode);
 
             Row row = sheet.createRow(++i);
-            insertUserInfo(row, user, graduation, status);
+            insertUserInfo(row, entryInfo, graduation, status);
             insertRating(row, graduationCase);
             insertScore(row, score);
-            insertSelfIntroduceAndStudyPlan(row, user);
+            insertSelfIntroduceAndStudyPlan(row, entryInfo);
         }
 
         try {
@@ -74,24 +74,24 @@ public class ApplicantsExcelService {
         }
     }
 
-    private void insertUserInfo(Row row, User user, Graduation graduation, Status status) {
+    private void insertUserInfo(Row row, EntryInfo entryInfo, Graduation graduation, Status status) {
         row.createCell(0).setCellValue(status.getExamCode());
-        row.createCell(1).setCellValue(user.getReceiptCode());
-        row.createCell(2).setCellValue(getApplicationType(user.getApplicationType()));
+        row.createCell(1).setCellValue(entryInfo.getReceiptCode());
+        row.createCell(2).setCellValue(getApplicationType(entryInfo.getApplicationType()));
 
-        row.createCell(3).setCellValue(Boolean.TRUE.equals(user.getIsDaejeon()) ? "대전" : "전국");
-        row.createCell(4).setCellValue(getApplicationRemark(user.getApplicationRemark()));
-        row.createCell(5).setCellValue(user.getName());
-        row.createCell(6).setCellValue(user.getBirthday().toString());
-        row.createCell(7).setCellValue(user.getAddress());
-        row.createCell(8).setCellValue(user.getTelephoneNumber());
-        row.createCell(9).setCellValue(Sex.MALE.equals(user.getSex()) ? "남자" : "여자");
-        row.createCell(10).setCellValue(getEducationalStatus(user.getEducationalStatus()));
+        row.createCell(3).setCellValue(Boolean.TRUE.equals(entryInfo.getIsDaejeon()) ? "대전" : "전국");
+        row.createCell(4).setCellValue(getApplicationRemark(entryInfo.getApplicationRemark()));
+        row.createCell(5).setCellValue(entryInfo.getUserName());
+        row.createCell(6).setCellValue(entryInfo.getBirthday().toString());
+        row.createCell(7).setCellValue(entryInfo.getAddress());
+        row.createCell(8).setCellValue(entryInfo.getUserTelephoneNumber());
+        row.createCell(9).setCellValue(Sex.MALE.equals(entryInfo.getSex()) ? "남자" : "여자");
+        row.createCell(10).setCellValue(getEducationalStatus(entryInfo.getEducationalStatus()));
         row.createCell(11).setCellValue(String.valueOf(graduation != null ? graduation.getGraduatedAt().getYear() : "-"));
         row.createCell(12).setCellValue(graduation != null ? graduation.getSchoolName() : "-");
         row.createCell(13).setCellValue(graduation != null ? graduation.getStudentNumber() : "-");
-        row.createCell(14).setCellValue(user.getParentName());
-        row.createCell(15).setCellValue(user.getParentTel());
+        row.createCell(14).setCellValue(entryInfo.getParentName());
+        row.createCell(15).setCellValue(entryInfo.getParentTel());
     }
 
     private void insertRating(Row row, GraduationCase graduationCase) {
@@ -156,9 +156,9 @@ public class ApplicantsExcelService {
         row.createCell(55).setCellValue(score.getTotalScore().doubleValue());
     }
 
-    private void insertSelfIntroduceAndStudyPlan(Row row, User user) {
-        row.createCell(56).setCellValue(user.getSelfIntroduce());
-        row.createCell(57).setCellValue(user.getStudyPlan());
+    private void insertSelfIntroduceAndStudyPlan(Row row, EntryInfo entryInfo) {
+        row.createCell(56).setCellValue(entryInfo.getSelfIntroduce());
+        row.createCell(57).setCellValue(entryInfo.getStudyPlan());
     }
 
     private String getApplicationType(ApplicationType applicationType) {

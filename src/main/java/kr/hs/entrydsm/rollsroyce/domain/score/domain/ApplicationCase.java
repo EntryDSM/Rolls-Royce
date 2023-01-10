@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.EducationalStatus;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;

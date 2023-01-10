@@ -1,6 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ChangeIntroduceService {
 
-	private final UserFacade userFacade;
+	private final EntryInfoFacade entryInfoFacade;
 
 	@Transactional
 	public void execute(ChangeIntroduceRequest request) {
-		User user = userFacade.getCurrentUser();
-		user.updateSelfIntroduce(request.getContent());
+		EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
+		entryInfo.updateSelfIntroduce(request.getContent());
 	}
 
 }
