@@ -22,8 +22,6 @@ public class UserSignupService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final StatusRepository statusRepository;
-
     private final UserRepository userRepository;
 
     @Transactional
@@ -40,13 +38,6 @@ public class UserSignupService {
                 .name(name)
                 .telephoneNumber(telephoneNumber)
                 .password(password)
-                .build());
-
-        statusRepository.save(Status.builder()
-                .user(user)
-                .isPrintsArrived(false)
-                .isSubmitted(false)
-                .isFirstRoundPass(false)
                 .build());
 
         return tokenProvider.generateToken(user.getTelephoneNumber(), USER_ROLE);
