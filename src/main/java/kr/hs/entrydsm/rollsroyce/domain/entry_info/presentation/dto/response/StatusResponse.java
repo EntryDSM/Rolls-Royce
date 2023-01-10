@@ -1,7 +1,7 @@
-package kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response;
+package kr.hs.entrydsm.rollsroyce.domain.entry_info.presentation.dto.response;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.EducationalStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,8 +12,6 @@ public class StatusResponse {
     private final String name;
 
     private final String phoneNumber;
-
-    private final String email;
 
     private final boolean isSubmitted;
 
