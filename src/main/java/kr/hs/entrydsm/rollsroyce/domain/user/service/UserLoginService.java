@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.PasswordNotValidException;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class UserLoginService {
-    private static final String USER_ROLE = "USER";
 
     private final JwtTokenProvider tokenProvider;
 
@@ -30,7 +30,7 @@ public class UserLoginService {
             throw PasswordNotValidException.EXCEPTION;
         }
 
-        return tokenProvider.generateToken(user.getTelephoneNumber(), USER_ROLE);
+        return tokenProvider.generateToken(user.getTelephoneNumber(), Role.USER.toString());
     }
 
 }

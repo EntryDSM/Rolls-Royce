@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
@@ -16,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class UserSignupService {
-    private static final String USER_ROLE = "USER";
 
     private final JwtTokenProvider tokenProvider;
 
@@ -40,7 +40,7 @@ public class UserSignupService {
                 .password(password)
                 .build());
 
-        return tokenProvider.generateToken(user.getTelephoneNumber(), USER_ROLE);
+        return tokenProvider.generateToken(user.getTelephoneNumber(), Role.USER.toString());
     }
 
 }
