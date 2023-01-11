@@ -8,9 +8,8 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-
-@Component
 @RequiredArgsConstructor
+@Component
 public class EntryInfoFacade {
     private final EntryInfoRepository entryInfoRepository;
     private final UserFacade userFacade;
@@ -18,9 +17,10 @@ public class EntryInfoFacade {
     public Long getCurrentReceiptCode() {
         return getCurrentEntryInfo().getReceiptCode();
     }
+
     public EntryInfo getCurrentEntryInfo() {
         User user = userFacade.getCurrentUser();
-        if(user.getEntryInfo() == null) {
+        if (user.getEntryInfo() == null) {
             throw EntryInfoNotFoundException.EXCEPTION;
         }
         return user.getEntryInfo();
