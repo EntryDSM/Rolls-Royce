@@ -30,15 +30,15 @@ public class EntryInfo {
     private Long receiptCode;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 7)
+    @Column(columnDefinition = "char(7)")
     private ApplicationType applicationType;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    @Column(columnDefinition = "char(20)")
     private ApplicationRemark applicationRemark;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    @Column(columnDefinition = "char(20)")
     private EducationalStatus educationalStatus;
 
     @Column(columnDefinition = "BIT(1) default 0")
@@ -49,16 +49,16 @@ public class EntryInfo {
     @Column(columnDefinition = "char(45)")
     private String photoFileName;
 
-    @Column(length = 1600)
+    @Column(columnDefinition = "varchar(1600)")
     private String selfIntroduce;
 
-    @Column(length = 1600)
+    @Column(columnDefinition = "varchar(1600)")
     private String studyPlan;
 
     private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 6)
+    @Column(columnDefinition = "char(6)")
     private Sex sex;
 
     @Column(columnDefinition = "char(5)")
@@ -67,10 +67,10 @@ public class EntryInfo {
     @Column(columnDefinition = "char(11)")
     private String parentTel;
 
-    @Column(length = 300)
+    @Column(columnDefinition = "varchar(300)")
     private String address;
 
-    @Column(length = 100)
+    @Column(columnDefinition = "char(100)")
     private String detailAddress;
 
     @Column(columnDefinition = "char(5)")
