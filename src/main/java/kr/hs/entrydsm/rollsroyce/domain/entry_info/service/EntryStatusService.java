@@ -17,8 +17,8 @@ public class EntryStatusService {
     private final EntryInfoFacade entryInfoFacade;
 
     public StatusResponse execute() {
-        final EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
-        final Status status = statusFacade.getStatusByReceiptCode(entryInfo.getReceiptCode());
+        EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
+        Status status = statusFacade.getStatusByReceiptCode(entryInfo.getReceiptCode());
 
         return StatusResponse.builder()
                 .phoneNumber(entryInfo.getUserTelephoneNumber())
