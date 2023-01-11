@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.QualificationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.QualificationCaseRepository;

@@ -1,8 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

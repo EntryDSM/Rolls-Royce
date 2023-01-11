@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import lombok.RequiredArgsConstructor;

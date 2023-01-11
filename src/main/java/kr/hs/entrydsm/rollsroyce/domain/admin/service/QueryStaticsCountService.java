@@ -3,8 +3,8 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 import java.util.ArrayList;
 import java.util.List;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsCountResponse;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.repository.EntryInfoCustomRepository;
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoCustomRepository;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
