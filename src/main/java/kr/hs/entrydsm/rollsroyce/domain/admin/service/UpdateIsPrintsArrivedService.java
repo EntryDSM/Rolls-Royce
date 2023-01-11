@@ -1,10 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.entry_info.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entry_info.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
-import kr.hs.entrydsm.rollsroyce.global.utils.ses.SESUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +10,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UpdateIsPrintsArrivedService {
 
-    private final SESUtil sesUtil;
-
     private final StatusFacade statusFacade;
     private final EntryInfoFacade entryInfoFacade;
 
     public void execute(long receiptCode, boolean isArrived) {
-        EntryInfo entryInfo = entryInfoFacade.getEntryInfoByCode(receiptCode);
+        entryInfoFacade.getEntryInfoByCode(receiptCode); //todo 검증용
         Status status = statusFacade.getStatusByReceiptCode(receiptCode);
 
         status.updateIsPrintsArrived(isArrived);

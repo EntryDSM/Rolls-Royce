@@ -15,8 +15,6 @@ public class CancelApplicationSubmitService {
 
     private final EntryInfoFacade entryInfoFacade;
 
-    private static final String TEMPLATE = "SUBMIT_FALSE";
-
     @Transactional
     public void execute(long receiptCode) {
         EntryInfo entryInfo = entryInfoFacade.getEntryInfoByCode(receiptCode);
