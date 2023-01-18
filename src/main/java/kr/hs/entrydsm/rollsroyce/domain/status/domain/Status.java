@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.status.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +9,6 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
@@ -27,9 +26,9 @@ public class Status {
 	private Long receiptCode;
 
 	@MapsId
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne
 	@JoinColumn(name = "receipt_code")
-	private User user;
+	private EntryInfo entryInfo;
 
 	@ColumnDefault("0")
 	@Column(nullable = false)

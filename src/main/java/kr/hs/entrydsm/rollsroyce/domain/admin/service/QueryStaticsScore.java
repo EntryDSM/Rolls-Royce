@@ -4,7 +4,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.CommonSc
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.SpecialScoreResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsScoreResponse;
 import kr.hs.entrydsm.rollsroyce.domain.score.facade.ScoreFacade;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

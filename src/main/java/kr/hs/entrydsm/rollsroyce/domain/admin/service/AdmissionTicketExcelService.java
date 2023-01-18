@@ -6,16 +6,16 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.facade.ApplicationCountFacade;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.AdmissionTicket;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.facade.ScheduleFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.facade.ScoreFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.ClientAnchor;
@@ -48,9 +48,9 @@ public class AdmissionTicketExcelService {
 
     private final StatusFacade statusFacade;
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
 
-    private final UserRepository userRepository;
+    private final EntryInfoRepository entryInfoRepository;
 
     public void execute(HttpServletResponse response) {
         if (scheduleFacade.getScheduleByType(Type.END_DATE)
@@ -112,19 +112,19 @@ public class AdmissionTicketExcelService {
         int count = 1;
 
         for (Long receiptCode : applicantReceiptCodes) {
-            User user = userFacade.getUserByCode(receiptCode);
+            EntryInfo entryInfo = entryInfoFacade.getEntryInfoByCode(receiptCode);
             Application application;
-            if (EducationalStatus.QUALIFICATION_EXAM.equals(user.getEducationalStatus()))
+            if (EducationalStatus.QUALIFICATION_EXAM.equals(entryInfo.getEducationalStatus()))
                 application = applicationFacade.getQualification(receiptCode);
             else application = applicationFacade.getGraduation(receiptCode);
 
             String examCode = getExamCode(receiptCode);
-            String name = user.getName();
+            String name = entryInfo.getUserName();
             String middleSchool = application.getSchoolName();
-            String area = Boolean.TRUE.equals(user.getIsDaejeon()) ? "대전" : "전국";
-            String applicationType = user.getApplicationType().toString();
+            String area = Boolean.TRUE.equals(entryInfo.getIsDaejeon()) ? "대전" : "전국";
+            String applicationType = entryInfo.getApplicationType().toString();
 
-            byte[] imageBytes = s3Util.getObject("images/" + user.getPhotoFileName());
+            byte[] imageBytes = s3Util.getObject("images/" + entryInfo.getPhotoFileName());
             admissionTicket.format(x * 17, y * 7, examCode, name, middleSchool, area, applicationType, String.valueOf(receiptCode));
 
             int index = admissionTicket.getWorkbook().addPicture(imageBytes, Workbook.PICTURE_TYPE_PNG);
@@ -160,18 +160,18 @@ public class AdmissionTicketExcelService {
     private void saveAllApplicantsExamCode() {
         for (ApplicationType type : ApplicationType.values()) {
             for (int i = 0; i < 2; i++) {
-                List<User> users = userRepository.findAllDistanceByTypeAndDaejeon(type, i != 0);
-                int userCount = users.size();
+                List<EntryInfo> entryInfoList = entryInfoRepository.findAllDistanceByTypeAndDaejeon(type, i != 0);
+                int entryInfoCount = entryInfoList.size();
 
                 Stream.iterate(0, j -> j + 1)
-                        .limit(userCount)
+                        .limit(entryInfoCount)
                         .forEach(j -> {
-                            User user = users.get(j);
-                            int index = j % 3 * (userCount / 3) + Math.min((userCount % 3), j % 3) + j / 3 + 1;
-                            String examCode = createExamCode(user) + String.format("%03d", index);
+                            EntryInfo entryInfo = entryInfoList.get(j);
+                            int index = j % 3 * (entryInfoCount / 3) + Math.min((entryInfoCount % 3), j % 3) + j / 3 + 1;
+                            String examCode = createExamCode(entryInfo) + String.format("%03d", index);
                             statusFacade.saveStatus(
                                     statusFacade.getStatusByReceiptCode(
-                                            user.getReceiptCode()
+                                            entryInfo.getReceiptCode()
                                     ).updateExamCode(examCode)
                             );
                         });
@@ -179,9 +179,9 @@ public class AdmissionTicketExcelService {
         }
     }
 
-    private StringBuilder createExamCode(User user) {
+    private StringBuilder createExamCode(EntryInfo entryInfo) {
         StringBuilder examCode = new StringBuilder();
-        switch (user.getApplicationType()) {
+        switch (entryInfo.getApplicationType()) {
             case COMMON:
                 examCode.append(1);
                 break;
@@ -192,7 +192,7 @@ public class AdmissionTicketExcelService {
                 examCode.append(3);
         }
 
-        if (Boolean.TRUE.equals(user.getIsDaejeon())) examCode.append(1);
+        if (Boolean.TRUE.equals(entryInfo.getIsDaejeon())) examCode.append(1);
         else examCode.append(2);
 
         return examCode;

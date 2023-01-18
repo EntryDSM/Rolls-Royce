@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service.dto;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.Sex;
 import lombok.Builder;
 import lombok.Getter;
 

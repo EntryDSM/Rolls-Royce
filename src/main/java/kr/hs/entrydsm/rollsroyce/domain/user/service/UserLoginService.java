@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.PasswordNotValidException;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
@@ -22,14 +23,14 @@ public class UserLoginService {
     private final UserRepository userRepository;
 
     public TokenResponse execute(LoginRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
+        User user = userRepository.findByTelephoneNumber(request.getTelephoneNumber())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw PasswordNotValidException.EXCEPTION;
         }
 
-        return tokenProvider.generateToken(user.getReceiptCode().toString(), "USER");
+        return tokenProvider.generateToken(user.getTelephoneNumber(), Role.USER.toString());
     }
 
 }

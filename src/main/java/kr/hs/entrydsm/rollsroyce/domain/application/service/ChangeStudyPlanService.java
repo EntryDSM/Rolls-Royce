@@ -1,8 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeStudyPlanRequest;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,12 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ChangeStudyPlanService {
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
 
     @Transactional
     public void execute(ChangeStudyPlanRequest request) {
-        User user = userFacade.getCurrentUser();
-        user.updateStudyPlan(request.getContent());
+        EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
+        entryInfo.updateStudyPlan(request.getContent());
     }
 
 }

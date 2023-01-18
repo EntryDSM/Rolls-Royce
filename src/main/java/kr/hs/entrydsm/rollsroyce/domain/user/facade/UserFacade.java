@@ -1,12 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.CredentialsNotFoundException;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserAlreadyExistsException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
-import kr.hs.entrydsm.rollsroyce.global.security.auth.AuthDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -18,42 +14,14 @@ public class UserFacade {
     private final UserRepository userRepository;
 
     public User getCurrentUser() {
-        Object detail =
-                SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!(detail instanceof AuthDetails)) {
-            throw CredentialsNotFoundException.EXCEPTION;
-        }
-        return userRepository.findById(Long.valueOf(((AuthDetails) detail).getUsername()))
+        String telephoneNumber = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByTelephoneNumber(telephoneNumber)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 
-    public Long getCurrentReceiptCode() {
-        return getCurrentUser().getReceiptCode();
-    }
-
-    public User getUserByCode(Long receiptCode) {
-        return userRepository.findById(receiptCode)
+    public User getUserByTelephoneNumber(String telephoneNumber) {
+        return userRepository.findByTelephoneNumber(telephoneNumber)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
-
-    public boolean isAlreadyExists(String email) {
-        if (userRepository.findByEmail(email).isPresent()) {
-            throw UserAlreadyExistsException.EXCEPTION;
-        }
-        return true;
-    }
-
-    public QueryInformationResponse queryInformation() {
-        return getCurrentUser().queryInformation();
-    }
-
-    public String querySelfIntroduce() {
-        return getCurrentUser().getSelfIntroduce();
-    }
-
-    public String queryStudyPlan() {
-        return getCurrentUser().getStudyPlan();
-    }
-
 
 }

@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.token;
 
-import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.repository.RefreshTokenRepository;
+import kr.hs.entrydsm.rollsroyce.domain.refreshtoken.domain.repository.RefreshTokenRepository;
 import kr.hs.entrydsm.rollsroyce.global.exception.InvalidTokenException;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;

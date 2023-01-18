@@ -5,8 +5,9 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.RefreshToken;
-import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.repository.RefreshTokenRepository;
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
+import kr.hs.entrydsm.rollsroyce.domain.refreshtoken.domain.RefreshToken;
+import kr.hs.entrydsm.rollsroyce.domain.refreshtoken.domain.repository.RefreshTokenRepository;
 import kr.hs.entrydsm.rollsroyce.global.exception.ExpiredTokenException;
 import kr.hs.entrydsm.rollsroyce.global.exception.InvalidTokenException;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AdminDetailsService;
@@ -32,8 +33,6 @@ public class JwtTokenProvider {
 
     private static final String ACCESS_KEY = "access_token";
     private static final String REFRESH_KEY = "refresh_token";
-
-    private static final String USER_ROLE = "USER";
 
     public TokenResponse generateToken(String id, String role) {
         String accessToken = generateToken(id, role, ACCESS_KEY, jwtProperties.getAccessExp());
@@ -99,7 +98,7 @@ public class JwtTokenProvider {
     }
 
     private UserDetails getDetails(Claims body) {
-        if (USER_ROLE.equals(body.get("role").toString())) {
+        if (Role.USER.toString().equals(body.get("role").toString())) {
             return authDetailsService
                     .loadUserByUsername(body.getSubject());
         } else {

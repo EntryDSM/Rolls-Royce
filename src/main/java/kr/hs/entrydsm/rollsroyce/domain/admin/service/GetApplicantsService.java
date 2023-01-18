@@ -2,8 +2,8 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.vo.ApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class GetApplicantsService {
 
 
-    private final UserRepository userRepository;
+    private final EntryInfoRepository entryInfoRepository;
 
     public ApplicantsResponse execute(Pageable page, GetApplicantsRequest request) {
 
@@ -39,7 +39,7 @@ public class GetApplicantsService {
             isSubmitted = request.isSubmitted();
         }
 
-        Page<ApplicantVo> applicants = userRepository.findAllByUserInfo(
+        Page<ApplicantVo> applicants = entryInfoRepository.findAllByEntryInfo(
                 request.getReceiptCode(),
                 request.getSchoolName(),
                 request.getName(),
@@ -57,15 +57,15 @@ public class GetApplicantsService {
                 .totalPages(applicants.getTotalPages())
                 .applicants(
                         applicants.stream().map(
-                                        a -> ApplicantsResponse.ApplicantDto.builder()
-                                                .receiptCode(a.getReceiptCode())
-                                                .name(a.getName())
-                                                .email(a.getEmail())
-                                                .isDaejeon(a.getIsDaejeon())
-                                                .applicationType(a.getApplicationType())
-                                                .isPrintsArrived(a.getIsPrintsArrived())
-                                                .isSubmitted(a.getIsSubmitted())
-                                                .isOutOfHeadcount(a.getIsOutOfHeadcount())
+                                        applicant -> ApplicantsResponse.ApplicantDto.builder()
+                                                .receiptCode(applicant.getReceiptCode())
+                                                .name(applicant.getName())
+                                                .telephoneNumber(applicant.getTelephoneNumber())
+                                                .isDaejeon(applicant.getIsDaejeon())
+                                                .applicationType(applicant.getApplicationType())
+                                                .isPrintsArrived(applicant.getIsPrintsArrived())
+                                                .isSubmitted(applicant.getIsSubmitted())
+                                                .isOutOfHeadcount(applicant.getIsOutOfHeadcount())
                                                 .build()
                                 )
                                 .collect(Collectors.toList())

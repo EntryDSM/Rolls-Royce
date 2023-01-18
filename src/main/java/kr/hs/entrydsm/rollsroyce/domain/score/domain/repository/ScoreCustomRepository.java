@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain.repository;
 
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 
 import java.util.List;
 

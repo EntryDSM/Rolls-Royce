@@ -5,8 +5,8 @@ import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.PdfMerger;
 import com.itextpdf.layout.Document;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -25,14 +25,14 @@ public class ApplicationPdfGenerator {
     private final PdfDataConverter pdfDataConverter;
     private final TemplateProcessor templateProcessor;
 
-    public byte[] generate(User user, Score score) {
-        return generateApplicationPdf(user, score);
+    public byte[] generate(EntryInfo entryInfo, Score score) {
+        return generateApplicationPdf(entryInfo, score);
     }
 
-    private byte[] generateApplicationPdf(User user, Score score) {
-        PdfData data = pdfDataConverter.applicationToInfo(user, score);
+    private byte[] generateApplicationPdf(EntryInfo entryInfo, Score score) {
+        PdfData data = pdfDataConverter.applicationToInfo(entryInfo, score);
 
-        ByteArrayOutputStream[] outputStreams = getTemplateFileNames(user).parallelStream()
+        ByteArrayOutputStream[] outputStreams = getTemplateFileNames(entryInfo).parallelStream()
                 .map(template -> templateProcessor.convertTemplateIntoHtmlString(template, data.toMap()))
                 .map(pdfProcessor::convertHtmlToPdf)
                 .toArray(ByteArrayOutputStream[]::new);
@@ -69,7 +69,7 @@ public class ApplicationPdfGenerator {
         }
     }
 
-    private List<String> getTemplateFileNames(User user) {
+    private List<String> getTemplateFileNames(EntryInfo entryInfo) {
         List<String> result = new LinkedList<>(List.of(
                 TemplateFileName.APPLICATION_FOR_ADMISSION,
                 TemplateFileName.INTRODUCTION,
@@ -77,7 +77,7 @@ public class ApplicationPdfGenerator {
                 TemplateFileName.SMOKING_EXAMINE
         ));
 
-        if (!user.isQualificationExam() && !user.isCommonApplicationType())
+        if (!entryInfo.isQualificationExam() && !entryInfo.isCommonApplicationType())
             result.add(2, TemplateFileName.RECOMMENDATION);
 
         return result;

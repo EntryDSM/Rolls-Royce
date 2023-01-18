@@ -16,9 +16,9 @@ public class AuthDetailsService implements UserDetailsService {
     private final UserFacade userFacade;
 
     @Override
-    public UserDetails loadUserByUsername(String receiptCode) throws UsernameNotFoundException {
-        User user = userFacade.getUserByCode(Long.valueOf(receiptCode));
-        return new AuthDetails(user.getReceiptCode().toString());
+    public UserDetails loadUserByUsername(String telephoneNumber) throws UsernameNotFoundException {
+        User user = userFacade.getUserByTelephoneNumber(telephoneNumber);
+        return new AuthDetails(user.getTelephoneNumber());
     }
 
 }

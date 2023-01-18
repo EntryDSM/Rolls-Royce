@@ -1,7 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryStudyPlanResponse;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class QueryStudyPlanService {
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
 
     public QueryStudyPlanResponse execute() {
+        EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
         return new QueryStudyPlanResponse(
-                userFacade.queryStudyPlan()
+                entryInfo.getStudyPlan()
         );
     }
 

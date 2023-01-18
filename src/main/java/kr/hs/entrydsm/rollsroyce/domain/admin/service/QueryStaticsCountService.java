@@ -3,8 +3,8 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 import java.util.ArrayList;
 import java.util.List;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsCountResponse;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserCustomRepository;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoCustomRepository;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class QueryStaticsCountService {
 
-    private final UserCustomRepository userRepository;
+    private final EntryInfoCustomRepository userRepository;
 
     public List<StaticsCountResponse> execute() {
         List<StaticsCountResponse> responseList = new ArrayList<>();

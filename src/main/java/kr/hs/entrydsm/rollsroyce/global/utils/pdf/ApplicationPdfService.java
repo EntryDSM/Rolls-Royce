@@ -1,12 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.pdf;
 
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.exception.StatusNotFoundException;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.exception.EducationalStatusNullException;
 import kr.hs.entrydsm.rollsroyce.global.exception.FinalSubmitRequiredException;
 import kr.hs.entrydsm.rollsroyce.global.exception.ScoreNotFoundException;
@@ -17,42 +17,41 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplicationPdfService {
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
     private final ApplicationPdfGenerator applicationPdfGenerator;
     private final ScoreRepository scoreRepository;
     private final StatusRepository statusRepository;
 
     public byte[] getPreviewApplicationPdf() {
-        User user = userFacade.getCurrentUser();
+        EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
 
-        validatePrintableApplicant(user);
+        validatePrintableApplicant(entryInfo);
 
-        Score calculatedScore = scoreRepository.findById(user.getReceiptCode())
+        Score calculatedScore = scoreRepository.findById(entryInfo.getReceiptCode())
                 .orElseThrow(() -> ScoreNotFoundException.EXCEPTION);
-        return applicationPdfGenerator.generate(user, calculatedScore);
+        return applicationPdfGenerator.generate(entryInfo, calculatedScore);
     }
 
     public byte[] getFinalApplicationPdf() {
+        EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
         Status status = statusRepository
-                .findById(userFacade.getCurrentReceiptCode())
+                .findById(entryInfoFacade.getCurrentReceiptCode())
                 .orElseThrow(() -> StatusNotFoundException.EXCEPTION);
         if (Boolean.FALSE.equals(status.getIsSubmitted()))
             throw FinalSubmitRequiredException.EXCEPTION;
 
-        User user = userFacade.getCurrentUser();
+        validatePrintableApplicant(entryInfo);
 
-        validatePrintableApplicant(user);
-
-        Score calculatedScore = scoreRepository.findById(user.getReceiptCode())
+        Score calculatedScore = scoreRepository.findById(entryInfo.getReceiptCode())
                 .orElseThrow(() -> ScoreNotFoundException.EXCEPTION);
-        return applicationPdfGenerator.generate(user, calculatedScore);
+        return applicationPdfGenerator.generate(entryInfo, calculatedScore);
     }
 
-    private void validatePrintableApplicant(User user) {
-        if (user.isEducationalStatusEmpty())
+    private void validatePrintableApplicant(EntryInfo entryInfo) {
+        if (entryInfo.isEducationalStatusEmpty())
             throw EducationalStatusNullException.EXCEPTION;
 
-        if (!scoreRepository.existsById(user.getReceiptCode()))
+        if (!scoreRepository.existsById(entryInfo.getReceiptCode()))
             throw ScoreNotFoundException.EXCEPTION;
     }
 

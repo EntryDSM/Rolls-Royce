@@ -6,6 +6,8 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.Applican
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.MoreInformation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.QualificationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
@@ -14,9 +16,7 @@ import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.QualificationCas
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class GetApplicantDetailsService {
 
     private final StatusFacade statusFacade;
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
 
     private final GraduationRepository graduationRepository;
     private final GraduationCaseRepository graduationCaseRepository;
@@ -39,44 +39,43 @@ public class GetApplicantDetailsService {
     
 
     public ApplicantDetailsResponse execute(long receiptCode) {
-        User user = userFacade.getUserByCode(receiptCode);
+        EntryInfo entryInfo = entryInfoFacade.getEntryInfoByCode(receiptCode);
         Status userStatus = statusFacade.getStatusByReceiptCode(receiptCode);
 
         return ApplicantDetailsResponse.builder()
                 .status(new ApplicantDetailsResponse.Status(userStatus.getIsPrintsArrived(), userStatus.getIsSubmitted()))
-                .commonInformation(getCommonInformation(user))
-                .moreInformation(userStatus.getIsSubmitted() ? getMoreInformation(user) : null)
-                .evaluation(userStatus.getIsSubmitted() ? getEvaluation(user) : null)
+                .commonInformation(getCommonInformation(entryInfo))
+                .moreInformation(userStatus.getIsSubmitted() ? getMoreInformation(entryInfo) : null)
+                .evaluation(userStatus.getIsSubmitted() ? getEvaluation(entryInfo) : null)
                 .build();
     }
 
-    private CommonInformation getCommonInformation(User user) {
-        Graduation graduation = graduationRepository.findById(user.getReceiptCode())
+    private CommonInformation getCommonInformation(EntryInfo entryInfo) {
+        Graduation graduation = graduationRepository.findById(entryInfo.getReceiptCode())
                 .orElse(null);
         return CommonInformation.builder()
-                .name(user.getName())
-                .email(user.getEmail())
-                .telephoneNumber(user.getTelephoneNumber())
-                .parentTel(user.getParentTel())
+                .name(entryInfo.getUserName())
+                .telephoneNumber(entryInfo.getUserTelephoneNumber())
+                .parentTel(entryInfo.getParentTel())
                 .schoolTel(graduation != null ? graduation.getSchoolTel() : null)
                 .schoolName(graduation != null ? graduation.getSchoolName() : null)
                 .build();
     }
 
-    private MoreInformation getMoreInformation(User user) {
+    private MoreInformation getMoreInformation(EntryInfo entryInfo) {
         return MoreInformation.builder()
-                .photoUrl(s3Util.generateObjectUrl(user.getPhotoFileName()))
-                .birthday(user.getBirthday().toString())
-                .educationStatus(user.getEducationalStatus().name())
-                .applicationType(user.getApplicationType().name())
-                .applicationRemark(user.getApplicationRemark() != null ? user.getApplicationRemark().name() : null)
-                .address(user.getAddress())
-                .detailAddress(user.getDetailAddress())
+                .photoUrl(s3Util.generateObjectUrl(entryInfo.getPhotoFileName()))
+                .birthday(entryInfo.getBirthday().toString())
+                .educationStatus(entryInfo.getEducationalStatus().name())
+                .applicationType(entryInfo.getApplicationType().name())
+                .applicationRemark(entryInfo.getApplicationRemark() != null ? entryInfo.getApplicationRemark().name() : null)
+                .address(entryInfo.getAddress())
+                .detailAddress(entryInfo.getDetailAddress())
                 .build();
     }
 
-    private Evaluation getEvaluation(User user) {
-        long receiptCode = user.getReceiptCode();
+    private Evaluation getEvaluation(EntryInfo entryInfo) {
+        long receiptCode = entryInfo.getReceiptCode();
         Score score = scoreRepository.findById(receiptCode)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
         GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode)
@@ -93,8 +92,8 @@ public class GetApplicantDetailsService {
                 .earlyLeaveCount(graduationInfo[2])
                 .latenessCount(graduationInfo[3])
                 .averageScore(qualificationCase != null ? qualificationCase.getAverageScore() : null)
-                .selfIntroduce(user.getSelfIntroduce())
-                .studyPlan(user.getStudyPlan())
+                .selfIntroduce(entryInfo.getSelfIntroduce())
+                .studyPlan(entryInfo.getStudyPlan())
                 .build();
     }
 

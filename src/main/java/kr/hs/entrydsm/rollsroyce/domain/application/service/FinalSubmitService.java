@@ -3,11 +3,11 @@ package kr.hs.entrydsm.rollsroyce.domain.application.service;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.exception.ProcessNotCompletedException;
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.exception.AlreadySubmitException;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,16 +20,16 @@ public class FinalSubmitService {
 
     private final StatusFacade statusFacade;
 
-    private final UserFacade userFacade;
+    private final EntryInfoFacade entryInfoFacade;
 
     @Transactional
     public void execute() {
-        User user = userFacade.getCurrentUser();
+        EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
 
-        if (user.hasEmptyInfo() || checkApplication(user))
+        if (entryInfo.hasEmptyInfo() || checkApplication(entryInfo))
             throw ProcessNotCompletedException.EXCEPTION;
 
-        Status status = statusFacade.getStatusByReceiptCode(user.getReceiptCode());
+        Status status = statusFacade.getStatusByReceiptCode(entryInfo.getReceiptCode());
 
         if (Boolean.TRUE.equals(status.getIsSubmitted()))
             throw AlreadySubmitException.EXCEPTION;
@@ -37,9 +37,9 @@ public class FinalSubmitService {
         status.isSubmitToTrue();
     }
 
-    private boolean checkApplication(User user) {
+    private boolean checkApplication(EntryInfo entryInfo) {
         Application application = applicationFacade
-                .getApplication(user.getReceiptCode(), user.getEducationalStatus());
+                .getApplication(entryInfo.getReceiptCode(), entryInfo.getEducationalStatus());
 
         return application.hasEmptyInfo();
     }

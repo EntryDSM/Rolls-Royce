@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public abstract class Application extends BaseTimeEntity {
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receipt_code")
-    private User user;
+    private EntryInfo entryInfo;
 
     public abstract boolean isGraduation();
 
@@ -39,8 +39,8 @@ public abstract class Application extends BaseTimeEntity {
         return target != null && !target.isBlank();
     }
 
-    protected Application(User user) {
-        this.user = user;
+    protected Application(EntryInfo entryInfo) {
+        this.entryInfo = entryInfo;
     }
 
 }

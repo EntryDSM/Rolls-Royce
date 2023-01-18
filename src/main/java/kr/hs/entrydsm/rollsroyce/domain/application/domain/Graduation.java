@@ -1,8 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.domain;
 
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,8 +36,8 @@ public class Graduation extends Application {
 
     private LocalDate graduatedAt;
 
-    public Graduation(User user, LocalDate graduatedAt, EducationalStatus educationalStatus) {
-        super(user);
+    public Graduation(EntryInfo entryInfo, LocalDate graduatedAt, EducationalStatus educationalStatus) {
+        super(entryInfo);
         this.graduatedAt = graduatedAt;
         this.isGraduated = EducationalStatus.GRADUATE.equals(educationalStatus);
     }

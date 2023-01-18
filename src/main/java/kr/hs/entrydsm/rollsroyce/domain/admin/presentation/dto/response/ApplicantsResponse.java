@@ -23,7 +23,7 @@ public class ApplicantsResponse {
     public static class ApplicantDto {
         private final Long receiptCode;
         private final String name;
-        private final String email;
+        private final String telephoneNumber;
         private final Boolean isDaejeon;
         private final String applicationType;
         private final Boolean isPrintsArrived;
