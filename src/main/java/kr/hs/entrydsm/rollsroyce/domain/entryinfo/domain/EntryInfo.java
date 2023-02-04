@@ -82,7 +82,7 @@ public class EntryInfo {
     @JoinColumn(name = "user", nullable = false)
     private User user;
 
-    @OneToOne(mappedBy = "entry_info")
+    @OneToOne(mappedBy = "entryInfo")
     private Status status;
 
     public void updateUserApplication(ChangeTypeRequest request) {
