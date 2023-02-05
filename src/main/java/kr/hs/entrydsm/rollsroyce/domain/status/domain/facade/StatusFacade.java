@@ -23,7 +23,7 @@ public class StatusFacade {
     }
 
     public List<EntryInfo> findAllPassStatusTrue() {
-        return statusRepository.findAllByFirstRoundPassIsTrue()
+        return statusRepository.findAllByIsFirstRoundPassTrue()
                 .stream()
                 .map(Status::getEntryInfo)
                 .collect(Collectors.toList());
