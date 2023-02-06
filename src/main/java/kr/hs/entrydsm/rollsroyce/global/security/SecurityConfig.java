@@ -57,6 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/admin/auth/check").hasAnyRole(ADMIN_ROOT, ADMIN_CONFIRM_APPLICATION)
                 .antMatchers(HttpMethod.GET, "/admin/applicants", "/admin/applicant/**", "/admin/statics/**").hasAnyRole(ADMIN_ROOT, ADMIN_CONFIRM_APPLICATION)
 
+                //reserve
+                .antMatchers(HttpMethod.GET, "/reserve").permitAll()
+                
                 .anyRequest().authenticated()
                 .and().apply(new FilterConfig(jwtTokenProvider));
     }
