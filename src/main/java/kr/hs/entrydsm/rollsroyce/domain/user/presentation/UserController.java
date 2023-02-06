@@ -6,10 +6,7 @@ import kr.hs.entrydsm.rollsroyce.domain.entryinfo.service.EntryStatusService;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.LoginRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.PasswordRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
-import kr.hs.entrydsm.rollsroyce.domain.user.service.ChangePasswordService;
-import kr.hs.entrydsm.rollsroyce.domain.user.service.UserLoginService;
-import kr.hs.entrydsm.rollsroyce.domain.user.service.UserSignupService;
-import kr.hs.entrydsm.rollsroyce.domain.user.service.UserTokenRefreshService;
+import kr.hs.entrydsm.rollsroyce.domain.user.service.*;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +25,7 @@ public class UserController {
     private final UserSignupService signupService;
     private final ChangePasswordService changePasswordService;
     private final UserTokenRefreshService userTokenRefreshService;
+    private final UserWithdrawalService userWithdrawalService;
     private final CreateEntryService createEntryService;
     private final CancelEntryService cancelEntryService;
     private final EntryStatusService entryStatusService;
@@ -53,6 +51,11 @@ public class UserController {
         changePasswordService.execute(request);
     }
 
+    @DeleteMapping
+    public void withdrawal() {
+        userWithdrawalService.execute();
+    }
+
     @PostMapping("/entry")
     public void createEntry() {
         createEntryService.execute();
@@ -67,5 +70,5 @@ public class UserController {
     public void queryEntryStatus() {
         entryStatusService.execute();
     }
-
 }
+
