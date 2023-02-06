@@ -3,6 +3,8 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ApplicationPeriodNotOverException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.InvalidFileException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.ApplicationCountFacade;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.AdmissionTicketRequest;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.AdmissionTicketResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.AdmissionTicket;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
@@ -37,169 +39,40 @@ import java.util.stream.Stream;
 @Service
 public class AdmissionTicketExcelService {
 
-    private final S3Util s3Util;
-
-    private final ApplicationFacade applicationFacade;
-    private final ApplicationCountFacade applicationCountFacade;
-
     private final ScheduleFacade scheduleFacade;
-
-    private final ScoreFacade scoreFacade;
-
-    private final StatusFacade statusFacade;
-
-    private final EntryInfoFacade entryInfoFacade;
-
     private final EntryInfoRepository entryInfoRepository;
 
-    public void execute(HttpServletResponse response) {
+    public AdmissionTicketResponse execute(AdmissionTicketRequest request) {
         if (scheduleFacade.getScheduleByType(Type.END_DATE)
                 .isAfter(LocalDateTime.now())) {
             throw ApplicationPeriodNotOverException.EXCEPTION;
         }
 
-        List<Long> result = new ArrayList<>();
+        List<EntryInfo> admissionTicket = entryInfoRepository.findByAdmissionTicket(
+                request.getPhotoFileName(),
+                request.getReceiptCode(),
+                request.getName(),
+                request.getSchoolName(),
+                request.getApplicationType(),
+                request.getIsDaejeon(),
+                request.getExamCode()
+        );
 
-        int lessCount = 0;
-        List<Score> spareApplicationQueue = new ArrayList<>();
-
-        for (ApplicationType type : ApplicationType.values()) {
-            for (int i = 0; i < 2; i++) {
-                List<Score> applicants =
-                        scoreFacade.queryScoreByApplicationTypeAndIsDaejeon(type, i != 0);
-                int limitCount = applicationCountFacade.countOfApplicationTypeAndIsDaejeon(type, i != 0);
-                System.out.println(type.name() + (i != 0) + " " + LocalDateTime.now());
-                if (applicants.size() > limitCount) {
-                    for (int j = 0; j < limitCount; j++) {
-                        result.add(applicants.remove(0).getReceiptCode());
-                    }
-                    spareApplicationQueue.addAll(applicants);
-                } else {
-                    result.addAll(applicants.parallelStream()
-                            .map(Score::getReceiptCode)
-                            .collect(Collectors.toList()));
-                    lessCount += limitCount - applicants.size();
-                }
-            }
-        }
-
-        System.out.println("전형별 점수" + " " + LocalDateTime.now());
-
-        scoreFacade.listSort(spareApplicationQueue);
-
-        System.out.println("정렬 후" + " " + LocalDateTime.now());
-
-        if (spareApplicationQueue.size() < lessCount)
-            result.addAll(spareApplicationQueue.parallelStream()
-                    .map(Score::getReceiptCode)
-                    .collect(Collectors.toList()));
-        else {
-            for (int i = 0; i < lessCount; i++) {
-                result.add(spareApplicationQueue.remove(0).getReceiptCode());
-            }
-        }
-        statusFacade.updateIsFirstRoundPass(result);
-        System.out.println("저장 전" + " " + LocalDateTime.now());
-        saveAllApplicantsExamCode();
-        System.out.println("저장 후" + " " + LocalDateTime.now());
-        getAdmissionTicket(response, result);
-    }
-
-    private void getAdmissionTicket(HttpServletResponse response, List<Long> applicantReceiptCodes) {
-        AdmissionTicket admissionTicket = new AdmissionTicket();
-        int x = 0;
-        int y = 0;
-        int count = 1;
-
-        for (Long receiptCode : applicantReceiptCodes) {
-            EntryInfo entryInfo = entryInfoFacade.getEntryInfoByCode(receiptCode);
-            Application application;
-            if (EducationalStatus.QUALIFICATION_EXAM.equals(entryInfo.getEducationalStatus()))
-                application = applicationFacade.getQualification(receiptCode);
-            else application = applicationFacade.getGraduation(receiptCode);
-
-            String examCode = getExamCode(receiptCode);
-            String name = entryInfo.getUserName();
-            String middleSchool = application.getSchoolName();
-            String area = Boolean.TRUE.equals(entryInfo.getIsDaejeon()) ? "대전" : "전국";
-            String applicationType = entryInfo.getApplicationType().toString();
-
-            byte[] imageBytes = s3Util.getObject("images/" + entryInfo.getPhotoFileName());
-            admissionTicket.format(x * 17, y * 7, examCode, name, middleSchool, area, applicationType, String.valueOf(receiptCode));
-
-            int index = admissionTicket.getWorkbook().addPicture(imageBytes, Workbook.PICTURE_TYPE_PNG);
-            Drawing drawing = admissionTicket.getSheet().createDrawingPatriarch();
-            ClientAnchor anchor;
-            anchor = new XSSFClientAnchor(0, 0, 0, 0, (short) (y * 7), 2 + (x * 17), (short) (2 + (y * 7)), 14 + (x * 17));
-            anchor.setAnchorType(ClientAnchor.AnchorType.DONT_MOVE_AND_RESIZE);
-            drawing.createPicture(anchor, index);
-
-            count++;
-            if (count % 3 == 0) {
-                x++;
-                y = 0;
-            } else {
-                y++;
-            }
-        }
-
-        try {
-            response.setCharacterEncoding("utf-8");
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            String formatFilename = "attachment;filename=\"";
-            String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일_HH시mm분"));
-            String fileName = new String((formatFilename + time + "수험표.xlsx\"").getBytes("KSC5601"), "8859_1");
-            response.setHeader("Content-Disposition", fileName);
-
-            admissionTicket.getWorkbook().write(response.getOutputStream());
-        } catch (IOException e) {
-            throw InvalidFileException.EXCEPTION;
-        }
-    }
-
-    private void saveAllApplicantsExamCode() {
-        for (ApplicationType type : ApplicationType.values()) {
-            for (int i = 0; i < 2; i++) {
-                List<EntryInfo> entryInfoList = entryInfoRepository.findAllDistanceByTypeAndDaejeon(type, i != 0);
-                int entryInfoCount = entryInfoList.size();
-
-                Stream.iterate(0, j -> j + 1)
-                        .limit(entryInfoCount)
-                        .forEach(j -> {
-                            EntryInfo entryInfo = entryInfoList.get(j);
-                            int index = j % 3 * (entryInfoCount / 3) + Math.min((entryInfoCount % 3), j % 3) + j / 3 + 1;
-                            String examCode = createExamCode(entryInfo) + String.format("%03d", index);
-                            statusFacade.saveStatus(
-                                    statusFacade.getStatusByReceiptCode(
-                                            entryInfo.getReceiptCode()
-                                    ).updateExamCode(examCode)
-                            );
-                        });
-            }
-        }
-    }
-
-    private StringBuilder createExamCode(EntryInfo entryInfo) {
-        StringBuilder examCode = new StringBuilder();
-        switch (entryInfo.getApplicationType()) {
-            case COMMON:
-                examCode.append(1);
-                break;
-            case MEISTER:
-                examCode.append(2);
-                break;
-            default:
-                examCode.append(3);
-        }
-
-        if (Boolean.TRUE.equals(entryInfo.getIsDaejeon())) examCode.append(1);
-        else examCode.append(2);
-
-        return examCode;
-    }
-
-    private String getExamCode(Long receiptCode) {
-        return statusFacade.getStatusByReceiptCode(receiptCode).getExamCode();
+        return AdmissionTicketResponse.builder()
+                .admissionTickets(
+                        admissionTicket.stream().map(
+                                        admissionTickets -> AdmissionTicketResponse.AdmissionTicket.builder()
+                                                .photoFileName(admissionTickets.getPhotoFileName())
+                                                .receiptCode(admissionTickets.getReceiptCode())
+                                                .name(admissionTickets.getUserName())
+                                                .applicationType(admissionTickets.getApplicationType().toString())
+                                                .isDaejeon(admissionTickets.getIsDaejeon())
+                                                .build()
+                                )
+                                .collect(Collectors.toList()))
+                .schoolName(request.getSchoolName())
+                .examCode(request.getExamCode())
+                .build();
     }
 
 }

@@ -81,6 +81,23 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
     }
 
     @Override
+    public List<EntryInfo> findByAdmissionTicket(String photoFileName, String receiptCode, String name, String schoolName,
+                                                 ApplicationType applicationType, Boolean isDaejeon, String examCode) {
+        return jpaQueryFactory.selectFrom(entryInfo)
+                .join(status)
+                .on(entryInfo.receiptCode.eq(status.receiptCode))
+                .where(
+                        entryInfo.photoFileName.eq(photoFileName),
+                        entryInfo.receiptCode.like(receiptCode),
+                        entryInfo.user.name.contains(name),
+                        school.name.contains(schoolName),
+                        entryInfo.applicationType.eq(applicationType),
+                        entryInfo.isDaejeon.eq(isDaejeon),
+                        status.examCode.contains()
+                ).fetch();
+    }
+
+    @Override
     public List<EntryInfo> queryStaticsCount(ApplicationType applicationType, boolean isDaejeon) {
         return jpaQueryFactory.selectFrom(entryInfo)
                 .join(status)
