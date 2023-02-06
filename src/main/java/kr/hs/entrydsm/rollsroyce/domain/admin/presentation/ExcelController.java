@@ -15,14 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class ExcelController {
 
-    private final ApplicantsExcelService applicantsExcelService;
     private final AdmissionTicketExcelService admissionTicketExcelService;
     private final NewApplicantsExcelService newApplicantsExcelService;
-
-    @GetMapping("/applicants")
-    public void createApplicantInformation(HttpServletResponse response) {
-        applicantsExcelService.execute(response);
-    }
 
 	@GetMapping("/admission-ticket")
 	public void createAdmissionTicket(HttpServletResponse response) {
