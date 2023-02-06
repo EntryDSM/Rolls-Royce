@@ -18,9 +18,7 @@ import org.hibernate.annotations.DynamicInsert;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Builder
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DynamicInsert
 @Entity
@@ -82,8 +80,13 @@ public class EntryInfo {
     @JoinColumn(name = "user", nullable = false)
     private User user;
 
-    @OneToOne(mappedBy = "entry_info")
+    @OneToOne(mappedBy = "entryInfo")
     private Status status;
+
+    @Builder
+    public EntryInfo(User user) {
+        this.user = user;
+    }
 
     public void updateUserApplication(ChangeTypeRequest request) {
         this.educationalStatus = EnumUtil.getEnum(EducationalStatus.class, request.getEducationalStatus());
