@@ -19,8 +19,8 @@ public class ExcelController {
     private final NewApplicantsExcelService newApplicantsExcelService;
 
 	@GetMapping("/admission-ticket")
-	public void createAdmissionTicket(HttpServletResponse response) {
-		admissionTicketExcelService.execute(response);
+	public void createAdmissionTicket(@ModelAttribute AdmissionTicketRequest request) {
+		admissionTicketExcelService.execute(request);
 	}
 
 	@GetMapping("/applicants/new")
