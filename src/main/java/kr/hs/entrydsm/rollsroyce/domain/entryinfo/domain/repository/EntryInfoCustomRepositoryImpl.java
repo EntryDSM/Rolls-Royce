@@ -93,7 +93,7 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
                         school.name.contains(schoolName),
                         entryInfo.applicationType.eq(applicationType),
                         entryInfo.isDaejeon.eq(isDaejeon),
-                        status.examCode.contains()
+                        status.examCode.contains(examCode)
                 ).fetch();
     }
 

@@ -2,8 +2,10 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.InvalidKeywordException;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
+import lombok.Getter;
 import org.springframework.lang.Nullable;
 
+@Getter
 public class AdmissionTicketRequest {
     @Nullable
     private final String photoFileName;

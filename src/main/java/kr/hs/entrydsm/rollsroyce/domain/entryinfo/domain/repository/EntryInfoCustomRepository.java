@@ -19,4 +19,7 @@ public interface EntryInfoCustomRepository {
     List<EntryInfo> queryStaticsCount(ApplicationType applicationType, boolean isDaejeon);
 
     List<EntryInfo> findAllDistanceByTypeAndDaejeon(ApplicationType applicationType, Boolean isDaejeon);
+
+    List<EntryInfo> findByAdmissionTicket(String photoFileName, String receiptCode, String name, String schoolName,
+                                          ApplicationType applicationType, Boolean isDaejeon, String examCode);
 }
