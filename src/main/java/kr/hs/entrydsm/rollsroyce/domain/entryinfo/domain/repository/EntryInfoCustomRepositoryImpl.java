@@ -90,6 +90,8 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
         return jpaQueryFactory.selectFrom(entryInfo)
                 .join(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
+                .leftJoin(graduation).on(entryInfo.receiptCode.eq(graduation.receiptCode))
+                .leftJoin(graduation.school, school)
                 .where(
                         entryInfo.photoFileName.eq(photoFileName),
                         entryInfo.receiptCode.like(receiptCode),
