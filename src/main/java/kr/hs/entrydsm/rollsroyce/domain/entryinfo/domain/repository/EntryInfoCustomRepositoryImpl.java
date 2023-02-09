@@ -6,12 +6,16 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.Sex;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,6 +98,27 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
                         entryInfo.applicationType.eq(applicationType),
                         entryInfo.isDaejeon.eq(isDaejeon),
                         status.examCode.contains(examCode)
+                ).fetch();
+    }
+
+    @Override
+    public List<EntryInfo> findByNewApplicants(String receiptCode, EducationalStatus educationalStatus, ApplicationType applicationType,
+                                                  String name, Boolean isDaejeon, LocalDate birthday, String telephoneNumber,
+                                                  ApplicationRemark applicationRemark, Sex sex, String parentTel) {
+        return jpaQueryFactory.selectFrom(entryInfo)
+                .join(status)
+                .on(entryInfo.receiptCode.eq(status.receiptCode))
+                .where(
+                        entryInfo.receiptCode.like(receiptCode),
+                        entryInfo.educationalStatus.eq(educationalStatus),
+                        entryInfo.applicationType.eq(applicationType),
+                        entryInfo.user.name.contains(name),
+                        isDeajeonEq(isDaejeon),
+                        entryInfo.birthday.eq(birthday),
+                        entryInfo.user.telephoneNumber.eq(telephoneNumber),
+                        entryInfo.applicationRemark.eq(applicationRemark),
+                        entryInfo.sex.eq(sex),
+                        entryInfo.parentTel.eq(parentTel)
                 ).fetch();
     }
 
