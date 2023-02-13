@@ -9,8 +9,6 @@ import java.util.List;
 @Builder
 public class AdmissionTicketResponse {
     private final List<AdmissionTicket> admissionTickets;
-    private final String schoolName;
-    private final String examCode;
 
     @Getter
     @Builder
@@ -20,5 +18,7 @@ public class AdmissionTicketResponse {
         private final String name; //이름
         private final String applicationType; //전형 유형
         private final Boolean isDaejeon; //지역
+        private final String schoolName; //출신 중학교 이름
+        private final String examCode; //수험번호
     }
 }

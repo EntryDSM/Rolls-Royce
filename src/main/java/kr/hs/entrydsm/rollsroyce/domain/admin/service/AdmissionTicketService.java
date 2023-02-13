@@ -46,11 +46,11 @@ public class AdmissionTicketService {
                                                 .name(admissionTickets.getName())
                                                 .applicationType(admissionTickets.getApplicationType().toString())
                                                 .isDaejeon(admissionTickets.getIsDaejeon())
+                                                .schoolName(admissionTickets.getSchoolName())
+                                                .examCode(admissionTickets.getExamCode())
                                                 .build()
                                 )
                                 .collect(Collectors.toList()))
-                .schoolName(request.getSchoolName())
-                .examCode(request.getExamCode())
                 .build();
     }
 }
