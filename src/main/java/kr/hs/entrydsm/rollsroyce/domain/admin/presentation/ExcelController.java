@@ -17,14 +17,14 @@ public class ExcelController {
     private final AdmissionTicketService admissionTicketService;
     private final NewApplicantsService newApplicantsService;
 
-	@GetMapping("/admission-ticket")
-	public void createAdmissionTicket(@ModelAttribute AdmissionTicketRequest request) {
-		admissionTicketService.execute(request);
-	}
+    @GetMapping("/admission-ticket")
+    public void createAdmissionTicket(@ModelAttribute AdmissionTicketRequest request) {
+        admissionTicketService.execute(request);
+    }
 
-	@GetMapping("/applicants/new")
-	public void newApplicantInformation(@ModelAttribute GetNewApplicantsRequest request) {
-    	newApplicantsService.execute(request);
-	}
+    @GetMapping("/applicants/new")
+    public void newApplicantInformation(@ModelAttribute GetNewApplicantsRequest request) {
+        newApplicantsService.execute(request);
+    }
 
 }
