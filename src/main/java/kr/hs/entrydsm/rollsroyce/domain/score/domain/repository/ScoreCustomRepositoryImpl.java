@@ -3,6 +3,8 @@ package kr.hs.entrydsm.rollsroyce.domain.score.domain.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.QScoreVo;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.ScoreVo;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
@@ -33,10 +35,10 @@ public class ScoreCustomRepositoryImpl implements ScoreCustomRepository {
     }
 
     @Override
-    public List<Score> findAllByScore(BigDecimal thirdGradeScore, BigDecimal thirdBeforeScore, BigDecimal thirdBeforeBeforeScore,
-                                       BigDecimal totalGradeScore, BigDecimal volunteerScore, Integer attendanceScore, BigDecimal totalScore) {
+    public List<ScoreVo> findAllByScore(BigDecimal thirdGradeScore, BigDecimal thirdBeforeScore, BigDecimal thirdBeforeBeforeScore,
+                                        BigDecimal totalGradeScore, BigDecimal volunteerScore, Integer attendanceScore, BigDecimal totalScore) {
 
-        return  jpaQueryFactory.selectFrom(score)
+        return  jpaQueryFactory.select(new QScoreVo(score))
                 .join(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
                 .where(

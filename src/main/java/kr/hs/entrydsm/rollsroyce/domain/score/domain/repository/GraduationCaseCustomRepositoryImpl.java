@@ -1,7 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.GraduationCaseVo;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.QGraduationCaseVo;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -15,10 +16,10 @@ public class GraduationCaseCustomRepositoryImpl implements GraduationCaseCustomR
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<GraduationCase> findAllByGraduationCase(String koreanGrade, String socialGrade, String historyGrade, String mathGrade, String scienceGrade,
-                                                        String techAndHomeGrade, String englishGrade, Integer volunteerTime, Integer latenessCount,
-                                                        Integer dayAbsenceCount, Integer earlyLeaveCount, Integer lectureAbsenceCount) {
-        return jpaQueryFactory.selectFrom(graduationCase)
+    public List<GraduationCaseVo> findAllByGraduationCase(String koreanGrade, String socialGrade, String historyGrade, String mathGrade, String scienceGrade,
+                                                          String techAndHomeGrade, String englishGrade, Integer volunteerTime, Integer latenessCount,
+                                                          Integer dayAbsenceCount, Integer earlyLeaveCount, Integer lectureAbsenceCount) {
+        return jpaQueryFactory.select(new QGraduationCaseVo(graduationCase))
                 .join(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
                 .where(

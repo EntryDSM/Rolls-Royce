@@ -4,6 +4,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.AdmissionTicketVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QAdmissionTicketVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
@@ -85,13 +87,11 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
     }
 
     @Override
-    public List<EntryInfo> findByAdmissionTicket(String photoFileName, String receiptCode, String name, String schoolName,
-                                                 ApplicationType applicationType, Boolean isDaejeon, String examCode) {
-        return jpaQueryFactory.selectFrom(entryInfo)
+    public List<AdmissionTicketVo> findByAdmissionTicket(String photoFileName, String receiptCode, String name, String schoolName,
+                                                         ApplicationType applicationType, Boolean isDaejeon, String examCode) {
+        return jpaQueryFactory.select(new QAdmissionTicketVo(entryInfo, status, school))
                 .join(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
-                .leftJoin(graduation).on(entryInfo.receiptCode.eq(graduation.receiptCode))
-                .leftJoin(graduation.school, school)
                 .where(
                         entryInfo.photoFileName.eq(photoFileName),
                         entryInfo.receiptCode.like(receiptCode),

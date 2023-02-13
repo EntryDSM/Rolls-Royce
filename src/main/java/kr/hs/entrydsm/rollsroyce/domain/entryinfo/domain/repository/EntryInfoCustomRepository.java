@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository;
 
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.AdmissionTicketVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
@@ -24,8 +25,8 @@ public interface EntryInfoCustomRepository {
 
     List<EntryInfo> findAllDistanceByTypeAndDaejeon(ApplicationType applicationType, Boolean isDaejeon);
 
-    List<EntryInfo> findByAdmissionTicket(String photoFileName, String receiptCode, String name, String schoolName,
-                                          ApplicationType applicationType, Boolean isDaejeon, String examCode);
+    List<AdmissionTicketVo> findByAdmissionTicket(String photoFileName, String receiptCode, String name, String schoolName,
+                                                  ApplicationType applicationType, Boolean isDaejeon, String examCode);
 
     List<EntryInfo> findByNewApplicants(String receiptCode, EducationalStatus educationalStatus, ApplicationType applicationType,
                                            String name, Boolean isDaejeon, LocalDate birthday, String telephoneNumber,

@@ -3,8 +3,8 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ApplicationPeriodNotOverException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.AdmissionTicketRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.AdmissionTicketResponse;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.AdmissionTicketVo;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.facade.ScheduleFacade;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class AdmissionTicketService {
             throw ApplicationPeriodNotOverException.EXCEPTION;
         }
 
-        List<EntryInfo> admissionTicket = entryInfoRepository.findByAdmissionTicket(
+        List<AdmissionTicketVo> admissionTicket = entryInfoRepository.findByAdmissionTicket(
                 request.getPhotoFileName(),
                 request.getReceiptCode(),
                 request.getName(),
@@ -43,7 +43,7 @@ public class AdmissionTicketService {
                                         admissionTickets -> AdmissionTicketResponse.AdmissionTicket.builder()
                                                 .photoFileName(admissionTickets.getPhotoFileName())
                                                 .receiptCode(admissionTickets.getReceiptCode())
-                                                .name(admissionTickets.getUserName())
+                                                .name(admissionTickets.getName())
                                                 .applicationType(admissionTickets.getApplicationType().toString())
                                                 .isDaejeon(admissionTickets.getIsDaejeon())
                                                 .build()
@@ -53,5 +53,4 @@ public class AdmissionTicketService {
                 .examCode(request.getExamCode())
                 .build();
     }
-
 }

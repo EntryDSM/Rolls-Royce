@@ -11,10 +11,10 @@ import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
 import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
 import kr.hs.entrydsm.rollsroyce.domain.school.domain.repository.SchoolRepository;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.GraduationCaseVo;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.ScoreVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +49,7 @@ public class NewApplicantsService {
                 request.getStudentNumber()
         );
 
-        List<GraduationCase> graduationCaseList = graduationCaseRepository.findAllByGraduationCase(
+        List<GraduationCaseVo> graduationCaseList = graduationCaseRepository.findAllByGraduationCase(
                 request.getKoreanGrade(),
                 request.getSocialGrade(),
                 request.getHistoryGrade(),
@@ -66,7 +66,7 @@ public class NewApplicantsService {
 
         List<School> schoolList = schoolRepository.findByName(request.getSchoolName());
 
-        List<Score> scoreList = scoreRepository.findAllByScore(
+        List<ScoreVo> scoreList = scoreRepository.findAllByScore(
                 request.getThirdGradeScore(),
                 request.getThirdBeforeScore(),
                 request.getThirdBeforeBeforeScore(),
