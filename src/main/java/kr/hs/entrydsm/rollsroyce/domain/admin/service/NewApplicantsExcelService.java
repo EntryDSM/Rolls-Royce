@@ -44,9 +44,8 @@ public class NewApplicantsExcelService {
                 request.getParentTel()
         );
 
-        List<Graduation> graduationList = graduationRepository.findByGraduatedAtAndAndSchoolAndStudentNumber(
+        List<Graduation> graduationList = graduationRepository.findByGraduatedAtAndStudentNumber(
                 request.getGraduatedAt(),
-                request.getSchoolName(),
                 request.getStudentNumber()
         );
 

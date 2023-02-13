@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface GraduationRepository extends CrudRepository<Graduation, Long> {
 
-    List<Graduation> findByGraduatedAtAndAndSchoolAndStudentNumber(LocalDate graduatedAt, String schoolName, String studentNumber);
+    List<Graduation> findByGraduatedAtAndStudentNumber(LocalDate graduatedAt, String studentNumber);
 }
