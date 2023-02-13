@@ -19,62 +19,57 @@ public class NewApplicantsResponse {
     @Getter
     @Builder
     public static class Applicant {
-        //접수번호, 학력, 접수 유형, 이름, 지역, 생일, 전화번호, 특기사항, 성별, 부모님 전화번호
-        private final Long receiptCode;
-        private final String educationalStatus;
-        private final String applicationType;
-        private final String name;
-        private final Boolean isDaejeon;
-        private final String birthday;
-        private final String telephoneNumber;
-        private final String applicationRemark;
-        private final String sex;
-        private final String parentTel;
+        private final Long receiptCode; //접수번호
+        private final String educationalStatus; //학력
+        private final String applicationType; //접수 유형
+        private final String name; //이름
+        private final Boolean isDaejeon; //지역
+        private final String birthday; //생일
+        private final String telephoneNumber; //전화번호
+        private final String applicationRemark; //특기사항
+        private final String sex; //성별
+        private final String parentTel; //부모님 전화번호
     }
 
     @Getter
     @Builder
     public static class Graduation {
-        //졸업 년도, 학번,
-        private final LocalDate graduatedAt;
-        private final String studentNumber;
+        private final LocalDate graduatedAt; //졸업일
+        private final String studentNumber; //학번
     }
 
     @Getter
     @Builder
     public static class School {
-        //출신 중학교 이름
-        private final String schoolName;
+        private final String schoolName; //출신 중학교 이름
     }
 
     @Getter
     @Builder
     public static class GraduationCase {
-        //국어, 사회, 역사, 수학, 과학, 기술가정, 영어, 봉사시간, 무단 지각, 무단 결석, 무단 조퇴, 무단 결과
-        private final String koreanGrade;
-        private final String socialGrade;
-        private final String historyGrade;
-        private final String mathGrade;
-        private final String scienceGrade;
-        private final String techAndHomeGrade;
-        private final String englishGrade;
-        private final Integer volunteerTime;
-        private final Integer latenessCount;
-        private final Integer dayAbsenceCount;
-        private final Integer earlyLeaveCount;
-        private final Integer lectureAbsenceCount;
+        private final String koreanGrade; //국어 점수
+        private final String socialGrade; //사회 점수
+        private final String historyGrade; //역사 점수
+        private final String mathGrade; //수학 점수
+        private final String scienceGrade; //과학 점수
+        private final String techAndHomeGrade; //기술가정 점수
+        private final String englishGrade; //영어 점수
+        private final Integer volunteerTime; //봉사시간
+        private final Integer latenessCount; //무단 지각
+        private final Integer dayAbsenceCount; //무단 결석
+        private final Integer earlyLeaveCount; //무단 조퇴
+        private final Integer lectureAbsenceCount; //무단 결과
     }
 
     @Getter
     @Builder
     public static class Score {
-        //직전학기, 직전전 학기, 직전전전 학기, 봉사 점수, 성적 총합, 출석 점수, 총점
-        private final BigDecimal thirdGradeScore;
-        private final BigDecimal thirdBeforeScore;
-        private final BigDecimal thirdBeforeBeforeScore;
-        private final BigDecimal volunteerScore;
-        private final BigDecimal totalGradeScore;
-        private final Integer attendanceScore;
-        private final BigDecimal totalScore;
+        private final BigDecimal thirdGradeScore; //최근학기 성적 점수
+        private final BigDecimal thirdBeforeScore; //직전 학기 성적 점수
+        private final BigDecimal thirdBeforeBeforeScore; //직전전 학기 성적 점수
+        private final BigDecimal volunteerScore; //봉사 점수
+        private final BigDecimal totalGradeScore; //성적 총합
+        private final Integer attendanceScore; //출석 점수
+        private final BigDecimal totalScore; //총점
     }
 }

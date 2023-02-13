@@ -15,11 +15,10 @@ public class AdmissionTicketResponse {
     @Getter
     @Builder
     public static class AdmissionTicket {
-        //증명 사진, 접수 번호, 이름, 지역, 전형 유형
-        private final String photoFileName;
-        private final Long receiptCode;
-        private final String name;
-        private final String applicationType;
-        private final Boolean isDaejeon;
+        private final String photoFileName; //증명사진
+        private final Long receiptCode; //접수 번호
+        private final String name; //이름
+        private final String applicationType; //전형 유형
+        private final Boolean isDaejeon; //지역
     }
 }
