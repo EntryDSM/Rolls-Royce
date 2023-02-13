@@ -20,7 +20,8 @@ public class CreateQnaService {
     public void execute(CreateQnaRequest request) {
         User user = userFacade.getCurrentUser();
 
-        qnaRepository.save(Qna.builder()
+        qnaRepository.save(
+                Qna.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
                 .isPublic(request.getIsPubic())
