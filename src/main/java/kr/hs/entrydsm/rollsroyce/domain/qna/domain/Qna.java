@@ -6,9 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity(name = "tbl_qna")
 public class Qna {
     @Id
@@ -30,4 +28,13 @@ public class Qna {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Builder
+    public Qna(String title, String content, Boolean isPublic, Boolean isReplied, User user) {
+        this.title = title;
+        this.content = content;
+        this.isPublic = isPublic;
+        this.isReplied = isReplied;
+        this.user = user;
+    }
 }
