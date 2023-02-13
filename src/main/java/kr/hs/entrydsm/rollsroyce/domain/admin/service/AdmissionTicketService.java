@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class AdmissionTicketExcelService {
+public class AdmissionTicketService {
 
     private final ScheduleFacade scheduleFacade;
     private final EntryInfoRepository entryInfoRepository;

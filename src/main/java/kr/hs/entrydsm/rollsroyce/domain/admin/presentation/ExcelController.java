@@ -2,31 +2,29 @@ package kr.hs.entrydsm.rollsroyce.domain.admin.presentation;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.AdmissionTicketRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetNewApplicantsRequest;
-import kr.hs.entrydsm.rollsroyce.domain.admin.service.AdmissionTicketExcelService;
-import kr.hs.entrydsm.rollsroyce.domain.admin.service.NewApplicantsExcelService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.AdmissionTicketService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.NewApplicantsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-
 @RequiredArgsConstructor
 @RequestMapping("/admin/excel")
 @RestController
 public class ExcelController {
-    private final AdmissionTicketExcelService admissionTicketExcelService;
-    private final NewApplicantsExcelService newApplicantsExcelService;
+    private final AdmissionTicketService admissionTicketService;
+    private final NewApplicantsService newApplicantsService;
 
 	@GetMapping("/admission-ticket")
 	public void createAdmissionTicket(@ModelAttribute AdmissionTicketRequest request) {
-		admissionTicketExcelService.execute(request);
+		admissionTicketService.execute(request);
 	}
 
 	@GetMapping("/applicants/new")
-	public void createNewApplicantInformation(@ModelAttribute GetNewApplicantsRequest request) {
-    	newApplicantsExcelService.execute(request);
+	public void newApplicantInformation(@ModelAttribute GetNewApplicantsRequest request) {
+    	newApplicantsService.execute(request);
 	}
 
 }

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class NewApplicantsExcelService {
+public class NewApplicantsService {
 
     private final EntryInfoRepository entryInfoRepository;
     private final GraduationRepository graduationRepository;
