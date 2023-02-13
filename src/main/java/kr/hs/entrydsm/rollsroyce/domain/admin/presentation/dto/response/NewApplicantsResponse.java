@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -10,7 +9,6 @@ import java.util.List;
 
 @Getter
 @Builder
-@AllArgsConstructor
 public class NewApplicantsResponse {
     private final List<Applicant> applicants;
     private final List<Graduation> graduations;
@@ -20,7 +18,6 @@ public class NewApplicantsResponse {
 
     @Getter
     @Builder
-    @AllArgsConstructor
     public static class Applicant {
         //접수번호, 학력, 접수 유형, 이름, 지역, 생일, 전화번호, 특기사항, 성별, 부모님 전화번호
         private final Long receiptCode;
@@ -37,7 +34,6 @@ public class NewApplicantsResponse {
 
     @Getter
     @Builder
-    @AllArgsConstructor
     public static class Graduation {
         //졸업 년도, 학번,
         private final LocalDate graduatedAt;
@@ -46,7 +42,6 @@ public class NewApplicantsResponse {
 
     @Getter
     @Builder
-    @AllArgsConstructor
     public static class School {
         //출신 중학교 이름
         private final String schoolName;
@@ -54,7 +49,6 @@ public class NewApplicantsResponse {
 
     @Getter
     @Builder
-    @AllArgsConstructor
     public static class GraduationCase {
         //국어, 사회, 역사, 수학, 과학, 기술가정, 영어, 봉사시간, 무단 지각, 무단 결석, 무단 조퇴, 무단 결과
         private final String koreanGrade;
@@ -73,7 +67,6 @@ public class NewApplicantsResponse {
 
     @Getter
     @Builder
-    @AllArgsConstructor
     public static class Score {
         //직전학기, 직전전 학기, 직전전전 학기, 봉사 점수, 성적 총합, 출석 점수, 총점
         private final BigDecimal thirdGradeScore;
