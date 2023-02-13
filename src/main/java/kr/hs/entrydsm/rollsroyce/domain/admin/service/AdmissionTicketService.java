@@ -44,7 +44,7 @@ public class AdmissionTicketService {
                                                 .photoFileName(admissionTickets.getPhotoFileName())
                                                 .receiptCode(admissionTickets.getReceiptCode())
                                                 .name(admissionTickets.getName())
-                                                .applicationType(admissionTickets.getApplicationType().toString())
+                                                .applicationType(admissionTickets.getApplicationType())
                                                 .isDaejeon(admissionTickets.getIsDaejeon())
                                                 .schoolName(admissionTickets.getSchoolName())
                                                 .examCode(admissionTickets.getExamCode())
