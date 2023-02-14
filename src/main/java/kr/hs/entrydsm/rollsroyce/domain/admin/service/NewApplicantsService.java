@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.admin.exception.InvalidFormatException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetNewApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.NewApplicantsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
@@ -37,7 +38,11 @@ public class NewApplicantsService {
         );
 
         List<School> schoolList = schoolRepository.findByName(request.getSchoolName());
-        
+
+        if (graduationList.isEmpty() || schoolList.isEmpty()) {
+            throw InvalidFormatException.EXCEPTION;
+        }
+
         return NewApplicantsResponse.builder()
                 .applicants((List<NewApplicantsResponse.ApplicantDto>) getApplicants(request))
                 .graduations(
@@ -75,6 +80,10 @@ public class NewApplicantsService {
                 request.getParentTel()
         );
 
+        if (newApplicantList.isEmpty()) {
+            throw InvalidFormatException.EXCEPTION;
+        }
+
         return NewApplicantsResponse.builder()
                 .applicants(
                         newApplicantList.stream().map(
@@ -111,6 +120,10 @@ public class NewApplicantsService {
                 request.getLectureAbsenceCount()
         );
 
+        if (graduationCaseList.isEmpty()) {
+            throw InvalidFormatException.EXCEPTION;
+        }
+
         return NewApplicantsResponse.builder()
                 .graduationCases(
                         graduationCaseList.stream().map(
@@ -143,6 +156,10 @@ public class NewApplicantsService {
                 request.getAttendanceScore(),
                 request.getTotalScore()
         );
+
+        if (scoreList.isEmpty()) {
+            throw InvalidFormatException.EXCEPTION;
+        }
 
         return NewApplicantsResponse.builder()
                 .scores(

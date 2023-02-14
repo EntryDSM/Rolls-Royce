@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ApplicationPeriodNotOverException;
+import kr.hs.entrydsm.rollsroyce.domain.admin.exception.InvalidFormatException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.AdmissionTicketRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.AdmissionTicketResponse;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
@@ -36,6 +37,10 @@ public class AdmissionTicketService {
                 request.getIsDaejeon(),
                 request.getExamCode()
         );
+
+        if(admissionTicket.isEmpty()) {
+            throw InvalidFormatException.EXCEPTION;
+        }
 
         return AdmissionTicketResponse.builder()
                 .admissionTickets(

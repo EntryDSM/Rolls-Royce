@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request;
 
-import kr.hs.entrydsm.rollsroyce.domain.admin.exception.InvalidKeywordException;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
@@ -117,31 +116,26 @@ public class GetNewApplicantsRequest {
                                    String englishGrade, Integer volunteerTime, Integer latenessCount, Integer dayAbsenceCount, Integer earlyLeaveCount,
                                    Integer lectureAbsenceCount, BigDecimal thirdGradeScore, BigDecimal thirdBeforeScore, BigDecimal thirdBeforeBeforeScore,
                                    BigDecimal volunteerScore, BigDecimal totalGradeScore, Integer attendanceScore, BigDecimal totalScore) {
-        try {
-            String r = receiptCode != null ? receiptCode.replaceAll(" ", "") : "";
-            this.receiptCode = ((r.equals("")) ? r : Long.parseLong(receiptCode)) + "%";
-        } catch (NumberFormatException e) {
-            throw InvalidKeywordException.EXCEPTION;
-        }
-        this.schoolName = ((schoolName != null) ? schoolName : "");
+        this.receiptCode = receiptCode;
+        this.schoolName = schoolName;
         this.educationalStatus = educationalStatus;
         this.graduatedAt = graduatedAt;
         this.applicationType = applicationType;
-        this.name = ((name != null) ? name : "");
-        this.studentNumber = ((studentNumber != null) ? studentNumber : "");
+        this.name = name;
+        this.studentNumber = studentNumber;
         this.isDaejeon = isDaejeon;
         this.birthday = birthday;
-        this.telephoneNumber = ((telephoneNumber != null) ? telephoneNumber : "");
+        this.telephoneNumber = telephoneNumber;
         this.applicationRemark = applicationRemark;
         this.sex = sex;
-        this.parentTel = ((parentTel != null) ? parentTel : "");
-        this.koreanGrade = ((koreanGrade != null) ? koreanGrade : "");
-        this.socialGrade = ((socialGrade != null) ? socialGrade : "");
-        this.historyGrade = ((historyGrade != null) ? historyGrade : "");
-        this.mathGrade = ((mathGrade != null) ? mathGrade : "");
-        this.scienceGrade = ((scienceGrade != null) ? scienceGrade : "");
-        this.techAndHomeGrade = ((techAndHomeGrade != null) ? techAndHomeGrade : "");
-        this.englishGrade = ((englishGrade != null) ? englishGrade : "");
+        this.parentTel = parentTel;
+        this.koreanGrade = koreanGrade;
+        this.socialGrade = socialGrade;
+        this.historyGrade = historyGrade;
+        this.mathGrade = mathGrade;
+        this.scienceGrade = scienceGrade;
+        this.techAndHomeGrade = techAndHomeGrade;
+        this.englishGrade = englishGrade;
         this.volunteerTime = volunteerTime;
         this.latenessCount = latenessCount;
         this.dayAbsenceCount = dayAbsenceCount;

@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request;
 
-import kr.hs.entrydsm.rollsroyce.domain.admin.exception.InvalidKeywordException;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
@@ -30,17 +29,12 @@ public class AdmissionTicketRequest {
 
     public AdmissionTicketRequest(String photoFileName, String receiptCode, String name, String schoolName, Boolean isDaejeon,
                                   ApplicationType applicationType, String examCode) {
-        this.photoFileName = ((photoFileName != null) ? photoFileName : "");
-        try {
-            String r = receiptCode != null ? receiptCode.replaceAll(" ", "") : "";
-            this.receiptCode = ((r.equals("")) ? r : Long.parseLong(receiptCode)) + "%";
-        } catch (NumberFormatException e) {
-            throw InvalidKeywordException.EXCEPTION;
-        }
-        this.name = ((name != null) ? name : "");
-        this.schoolName = ((schoolName != null) ? schoolName : "");
+        this.photoFileName = photoFileName;
+        this.receiptCode = receiptCode;
+        this.name = name;
+        this.schoolName = schoolName;
         this.isDaejeon = isDaejeon;
         this.applicationType = applicationType;
-        this.examCode = ((examCode != null) ? examCode : "");
+        this.examCode = examCode;
     }
 }
