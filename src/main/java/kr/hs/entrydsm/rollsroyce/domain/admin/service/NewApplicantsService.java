@@ -18,6 +18,9 @@ import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.ScoreVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class NewApplicantsService {
@@ -79,7 +82,7 @@ public class NewApplicantsService {
         return NewApplicantsResponse.builder()
                 .applicants(
                         newApplicantList.stream().map(
-                                newApplicant -> NewApplicantsResponse.Applicant.builder()
+                                newApplicant -> NewApplicantsResponse.ApplicantDto.builder()
                                         .receiptCode(newApplicant.getReceiptCode())
                                         .educationalStatus(newApplicant.getEducationalStatus().toString())
                                         .applicationType(newApplicant.getApplicationType().toString())
@@ -95,14 +98,14 @@ public class NewApplicantsService {
                 )
                 .graduations(
                         graduationList.stream().map(
-                                graduation -> NewApplicantsResponse.Graduation.builder()
+                                graduation -> NewApplicantsResponse.GraduationDto.builder()
                                         .graduatedAt(graduation.getGraduatedAt())
                                         .studentNumber(graduation.getStudentNumber())
                                         .build()
                         ).collect(Collectors.toList()))
                 .graduationCases(
                         graduationCaseList.stream().map(
-                                graduationCase -> NewApplicantsResponse.GraduationCase.builder()
+                                graduationCase -> NewApplicantsResponse.GraduationCaseDto.builder()
                                         .koreanGrade(graduationCase.getKoreanGrade())
                                         .socialGrade(graduationCase.getSocialGrade())
                                         .historyGrade(graduationCase.getHistoryGrade())
@@ -120,13 +123,13 @@ public class NewApplicantsService {
                 )
                 .schools(
                         schoolList.stream().map(
-                                school -> NewApplicantsResponse.School.builder()
+                                school -> NewApplicantsResponse.SchoolDto.builder()
                                         .schoolName(school.getName()).build()
                         ).collect(Collectors.toList())
                 )
                 .scores(
                         scoreList.stream().map(
-                                score -> NewApplicantsResponse.Score.builder()
+                                score -> NewApplicantsResponse.ScoreDto.builder()
                                         .thirdGradeScore(score.getThirdGradeScore())
                                         .thirdBeforeScore(score.getThirdBeforeScore())
                                         .thirdBeforeBeforeScore(score.getThirdBeforeBeforeScore())

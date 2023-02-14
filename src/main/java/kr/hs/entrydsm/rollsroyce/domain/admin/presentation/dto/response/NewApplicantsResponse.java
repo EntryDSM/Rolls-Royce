@@ -10,15 +10,15 @@ import java.util.List;
 @Getter
 @Builder
 public class NewApplicantsResponse {
-    private final List<Applicant> applicants;
-    private final List<Graduation> graduations;
-    private final List<School> schools;
-    private final List<GraduationCase> graduationCases;
-    private final List<Score> scores;
+    private final List<ApplicantDto> applicants;
+    private final List<GraduationDto> graduations;
+    private final List<SchoolDto> schools;
+    private final List<GraduationCaseDto> graduationCases;
+    private final List<ScoreDto> scores;
 
     @Getter
     @Builder
-    public static class Applicant {
+    public static class ApplicantDto {
         private final Long receiptCode; //접수번호
         private final String educationalStatus; //학력
         private final String applicationType; //접수 유형
@@ -33,20 +33,20 @@ public class NewApplicantsResponse {
 
     @Getter
     @Builder
-    public static class Graduation {
+    public static class GraduationDto {
         private final LocalDate graduatedAt; //졸업일
         private final String studentNumber; //학번
     }
 
     @Getter
     @Builder
-    public static class School {
+    public static class SchoolDto {
         private final String schoolName; //출신 중학교 이름
     }
 
     @Getter
     @Builder
-    public static class GraduationCase {
+    public static class GraduationCaseDto {
         private final String koreanGrade; //국어 점수
         private final String socialGrade; //사회 점수
         private final String historyGrade; //역사 점수
@@ -63,7 +63,7 @@ public class NewApplicantsResponse {
 
     @Getter
     @Builder
-    public static class Score {
+    public static class ScoreDto {
         private final BigDecimal thirdGradeScore; //최근학기 성적 점수
         private final BigDecimal thirdBeforeScore; //직전 학기 성적 점수
         private final BigDecimal thirdBeforeBeforeScore; //직전전 학기 성적 점수
