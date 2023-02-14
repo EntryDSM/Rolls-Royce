@@ -36,11 +36,8 @@ public class NewApplicantsService {
                 request.getStudentNumber()
         );
 
-
         List<School> schoolList = schoolRepository.findByName(request.getSchoolName());
-
-
-
+        
         return NewApplicantsResponse.builder()
                 .applicants((List<NewApplicantsResponse.ApplicantDto>) getApplicants(request))
                 .graduations(
