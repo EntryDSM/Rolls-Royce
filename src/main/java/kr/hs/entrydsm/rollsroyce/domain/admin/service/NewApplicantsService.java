@@ -5,8 +5,8 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetNewApp
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.NewApplicantsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.NewApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
 import kr.hs.entrydsm.rollsroyce.domain.school.domain.repository.SchoolRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
@@ -67,7 +67,7 @@ public class NewApplicantsService {
 
     private NewApplicantsResponse getApplicants(GetNewApplicantsRequest request) {
 
-        List<EntryInfo> newApplicantList = entryInfoRepository.findByNewApplicants(
+        List<NewApplicantVo> newApplicantList = entryInfoRepository.findByNewApplicants(
                 request.getReceiptCode(),
                 request.getEducationalStatus(),
                 request.getApplicationType(),
@@ -91,10 +91,10 @@ public class NewApplicantsService {
                                         .receiptCode(newApplicant.getReceiptCode())
                                         .educationalStatus(newApplicant.getEducationalStatus().toString())
                                         .applicationType(newApplicant.getApplicationType().toString())
-                                        .name(newApplicant.getUserName())
+                                        .name(newApplicant.getName())
                                         .isDaejeon(newApplicant.getIsDaejeon())
                                         .birthday(newApplicant.getBirthday().toString())
-                                        .telephoneNumber(newApplicant.getUserTelephoneNumber())
+                                        .telephoneNumber(newApplicant.getTelephoneNumber())
                                         .applicationRemark(newApplicant.getApplicationRemark().toString())
                                         .sex(newApplicant.getSex().toString())
                                         .parentTel(newApplicant.getParentTel())

@@ -5,9 +5,11 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.AdmissionTicketVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.NewApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QAdmissionTicketVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QNewApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
@@ -104,10 +106,10 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
     }
 
     @Override
-    public List<EntryInfo> findByNewApplicants(String receiptCode, EducationalStatus educationalStatus, ApplicationType applicationType,
-                                                  String name, Boolean isDaejeon, LocalDate birthday, String telephoneNumber,
-                                                  ApplicationRemark applicationRemark, Sex sex, String parentTel) {
-        return jpaQueryFactory.selectFrom(entryInfo)
+    public List<NewApplicantVo> findByNewApplicants(String receiptCode, EducationalStatus educationalStatus, ApplicationType applicationType,
+                                                    String name, Boolean isDaejeon, LocalDate birthday, String telephoneNumber,
+                                                    ApplicationRemark applicationRemark, Sex sex, String parentTel) {
+        return jpaQueryFactory.select(new QNewApplicantVo(entryInfo))
                 .join(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
                 .where(
