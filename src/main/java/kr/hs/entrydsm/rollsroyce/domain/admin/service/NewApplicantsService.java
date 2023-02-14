@@ -1,8 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetNewApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.NewApplicantsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
@@ -34,6 +31,40 @@ public class NewApplicantsService {
 
     public NewApplicantsResponse execute(GetNewApplicantsRequest request) {
 
+        List<Graduation> graduationList = graduationRepository.findByGraduatedAtAndStudentNumber(
+                request.getGraduatedAt(),
+                request.getStudentNumber()
+        );
+
+
+        List<School> schoolList = schoolRepository.findByName(request.getSchoolName());
+
+
+
+        return NewApplicantsResponse.builder()
+                .applicants((List<NewApplicantsResponse.ApplicantDto>) getApplicants(request))
+                .graduations(
+                        graduationList.stream().map(
+                                graduation -> NewApplicantsResponse.GraduationDto.builder()
+                                        .graduatedAt(graduation.getGraduatedAt())
+                                        .studentNumber(graduation.getStudentNumber())
+                                        .build()
+                        ).collect(Collectors.toList())
+                )
+                .graduationCases((List<NewApplicantsResponse.GraduationCaseDto>) getGraduationCase(request))
+                .schools(
+                        schoolList.stream().map(
+                                school -> NewApplicantsResponse.SchoolDto.builder()
+                                        .schoolName(school.getName())
+                                        .build()
+                        ).collect(Collectors.toList())
+                )
+                .scores((List<NewApplicantsResponse.ScoreDto>) getScore(request))
+                .build();
+    }
+
+    private NewApplicantsResponse getApplicants(GetNewApplicantsRequest request) {
+
         List<EntryInfo> newApplicantList = entryInfoRepository.findByNewApplicants(
                 request.getReceiptCode(),
                 request.getEducationalStatus(),
@@ -45,38 +76,6 @@ public class NewApplicantsService {
                 request.getApplicationRemark(),
                 request.getSex(),
                 request.getParentTel()
-        );
-
-        List<Graduation> graduationList = graduationRepository.findByGraduatedAtAndStudentNumber(
-                request.getGraduatedAt(),
-                request.getStudentNumber()
-        );
-
-        List<GraduationCaseVo> graduationCaseList = graduationCaseRepository.findAllByGraduationCase(
-                request.getKoreanGrade(),
-                request.getSocialGrade(),
-                request.getHistoryGrade(),
-                request.getMathGrade(),
-                request.getScienceGrade(),
-                request.getTechAndHomeGrade(),
-                request.getEnglishGrade(),
-                request.getVolunteerTime(),
-                request.getLatenessCount(),
-                request.getDayAbsenceCount(),
-                request.getEarlyLeaveCount(),
-                request.getLectureAbsenceCount()
-        );
-
-        List<School> schoolList = schoolRepository.findByName(request.getSchoolName());
-
-        List<ScoreVo> scoreList = scoreRepository.findAllByScore(
-                request.getThirdGradeScore(),
-                request.getThirdBeforeScore(),
-                request.getThirdBeforeBeforeScore(),
-                request.getTotalGradeScore(),
-                request.getVolunteerScore(),
-                request.getAttendanceScore(),
-                request.getTotalScore()
         );
 
         return NewApplicantsResponse.builder()
@@ -95,14 +94,27 @@ public class NewApplicantsService {
                                         .parentTel(newApplicant.getParentTel())
                                         .build()
                         ).collect(Collectors.toList())
-                )
-                .graduations(
-                        graduationList.stream().map(
-                                graduation -> NewApplicantsResponse.GraduationDto.builder()
-                                        .graduatedAt(graduation.getGraduatedAt())
-                                        .studentNumber(graduation.getStudentNumber())
-                                        .build()
-                        ).collect(Collectors.toList()))
+                ).build();
+    }
+
+    private NewApplicantsResponse getGraduationCase(GetNewApplicantsRequest request) {
+
+        List<GraduationCaseVo> graduationCaseList = graduationCaseRepository.findAllByGraduationCase(
+                request.getKoreanGrade(),
+                request.getSocialGrade(),
+                request.getHistoryGrade(),
+                request.getMathGrade(),
+                request.getScienceGrade(),
+                request.getTechAndHomeGrade(),
+                request.getEnglishGrade(),
+                request.getVolunteerTime(),
+                request.getLatenessCount(),
+                request.getDayAbsenceCount(),
+                request.getEarlyLeaveCount(),
+                request.getLectureAbsenceCount()
+        );
+
+        return NewApplicantsResponse.builder()
                 .graduationCases(
                         graduationCaseList.stream().map(
                                 graduationCase -> NewApplicantsResponse.GraduationCaseDto.builder()
@@ -119,14 +131,23 @@ public class NewApplicantsService {
                                         .earlyLeaveCount(graduationCase.getEarlyLeaveCount())
                                         .lectureAbsenceCount(graduationCase.getLectureAbsenceCount())
                                         .build()
-                        ).collect(Collectors.toList())
-                )
-                .schools(
-                        schoolList.stream().map(
-                                school -> NewApplicantsResponse.SchoolDto.builder()
-                                        .schoolName(school.getName()).build()
-                        ).collect(Collectors.toList())
-                )
+                        ).collect(Collectors.toList()))
+                .build();
+    }
+
+    private NewApplicantsResponse getScore(GetNewApplicantsRequest request) {
+
+        List<ScoreVo> scoreList = scoreRepository.findAllByScore(
+                request.getThirdGradeScore(),
+                request.getThirdBeforeScore(),
+                request.getThirdBeforeBeforeScore(),
+                request.getTotalGradeScore(),
+                request.getVolunteerScore(),
+                request.getAttendanceScore(),
+                request.getTotalScore()
+        );
+
+        return NewApplicantsResponse.builder()
                 .scores(
                         scoreList.stream().map(
                                 score -> NewApplicantsResponse.ScoreDto.builder()
@@ -139,7 +160,6 @@ public class NewApplicantsService {
                                         .totalScore(score.getTotalScore())
                                         .build()
                         ).collect(Collectors.toList())
-                )
-                .build();
+                ).build();
     }
 }
