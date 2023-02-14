@@ -39,6 +39,7 @@ public class ScoreCustomRepositoryImpl implements ScoreCustomRepository {
                                         BigDecimal totalGradeScore, BigDecimal volunteerScore, Integer attendanceScore, BigDecimal totalScore) {
 
         return  jpaQueryFactory.select(new QScoreVo(score))
+                .from(score)
                 .join(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
                 .where(

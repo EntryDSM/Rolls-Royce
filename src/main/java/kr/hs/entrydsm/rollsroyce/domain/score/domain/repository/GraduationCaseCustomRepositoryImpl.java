@@ -20,6 +20,7 @@ public class GraduationCaseCustomRepositoryImpl implements GraduationCaseCustomR
                                                           String techAndHomeGrade, String englishGrade, Integer volunteerTime, Integer latenessCount,
                                                           Integer dayAbsenceCount, Integer earlyLeaveCount, Integer lectureAbsenceCount) {
         return jpaQueryFactory.select(new QGraduationCaseVo(graduationCase))
+                .from(graduationCase)
                 .join(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
                 .where(

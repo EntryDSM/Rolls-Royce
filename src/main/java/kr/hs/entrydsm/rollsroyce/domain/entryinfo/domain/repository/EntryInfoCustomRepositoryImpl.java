@@ -92,6 +92,7 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
     public List<AdmissionTicketVo> findByAdmissionTicket(String photoFileName, String receiptCode, String name, String schoolName,
                                                          ApplicationType applicationType, Boolean isDaejeon, String examCode) {
         return jpaQueryFactory.select(new QAdmissionTicketVo(entryInfo, status, school))
+                .from(entryInfo)
                 .join(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
                 .where(
@@ -110,6 +111,7 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
                                                     String name, Boolean isDaejeon, LocalDate birthday, String telephoneNumber,
                                                     ApplicationRemark applicationRemark, Sex sex, String parentTel) {
         return jpaQueryFactory.select(new QNewApplicantVo(entryInfo))
+                .from(entryInfo)
                 .join(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
                 .where(
