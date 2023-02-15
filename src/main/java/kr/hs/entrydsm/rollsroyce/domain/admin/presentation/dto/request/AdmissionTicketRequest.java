@@ -1,10 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request;
 
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
 
 @Getter
+@Builder
 public class AdmissionTicketRequest {
     @Nullable
     private final String photoFileName;
@@ -26,15 +28,4 @@ public class AdmissionTicketRequest {
 
     @Nullable
     private final String examCode;
-
-    public AdmissionTicketRequest(String photoFileName, String receiptCode, String name, String schoolName, Boolean isDaejeon,
-                                  ApplicationType applicationType, String examCode) {
-        this.photoFileName = photoFileName;
-        this.receiptCode = receiptCode;
-        this.name = name;
-        this.schoolName = schoolName;
-        this.isDaejeon = isDaejeon;
-        this.applicationType = applicationType;
-        this.examCode = examCode;
-    }
 }
