@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class NewApplicantsResponse {
+public class PrintApplicantsResponse {
     private final List<ApplicantDto> applicants;
     private final List<GraduationDto> graduations;
     private final List<SchoolDto> schools;

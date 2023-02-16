@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 @Getter
 @Builder
-public class GetNewApplicantsRequest {
+public class PrintApplicantsRequest {
     @Nullable
     private final String receiptCode;
 

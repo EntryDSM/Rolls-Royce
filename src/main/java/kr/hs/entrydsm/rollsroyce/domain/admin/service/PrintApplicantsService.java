@@ -1,8 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.InvalidFormatException;
-import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetNewApplicantsRequest;
-import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.NewApplicantsResponse;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.PrintApplicantsRequest;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.PrintApplicantsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class NewApplicantsService {
+public class PrintApplicantsService {
 
     private final EntryInfoRepository entryInfoRepository;
     private final GraduationRepository graduationRepository;
@@ -30,7 +30,7 @@ public class NewApplicantsService {
 
     private final SchoolRepository schoolRepository;
 
-    public NewApplicantsResponse execute(GetNewApplicantsRequest request) {
+    public PrintApplicantsResponse execute(PrintApplicantsRequest request) {
 
         List<Graduation> graduationList = graduationRepository.findByGraduatedAtAndStudentNumber(
                 request.getGraduatedAt(),
@@ -43,29 +43,29 @@ public class NewApplicantsService {
             throw InvalidFormatException.EXCEPTION;
         }
 
-        return NewApplicantsResponse.builder()
-                .applicants((List<NewApplicantsResponse.ApplicantDto>) getApplicants(request))
+        return PrintApplicantsResponse.builder()
+                .applicants((List<PrintApplicantsResponse.ApplicantDto>) getApplicants(request))
                 .graduations(
                         graduationList.stream().map(
-                                graduation -> NewApplicantsResponse.GraduationDto.builder()
+                                graduation -> PrintApplicantsResponse.GraduationDto.builder()
                                         .graduatedAt(graduation.getGraduatedAt())
                                         .studentNumber(graduation.getStudentNumber())
                                         .build()
                         ).collect(Collectors.toList())
                 )
-                .graduationCases((List<NewApplicantsResponse.GraduationCaseDto>) getGraduationCase(request))
+                .graduationCases((List<PrintApplicantsResponse.GraduationCaseDto>) getGraduationCase(request))
                 .schools(
                         schoolList.stream().map(
-                                school -> NewApplicantsResponse.SchoolDto.builder()
+                                school -> PrintApplicantsResponse.SchoolDto.builder()
                                         .schoolName(school.getName())
                                         .build()
                         ).collect(Collectors.toList())
                 )
-                .scores((List<NewApplicantsResponse.ScoreDto>) getScore(request))
+                .scores((List<PrintApplicantsResponse.ScoreDto>) getScore(request))
                 .build();
     }
 
-    private NewApplicantsResponse getApplicants(GetNewApplicantsRequest request) {
+    private PrintApplicantsResponse getApplicants(PrintApplicantsRequest request) {
 
         List<NewApplicantVo> newApplicantList = getApplicantsList(request);
 
@@ -73,10 +73,10 @@ public class NewApplicantsService {
             throw InvalidFormatException.EXCEPTION;
         }
 
-        return NewApplicantsResponse.builder()
+        return PrintApplicantsResponse.builder()
                 .applicants(
                         newApplicantList.stream().map(
-                                newApplicant -> NewApplicantsResponse.ApplicantDto.builder()
+                                newApplicant -> PrintApplicantsResponse.ApplicantDto.builder()
                                         .receiptCode(newApplicant.getReceiptCode())
                                         .educationalStatus(newApplicant.getEducationalStatus().toString())
                                         .applicationType(newApplicant.getApplicationType().toString())
@@ -92,7 +92,7 @@ public class NewApplicantsService {
                 ).build();
     }
 
-    private NewApplicantsResponse getGraduationCase(GetNewApplicantsRequest request) {
+    private PrintApplicantsResponse getGraduationCase(PrintApplicantsRequest request) {
 
         List<GraduationCaseVo> graduationCaseList = getGradustionCaseList(request);
 
@@ -100,10 +100,10 @@ public class NewApplicantsService {
             throw InvalidFormatException.EXCEPTION;
         }
 
-        return NewApplicantsResponse.builder()
+        return PrintApplicantsResponse.builder()
                 .graduationCases(
                         graduationCaseList.stream().map(
-                                graduationCase -> NewApplicantsResponse.GraduationCaseDto.builder()
+                                graduationCase -> PrintApplicantsResponse.GraduationCaseDto.builder()
                                         .koreanGrade(graduationCase.getKoreanGrade())
                                         .socialGrade(graduationCase.getSocialGrade())
                                         .historyGrade(graduationCase.getHistoryGrade())
@@ -121,7 +121,7 @@ public class NewApplicantsService {
                 .build();
     }
 
-    private NewApplicantsResponse getScore(GetNewApplicantsRequest request) {
+    private PrintApplicantsResponse getScore(PrintApplicantsRequest request) {
 
         List<ScoreVo> scoreList = getScoreList(request);
 
@@ -129,10 +129,10 @@ public class NewApplicantsService {
             throw InvalidFormatException.EXCEPTION;
         }
 
-        return NewApplicantsResponse.builder()
+        return PrintApplicantsResponse.builder()
                 .scores(
                         scoreList.stream().map(
-                                score -> NewApplicantsResponse.ScoreDto.builder()
+                                score -> PrintApplicantsResponse.ScoreDto.builder()
                                         .thirdGradeScore(score.getThirdGradeScore())
                                         .thirdBeforeScore(score.getThirdBeforeScore())
                                         .thirdBeforeBeforeScore(score.getThirdBeforeBeforeScore())
@@ -145,7 +145,7 @@ public class NewApplicantsService {
                 ).build();
     }
 
-    private List<NewApplicantVo> getApplicantsList(GetNewApplicantsRequest request) {
+    private List<NewApplicantVo> getApplicantsList(PrintApplicantsRequest request) {
 
         List<NewApplicantVo> newApplicantList = entryInfoRepository.findByNewApplicants(
                 request.getReceiptCode(),
@@ -163,7 +163,7 @@ public class NewApplicantsService {
         return newApplicantList;
     }
 
-    private List<GraduationCaseVo> getGradustionCaseList(GetNewApplicantsRequest request) {
+    private List<GraduationCaseVo> getGradustionCaseList(PrintApplicantsRequest request) {
 
         List<GraduationCaseVo> graduationCaseList = graduationCaseRepository.findAllByGraduationCase(
                 request.getKoreanGrade(),
@@ -183,7 +183,7 @@ public class NewApplicantsService {
         return graduationCaseList;
     }
 
-    private List<ScoreVo> getScoreList(GetNewApplicantsRequest request) {
+    private List<ScoreVo> getScoreList(PrintApplicantsRequest request) {
         List<ScoreVo> scoreList = scoreRepository.findAllByScore(
                 request.getThirdGradeScore(),
                 request.getThirdBeforeScore(),
