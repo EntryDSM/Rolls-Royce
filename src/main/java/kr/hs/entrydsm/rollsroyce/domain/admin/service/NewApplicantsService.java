@@ -67,18 +67,7 @@ public class NewApplicantsService {
 
     private NewApplicantsResponse getApplicants(GetNewApplicantsRequest request) {
 
-        List<NewApplicantVo> newApplicantList = entryInfoRepository.findByNewApplicants(
-                request.getReceiptCode(),
-                request.getEducationalStatus(),
-                request.getApplicationType(),
-                request.getName(),
-                request.getIsDaejeon(),
-                request.getBirthday(),
-                request.getTelephoneNumber(),
-                request.getApplicationRemark(),
-                request.getSex(),
-                request.getParentTel()
-        );
+        List<NewApplicantVo> newApplicantList = getApplicantsList(request);
 
         if (newApplicantList.isEmpty()) {
             throw InvalidFormatException.EXCEPTION;
@@ -105,20 +94,7 @@ public class NewApplicantsService {
 
     private NewApplicantsResponse getGraduationCase(GetNewApplicantsRequest request) {
 
-        List<GraduationCaseVo> graduationCaseList = graduationCaseRepository.findAllByGraduationCase(
-                request.getKoreanGrade(),
-                request.getSocialGrade(),
-                request.getHistoryGrade(),
-                request.getMathGrade(),
-                request.getScienceGrade(),
-                request.getTechAndHomeGrade(),
-                request.getEnglishGrade(),
-                request.getVolunteerTime(),
-                request.getLatenessCount(),
-                request.getDayAbsenceCount(),
-                request.getEarlyLeaveCount(),
-                request.getLectureAbsenceCount()
-        );
+        List<GraduationCaseVo> graduationCaseList = getGradustionCaseList(request);
 
         if (graduationCaseList.isEmpty()) {
             throw InvalidFormatException.EXCEPTION;
@@ -147,15 +123,7 @@ public class NewApplicantsService {
 
     private NewApplicantsResponse getScore(GetNewApplicantsRequest request) {
 
-        List<ScoreVo> scoreList = scoreRepository.findAllByScore(
-                request.getThirdGradeScore(),
-                request.getThirdBeforeScore(),
-                request.getThirdBeforeBeforeScore(),
-                request.getTotalGradeScore(),
-                request.getVolunteerScore(),
-                request.getAttendanceScore(),
-                request.getTotalScore()
-        );
+        List<ScoreVo> scoreList = getScoreList(request);
 
         if (scoreList.isEmpty()) {
             throw InvalidFormatException.EXCEPTION;
@@ -175,5 +143,57 @@ public class NewApplicantsService {
                                         .build()
                         ).collect(Collectors.toList())
                 ).build();
+    }
+
+    private List<NewApplicantVo> getApplicantsList(GetNewApplicantsRequest request) {
+
+        List<NewApplicantVo> newApplicantList = entryInfoRepository.findByNewApplicants(
+                request.getReceiptCode(),
+                request.getEducationalStatus(),
+                request.getApplicationType(),
+                request.getName(),
+                request.getIsDaejeon(),
+                request.getBirthday(),
+                request.getTelephoneNumber(),
+                request.getApplicationRemark(),
+                request.getSex(),
+                request.getParentTel()
+        );
+
+        return newApplicantList;
+    }
+
+    private List<GraduationCaseVo> getGradustionCaseList(GetNewApplicantsRequest request) {
+
+        List<GraduationCaseVo> graduationCaseList = graduationCaseRepository.findAllByGraduationCase(
+                request.getKoreanGrade(),
+                request.getSocialGrade(),
+                request.getHistoryGrade(),
+                request.getMathGrade(),
+                request.getScienceGrade(),
+                request.getTechAndHomeGrade(),
+                request.getEnglishGrade(),
+                request.getVolunteerTime(),
+                request.getLatenessCount(),
+                request.getDayAbsenceCount(),
+                request.getEarlyLeaveCount(),
+                request.getLectureAbsenceCount()
+        );
+
+        return graduationCaseList;
+    }
+
+    private List<ScoreVo> getScoreList(GetNewApplicantsRequest request) {
+        List<ScoreVo> scoreList = scoreRepository.findAllByScore(
+                request.getThirdGradeScore(),
+                request.getThirdBeforeScore(),
+                request.getThirdBeforeBeforeScore(),
+                request.getTotalGradeScore(),
+                request.getVolunteerScore(),
+                request.getAttendanceScore(),
+                request.getTotalScore()
+        );
+
+        return scoreList;
     }
 }
