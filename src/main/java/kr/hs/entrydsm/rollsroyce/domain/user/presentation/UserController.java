@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.presentation;
 
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.service.CancelEntryService;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.service.CreateEntryService;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.service.CreateEntryInfoService;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.service.EntryStatusService;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.LoginRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.PasswordRequest;
@@ -39,7 +39,7 @@ public class UserController {
     private final ChangePasswordService changePasswordService;
     private final UserTokenRefreshService userTokenRefreshService;
     private final UserWithdrawalService userWithdrawalService;
-    private final CreateEntryService createEntryService;
+    private final CreateEntryInfoService createEntryInfoService;
     private final CancelEntryService cancelEntryService;
     private final EntryStatusService entryStatusService;
 
@@ -71,7 +71,7 @@ public class UserController {
 
     @PostMapping("/entry")
     public void createEntry() {
-        createEntryService.execute();
+        createEntryInfoService.execute();
     }
 
     @DeleteMapping("/{receipt-code}")

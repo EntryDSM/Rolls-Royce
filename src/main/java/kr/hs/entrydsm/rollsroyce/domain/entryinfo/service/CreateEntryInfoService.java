@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class CreateEntryService {
+public class CreateEntryInfoService {
     private final UserFacade userFacade;
     private final EntryInfoRepository entryInfoRepository;
 
