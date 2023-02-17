@@ -82,5 +82,3 @@ logging:
       amazonaws:
         util:
           EC2MetadataUtils: error
-reserve:
-  link: ${RESERVE_LINK}

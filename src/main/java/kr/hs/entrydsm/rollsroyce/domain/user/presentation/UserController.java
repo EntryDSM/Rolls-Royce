@@ -1,8 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.presentation;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.service.CancelEntryService;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.service.CreateEntryService;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.service.EntryStatusService;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.LoginRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.PasswordRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SignupRequest;
@@ -13,7 +10,13 @@ import kr.hs.entrydsm.rollsroyce.domain.user.service.UserTokenRefreshService;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -28,9 +31,6 @@ public class UserController {
     private final UserSignupService signupService;
     private final ChangePasswordService changePasswordService;
     private final UserTokenRefreshService userTokenRefreshService;
-    private final CreateEntryService createEntryService;
-    private final CancelEntryService cancelEntryService;
-    private final EntryStatusService entryStatusService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -51,21 +51,6 @@ public class UserController {
     @PutMapping("/password")
     public void changePassword(@RequestBody @Valid PasswordRequest request) {
         changePasswordService.execute(request);
-    }
-
-    @PostMapping("/entry")
-    public void createEntry() {
-        createEntryService.execute();
-    }
-
-    @DeleteMapping("/{receipt-code}")
-    public void cancelEntry(@PathVariable("receipt-code") Long code) {
-        cancelEntryService.execute(code);
-    }
-
-    @GetMapping("/status")
-    public void queryEntryStatus() {
-        entryStatusService.execute();
     }
 
 }

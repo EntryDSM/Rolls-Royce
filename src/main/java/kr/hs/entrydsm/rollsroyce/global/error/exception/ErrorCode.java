@@ -25,7 +25,6 @@ public enum ErrorCode {
     ENTRY_INFO_NOT_FOUND(404, "ENTRY_INFO404-0", "Entry Info Not Found"),
     STATUS_NOT_FOUND(404, "USER404-1", "Status Not Found"),
     USER_ALREADY_EXISTS(409, "USER409-0", "User Already Exists"),
-    ENTRY_INFO_ALREADY_EXISTS(409, "ENTRY409-0", "Entry Info Already Exists"),
     AUTH_CODE_ALREADY_VERIFIED(409, "USER409-1", "Auth Code Already Verified"),
     AUTH_CODE_REQUEST_OVER_LIMIT(429, "USER429-0", "Auth Code Request Over Limit"),
 
