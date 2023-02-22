@@ -10,6 +10,7 @@ import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.facade.ScheduleFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,6 +23,7 @@ public class AdmissionTicketService {
     private final ScheduleFacade scheduleFacade;
     private final EntryInfoRepository entryInfoRepository;
 
+    @Transactional(readOnly = true)
     public AdmissionTicketResponse execute(AdmissionTicketRequest request) {
         if (scheduleFacade.getScheduleByType(Type.END_DATE)
                 .isAfter(LocalDateTime.now())) {

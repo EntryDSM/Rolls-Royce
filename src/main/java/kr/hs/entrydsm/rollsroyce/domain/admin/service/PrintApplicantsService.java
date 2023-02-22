@@ -15,6 +15,7 @@ import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.GraduationCas
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.ScoreVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,13 +31,13 @@ public class PrintApplicantsService {
 
     private final SchoolRepository schoolRepository;
 
+    @Transactional(readOnly = true)
     public PrintApplicantsResponse execute(PrintApplicantsRequest request) {
 
         List<Graduation> graduationList = graduationRepository.findByGraduatedAtAndStudentNumber(
                 request.getGraduatedAt(),
                 request.getStudentNumber()
         );
-
         List<School> schoolList = schoolRepository.findByName(request.getSchoolName());
 
         if (graduationList.isEmpty() || schoolList.isEmpty()) {
