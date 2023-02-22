@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ExcelController {
     private final AdmissionTicketService admissionTicketService;
-    private final PrintApplicantsService newApplicantsService;
+    private final PrintApplicantsService printApplicantsService;
 
     @GetMapping("/admission-ticket")
-    public void createAdmissionTicket(@ModelAttribute AdmissionTicketRequest request) {
+    public void printAdmissionTicket(@ModelAttribute AdmissionTicketRequest request) {
         admissionTicketService.execute(request);
     }
 
     @GetMapping("/applicants/new")
-    public void newApplicantInformation(@ModelAttribute PrintApplicantsRequest request) {
-        newApplicantsService.execute(request);
+    public void printApplicantInformation(@ModelAttribute PrintApplicantsRequest request) {
+        printApplicantsService.execute(request);
     }
 
 }
