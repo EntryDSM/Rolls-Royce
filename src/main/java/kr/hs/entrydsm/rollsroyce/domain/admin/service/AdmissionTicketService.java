@@ -28,19 +28,12 @@ public class AdmissionTicketService {
             throw ApplicationPeriodNotOverException.EXCEPTION;
         }
 
-        List<AdmissionTicketVo> admissionTicket = entryInfoRepository.findByAdmissionTicket(
-                request.getPhotoFileName(),
-                request.getReceiptCode(),
-                request.getName(),
-                request.getSchoolName(),
-                request.getApplicationType(),
-                request.getIsDaejeon(),
-                request.getExamCode()
-        );
+        return getAdmissionTicket(request);
+    }
 
-        if(admissionTicket.isEmpty()) {
-            throw InvalidFormatException.EXCEPTION;
-        }
+    private AdmissionTicketResponse getAdmissionTicket(AdmissionTicketRequest request) {
+
+        List<AdmissionTicketVo> admissionTicket = getAdmissionTicketList(request);
 
         return AdmissionTicketResponse.builder()
                 .admissionTickets(
@@ -57,5 +50,23 @@ public class AdmissionTicketService {
                                 )
                                 .collect(Collectors.toList()))
                 .build();
+    }
+
+    private List<AdmissionTicketVo> getAdmissionTicketList(AdmissionTicketRequest request) {
+        List<AdmissionTicketVo> admissionTicket = entryInfoRepository.findByAdmissionTicket(
+                request.getPhotoFileName(),
+                request.getReceiptCode(),
+                request.getName(),
+                request.getSchoolName(),
+                request.getApplicationType(),
+                request.getIsDaejeon(),
+                request.getExamCode()
+        );
+
+        if(admissionTicket.isEmpty()) {
+            throw InvalidFormatException.EXCEPTION;
+        }
+
+        return admissionTicket;
     }
 }
