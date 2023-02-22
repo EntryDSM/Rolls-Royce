@@ -8,12 +8,15 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @RequiredArgsConstructor
 @Service
 public class CreateEntryInfoService {
     private final UserFacade userFacade;
     private final EntryInfoRepository entryInfoRepository;
 
+    @Transactional
     public void execute() {
        User user = userFacade.getCurrentUser();
        if(entryInfoRepository.findByUser(user).isPresent()){
