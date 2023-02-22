@@ -18,10 +18,14 @@ public class CreateEntryInfoService {
 
     @Transactional
     public void execute() {
-       User user = userFacade.getCurrentUser();
-       if(entryInfoRepository.findByUser(user).isPresent()){
-           throw EntryInfoAlreadyExistsException.EXCEPTION;
-       }
-        entryInfoRepository.save(EntryInfo.builder().user(user).build());
+        User user = userFacade.getCurrentUser();
+        if (entryInfoRepository.findByUser(user).isPresent()) {
+            throw EntryInfoAlreadyExistsException.EXCEPTION;
+        }
+        entryInfoRepository.save(
+                EntryInfo.builder()
+                        .user(user)
+                        .build()
+        );
     }
 }
