@@ -28,7 +28,6 @@ public class PrintApplicantsService {
     private final GraduationRepository graduationRepository;
     private final GraduationCaseRepository graduationCaseRepository;
     private final ScoreRepository scoreRepository;
-
     private final SchoolRepository schoolRepository;
 
     @Transactional(readOnly = true)

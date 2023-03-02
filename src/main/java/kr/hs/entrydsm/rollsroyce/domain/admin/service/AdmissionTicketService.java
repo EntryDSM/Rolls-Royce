@@ -65,7 +65,7 @@ public class AdmissionTicketService {
                 request.getExamCode()
         );
 
-        if(admissionTicket.isEmpty()) {
+        if (admissionTicket.isEmpty()) {
             throw InvalidFormatException.EXCEPTION;
         }
 
