@@ -4,14 +4,22 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.AdmissionTicketVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.NewApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QAdmissionTicketVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QNewApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.Sex;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +86,46 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
                 .fetch();
 
         return new PageImpl<>(users, page, query.fetchCount());
+    }
+
+    @Override
+    public List<AdmissionTicketVo> findByAdmissionTicket(String photoFileName, String receiptCode, String name, String schoolName,
+                                                         ApplicationType applicationType, Boolean isDaejeon, String examCode) {
+        return jpaQueryFactory.select(new QAdmissionTicketVo(entryInfo, status, school))
+                .from(entryInfo)
+                .join(status)
+                .on(entryInfo.receiptCode.eq(status.receiptCode))
+                .where(
+                        entryInfo.photoFileName.eq(photoFileName),
+                        entryInfo.receiptCode.like(receiptCode),
+                        entryInfo.user.name.contains(name),
+                        school.name.contains(schoolName),
+                        entryInfo.applicationType.eq(applicationType),
+                        entryInfo.isDaejeon.eq(isDaejeon),
+                        status.examCode.contains(examCode)
+                ).fetch();
+    }
+
+    @Override
+    public List<NewApplicantVo> findByNewApplicants(String receiptCode, EducationalStatus educationalStatus, ApplicationType applicationType,
+                                                    String name, Boolean isDaejeon, LocalDate birthday, String telephoneNumber,
+                                                    ApplicationRemark applicationRemark, Sex sex, String parentTel) {
+        return jpaQueryFactory.select(new QNewApplicantVo(entryInfo))
+                .from(entryInfo)
+                .join(status)
+                .on(entryInfo.receiptCode.eq(status.receiptCode))
+                .where(
+                        entryInfo.receiptCode.like(receiptCode),
+                        entryInfo.educationalStatus.eq(educationalStatus),
+                        entryInfo.applicationType.eq(applicationType),
+                        entryInfo.user.name.contains(name),
+                        isDeajeonEq(isDaejeon),
+                        entryInfo.birthday.eq(birthday),
+                        entryInfo.user.telephoneNumber.eq(telephoneNumber),
+                        entryInfo.applicationRemark.eq(applicationRemark),
+                        entryInfo.sex.eq(sex),
+                        entryInfo.parentTel.eq(parentTel)
+                ).fetch();
     }
 
     @Override

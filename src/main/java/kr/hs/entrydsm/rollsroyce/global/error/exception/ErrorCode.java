@@ -37,6 +37,7 @@ public enum ErrorCode {
     APPLICATION_PERIOD_NOT_OVER(400, "ADMIN400-2", "The application period is not over"),
     EXCEL_IO_EXCEPTION(400, "ADMIN400-3", "The Excel file cannot be downloaded."),
     REQUEST_FAIL_TO_OTHER_SERVER(400, "ADMIN400-4", "Request fail to other server."),
+    INVALID_FORMAT(400, "ADMIN400-5", "It's invalid format"),
     INVALID_ADMIN_TOKEN(401, "ADMIN401-0", "This token is invalid"),
     INVALID_ADMIN_PASSWORD(401, "ADMIN401-1", "The password is not valid"),
     ADMIN_NOT_ACCESSIBLE(403, "ADMIN403-0", "Don't have permission"),
