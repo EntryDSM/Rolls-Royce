@@ -47,4 +47,10 @@ public class Qna {
         this.isReplied = isReplied;
         this.user = user;
     }
+
+    public void updateFeed(String title, String content, Boolean isPublic) {
+        this.title = title;
+        this.content = content;
+        this.isPublic = isPublic;
+    }
 }
