@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/score/**").hasRole(USER)
                 .antMatchers("/application/**").hasRole(USER)
                 .antMatchers(HttpMethod.GET, "/user/status").hasRole(USER)
+                .antMatchers(HttpMethod.DELETE, "/user").hasRole(USER)
 
                 //admin
                 .antMatchers(HttpMethod.DELETE, "/admin/data").hasRole(ADMIN_ROOT)
@@ -59,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 //reserve
                 .antMatchers(HttpMethod.GET, "/reserve").permitAll()
-                
+
                 .anyRequest().authenticated()
                 .and().apply(new FilterConfig(jwtTokenProvider));
     }
