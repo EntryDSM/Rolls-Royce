@@ -12,8 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class
-DeleteQnaService {
+public class DeleteQnaService {
     private final UserFacade userFacade;
     private final QnaFacade qnaFacade;
     private final QnaRepository qnaRepository;
