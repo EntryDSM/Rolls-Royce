@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
-import kr.hs.entrydsm.rollsroyce.domain.qna.exception.NotModifyQnaException;
+import kr.hs.entrydsm.rollsroyce.domain.qna.exception.NotQnaWriterException;
 import kr.hs.entrydsm.rollsroyce.domain.qna.facade.QnaFacade;
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.request.UpdateQnaRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
@@ -24,8 +24,13 @@ public class UpdateQnaService {
         User user = userFacade.getCurrentUser();
         Qna qna = qnaFacade.getQnaById(qnaId);
 
+<<<<<<< main
         if (!user.equals(qna.getUser())) {
             throw NotModifyQnaException.EXCEPTION;
+=======
+        if(!user.equals(qna.getUser())) {
+            throw NotQnaWriterException.EXCEPTION;
+>>>>>>> ♻️ :: Exception 이름 변경
         }
 
         qna.updateFeed(request.getTitle(), request.getContent(), request.getIsPubic());
