@@ -70,7 +70,7 @@ public enum ErrorCode {
     FIELD_NOT_FOUND(400, "SCORE400-0", "Field not found"),
     GRADE_NOT_FOUND(404, "SCORE404-0", "User's grade could not be found"),
 
-    NOT_QNA_WRITER(401, "QNA401-0", "Not qna Writer"),
+    NOT_QNA_WRITER(403, "QNA403-0", "Not qna Writer"),
     QNA_NOT_FOUND(404, "QNA404-0", "Qna not found"),
 
     MESSAGE_REJECTED(400, "MESSAGE400-0", "Message is rejected");
