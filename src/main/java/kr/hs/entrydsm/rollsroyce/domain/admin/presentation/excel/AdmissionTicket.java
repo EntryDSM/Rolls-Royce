@@ -29,7 +29,15 @@ public class AdmissionTicket {
         return sheet;
     }
 
-    public void format(int rowIndex, int colIndex, String examCode, String name, String middleSchool, String area, String applicationType, String receiptCode) {
+    public void format(
+            int rowIndex,
+            int colIndex,
+            String examCode,
+            String name,
+            String middleSchool,
+            String area,
+            String applicationType,
+            String receiptCode) {
         sheet.setDefaultColumnWidth(14);
         CellStyle alignCenter = alignCenter();
         Font bold = bold();
@@ -42,10 +50,12 @@ public class AdmissionTicket {
         String[] attributes = {"수험번호", "성명", "출신 중학교", "지역", "전형 유형", "접수 번호"};
         String[] studentInfo = {examCode, name, middleSchool, area, applicationType, receiptCode};
         for (int i = rowIndex + 1; i <= rowIndex + attributes.length * 2; i += 2) {
-            merge(new CellRangeAddress(i + 1, i + 2, colIndex + 2, colIndex + 3),
+            merge(
+                    new CellRangeAddress(i + 1, i + 2, colIndex + 2, colIndex + 3),
                     attributes[(i - rowIndex) / 2],
                     alignCenter);
-            merge(new CellRangeAddress(i + 1, i + 2, colIndex + 4, colIndex + 5),
+            merge(
+                    new CellRangeAddress(i + 1, i + 2, colIndex + 4, colIndex + 5),
                     studentInfo[(i - rowIndex) / 2],
                     alignCenter);
         }
@@ -100,5 +110,4 @@ public class AdmissionTicket {
         RegionUtil.setBorderLeft(BorderStyle.THIN, region, sheet);
         RegionUtil.setBorderRight(BorderStyle.THIN, region, sheet);
     }
-
 }

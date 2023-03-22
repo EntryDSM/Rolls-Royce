@@ -1,5 +1,14 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.facade;
 
+import lombok.RequiredArgsConstructor;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.AuthCode;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.AuthCodeLimit;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.AuthCodeLimitRepository;
@@ -12,13 +21,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.exception.InvalidAuthCodeException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UnVerifiedAuthCodeException;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.rollsroyce.global.utils.ses.SESUtil;
-import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
@@ -32,16 +34,14 @@ public class UserAuthCodeFacade {
     private final UserFacade userFacade;
     private final UserRepository userRepository;
 
-    @Value("${auth.code.exp}")
-    private Long authCodeTTL;
-    @Value("${auth.code.limit}")
-    private long authCodeLimit;
-    @Value("${auth.code.limitExp}")
-    private long authCodeLimitTTL;
+    @Value("${auth.code.exp}") private Long authCodeTTL;
+
+    @Value("${auth.code.limit}") private long authCodeLimit;
+
+    @Value("${auth.code.limitExp}") private long authCodeLimitTTL;
 
     public AuthCode getAuthCodeById(String email) {
-        return authCodeRepository.findById(email)
-                .orElseThrow(() -> InvalidAuthCodeException.EXCEPTION);
+        return authCodeRepository.findById(email).orElseThrow(() -> InvalidAuthCodeException.EXCEPTION);
     }
 
     public boolean isAlreadyVerified(boolean isVerified) {
@@ -88,12 +88,12 @@ public class UserAuthCodeFacade {
     }
 
     private AuthCode getAuthCodeByIdOrCreate(String email, String code) {
-        return authCodeRepository.findById(email)
-                .orElseGet(() -> buildAuthCode(email, code));
+        return authCodeRepository.findById(email).orElseGet(() -> buildAuthCode(email, code));
     }
 
     private void isOverLimit(String email) {
-        authCodeLimitRepository.findById(email)
+        authCodeLimitRepository
+                .findById(email)
                 .filter(limit -> checkCount(limit.getCount()))
                 .map(limit -> limit.addCount(authCodeLimitTTL))
                 .map(authCodeLimitRepository::save)
@@ -139,5 +139,4 @@ public class UserAuthCodeFacade {
     public boolean isVerified(String email) {
         return getAuthCodeById(email).isVerified();
     }
-
 }

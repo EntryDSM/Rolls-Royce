@@ -1,13 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.pdf;
 
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.ApplicationNotFoundException;
-import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -17,6 +11,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+
+import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
+import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
+import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.ApplicationNotFoundException;
+import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 
 @RequiredArgsConstructor
 @Component
@@ -88,7 +90,8 @@ public class PdfDataConverter {
 
     private void setSchoolInfo(User user, Map<String, Object> values) {
         if (!user.isEducationalStatusEmpty() && !user.isQualification()) {
-            Graduation application = graduationRepository.findById(user.getReceiptCode())
+            Graduation application = graduationRepository
+                    .findById(user.getReceiptCode())
                     .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
             values.put("schoolCode", setBlankIfNull(application.getSchoolCode()));
             values.put("schoolClass", setBlankIfNull(application.getSchoolClass()));
@@ -109,25 +112,40 @@ public class PdfDataConverter {
 
         switch (user.getEducationalStatus().name()) {
             case EducationalStatus.QUALIFICATION_EXAM:
-                qualificationRepository.findById(user.getReceiptCode())
+                qualificationRepository
+                        .findById(user.getReceiptCode())
                         .filter(qualificationExam -> qualificationExam.getQualifiedAt() != null)
                         .ifPresent(qualificationExam -> {
-                            values.put("qualificationExamPassedYear", String.valueOf(qualificationExam.getQualifiedAt().getYear()));
-                            values.put("qualificationExamPassedMonth", String.valueOf(qualificationExam.getQualifiedAt().getMonthValue()));
+                            values.put(
+                                    "qualificationExamPassedYear",
+                                    String.valueOf(
+                                            qualificationExam.getQualifiedAt().getYear()));
+                            values.put(
+                                    "qualificationExamPassedMonth",
+                                    String.valueOf(
+                                            qualificationExam.getQualifiedAt().getMonthValue()));
                         });
                 break;
             case EducationalStatus.GRADUATE:
-                graduationRepository.findById(user.getReceiptCode())
+                graduationRepository
+                        .findById(user.getReceiptCode())
                         .filter(graduation -> graduation.getGraduatedAt() != null)
                         .ifPresent(graduation -> {
-                            values.put("graduateYear", String.valueOf(graduation.getGraduatedAt().getYear()));
-                            values.put("graduateMonth", String.valueOf(graduation.getGraduatedAt().getMonthValue()));
+                            values.put(
+                                    "graduateYear",
+                                    String.valueOf(graduation.getGraduatedAt().getYear()));
+                            values.put(
+                                    "graduateMonth",
+                                    String.valueOf(graduation.getGraduatedAt().getMonthValue()));
                         });
                 break;
             case EducationalStatus.PROSPECTIVE_GRADUATE:
-                graduationRepository.findById(user.getReceiptCode())
+                graduationRepository
+                        .findById(user.getReceiptCode())
                         .filter(graduation -> graduation.getGraduatedAt() != null)
-                        .ifPresent(graduation -> values.put("prospectiveGraduateMonth", String.valueOf(graduation.getGraduatedAt().getMonthValue())));
+                        .ifPresent(graduation -> values.put(
+                                "prospectiveGraduateMonth",
+                                String.valueOf(graduation.getGraduatedAt().getMonthValue())));
                 break;
             default:
                 break;
@@ -155,9 +173,17 @@ public class PdfDataConverter {
     }
 
     private void setGradeScore(User user, Score score, Map<String, Object> values) {
-        values.put("conversionScore1st", user.isQualificationExam() ? "" : score.getThirdBeforeBeforeScore().toString());
-        values.put("conversionScore2nd", user.isQualificationExam() ? "" : score.getThirdBeforeScore().toString());
-        values.put("conversionScore3rd", user.isQualificationExam() ? "" : score.getThirdGradeScore().toString());
+        values.put(
+                "conversionScore1st",
+                user.isQualificationExam()
+                        ? ""
+                        : score.getThirdBeforeBeforeScore().toString());
+        values.put(
+                "conversionScore2nd",
+                user.isQualificationExam() ? "" : score.getThirdBeforeScore().toString());
+        values.put(
+                "conversionScore3rd",
+                user.isQualificationExam() ? "" : score.getThirdGradeScore().toString());
         values.put("conversionScore", score.getTotalGradeScore().toString());
         values.put("attendanceScore", String.valueOf(score.getAttendanceScore()));
         values.put("volunteerScore", score.getVolunteerScore().toString());
@@ -203,8 +229,7 @@ public class PdfDataConverter {
                 "schoolCode", "",
                 "schoolClass", "",
                 "schoolTel", "",
-                "schoolName", ""
-        );
+                "schoolName", "");
     }
 
     private Map<String, Object> emptyGraduationClassification() {
@@ -213,8 +238,7 @@ public class PdfDataConverter {
                 "qualificationExamPassedMonth", "__",
                 "graduateYear", "20__",
                 "graduateMonth", "__",
-                "prospectiveGraduateMonth", "__"
-        );
+                "prospectiveGraduateMonth", "__");
     }
 
     private String toFormattedPhoneNumber(String phoneNumber) {
@@ -232,5 +256,4 @@ public class PdfDataConverter {
     private String toBallotBox(boolean is) {
         return is ? "☑" : "☐";
     }
-
 }

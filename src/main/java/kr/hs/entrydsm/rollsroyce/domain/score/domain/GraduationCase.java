@@ -1,17 +1,19 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateGraduationRequest;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+
+import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateGraduationRequest;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -52,11 +54,12 @@ public class GraduationCase extends ApplicationCase {
     @Column(columnDefinition = "CHAR(4)")
     private String techAndHomeGrade;
 
-    public GraduationCase(UpdateGraduationRequest request,
-                          long receiptCode,
-                          boolean isDaejeon,
-                          ApplicationType applicationType,
-                          EducationalStatus educationalStatus) {
+    public GraduationCase(
+            UpdateGraduationRequest request,
+            long receiptCode,
+            boolean isDaejeon,
+            ApplicationType applicationType,
+            EducationalStatus educationalStatus) {
         super(receiptCode, isDaejeon, applicationType, educationalStatus);
         this.volunteerTime = request.getVolunteerTime();
         this.dayAbsenceCount = request.getDayAbsenceCount();
@@ -77,8 +80,7 @@ public class GraduationCase extends ApplicationCase {
         if (MAX_VOLUNTEER_TIME <= volunteerTime) {
             return BigDecimal.valueOf(MAX_VOLUNTEER_SCORE);
         } else if (MIN_VOLUNTEER_TIME <= volunteerTime) {
-            return BigDecimal.valueOf(volunteerTime)
-                    .add(BigDecimal.valueOf(3));
+            return BigDecimal.valueOf(volunteerTime).add(BigDecimal.valueOf(3));
         } else {
             return BigDecimal.valueOf(MIN_VOLUNTEER_SCORE);
         }
@@ -86,9 +88,8 @@ public class GraduationCase extends ApplicationCase {
 
     @Override
     public Integer calculateAttendanceScore() {
-        int attendanceScore = MAX_ATTENDANCE_SCORE
-                - dayAbsenceCount
-                - (lectureAbsenceCount + latenessCount + earlyLeaveCount) / 3;
+        int attendanceScore =
+                MAX_ATTENDANCE_SCORE - dayAbsenceCount - (lectureAbsenceCount + latenessCount + earlyLeaveCount) / 3;
 
         return Math.max(attendanceScore, 0);
     }
@@ -172,8 +173,8 @@ public class GraduationCase extends ApplicationCase {
         }
 
         for (int semesterIndex = semesterLength - 2, scoreIndex = toCalculateLength - 2;
-             semesterIndex >= 0 && scoreIndex >= 0;
-             semesterIndex--) {
+                semesterIndex >= 0 && scoreIndex >= 0;
+                semesterIndex--) {
             if (!scoresPerSemester[semesterIndex].equals(BigDecimal.ZERO)) {
                 scoresToCalculate[scoreIndex--] = scoresPerSemester[semesterIndex];
             }
@@ -194,14 +195,8 @@ public class GraduationCase extends ApplicationCase {
     }
 
     private String[] gradesPerSemester() {
-        String[] gradesPerSubject = new String[]{
-                koreanGrade,
-                socialGrade,
-                historyGrade,
-                mathGrade,
-                scienceGrade,
-                englishGrade,
-                techAndHomeGrade
+        String[] gradesPerSubject = new String[] {
+            koreanGrade, socialGrade, historyGrade, mathGrade, scienceGrade, englishGrade, techAndHomeGrade
         };
         String[] gradesPerSemester = new String[6];
 
@@ -243,9 +238,6 @@ public class GraduationCase extends ApplicationCase {
             return BigDecimal.ZERO;
         }
 
-        return BigDecimal.valueOf(semesterScore)
-                .divide(BigDecimal.valueOf(subjectCount), 5,
-                        RoundingMode.DOWN);
+        return BigDecimal.valueOf(semesterScore).divide(BigDecimal.valueOf(subjectCount), 5, RoundingMode.DOWN);
     }
-
 }

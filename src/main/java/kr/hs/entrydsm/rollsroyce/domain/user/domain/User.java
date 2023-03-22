@@ -1,5 +1,24 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
@@ -11,22 +30,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
 import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -161,9 +164,18 @@ public class User {
     }
 
     public boolean hasEmptyInfo() {
-        return !(isExists(name) && sex != null && birthday != null && isExists(telephoneNumber) && isExists(parentTel)
-                && isExists(parentName) && isExists(address) && isExists(detailAddress) && isExists(postCode)
-                && photoFileName != null && educationalStatus != null && applicationType != null);
+        return !(isExists(name)
+                && sex != null
+                && birthday != null
+                && isExists(telephoneNumber)
+                && isExists(parentTel)
+                && isExists(parentName)
+                && isExists(address)
+                && isExists(detailAddress)
+                && isExists(postCode)
+                && photoFileName != null
+                && educationalStatus != null
+                && applicationType != null);
     }
 
     public boolean isEducationalStatusEmpty() {
@@ -264,16 +276,14 @@ public class User {
     }
 
     private void changeGraduationInformation(Application application, QueryTypeResponse response) {
-        if (application == null)
-            return;
+        if (application == null) return;
         if (application instanceof Graduation)
-            response.setGraduated(((Graduation) application).getIsGraduated() != null &&
-                    ((Graduation) application).getIsGraduated());
+            response.setGraduated(
+                    ((Graduation) application).getIsGraduated() != null && ((Graduation) application).getIsGraduated());
         response.setGraduatedAt(application.getDate());
     }
 
     private boolean isExists(String target) {
         return target != null && !target.isBlank();
     }
-
 }

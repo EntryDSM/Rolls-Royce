@@ -8,5 +8,4 @@ import lombok.Getter;
 public class QueryStudyPlanResponse {
 
     private final String content;
-
 }

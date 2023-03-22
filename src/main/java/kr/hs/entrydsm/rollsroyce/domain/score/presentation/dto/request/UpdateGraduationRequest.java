@@ -46,5 +46,4 @@ public class UpdateGraduationRequest {
 
     @Pattern(regexp = "[A-E,X]{4}")
     private String techAndHomeGrade;
-
 }

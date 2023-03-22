@@ -220,5 +220,4 @@ public class PdfData {
     public String getIsNotDaejeonAndSocialMerit() {
         return (String) data.get("isNotDaejeonAndSocialMerit");
     }
-
 }

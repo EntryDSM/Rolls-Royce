@@ -1,5 +1,13 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.application.exception.EducationalStatusUnmatchedException;
@@ -8,12 +16,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.ApplicationNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
 @Service
@@ -28,12 +30,11 @@ public class QueryGraduationInformationService {
     public QueryGraduationInformationResponse execute() {
         User user = userFacade.getCurrentUser();
 
-        if (user.isQualification())
-            throw EducationalStatusUnmatchedException.EXCEPTION;
+        if (user.isQualification()) throw EducationalStatusUnmatchedException.EXCEPTION;
 
-        Graduation graduation =
-                graduationRepository.findById(user.getReceiptCode())
-                        .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+        Graduation graduation = graduationRepository
+                .findById(user.getReceiptCode())
+                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
         return QueryGraduationInformationResponse.builder()
                 .postCode(user.getPostCode())
@@ -48,17 +49,16 @@ public class QueryGraduationInformationService {
                 .parentName(user.getParentName())
                 .parentTel(user.getParentTel())
                 .photoFileName(s3Util.generateObjectUrl(user.getPhotoFileName()))
-                .sex(user.getSex() != null ? user.getSex().name()
-                        : null)
+                .sex(user.getSex() != null ? user.getSex().name() : null)
                 .telephoneNumber(user.getTelephoneNumber())
                 .build();
     }
 
     private String dateToString(LocalDate date) {
-        return date == null ? null :
-                DateTimeFormatter.ofPattern("yyyyMMdd")
+        return date == null
+                ? null
+                : DateTimeFormatter.ofPattern("yyyyMMdd")
                         .withZone(ZoneId.of("Asia/Seoul"))
                         .format(date);
     }
-
 }

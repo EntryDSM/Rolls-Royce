@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class AuthCodeRequestOverLimitException extends RollsException {
 
-    public static final RollsException EXCEPTION =
-            new AuthCodeRequestOverLimitException();
+    public static final RollsException EXCEPTION = new AuthCodeRequestOverLimitException();
 
     private AuthCodeRequestOverLimitException() {
         super(ErrorCode.AUTH_CODE_REQUEST_OVER_LIMIT);
     }
-
 }

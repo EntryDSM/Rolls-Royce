@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class UnVerifiedAuthCodeException extends RollsException {
 
-    public static final RollsException EXCEPTION =
-            new UnVerifiedAuthCodeException();
+    public static final RollsException EXCEPTION = new UnVerifiedAuthCodeException();
 
     private UnVerifiedAuthCodeException() {
         super(ErrorCode.UNVERIFIED_AUTH_CODE);
     }
-
 }

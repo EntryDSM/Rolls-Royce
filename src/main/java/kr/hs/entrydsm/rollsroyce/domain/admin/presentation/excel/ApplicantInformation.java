@@ -110,5 +110,4 @@ public class ApplicantInformation {
         sheet.setColumnWidth(56, 10000);
         sheet.setColumnWidth(57, 10000);
     }
-
 }

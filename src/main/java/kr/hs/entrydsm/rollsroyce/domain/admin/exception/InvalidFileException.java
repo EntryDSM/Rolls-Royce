@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class InvalidFileException extends RollsException {
 
-	public static final RollsException EXCEPTION =
-			new InvalidFileException();
+    public static final RollsException EXCEPTION = new InvalidFileException();
 
-	private InvalidFileException() {
-		super(ErrorCode.INVALID_FILE);
-	}
-
+    private InvalidFileException() {
+        super(ErrorCode.INVALID_FILE);
+    }
 }

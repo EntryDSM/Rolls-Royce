@@ -1,10 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import kr.hs.entrydsm.rollsroyce.global.exception.RequestFailToOtherServerException;
 import lombok.Getter;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
+
+import kr.hs.entrydsm.rollsroyce.global.exception.RequestFailToOtherServerException;
 
 @Getter
 public class RouteResponse {
@@ -29,14 +31,15 @@ public class RouteResponse {
         public static class Properties {
             @JsonProperty("totalDistance")
             private int totalDistance;
+
             @JsonProperty("totalTime")
             private int totalTime;
+
             @JsonProperty("totalFare")
             private int totalFare;
+
             @JsonProperty("taxiFare")
             private int taxiFare;
         }
-
     }
-
 }

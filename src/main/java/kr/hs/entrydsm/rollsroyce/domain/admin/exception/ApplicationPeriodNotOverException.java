@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class ApplicationPeriodNotOverException extends RollsException {
 
-    public static RollsException EXCEPTION =
-            new ApplicationPeriodNotOverException();
+    public static RollsException EXCEPTION = new ApplicationPeriodNotOverException();
 
     public ApplicationPeriodNotOverException() {
         super(ErrorCode.APPLICATION_PERIOD_NOT_OVER);
     }
-
 }

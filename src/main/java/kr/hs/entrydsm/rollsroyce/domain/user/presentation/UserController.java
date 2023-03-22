@@ -1,5 +1,19 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.presentation;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.LoginRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.PasswordRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.SendEmailRequest;
@@ -15,18 +29,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.service.UserStatusService;
 import kr.hs.entrydsm.rollsroyce.domain.user.service.UserTokenRefreshService;
 import kr.hs.entrydsm.rollsroyce.domain.user.service.VerifyAuthCodeService;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -85,5 +87,4 @@ public class UserController {
     public StatusResponse getStatus() {
         return statusService.execute();
     }
-
 }

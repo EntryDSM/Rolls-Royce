@@ -2,6 +2,7 @@ package kr.hs.entrydsm.rollsroyce.global.security.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,9 +20,7 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(
-                new SimpleGrantedAuthority(ROLE_USER)
-        );
+        return Collections.singletonList(new SimpleGrantedAuthority(ROLE_USER));
     }
 
     @Override
@@ -53,5 +52,4 @@ public class AuthDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }

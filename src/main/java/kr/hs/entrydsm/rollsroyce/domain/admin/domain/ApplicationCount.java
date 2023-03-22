@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,5 +41,4 @@ public class ApplicationCount {
         this.count = count;
         return this;
     }
-
 }

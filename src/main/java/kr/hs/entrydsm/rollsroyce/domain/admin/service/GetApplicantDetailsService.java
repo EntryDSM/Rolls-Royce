@@ -1,5 +1,9 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.CommonInformation;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.Evaluation;
@@ -18,8 +22,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -36,7 +38,6 @@ public class GetApplicantDetailsService {
     private final QualificationCaseRepository qualificationCaseRepository;
 
     private final ScoreRepository scoreRepository;
-    
 
     public ApplicantDetailsResponse execute(long receiptCode) {
         User user = userFacade.getUserByCode(receiptCode);
@@ -51,8 +52,8 @@ public class GetApplicantDetailsService {
     }
 
     private CommonInformation getCommonInformation(User user) {
-        Graduation graduation = graduationRepository.findById(user.getReceiptCode())
-                .orElse(null);
+        Graduation graduation =
+                graduationRepository.findById(user.getReceiptCode()).orElse(null);
         return CommonInformation.builder()
                 .name(user.getName())
                 .email(user.getEmail())
@@ -69,7 +70,10 @@ public class GetApplicantDetailsService {
                 .birthday(user.getBirthday().toString())
                 .educationStatus(user.getEducationalStatus().name())
                 .applicationType(user.getApplicationType().name())
-                .applicationRemark(user.getApplicationRemark() != null ? user.getApplicationRemark().name() : null)
+                .applicationRemark(
+                        user.getApplicationRemark() != null
+                                ? user.getApplicationRemark().name()
+                                : null)
                 .address(user.getAddress())
                 .detailAddress(user.getDetailAddress())
                 .build();
@@ -77,12 +81,11 @@ public class GetApplicantDetailsService {
 
     private Evaluation getEvaluation(User user) {
         long receiptCode = user.getReceiptCode();
-        Score score = scoreRepository.findById(receiptCode)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
-        GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode)
-                .orElse(null);
-        QualificationCase qualificationCase = qualificationCaseRepository.findById(receiptCode)
-                .orElse(null);
+        Score score = scoreRepository.findById(receiptCode).orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        GraduationCase graduationCase =
+                graduationCaseRepository.findById(receiptCode).orElse(null);
+        QualificationCase qualificationCase =
+                qualificationCaseRepository.findById(receiptCode).orElse(null);
         Integer[] graduationInfo = graduationInfo(graduationCase);
 
         return Evaluation.builder()
@@ -100,10 +103,14 @@ public class GetApplicantDetailsService {
 
     private Integer[] graduationInfo(GraduationCase graduationCase) {
         if (graduationCase != null) {
-            return new Integer[]{graduationCase.getDayAbsenceCount(), graduationCase.getLectureAbsenceCount(), graduationCase.getEarlyLeaveCount(), graduationCase.getLatenessCount()};
+            return new Integer[] {
+                graduationCase.getDayAbsenceCount(),
+                graduationCase.getLectureAbsenceCount(),
+                graduationCase.getEarlyLeaveCount(),
+                graduationCase.getLatenessCount()
+            };
         } else {
-            return new Integer[]{null, null, null, null};
+            return new Integer[] {null, null, null, null};
         }
     }
-
 }

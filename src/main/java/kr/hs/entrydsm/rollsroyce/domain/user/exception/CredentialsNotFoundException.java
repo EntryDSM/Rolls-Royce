@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class CredentialsNotFoundException extends RollsException {
 
-	public static final RollsException EXCEPTION =
-			new CredentialsNotFoundException();
+    public static final RollsException EXCEPTION = new CredentialsNotFoundException();
 
-	private CredentialsNotFoundException() {
-		super(ErrorCode.CREDENTIALS_NOT_FOUND);
-	}
-
+    private CredentialsNotFoundException() {
+        super(ErrorCode.CREDENTIALS_NOT_FOUND);
+    }
 }

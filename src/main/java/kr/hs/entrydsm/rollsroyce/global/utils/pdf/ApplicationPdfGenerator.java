@@ -1,5 +1,9 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.pdf;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Component;
+
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -8,10 +12,6 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 
 @RequiredArgsConstructor
 @Component
@@ -51,8 +54,14 @@ public class ApplicationPdfGenerator {
         }
 
         for (int i = 1; i <= mergedDocument.getNumberOfPages(); i++) {
-            document.showTextAligned(new Paragraph(String.format("- %s -", i)),
-                    300, 25, i, TextAlignment.CENTER, VerticalAlignment.BOTTOM, 0);
+            document.showTextAligned(
+                    new Paragraph(String.format("- %s -", i)),
+                    300,
+                    25,
+                    i,
+                    TextAlignment.CENTER,
+                    VerticalAlignment.BOTTOM,
+                    0);
         }
 
         document.close();
@@ -83,13 +92,11 @@ public class ApplicationPdfGenerator {
                 TemplateFileName.INTRODUCTION,
                 TemplateFileName.NON_SMOKING,
                 TemplateFileName.SMOKING_EXAMINE,
-                TemplateFileName.ADMISSION_AGREEMENT
-        ));
+                TemplateFileName.ADMISSION_AGREEMENT));
 
         if (!user.isQualificationExam() && !user.isCommonApplicationType())
             result.add(2, TemplateFileName.RECOMMENDATION);
 
         return result;
     }
-
 }

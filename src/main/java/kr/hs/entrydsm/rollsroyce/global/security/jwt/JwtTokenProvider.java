@@ -1,10 +1,22 @@
 package kr.hs.entrydsm.rollsroyce.global.security.jwt;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.RefreshToken;
 import kr.hs.entrydsm.rollsroyce.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import kr.hs.entrydsm.rollsroyce.global.exception.ExpiredTokenException;
@@ -12,14 +24,6 @@ import kr.hs.entrydsm.rollsroyce.global.exception.InvalidTokenException;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AdminDetailsService;
 import kr.hs.entrydsm.rollsroyce.global.security.auth.AuthDetailsService;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 @RequiredArgsConstructor
 @Component
@@ -54,17 +58,15 @@ public class JwtTokenProvider {
                 .setHeaderParam("typ", type)
                 .claim("role", role)
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
-                .setExpiration(
-                        new Date(System.currentTimeMillis() + exp * 1000)
-                )
+                .setExpiration(new Date(System.currentTimeMillis() + exp * 1000))
                 .setIssuedAt(new Date())
                 .compact();
-
     }
 
     public String resolveToken(HttpServletRequest request) {
         String bearer = request.getHeader(jwtProperties.getHeader());
-        if (bearer != null && bearer.startsWith(jwtProperties.getPrefix())
+        if (bearer != null
+                && bearer.startsWith(jwtProperties.getPrefix())
                 && bearer.length() > jwtProperties.getPrefix().length() + 1)
             return bearer.substring(jwtProperties.getPrefix().length() + 1);
         return null;
@@ -72,8 +74,7 @@ public class JwtTokenProvider {
 
     public Authentication authentication(String token) {
         Claims body = getJws(token).getBody();
-        if (!isNotRefreshToken(token))
-            throw InvalidTokenException.EXCEPTION;
+        if (!isNotRefreshToken(token)) throw InvalidTokenException.EXCEPTION;
 
         UserDetails userDetails = getDetails(body);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
@@ -89,8 +90,7 @@ public class JwtTokenProvider {
 
     private Jws<Claims> getJws(String token) {
         try {
-            return Jwts.parser().setSigningKey(jwtProperties.getSecretKey())
-                    .parseClaimsJws(token);
+            return Jwts.parser().setSigningKey(jwtProperties.getSecretKey()).parseClaimsJws(token);
         } catch (ExpiredJwtException e) {
             throw ExpiredTokenException.EXCEPTION;
         } catch (Exception e) {
@@ -100,12 +100,9 @@ public class JwtTokenProvider {
 
     private UserDetails getDetails(Claims body) {
         if (USER_ROLE.equals(body.get("role").toString())) {
-            return authDetailsService
-                    .loadUserByUsername(body.getSubject());
+            return authDetailsService.loadUserByUsername(body.getSubject());
         } else {
-            return adminDetailsService
-                    .loadUserByUsername(body.getSubject());
+            return adminDetailsService.loadUserByUsername(body.getSubject());
         }
     }
-
 }

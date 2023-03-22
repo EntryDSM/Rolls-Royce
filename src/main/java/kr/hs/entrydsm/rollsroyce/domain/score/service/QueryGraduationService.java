@@ -1,11 +1,13 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.exception.GradeNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.response.QueryGraduationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -20,5 +22,4 @@ public class QueryGraduationService {
                 .findById(userFacade.getCurrentReceiptCode())
                 .orElseThrow(() -> GradeNotFoundException.EXCEPTION));
     }
-
 }

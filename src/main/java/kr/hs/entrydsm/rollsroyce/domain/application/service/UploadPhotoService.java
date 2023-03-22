@@ -1,13 +1,15 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
-import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
+import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 
 @RequiredArgsConstructor
 @Service
@@ -20,8 +22,7 @@ public class UploadPhotoService {
     public String execute(MultipartFile file) {
         User user = userFacade.getCurrentUser();
 
-        if (user.getPhotoFileName() != null)
-            s3Util.delete(user.getPhotoFileName());
+        if (user.getPhotoFileName() != null) s3Util.delete(user.getPhotoFileName());
 
         String fileName = s3Util.upload(file);
 
@@ -29,5 +30,4 @@ public class UploadPhotoService {
 
         return s3Util.generateObjectUrl(fileName);
     }
-
 }

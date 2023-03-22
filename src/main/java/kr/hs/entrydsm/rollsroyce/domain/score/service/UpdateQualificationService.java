@@ -1,5 +1,9 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.QualificationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.QualificationCaseRepository;
@@ -8,8 +12,6 @@ import kr.hs.entrydsm.rollsroyce.domain.score.facade.ScoreFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateQualificationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -30,8 +32,7 @@ public class UpdateQualificationService {
             throw ApplicationTypeUnmatchedException.EXCEPTION;
         }
 
-        graduationCaseRepository.findById(receiptCode)
-                .ifPresent(graduationCaseRepository::delete);
+        graduationCaseRepository.findById(receiptCode).ifPresent(graduationCaseRepository::delete);
 
         QualificationCase qualificationCase = QualificationCase.builder()
                 .receiptCode(receiptCode)
@@ -45,5 +46,4 @@ public class UpdateQualificationService {
 
         scoreFacade.updateScore(user, qualificationCase);
     }
-
 }

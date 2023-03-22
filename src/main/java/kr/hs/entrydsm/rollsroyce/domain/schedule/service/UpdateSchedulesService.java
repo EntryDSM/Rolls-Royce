@@ -1,5 +1,10 @@
 package kr.hs.entrydsm.rollsroyce.domain.schedule.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.Schedule;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.repository.ScheduleRepository;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
@@ -7,9 +12,6 @@ import kr.hs.entrydsm.rollsroyce.domain.schedule.exception.InvalidScheduleReques
 import kr.hs.entrydsm.rollsroyce.domain.schedule.exception.ScheduleNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.ScheduleDto;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.presentation.dto.request.ScheduleRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -25,8 +27,8 @@ public class UpdateSchedulesService {
 
         for (ScheduleDto schedule : request.getSchedules()) {
             Schedule existedSchedule = scheduleRepository
-					.findByType(Type.valueOf(schedule.getType()))
-					.orElse(null);
+                    .findByType(Type.valueOf(schedule.getType()))
+                    .orElse(null);
 
             if (existedSchedule == null) {
                 throw ScheduleNotFoundException.EXCEPTION;
@@ -34,5 +36,4 @@ public class UpdateSchedulesService {
             existedSchedule.updateDate(schedule.getDate());
         }
     }
-
 }

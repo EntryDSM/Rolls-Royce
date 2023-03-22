@@ -1,5 +1,9 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.pdf;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
@@ -10,8 +14,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.exception.EducationalStatusNullException;
 import kr.hs.entrydsm.rollsroyce.global.exception.FinalSubmitRequiredException;
 import kr.hs.entrydsm.rollsroyce.global.exception.ScoreNotFoundException;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -27,8 +29,8 @@ public class ApplicationPdfService {
 
         validatePrintableApplicant(user);
 
-        Score calculatedScore = scoreRepository.findById(user.getReceiptCode())
-                .orElseThrow(() -> ScoreNotFoundException.EXCEPTION);
+        Score calculatedScore =
+                scoreRepository.findById(user.getReceiptCode()).orElseThrow(() -> ScoreNotFoundException.EXCEPTION);
         return applicationPdfGenerator.generate(user, calculatedScore);
     }
 
@@ -36,24 +38,20 @@ public class ApplicationPdfService {
         Status status = statusRepository
                 .findById(userFacade.getCurrentReceiptCode())
                 .orElseThrow(() -> StatusNotFoundException.EXCEPTION);
-        if (Boolean.FALSE.equals(status.getIsSubmitted()))
-            throw FinalSubmitRequiredException.EXCEPTION;
+        if (Boolean.FALSE.equals(status.getIsSubmitted())) throw FinalSubmitRequiredException.EXCEPTION;
 
         User user = userFacade.getCurrentUser();
 
         validatePrintableApplicant(user);
 
-        Score calculatedScore = scoreRepository.findById(user.getReceiptCode())
-                .orElseThrow(() -> ScoreNotFoundException.EXCEPTION);
+        Score calculatedScore =
+                scoreRepository.findById(user.getReceiptCode()).orElseThrow(() -> ScoreNotFoundException.EXCEPTION);
         return applicationPdfGenerator.generate(user, calculatedScore);
     }
 
     private void validatePrintableApplicant(User user) {
-        if (user.isEducationalStatusEmpty())
-            throw EducationalStatusNullException.EXCEPTION;
+        if (user.isEducationalStatusEmpty()) throw EducationalStatusNullException.EXCEPTION;
 
-        if (!scoreRepository.existsById(user.getReceiptCode()))
-            throw ScoreNotFoundException.EXCEPTION;
+        if (!scoreRepository.existsById(user.getReceiptCode())) throw ScoreNotFoundException.EXCEPTION;
     }
-
 }

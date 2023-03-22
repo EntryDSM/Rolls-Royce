@@ -5,8 +5,7 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class GradeOrScoreNotFoundException extends RollsException {
 
-    public static final RollsException EXCEPTION =
-            new GradeOrScoreNotFoundException();
+    public static final RollsException EXCEPTION = new GradeOrScoreNotFoundException();
 
     private GradeOrScoreNotFoundException() {
         super(ErrorCode.GRADE_OR_SCORE_NOT_FOUND);

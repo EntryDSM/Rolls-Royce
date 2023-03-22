@@ -64,6 +64,4 @@ public class ApplicantDetailsResponse {
         private final String selfIntroduce;
         private final String studyPlan;
     }
-
-
 }

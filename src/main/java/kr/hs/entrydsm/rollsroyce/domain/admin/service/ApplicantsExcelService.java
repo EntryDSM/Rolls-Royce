@@ -1,5 +1,19 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Stream;
+
+import javax.servlet.http.HttpServletResponse;
+
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ExcelOException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.ApplicantInformation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
@@ -16,17 +30,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.Sex;
-import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -50,7 +53,8 @@ public class ApplicantsExcelService {
         for (User user : applicants) {
             long receiptCode = user.getReceiptCode();
 
-            GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode).orElse(null);
+            GraduationCase graduationCase =
+                    graduationCaseRepository.findById(receiptCode).orElse(null);
             Graduation graduation = graduationRepository.findById(receiptCode).orElse(null);
             Status status = statusFacade.getStatusByReceiptCode(receiptCode);
             Score score = scoreFacade.queryScore(receiptCode);
@@ -88,7 +92,9 @@ public class ApplicantsExcelService {
         row.createCell(8).setCellValue(user.getTelephoneNumber());
         row.createCell(9).setCellValue(Sex.MALE.equals(user.getSex()) ? "남자" : "여자");
         row.createCell(10).setCellValue(getEducationalStatus(user.getEducationalStatus()));
-        row.createCell(11).setCellValue(String.valueOf(graduation != null ? graduation.getGraduatedAt().getYear() : "-"));
+        row.createCell(11)
+                .setCellValue(String.valueOf(
+                        graduation != null ? graduation.getGraduatedAt().getYear() : "-"));
         row.createCell(12).setCellValue(graduation != null ? graduation.getSchoolName() : "-");
         row.createCell(13).setCellValue(graduation != null ? graduation.getStudentNumber() : "-");
         row.createCell(14).setCellValue(user.getParentName());
@@ -101,7 +107,8 @@ public class ApplicantsExcelService {
         String[] historyScore = getSplitScores(graduationCase != null ? graduationCase.getHistoryGrade() : null);
         String[] mathScore = getSplitScores(graduationCase != null ? graduationCase.getMathGrade() : null);
         String[] scienceScore = getSplitScores(graduationCase != null ? graduationCase.getScienceGrade() : null);
-        String[] techAndHomeScore = getSplitScores(graduationCase != null ? graduationCase.getTechAndHomeGrade() : null);
+        String[] techAndHomeScore =
+                getSplitScores(graduationCase != null ? graduationCase.getTechAndHomeGrade() : null);
         String[] englishScore = getSplitScores(graduationCase != null ? graduationCase.getEnglishGrade() : null);
 
         row.createCell(16).setCellValue(koreanScore[3]);
@@ -136,7 +143,11 @@ public class ApplicantsExcelService {
         row.createCell(42).setCellValue(techAndHomeScore[0]);
         row.createCell(43).setCellValue(englishScore[0]);
 
-        row.createCell(48).setCellValue(graduationCase != null ? graduationCase.getVolunteerTime().toString() : "-");
+        row.createCell(48)
+                .setCellValue(
+                        graduationCase != null
+                                ? graduationCase.getVolunteerTime().toString()
+                                : "-");
 
         row.createCell(50).setCellValue(graduationCase != null ? graduationCase.getDayAbsenceCount() : 0);
         row.createCell(51).setCellValue(graduationCase != null ? graduationCase.getLatenessCount() : 0);
@@ -151,7 +162,6 @@ public class ApplicantsExcelService {
         row.createCell(47).setCellValue(score.getTotalGradeScore().doubleValue());
 
         row.createCell(49).setCellValue(score.getVolunteerScore().doubleValue());
-
 
         row.createCell(54).setCellValue(score.getAttendanceScore());
         row.createCell(55).setCellValue(score.getTotalScore().doubleValue());
@@ -195,5 +205,4 @@ public class ApplicantsExcelService {
             return scores.split("");
         }
     }
-
 }

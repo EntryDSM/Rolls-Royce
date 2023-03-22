@@ -1,8 +1,9 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.response;
 
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 import lombok.Builder;
 import lombok.Getter;
+
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.ApplicationType;
 
 @Getter
 @Builder
@@ -23,5 +24,4 @@ public class StatusResponse {
     private final String selfIntroduce;
 
     private final String studyPlan;
-
 }

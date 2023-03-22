@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class ImageNotFoundException extends RollsException {
 
-	public static RollsException EXCEPTION =
-			new ImageNotFoundException();
+    public static RollsException EXCEPTION = new ImageNotFoundException();
 
-	private ImageNotFoundException() {
-		super(ErrorCode.IMAGE_NOT_FOUND);
-	}
-
+    private ImageNotFoundException() {
+        super(ErrorCode.IMAGE_NOT_FOUND);
+    }
 }

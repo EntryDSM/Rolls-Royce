@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class SchoolNotFoundException extends RollsException {
 
-	public static final RollsException EXCEPTION =
-			new SchoolNotFoundException();
+    public static final RollsException EXCEPTION = new SchoolNotFoundException();
 
-	private SchoolNotFoundException() {
-		super(ErrorCode.SCHOOL_NOT_FOUND);
-	}
-
+    private SchoolNotFoundException() {
+        super(ErrorCode.SCHOOL_NOT_FOUND);
+    }
 }

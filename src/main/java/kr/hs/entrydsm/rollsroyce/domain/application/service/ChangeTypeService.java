@@ -1,5 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+
 import kr.hs.entrydsm.rollsroyce.domain.application.exception.InvalidGraduateAtException;
 import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
@@ -7,11 +14,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Service
@@ -37,11 +39,8 @@ public class ChangeTypeService {
 
         User user = userFacade.getCurrentUser();
 
-        applicationFacade.updateInformation(
-                user, request.getGraduatedAt(), request.getEducationalStatus()
-        );
+        applicationFacade.updateInformation(user, request.getGraduatedAt(), request.getEducationalStatus());
 
         user.updateUserApplication(request);
     }
-
 }
