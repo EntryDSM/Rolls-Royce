@@ -23,12 +23,21 @@ public class CreateQnaService {
         User user = userFacade.getCurrentUser();
 
 <<<<<<< main
+<<<<<<< main
         qnaRepository.save(Qna.builder()
+=======
+        qnaRepository.save(createQna(request, user));
+    }
+
+    private Qna createQna(CreateQnaRequest request, User user) {
+        return Qna.builder()
+>>>>>>> ♻️ :: Method 분리
                 .title(request.getTitle())
                 .content(request.getContent())
                 .isPublic(request.getIsPubic())
                 .isReplied(request.getIsReplied())
                 .user(user)
+<<<<<<< main
                 .build());
 =======
         qnaRepository.save(
@@ -41,5 +50,8 @@ public class CreateQnaService {
                         .build()
         );
 >>>>>>> ♻️ :: 코드 정렬
+=======
+                .build();
+>>>>>>> ♻️ :: Method 분리
     }
 }
