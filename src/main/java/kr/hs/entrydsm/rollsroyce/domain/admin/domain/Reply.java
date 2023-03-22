@@ -46,4 +46,9 @@ public class Reply {
         this.admin = admin;
         this.qna = qna;
     }
+
+    public void updateReply(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
