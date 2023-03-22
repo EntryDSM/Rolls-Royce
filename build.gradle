@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'jacoco'
+	id 'com.diffplug.spotless' version '6.11.0'
 }
 
 group = 'kr.hs.entrydsm'
@@ -63,6 +64,34 @@ sourceSets {
 		java {
 			srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
 		}
+	}
+}
+
+spotless {
+	java {
+		target("src/main/java/**/*.java", "src/main/test/**/*.java")
+
+		palantirJavaFormat()
+
+		formatAnnotations()
+		importOrder("lombok", "org", "com", "java", "javax", "kr.hs.entrydsm")
+		removeUnusedImports()
+		trimTrailingWhitespace()
+		indentWithSpaces()
+
+// TODO : Wildcard import 제한
+//		customLazy('block-wildcard-imports') {
+//			name = 'Disallow wildcard imports'
+//			description = 'Disallows wildcard imports in Java code'
+//			// Java regex pattern to match wildcard imports
+//			pattern = ~/import\s+.*\.\*;/
+//
+//			// Action to take when a violation occurs
+//			action { violation ->
+//				// Throw an error with the violation message
+//				throw new GradleException(violation.message)
+//			}
+//		}
 	}
 }
 
