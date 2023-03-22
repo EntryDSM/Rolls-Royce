@@ -1,12 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation;
 
-import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.CheckPasswordRequest;
-import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.LoginRequest;
-import kr.hs.entrydsm.rollsroyce.domain.admin.service.CheckPasswordService;
-import kr.hs.entrydsm.rollsroyce.domain.admin.service.LoginService;
-import kr.hs.entrydsm.rollsroyce.domain.admin.service.TokenRefreshService;
-import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +12,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.CheckPasswordRequest;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.LoginRequest;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.CheckPasswordService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.LoginService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.TokenRefreshService;
+import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
 
 @RequiredArgsConstructor
 @RequestMapping("/admin/auth")
@@ -43,5 +45,4 @@ public class AuthController {
     public void checkPassword(@RequestBody @Valid CheckPasswordRequest request) {
         checkPasswordService.execute(request);
     }
-
 }

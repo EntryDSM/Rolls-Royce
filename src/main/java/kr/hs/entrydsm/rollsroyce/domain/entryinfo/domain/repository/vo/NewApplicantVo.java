@@ -1,14 +1,16 @@
 package kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo;
 
+import lombok.Getter;
+
 import com.querydsl.core.annotations.QueryProjection;
+
+import java.time.LocalDate;
+
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.Sex;
-import lombok.Getter;
-
-import java.time.LocalDate;
 
 @Getter
 public class NewApplicantVo {

@@ -1,13 +1,15 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.AdminRepository;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.LoginRequest;
 import kr.hs.entrydsm.rollsroyce.global.security.jwt.JwtTokenProvider;
 import kr.hs.entrydsm.rollsroyce.global.utils.token.dto.TokenResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -20,10 +22,11 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
 
     public TokenResponse execute(LoginRequest request) {
-        return adminRepository.findById(request.getId())
+        return adminRepository
+                .findById(request.getId())
                 .filter(admin -> passwordEncoder.matches(request.getPassword(), admin.getPassword()))
-                .map(admin -> jwtTokenProvider.generateToken(admin.getId(), admin.getRole().toString()))
+                .map(admin -> jwtTokenProvider.generateToken(
+                        admin.getId(), admin.getRole().toString()))
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
     }
-
 }

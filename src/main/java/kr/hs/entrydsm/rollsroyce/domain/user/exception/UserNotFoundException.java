@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class UserNotFoundException extends RollsException {
 
-	public static final RollsException EXCEPTION =
-			new UserNotFoundException();
+    public static final RollsException EXCEPTION = new UserNotFoundException();
 
-	private UserNotFoundException() {
-		super(ErrorCode.USER_NOT_FOUND);
-	}
-
+    private UserNotFoundException() {
+        super(ErrorCode.USER_NOT_FOUND);
+    }
 }

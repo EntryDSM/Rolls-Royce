@@ -1,16 +1,18 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.Digits;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
+import javax.persistence.Entity;
+import javax.validation.constraints.Digits;
+
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,11 +23,12 @@ public class QualificationCase extends ApplicationCase {
     private BigDecimal averageScore;
 
     @Builder
-    public QualificationCase(BigDecimal averageScore,
-                             long receiptCode,
-                             boolean isDaejeon,
-                             ApplicationType applicationType,
-                             EducationalStatus educationalStatus) {
+    public QualificationCase(
+            BigDecimal averageScore,
+            long receiptCode,
+            boolean isDaejeon,
+            ApplicationType applicationType,
+            EducationalStatus educationalStatus) {
         super(receiptCode, isDaejeon, applicationType, educationalStatus);
         this.averageScore = averageScore;
     }
@@ -42,7 +45,7 @@ public class QualificationCase extends ApplicationCase {
 
     @Override
     public BigDecimal[] calculateGradeScores() {
-        return new BigDecimal[]{BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO};
+        return new BigDecimal[] {BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO};
     }
 
     @Override
@@ -50,24 +53,23 @@ public class QualificationCase extends ApplicationCase {
         return gradeScoreFormula();
     }
 
-
     private BigDecimal volunteerScoreFormula() {
-        return averageScore.subtract(BigDecimal.valueOf(40))
+        return averageScore
+                .subtract(BigDecimal.valueOf(40))
                 .divide(BigDecimal.valueOf(5), 3, RoundingMode.HALF_UP)
                 .add(BigDecimal.valueOf(3));
     }
 
     private BigDecimal gradeScoreFormula() {
-        BigDecimal gradeScore = averageScore.subtract(BigDecimal.valueOf(50))
+        BigDecimal gradeScore = averageScore
+                .subtract(BigDecimal.valueOf(50))
                 .multiply(BigDecimal.valueOf(1.6))
                 .setScale(3, RoundingMode.HALF_UP);
 
         if (isCommon()) {
-            return gradeScore.multiply(COMMON_GRADE_RATE)
-                    .setScale(3, RoundingMode.HALF_UP);
+            return gradeScore.multiply(COMMON_GRADE_RATE).setScale(3, RoundingMode.HALF_UP);
         } else {
             return gradeScore;
         }
     }
-
 }

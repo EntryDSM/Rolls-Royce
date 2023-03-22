@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class BadFileExtensionException extends RollsException {
 
-	public static RollsException EXCEPTION =
-			new BadFileExtensionException();
+    public static RollsException EXCEPTION = new BadFileExtensionException();
 
-	private BadFileExtensionException() {
-		super(ErrorCode.BAD_FILE_EXTENSION);
-	}
-
+    private BadFileExtensionException() {
+        super(ErrorCode.BAD_FILE_EXTENSION);
+    }
 }

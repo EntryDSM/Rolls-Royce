@@ -1,20 +1,21 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
-import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantVo;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantVo;
+
 @RequiredArgsConstructor
 @Service
 public class GetApplicantsService {
-
 
     private final EntryInfoRepository entryInfoRepository;
 
@@ -49,28 +50,23 @@ public class GetApplicantsService {
                 request.isMeister(),
                 request.isSocial(),
                 isSubmitted,
-                page
-        );
+                page);
 
         return ApplicantsResponse.builder()
                 .totalElements(applicants.getTotalElements())
                 .totalPages(applicants.getTotalPages())
-                .applicants(
-                        applicants.stream().map(
-                                        applicant -> ApplicantsResponse.ApplicantDto.builder()
-                                                .receiptCode(applicant.getReceiptCode())
-                                                .name(applicant.getName())
-                                                .telephoneNumber(applicant.getTelephoneNumber())
-                                                .isDaejeon(applicant.getIsDaejeon())
-                                                .applicationType(applicant.getApplicationType())
-                                                .isPrintsArrived(applicant.getIsPrintsArrived())
-                                                .isSubmitted(applicant.getIsSubmitted())
-                                                .isOutOfHeadcount(applicant.getIsOutOfHeadcount())
-                                                .build()
-                                )
-                                .collect(Collectors.toList())
-                )
+                .applicants(applicants.stream()
+                        .map(applicant -> ApplicantsResponse.ApplicantDto.builder()
+                                .receiptCode(applicant.getReceiptCode())
+                                .name(applicant.getName())
+                                .telephoneNumber(applicant.getTelephoneNumber())
+                                .isDaejeon(applicant.getIsDaejeon())
+                                .applicationType(applicant.getApplicationType())
+                                .isPrintsArrived(applicant.getIsPrintsArrived())
+                                .isSubmitted(applicant.getIsSubmitted())
+                                .isOutOfHeadcount(applicant.getIsOutOfHeadcount())
+                                .build())
+                        .collect(Collectors.toList()))
                 .build();
     }
-
 }

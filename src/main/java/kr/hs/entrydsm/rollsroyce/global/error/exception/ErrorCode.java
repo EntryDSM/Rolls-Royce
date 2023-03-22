@@ -1,15 +1,15 @@
 package kr.hs.entrydsm.rollsroyce.global.error.exception;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 @Getter
 @AllArgsConstructor
 @JsonFormat(shape = Shape.OBJECT)
 public enum ErrorCode {
-
     INVALID_DATE(400, "COMMON400-0", "Date was invalid"),
     REQUEST_BODY_IS_NULL(400, "COMMON400-1", "request body is null."),
     INVALID_TOKEN(401, "COMMON401-0", "Invalid Token"),
@@ -77,5 +77,4 @@ public enum ErrorCode {
     private final int status;
     private final String code;
     private final String message;
-
 }

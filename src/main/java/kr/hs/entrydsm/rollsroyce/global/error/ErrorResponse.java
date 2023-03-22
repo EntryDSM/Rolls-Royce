@@ -7,17 +7,15 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ErrorResponse {
 
-	private final int status;
-	private final String code;
-	private final String message;
+    private final int status;
+    private final String code;
+    private final String message;
 
-	@Override
-	public String toString() {
-		return "{\n" +
-				"\t\"status\": " + status +
-				",\t\"code\": \"" + code + '\"' +
-				",\n\t\"message\": \"" + message + '\"' +
-				"\n}";
-	}
-
+    @Override
+    public String toString() {
+        return "{\n" + "\t\"status\": "
+                + status + ",\t\"code\": \""
+                + code + '\"' + ",\n\t\"message\": \""
+                + message + '\"' + "\n}";
+    }
 }

@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class FinalSubmitRequiredException extends RollsException {
 
-	public static final RollsException EXCEPTION =
-			new FinalSubmitRequiredException();
+    public static final RollsException EXCEPTION = new FinalSubmitRequiredException();
 
-	private FinalSubmitRequiredException() {
-		super(ErrorCode.FINAL_SUBMIT_REQUIRED);
-	}
-
+    private FinalSubmitRequiredException() {
+        super(ErrorCode.FINAL_SUBMIT_REQUIRED);
+    }
 }

@@ -1,11 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Builder
@@ -27,5 +28,4 @@ public class RouteRequest {
 
     @JsonProperty("totalValue")
     private int totalValue;
-
 }

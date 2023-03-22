@@ -1,10 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import kr.hs.entrydsm.rollsroyce.global.exception.RequestFailToOtherServerException;
 import lombok.Getter;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
+
+import kr.hs.entrydsm.rollsroyce.global.exception.RequestFailToOtherServerException;
 
 @Getter
 public class CoordinateResponse {
@@ -17,8 +19,7 @@ public class CoordinateResponse {
     }
 
     public String getLon() {
-        if (coordinateInfo.getCoordinate().get(0) == null)
-            throw RequestFailToOtherServerException.EXCEPTION;
+        if (coordinateInfo.getCoordinate().get(0) == null) throw RequestFailToOtherServerException.EXCEPTION;
         return coordinateInfo.getCoordinate().get(0).getLon();
     }
 
@@ -32,5 +33,4 @@ public class CoordinateResponse {
         private String lat;
         private String lon;
     }
-
 }

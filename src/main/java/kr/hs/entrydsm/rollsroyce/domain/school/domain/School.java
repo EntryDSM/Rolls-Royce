@@ -29,5 +29,4 @@ public class School {
 
     @Column(length = 150, nullable = false)
     private String address;
-
 }

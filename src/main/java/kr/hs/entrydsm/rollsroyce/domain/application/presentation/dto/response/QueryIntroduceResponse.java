@@ -8,5 +8,4 @@ import lombok.Getter;
 public class QueryIntroduceResponse {
 
     private final String content;
-
 }
