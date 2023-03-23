@@ -31,7 +31,7 @@ public class ReplyController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{reply-id}")
-    public void updateReply(@PathVariable("reply-id") Long replyId, @RequestBody @Valid UpdateReplyRequest request) {
-        updateReplyService.execute(replyId, request);
+    public void updateReply(@RequestBody @Valid UpdateReplyRequest request, @PathVariable("reply-id") Long replyId) {
+        updateReplyService.execute(request, replyId);
     }
 }
