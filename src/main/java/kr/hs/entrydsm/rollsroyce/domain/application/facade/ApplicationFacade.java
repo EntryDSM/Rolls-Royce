@@ -1,19 +1,21 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.facade;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Qualification;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.exception.ApplicationNotFoundException;
+import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
 import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Component
@@ -23,8 +25,7 @@ public class ApplicationFacade {
     private final QualificationRepository qualificationRepository;
 
     public void changeInformation(Long receiptCode, School school, String studentNumber, String schoolTel) {
-        getGraduation(receiptCode)
-                .changeGraduationInformation(school, studentNumber, schoolTel);
+        getGraduation(receiptCode).changeGraduationInformation(school, studentNumber, schoolTel);
     }
 
     public void updateInformation(EntryInfo entryInfo, LocalDate graduatedAt, String educationalStatus) {
@@ -36,30 +37,26 @@ public class ApplicationFacade {
     }
 
     public void updateQualification(EntryInfo entryInfo, LocalDate qualifiedAt) {
-        graduationRepository.findById(entryInfo.getReceiptCode())
-                .ifPresent(graduationRepository::delete);
+        graduationRepository.findById(entryInfo.getReceiptCode()).ifPresent(graduationRepository::delete);
         if (qualificationRepository.findById(entryInfo.getReceiptCode()).isPresent()) {
-            qualificationRepository.findById(entryInfo.getReceiptCode())
+            qualificationRepository
+                    .findById(entryInfo.getReceiptCode())
                     .ifPresent(qualification -> qualification.updateQualifiedAt(qualifiedAt));
         } else {
-            qualificationRepository.save(
-                    new Qualification(entryInfo, qualifiedAt)
-            );
+            qualificationRepository.save(new Qualification(entryInfo, qualifiedAt));
         }
     }
 
     public void updateGraduation(EntryInfo entryInfo, LocalDate graduatedAt, String educationalStatus) {
-        qualificationRepository.findById(entryInfo.getReceiptCode())
-                .ifPresent(qualificationRepository::delete);
+        qualificationRepository.findById(entryInfo.getReceiptCode()).ifPresent(qualificationRepository::delete);
         if (graduationRepository.findById(entryInfo.getReceiptCode()).isPresent()) {
-            graduationRepository.findById(entryInfo.getReceiptCode())
-                    .ifPresent(graduation -> graduation.updateInformation(graduatedAt,
-                            EnumUtil.getEnum(EducationalStatus.class, educationalStatus)));
+            graduationRepository
+                    .findById(entryInfo.getReceiptCode())
+                    .ifPresent(graduation -> graduation.updateInformation(
+                            graduatedAt, EnumUtil.getEnum(EducationalStatus.class, educationalStatus)));
         } else {
-            graduationRepository.save(
-                    new Graduation(entryInfo, graduatedAt,
-                            EnumUtil.getEnum(EducationalStatus.class, educationalStatus))
-            );
+            graduationRepository.save(new Graduation(
+                    entryInfo, graduatedAt, EnumUtil.getEnum(EducationalStatus.class, educationalStatus)));
         }
     }
 
@@ -72,18 +69,15 @@ public class ApplicationFacade {
     }
 
     public Graduation getGraduation(Long receiptCode) {
-        return graduationRepository.findById(receiptCode)
-                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+        return graduationRepository.findById(receiptCode).orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
     }
 
     public Qualification getQualification(Long receiptCode) {
-        return qualificationRepository.findById(receiptCode)
-                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+        return qualificationRepository.findById(receiptCode).orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
     }
 
     public void deleteAll() {
         graduationRepository.deleteAll();
         qualificationRepository.deleteAll();
     }
-
 }

@@ -1,5 +1,10 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
@@ -8,9 +13,6 @@ import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.QualificationCas
 import kr.hs.entrydsm.rollsroyce.domain.score.exception.ApplicationTypeUnmatchedException;
 import kr.hs.entrydsm.rollsroyce.domain.score.facade.ScoreFacade;
 import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateGraduationRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -32,19 +34,17 @@ public class UpdateGraduationService {
             throw ApplicationTypeUnmatchedException.EXCEPTION;
         }
 
-        qualificationCaseRepository.findById(receiptCode)
-                .ifPresent(qualificationCaseRepository::delete);
+        qualificationCaseRepository.findById(receiptCode).ifPresent(qualificationCaseRepository::delete);
 
-        GraduationCase graduationCase = new GraduationCase(request,
+        GraduationCase graduationCase = new GraduationCase(
+                request,
                 receiptCode,
                 entryInfo.getIsDaejeon(),
                 entryInfo.getApplicationType(),
-                entryInfo.getEducationalStatus()
-        );
+                entryInfo.getEducationalStatus());
 
         graduationCaseRepository.save(graduationCase);
 
         scoreFacade.updateScore(entryInfo, graduationCase);
     }
-
 }

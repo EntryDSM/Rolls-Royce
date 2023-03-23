@@ -1,5 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.s3;
 
+import lombok.RequiredArgsConstructor;
+
+import org.imgscalr.Scalr;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
@@ -7,16 +14,7 @@ import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.util.IOUtils;
-import kr.hs.entrydsm.rollsroyce.global.exception.BadFileExtensionException;
-import kr.hs.entrydsm.rollsroyce.global.exception.FileIsEmptyException;
-import kr.hs.entrydsm.rollsroyce.global.exception.ImageNotFoundException;
-import lombok.RequiredArgsConstructor;
-import org.imgscalr.Scalr;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -26,6 +24,12 @@ import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
+
+import kr.hs.entrydsm.rollsroyce.global.exception.BadFileExtensionException;
+import kr.hs.entrydsm.rollsroyce.global.exception.FileIsEmptyException;
+import kr.hs.entrydsm.rollsroyce.global.exception.ImageNotFoundException;
+
 @RequiredArgsConstructor
 @Component
 public class S3Util {
@@ -34,14 +38,11 @@ public class S3Util {
 
     private final AmazonS3Client amazonS3Client;
 
-    @Value("${aws.s3.bucket}")
-    private String bucketName;
+    @Value("${aws.s3.bucket}") private String bucketName;
 
-    @Value("${aws.s3.base-image-url}")
-    private String baseImageUrl;
+    @Value("${aws.s3.base-image-url}") private String baseImageUrl;
 
-    @Value("${aws.s3.prefix}")
-    private String prefix;
+    @Value("${aws.s3.prefix}") private String prefix;
 
     public String upload(MultipartFile file) {
         String ext = verificationFile(file);
@@ -61,8 +62,8 @@ public class S3Util {
 
         InputStream is = new ByteArrayInputStream(os.toByteArray());
 
-
-        amazonS3Client.putObject(new PutObjectRequest(bucketName, prefix + filename, is, null).withCannedAcl(CannedAccessControlList.AuthenticatedRead));
+        amazonS3Client.putObject(new PutObjectRequest(bucketName, prefix + filename, is, null)
+                .withCannedAcl(CannedAccessControlList.AuthenticatedRead));
 
         return filename;
     }
@@ -72,7 +73,10 @@ public class S3Util {
         Date expiration = new Date();
         expiration.setTime(expiration.getTime() + EXP_TIME);
 
-        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(baseImageUrl, fileName).withMethod(HttpMethod.GET).withExpiration(expiration);
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(
+                        baseImageUrl, fileName)
+                .withMethod(HttpMethod.GET)
+                .withExpiration(expiration);
 
         URL url = amazonS3Client.generatePresignedUrl(generatePresignedUrlRequest);
 
@@ -130,5 +134,4 @@ public class S3Util {
             throw BadFileExtensionException.EXCEPTION;
         return ext;
     }
-
 }

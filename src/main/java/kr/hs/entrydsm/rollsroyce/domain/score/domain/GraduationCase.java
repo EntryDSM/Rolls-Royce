@@ -1,16 +1,19 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateGraduationRequest;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateGraduationRequest;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -51,11 +54,12 @@ public class GraduationCase extends ApplicationCase {
     @Column(columnDefinition = "CHAR(4)")
     private String techAndHomeGrade;
 
-    public GraduationCase(UpdateGraduationRequest request,
-                          long receiptCode,
-                          boolean isDaejeon,
-                          ApplicationType applicationType,
-                          EducationalStatus educationalStatus) {
+    public GraduationCase(
+            UpdateGraduationRequest request,
+            long receiptCode,
+            boolean isDaejeon,
+            ApplicationType applicationType,
+            EducationalStatus educationalStatus) {
         super(receiptCode, isDaejeon, applicationType, educationalStatus);
         this.volunteerTime = request.getVolunteerTime();
         this.dayAbsenceCount = request.getDayAbsenceCount();
@@ -76,8 +80,7 @@ public class GraduationCase extends ApplicationCase {
         if (volunteerTime >= MAX_VOLUNTEER_TIME) {
             return BigDecimal.valueOf(MAX_VOLUNTEER_SCORE);
         } else if (MIN_VOLUNTEER_TIME <= volunteerTime) {
-            return BigDecimal.valueOf(volunteerTime)
-                .add(BigDecimal.valueOf(3));
+            return BigDecimal.valueOf(volunteerTime).add(BigDecimal.valueOf(3));
         } else {
             return BigDecimal.valueOf(MIN_VOLUNTEER_SCORE);
         }
@@ -85,10 +88,9 @@ public class GraduationCase extends ApplicationCase {
 
     @Override
     public Integer calculateAttendanceScore() {
-        return Math.max((MAX_ATTENDANCE_SCORE
-                - dayAbsenceCount
-                - (lectureAbsenceCount + latenessCount + earlyLeaveCount) / 3),
-            0);
+        return Math.max(
+                (MAX_ATTENDANCE_SCORE - dayAbsenceCount - (lectureAbsenceCount + latenessCount + earlyLeaveCount) / 3),
+                0);
     }
 
     @Override
@@ -108,7 +110,7 @@ public class GraduationCase extends ApplicationCase {
     private BigDecimal totalGradeScoreFormula() {
         BigDecimal scoresSum = BigDecimal.ZERO;
 
-        for (BigDecimal score: gradeScoreFormula()) {
+        for (BigDecimal score : gradeScoreFormula()) {
             scoresSum = scoresSum.add(score);
         }
 
@@ -120,25 +122,25 @@ public class GraduationCase extends ApplicationCase {
     }
 
     private BigDecimal[] gradeScoreFormula() {
-        BigDecimal[] gradeScores = new BigDecimal[]{BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO};
+        BigDecimal[] gradeScores = new BigDecimal[] {BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO};
         BigDecimal[] scoresToCalculate = zeroCheckScoresToCalculate();
 
-//        for (int index = 0; index < scoresToCalculate.length - 2; index++) {
-//            gradeScores[index] = scoresToCalculate[index].multiply(GRADE_RATE);
-//        }
-////
-//        System.out.println("a " + gradeScores[0] + " / "+ gradeScores[1] + " / "+ gradeScores[2] + " / ");
-//        System.out.println("b " + scoresToCalculate[0] + " / "+ scoresToCalculate[1] + " / "+ scoresToCalculate[2] + " / "+ scoresToCalculate[3] + " / ");
-////
-//        gradeScores[gradeScores.length - 1] = scoresToCalculate[scoresToCalculate.length - 2]
-//            .add(scoresToCalculate[scoresToCalculate.length - 1])
-//            .multiply(new BigDecimal(8));
-//
-//        if (scoresToCalculate[0] == BigDecimal.valueOf(0)) {
-//            scoresToCalculate[0] = scoresToCalculate[1];
-//        }
+        //        for (int index = 0; index < scoresToCalculate.length - 2; index++) {
+        //            gradeScores[index] = scoresToCalculate[index].multiply(GRADE_RATE);
+        //        }
+        ////
+        //        System.out.println("a " + gradeScores[0] + " / "+ gradeScores[1] + " / "+ gradeScores[2] + " / ");
+        //        System.out.println("b " + scoresToCalculate[0] + " / "+ scoresToCalculate[1] + " / "+
+        // scoresToCalculate[2] + " / "+ scoresToCalculate[3] + " / ");
+        ////
+        //        gradeScores[gradeScores.length - 1] = scoresToCalculate[scoresToCalculate.length - 2]
+        //            .add(scoresToCalculate[scoresToCalculate.length - 1])
+        //            .multiply(new BigDecimal(8));
+        //
+        //        if (scoresToCalculate[0] == BigDecimal.valueOf(0)) {
+        //            scoresToCalculate[0] = scoresToCalculate[1];
+        //        }
         gradeScores[2] = scoresToCalculate[0].add(scoresToCalculate[1]).multiply(BigDecimal.valueOf(4));
-
 
         gradeScores[1] = scoresToCalculate[2].multiply(BigDecimal.valueOf(4));
         gradeScores[0] = scoresToCalculate[3].multiply(BigDecimal.valueOf(4));
@@ -150,7 +152,7 @@ public class GraduationCase extends ApplicationCase {
         BigDecimal[] scoresToCalculate = scoresToCalculate();
         BigDecimal summedScore = BigDecimal.ZERO;
 
-        for (BigDecimal scorePerYear: scoresToCalculate) {
+        for (BigDecimal scorePerYear : scoresToCalculate) {
             summedScore = summedScore.add(scorePerYear);
         }
 
@@ -169,23 +171,24 @@ public class GraduationCase extends ApplicationCase {
 
     private BigDecimal[] scoresToCalculate() {
         BigDecimal[] scoresPerSemester = scoresPerSemester();
-        BigDecimal[] scoresToCalculate = new BigDecimal[]{BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO};
+        BigDecimal[] scoresToCalculate =
+                new BigDecimal[] {BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO};
 
-        int toCalculateLength = scoresToCalculate.length; //4
-        int semesterLength = scoresPerSemester.length - 2; //6
+        int toCalculateLength = scoresToCalculate.length; // 4
+        int semesterLength = scoresPerSemester.length - 2; // 6
 
         scoresToCalculate[0] = scoresPerSemester[0];
         if (scoresToCalculate[0].equals(BigDecimal.ZERO)) {
             scoresToCalculate[0] = scoresPerSemester[1];
         }
 
-//        for (int semesterIndex = semesterLength - 2, scoreIndex = toCalculateLength - 2;
-//            semesterIndex >= 0 && scoreIndex >= 0;
-//            semesterIndex--) {
-//            if (!scoresPerSemester[semesterIndex].equals(BigDecimal.ZERO)) {
-//                scoresToCalculate[scoreIndex--] = scoresPerSemester[semesterIndex];
-//            }
-//        }
+        //        for (int semesterIndex = semesterLength - 2, scoreIndex = toCalculateLength - 2;
+        //            semesterIndex >= 0 && scoreIndex >= 0;
+        //            semesterIndex--) {
+        //            if (!scoresPerSemester[semesterIndex].equals(BigDecimal.ZERO)) {
+        //                scoresToCalculate[scoreIndex--] = scoresPerSemester[semesterIndex];
+        //            }
+        //        }
         scoresToCalculate[1] = scoresPerSemester[1];
         scoresToCalculate[2] = scoresPerSemester[2];
         scoresToCalculate[3] = scoresPerSemester[3];
@@ -195,12 +198,10 @@ public class GraduationCase extends ApplicationCase {
 
     private BigDecimal[] scoresPerSemester() {
         String[] gradesPerSemester = gradesPerSemester();
-        BigDecimal[] scoresPerSemester = new BigDecimal[]{BigDecimal.ZERO,
-            BigDecimal.ZERO,
-            BigDecimal.ZERO,
-            BigDecimal.ZERO};
+        BigDecimal[] scoresPerSemester =
+                new BigDecimal[] {BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO};
 
-        for (int semester = 0 ; semester < gradesPerSemester.length ; semester++) {
+        for (int semester = 0; semester < gradesPerSemester.length; semester++) {
             scoresPerSemester[semester] = gradesToScore(gradesPerSemester[semester]);
         }
 
@@ -208,17 +209,13 @@ public class GraduationCase extends ApplicationCase {
     }
 
     private String[] gradesPerSemester() {
-        String[] gradesPerSubject = new String[]{koreanGrade,
-            socialGrade,
-            historyGrade,
-            mathGrade,
-            scienceGrade,
-            englishGrade,
-            techAndHomeGrade};
-        String[] gradesPerSemester = new String[]{"", "", "", ""};
+        String[] gradesPerSubject = new String[] {
+            koreanGrade, socialGrade, historyGrade, mathGrade, scienceGrade, englishGrade, techAndHomeGrade
+        };
+        String[] gradesPerSemester = new String[] {"", "", "", ""};
 
-        for (String grades: gradesPerSubject) {
-            for (int semester = 0 ; semester < grades.length() ; semester++) {
+        for (String grades : gradesPerSubject) {
+            for (int semester = 0; semester < grades.length(); semester++) {
                 gradesPerSemester[semester] += grades.charAt(semester);
             }
         }
@@ -230,7 +227,7 @@ public class GraduationCase extends ApplicationCase {
         int semesterScore = 0;
         int subjectCount = 0;
 
-        for (char grade: grades.toCharArray()) {
+        for (char grade : grades.toCharArray()) {
             switch (grade) {
                 case 'A':
                     semesterScore++;
@@ -246,12 +243,10 @@ public class GraduationCase extends ApplicationCase {
             }
         }
 
-        if (semesterScore == 0) { return BigDecimal.ZERO; }
+        if (semesterScore == 0) {
+            return BigDecimal.ZERO;
+        }
 
-        return BigDecimal.valueOf(semesterScore)
-            .divide(BigDecimal.valueOf(subjectCount),
-                5,
-                RoundingMode.DOWN);
+        return BigDecimal.valueOf(semesterScore).divide(BigDecimal.valueOf(subjectCount), 5, RoundingMode.DOWN);
     }
-
 }

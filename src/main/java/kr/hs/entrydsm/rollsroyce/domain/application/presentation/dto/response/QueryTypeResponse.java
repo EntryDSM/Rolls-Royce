@@ -22,5 +22,4 @@ public class QueryTypeResponse {
     public void setGraduated(boolean graduated) {
         this.isGraduated = graduated;
     }
-
 }

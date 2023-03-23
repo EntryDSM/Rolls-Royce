@@ -1,5 +1,13 @@
 package kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain;
 
+import lombok.*;
+
+import org.hibernate.annotations.DynamicInsert;
+
+import java.time.LocalDate;
+
+import javax.persistence.*;
+
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
@@ -12,11 +20,6 @@ import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.Sex;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
-import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
-
-import javax.persistence.*;
-import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -137,9 +140,18 @@ public class EntryInfo {
     }
 
     public boolean hasEmptyInfo() {
-        return !(isExists(getUserName()) && sex != null && birthday != null && isExists(getUserTelephoneNumber()) && isExists(parentTel)
-                && isExists(parentName) && isExists(address) && isExists(detailAddress) && isExists(postCode)
-                && photoFileName != null && educationalStatus != null && applicationType != null);
+        return !(isExists(getUserName())
+                && sex != null
+                && birthday != null
+                && isExists(getUserTelephoneNumber())
+                && isExists(parentTel)
+                && isExists(parentName)
+                && isExists(address)
+                && isExists(detailAddress)
+                && isExists(postCode)
+                && photoFileName != null
+                && educationalStatus != null
+                && applicationType != null);
     }
 
     public boolean isEducationalStatusEmpty() {
@@ -231,11 +243,10 @@ public class EntryInfo {
     }
 
     private void changeGraduationInformation(Application application, QueryTypeResponse response) {
-        if (application == null)
-            return;
+        if (application == null) return;
         if (application instanceof Graduation)
-            response.setGraduated(((Graduation) application).getIsGraduated() != null &&
-                    ((Graduation) application).getIsGraduated());
+            response.setGraduated(
+                    ((Graduation) application).getIsGraduated() != null && ((Graduation) application).getIsGraduated());
         response.setGraduatedAt(application.getDate());
     }
 

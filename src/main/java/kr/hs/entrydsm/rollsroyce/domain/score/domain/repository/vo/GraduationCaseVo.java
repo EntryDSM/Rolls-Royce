@@ -1,8 +1,10 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo;
 
-import com.querydsl.core.annotations.QueryProjection;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 import lombok.Getter;
+
+import com.querydsl.core.annotations.QueryProjection;
+
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 
 @Getter
 public class GraduationCaseVo {

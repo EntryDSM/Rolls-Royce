@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class InternalServerErrorException extends RollsException {
 
-    public static final RollsException EXCEPTION =
-            new InternalServerErrorException();
+    public static final RollsException EXCEPTION = new InternalServerErrorException();
 
     private InternalServerErrorException() {
         super(ErrorCode.INTERNAL_SERVER_ERROR);
     }
-
 }

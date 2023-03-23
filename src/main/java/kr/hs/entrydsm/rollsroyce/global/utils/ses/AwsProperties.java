@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.ses;
 
 import lombok.Getter;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
@@ -18,5 +19,4 @@ public class AwsProperties {
         this.secretKey = secretKey;
         this.region = region;
     }
-
 }

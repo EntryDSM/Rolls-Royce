@@ -5,8 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GetReserveLinkService {
-    @Value("${reserve.link}")
-    private String reserveLink;
+    @Value("${reserve.link}") private String reserveLink;
 
     public String execute() {
         return reserveLink;

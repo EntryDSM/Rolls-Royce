@@ -3,7 +3,6 @@ package kr.hs.entrydsm.rollsroyce.global.security.logging;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PreDestroy;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,6 +17,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import javax.annotation.PreDestroy;
 
 @Component
 public class LogWriter {
@@ -55,8 +56,7 @@ public class LogWriter {
     }
 
     private void createZipFile() throws IOException {
-        String now = LocalDateTime.now(ZoneId.of("Asia/Seoul"))
-                .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        String now = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
         File zipFile = new File(logProperties.getPath(), logProperties.getName() + "." + now + ".zip");
         FileInputStream logInputStream = new FileInputStream(file);
         FileOutputStream logOutputStream = new FileOutputStream(zipFile);
@@ -80,5 +80,4 @@ public class LogWriter {
     private void resetLogFile() throws IOException {
         writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
     }
-
 }

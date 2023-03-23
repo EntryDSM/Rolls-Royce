@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.pdf;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -18,5 +19,4 @@ public class TemplateProcessor {
         context.setVariables(data);
         return templateEngine.process(template, context);
     }
-
 }

@@ -1,12 +1,14 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.math.BigDecimal;
+
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 
 @NoArgsConstructor
 @MappedSuperclass
@@ -31,10 +33,8 @@ public abstract class ApplicationCase {
 
     protected EducationalStatus educationalStatus;
 
-    protected ApplicationCase(Long receiptCode,
-                              boolean isDaejeon,
-                              ApplicationType applicationType,
-                              EducationalStatus educationalStatus) {
+    protected ApplicationCase(
+            Long receiptCode, boolean isDaejeon, ApplicationType applicationType, EducationalStatus educationalStatus) {
         this.receiptCode = receiptCode;
         this.isDaejeon = isDaejeon;
         this.applicationType = applicationType;
@@ -72,5 +72,4 @@ public abstract class ApplicationCase {
     public boolean isGraduated() {
         return EducationalStatus.GRADUATE.equals(educationalStatus);
     }
-
 }

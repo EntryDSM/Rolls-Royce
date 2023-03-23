@@ -10,5 +10,4 @@ public class InvalidScheduleSequenceException extends RollsException {
     private InvalidScheduleSequenceException() {
         super(ErrorCode.DATE_SEQUENCE_NOT_VALID);
     }
-
 }

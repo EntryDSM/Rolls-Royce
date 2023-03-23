@@ -1,5 +1,9 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.CommonInformation;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.Evaluation;
@@ -18,8 +22,6 @@ import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -36,14 +38,14 @@ public class GetApplicantDetailsService {
     private final QualificationCaseRepository qualificationCaseRepository;
 
     private final ScoreRepository scoreRepository;
-    
 
     public ApplicantDetailsResponse execute(long receiptCode) {
         EntryInfo entryInfo = entryInfoFacade.getEntryInfoByCode(receiptCode);
         Status userStatus = statusFacade.getStatusByReceiptCode(receiptCode);
 
         return ApplicantDetailsResponse.builder()
-                .status(new ApplicantDetailsResponse.Status(userStatus.getIsPrintsArrived(), userStatus.getIsSubmitted()))
+                .status(new ApplicantDetailsResponse.Status(
+                        userStatus.getIsPrintsArrived(), userStatus.getIsSubmitted()))
                 .commonInformation(getCommonInformation(entryInfo))
                 .moreInformation(userStatus.getIsSubmitted() ? getMoreInformation(entryInfo) : null)
                 .evaluation(userStatus.getIsSubmitted() ? getEvaluation(entryInfo) : null)
@@ -51,8 +53,8 @@ public class GetApplicantDetailsService {
     }
 
     private CommonInformation getCommonInformation(EntryInfo entryInfo) {
-        Graduation graduation = graduationRepository.findById(entryInfo.getReceiptCode())
-                .orElse(null);
+        Graduation graduation =
+                graduationRepository.findById(entryInfo.getReceiptCode()).orElse(null);
         return CommonInformation.builder()
                 .name(entryInfo.getUserName())
                 .telephoneNumber(entryInfo.getUserTelephoneNumber())
@@ -68,7 +70,10 @@ public class GetApplicantDetailsService {
                 .birthday(entryInfo.getBirthday().toString())
                 .educationStatus(entryInfo.getEducationalStatus().name())
                 .applicationType(entryInfo.getApplicationType().name())
-                .applicationRemark(entryInfo.getApplicationRemark() != null ? entryInfo.getApplicationRemark().name() : null)
+                .applicationRemark(
+                        entryInfo.getApplicationRemark() != null
+                                ? entryInfo.getApplicationRemark().name()
+                                : null)
                 .address(entryInfo.getAddress())
                 .detailAddress(entryInfo.getDetailAddress())
                 .build();
@@ -76,12 +81,11 @@ public class GetApplicantDetailsService {
 
     private Evaluation getEvaluation(EntryInfo entryInfo) {
         long receiptCode = entryInfo.getReceiptCode();
-        Score score = scoreRepository.findById(receiptCode)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
-        GraduationCase graduationCase = graduationCaseRepository.findById(receiptCode)
-                .orElse(null);
-        QualificationCase qualificationCase = qualificationCaseRepository.findById(receiptCode)
-                .orElse(null);
+        Score score = scoreRepository.findById(receiptCode).orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        GraduationCase graduationCase =
+                graduationCaseRepository.findById(receiptCode).orElse(null);
+        QualificationCase qualificationCase =
+                qualificationCaseRepository.findById(receiptCode).orElse(null);
         Integer[] graduationInfo = graduationInfo(graduationCase);
 
         return Evaluation.builder()
@@ -99,10 +103,14 @@ public class GetApplicantDetailsService {
 
     private Integer[] graduationInfo(GraduationCase graduationCase) {
         if (graduationCase != null) {
-            return new Integer[]{graduationCase.getDayAbsenceCount(), graduationCase.getLectureAbsenceCount(), graduationCase.getEarlyLeaveCount(), graduationCase.getLatenessCount()};
+            return new Integer[] {
+                graduationCase.getDayAbsenceCount(),
+                graduationCase.getLectureAbsenceCount(),
+                graduationCase.getEarlyLeaveCount(),
+                graduationCase.getLatenessCount()
+            };
         } else {
-            return new Integer[]{null, null, null, null};
+            return new Integer[] {null, null, null, null};
         }
     }
-
 }

@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class EducationalStatusUnmatchedException extends RollsException {
 
-	public static RollsException EXCEPTION =
-			new EducationalStatusUnmatchedException();
+    public static RollsException EXCEPTION = new EducationalStatusUnmatchedException();
 
-	private EducationalStatusUnmatchedException() {
-		super(ErrorCode.EDUCATIONAL_STATUS_UNMATCHED);
-	}
-
+    private EducationalStatusUnmatchedException() {
+        super(ErrorCode.EDUCATIONAL_STATUS_UNMATCHED);
+    }
 }

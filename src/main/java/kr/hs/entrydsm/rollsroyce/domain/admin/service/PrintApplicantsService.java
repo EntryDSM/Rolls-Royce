@@ -1,5 +1,13 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.InvalidFormatException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.PrintApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.PrintApplicantsResponse;
@@ -13,12 +21,6 @@ import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRe
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.GraduationCaseVo;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.ScoreVo;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -34,9 +36,7 @@ public class PrintApplicantsService {
     public PrintApplicantsResponse execute(PrintApplicantsRequest request) {
 
         List<Graduation> graduationList = graduationRepository.findByGraduatedAtAndStudentNumber(
-                request.getGraduatedAt(),
-                request.getStudentNumber()
-        );
+                request.getGraduatedAt(), request.getStudentNumber());
         List<School> schoolList = schoolRepository.findByName(request.getSchoolName());
 
         if (graduationList.isEmpty() || schoolList.isEmpty()) {
@@ -45,22 +45,18 @@ public class PrintApplicantsService {
 
         return PrintApplicantsResponse.builder()
                 .applicants((List<PrintApplicantsResponse.ApplicantDto>) getApplicants(request))
-                .graduations(
-                        graduationList.stream().map(
-                                graduation -> PrintApplicantsResponse.GraduationDto.builder()
-                                        .graduatedAt(graduation.getGraduatedAt())
-                                        .studentNumber(graduation.getStudentNumber())
-                                        .build()
-                        ).collect(Collectors.toList())
-                )
+                .graduations(graduationList.stream()
+                        .map(graduation -> PrintApplicantsResponse.GraduationDto.builder()
+                                .graduatedAt(graduation.getGraduatedAt())
+                                .studentNumber(graduation.getStudentNumber())
+                                .build())
+                        .collect(Collectors.toList()))
                 .graduationCases((List<PrintApplicantsResponse.GraduationCaseDto>) getGraduationCase(request))
-                .schools(
-                        schoolList.stream().map(
-                                school -> PrintApplicantsResponse.SchoolDto.builder()
-                                        .schoolName(school.getName())
-                                        .build()
-                        ).collect(Collectors.toList())
-                )
+                .schools(schoolList.stream()
+                        .map(school -> PrintApplicantsResponse.SchoolDto.builder()
+                                .schoolName(school.getName())
+                                .build())
+                        .collect(Collectors.toList()))
                 .scores((List<PrintApplicantsResponse.ScoreDto>) getScore(request))
                 .build();
     }
@@ -74,22 +70,24 @@ public class PrintApplicantsService {
         }
 
         return PrintApplicantsResponse.builder()
-                .applicants(
-                        newApplicantList.stream().map(
-                                newApplicant -> PrintApplicantsResponse.ApplicantDto.builder()
-                                        .receiptCode(newApplicant.getReceiptCode())
-                                        .educationalStatus(newApplicant.getEducationalStatus().toString())
-                                        .applicationType(newApplicant.getApplicationType().toString())
-                                        .name(newApplicant.getName())
-                                        .isDaejeon(newApplicant.getIsDaejeon())
-                                        .birthday(newApplicant.getBirthday().toString())
-                                        .telephoneNumber(newApplicant.getTelephoneNumber())
-                                        .applicationRemark(newApplicant.getApplicationRemark().toString())
-                                        .sex(newApplicant.getSex().toString())
-                                        .parentTel(newApplicant.getParentTel())
-                                        .build()
-                        ).collect(Collectors.toList())
-                ).build();
+                .applicants(newApplicantList.stream()
+                        .map(newApplicant -> PrintApplicantsResponse.ApplicantDto.builder()
+                                .receiptCode(newApplicant.getReceiptCode())
+                                .educationalStatus(
+                                        newApplicant.getEducationalStatus().toString())
+                                .applicationType(
+                                        newApplicant.getApplicationType().toString())
+                                .name(newApplicant.getName())
+                                .isDaejeon(newApplicant.getIsDaejeon())
+                                .birthday(newApplicant.getBirthday().toString())
+                                .telephoneNumber(newApplicant.getTelephoneNumber())
+                                .applicationRemark(
+                                        newApplicant.getApplicationRemark().toString())
+                                .sex(newApplicant.getSex().toString())
+                                .parentTel(newApplicant.getParentTel())
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
     }
 
     private PrintApplicantsResponse getGraduationCase(PrintApplicantsRequest request) {
@@ -101,23 +99,22 @@ public class PrintApplicantsService {
         }
 
         return PrintApplicantsResponse.builder()
-                .graduationCases(
-                        graduationCaseList.stream().map(
-                                graduationCase -> PrintApplicantsResponse.GraduationCaseDto.builder()
-                                        .koreanGrade(graduationCase.getKoreanGrade())
-                                        .socialGrade(graduationCase.getSocialGrade())
-                                        .historyGrade(graduationCase.getHistoryGrade())
-                                        .mathGrade(graduationCase.getMathGrade())
-                                        .scienceGrade(graduationCase.getScienceGrade())
-                                        .techAndHomeGrade(graduationCase.getTechAndHomeGrade())
-                                        .englishGrade(graduationCase.getEnglishGrade())
-                                        .volunteerTime(graduationCase.getVolunteerTime())
-                                        .latenessCount(graduationCase.getLatenessCount())
-                                        .dayAbsenceCount(graduationCase.getDayAbsenceCount())
-                                        .earlyLeaveCount(graduationCase.getEarlyLeaveCount())
-                                        .lectureAbsenceCount(graduationCase.getLectureAbsenceCount())
-                                        .build()
-                        ).collect(Collectors.toList()))
+                .graduationCases(graduationCaseList.stream()
+                        .map(graduationCase -> PrintApplicantsResponse.GraduationCaseDto.builder()
+                                .koreanGrade(graduationCase.getKoreanGrade())
+                                .socialGrade(graduationCase.getSocialGrade())
+                                .historyGrade(graduationCase.getHistoryGrade())
+                                .mathGrade(graduationCase.getMathGrade())
+                                .scienceGrade(graduationCase.getScienceGrade())
+                                .techAndHomeGrade(graduationCase.getTechAndHomeGrade())
+                                .englishGrade(graduationCase.getEnglishGrade())
+                                .volunteerTime(graduationCase.getVolunteerTime())
+                                .latenessCount(graduationCase.getLatenessCount())
+                                .dayAbsenceCount(graduationCase.getDayAbsenceCount())
+                                .earlyLeaveCount(graduationCase.getEarlyLeaveCount())
+                                .lectureAbsenceCount(graduationCase.getLectureAbsenceCount())
+                                .build())
+                        .collect(Collectors.toList()))
                 .build();
     }
 
@@ -130,19 +127,18 @@ public class PrintApplicantsService {
         }
 
         return PrintApplicantsResponse.builder()
-                .scores(
-                        scoreList.stream().map(
-                                score -> PrintApplicantsResponse.ScoreDto.builder()
-                                        .thirdGradeScore(score.getThirdGradeScore())
-                                        .thirdBeforeScore(score.getThirdBeforeScore())
-                                        .thirdBeforeBeforeScore(score.getThirdBeforeBeforeScore())
-                                        .totalGradeScore(score.getTotalGradeScore())
-                                        .volunteerScore(score.getVolunteerScore())
-                                        .attendanceScore(score.getAttendanceScore())
-                                        .totalScore(score.getTotalScore())
-                                        .build()
-                        ).collect(Collectors.toList())
-                ).build();
+                .scores(scoreList.stream()
+                        .map(score -> PrintApplicantsResponse.ScoreDto.builder()
+                                .thirdGradeScore(score.getThirdGradeScore())
+                                .thirdBeforeScore(score.getThirdBeforeScore())
+                                .thirdBeforeBeforeScore(score.getThirdBeforeBeforeScore())
+                                .totalGradeScore(score.getTotalGradeScore())
+                                .volunteerScore(score.getVolunteerScore())
+                                .attendanceScore(score.getAttendanceScore())
+                                .totalScore(score.getTotalScore())
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
     }
 
     private List<NewApplicantVo> getApplicantsList(PrintApplicantsRequest request) {
@@ -157,8 +153,7 @@ public class PrintApplicantsService {
                 request.getTelephoneNumber(),
                 request.getApplicationRemark(),
                 request.getSex(),
-                request.getParentTel()
-        );
+                request.getParentTel());
 
         return newApplicantList;
     }
@@ -177,8 +172,7 @@ public class PrintApplicantsService {
                 request.getLatenessCount(),
                 request.getDayAbsenceCount(),
                 request.getEarlyLeaveCount(),
-                request.getLectureAbsenceCount()
-        );
+                request.getLectureAbsenceCount());
 
         return graduationCaseList;
     }
@@ -191,8 +185,7 @@ public class PrintApplicantsService {
                 request.getTotalGradeScore(),
                 request.getVolunteerScore(),
                 request.getAttendanceScore(),
-                request.getTotalScore()
-        );
+                request.getTotalScore());
 
         return scoreList;
     }

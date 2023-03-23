@@ -1,12 +1,14 @@
 package kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Component;
+
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.exception.EntryInfoNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
@@ -27,7 +29,6 @@ public class EntryInfoFacade {
     }
 
     public EntryInfo getEntryInfoByCode(Long receiptCode) {
-        return entryInfoRepository.findById(receiptCode)
-                .orElseThrow(() -> EntryInfoNotFoundException.EXCEPTION);
+        return entryInfoRepository.findById(receiptCode).orElseThrow(() -> EntryInfoNotFoundException.EXCEPTION);
     }
 }

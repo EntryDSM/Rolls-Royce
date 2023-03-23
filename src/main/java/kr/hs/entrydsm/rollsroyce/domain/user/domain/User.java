@@ -1,7 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 
 @Getter
 @Builder

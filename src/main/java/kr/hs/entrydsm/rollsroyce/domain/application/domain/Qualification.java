@@ -1,15 +1,17 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+
+import javax.persistence.Entity;
+
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,8 +41,9 @@ public class Qualification extends Application {
 
     @Override
     public String getDate() {
-        return qualifiedAt == null ? null :
-                DateTimeFormatter.ofPattern("yyyyMM")
+        return qualifiedAt == null
+                ? null
+                : DateTimeFormatter.ofPattern("yyyyMM")
                         .withZone(ZoneId.of("Asia/Seoul"))
                         .format(qualifiedAt);
     }
@@ -54,5 +57,4 @@ public class Qualification extends Application {
     public String getSchoolName() {
         return null;
     }
-
 }
