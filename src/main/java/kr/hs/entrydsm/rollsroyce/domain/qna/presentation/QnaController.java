@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.qna.presentation;
 
 <<<<<<< main
+<<<<<<< main
 =======
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.request.CreateQnaRequest;
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.request.UpdateQnaRequest;
@@ -8,6 +9,8 @@ import kr.hs.entrydsm.rollsroyce.domain.qna.service.CreateQnaService;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.DeleteQnaService;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.UpdateQnaService;
 >>>>>>> ⚡️ :: 질문 삭제 API 구현
+=======
+>>>>>>> 🐛 :: conflicts 해결
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -25,6 +28,10 @@ import javax.validation.Valid;
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.request.CreateQnaRequest;
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.request.UpdateQnaRequest;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.CreateQnaService;
+<<<<<<< main
+=======
+import kr.hs.entrydsm.rollsroyce.domain.qna.service.DeleteQnaService;
+>>>>>>> 🐛 :: conflicts 해결
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.UpdateQnaService;
 
 @RequiredArgsConstructor

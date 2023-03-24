@@ -24,6 +24,7 @@ public class CreateQnaService {
 
 <<<<<<< main
 <<<<<<< main
+<<<<<<< main
         qnaRepository.save(Qna.builder()
 =======
         qnaRepository.save(createQna(request, user));
@@ -32,11 +33,15 @@ public class CreateQnaService {
     private Qna createQna(CreateQnaRequest request, User user) {
         return Qna.builder()
 >>>>>>> ♻️ :: Method 분리
+=======
+        qnaRepository.save(Qna.builder()
+>>>>>>> 🐛 :: conflicts 해결
                 .title(request.getTitle())
                 .content(request.getContent())
                 .isPublic(request.getIsPubic())
                 .isReplied(request.getIsReplied())
                 .user(user)
+<<<<<<< main
 <<<<<<< main
                 .build());
 =======
@@ -53,5 +58,8 @@ public class CreateQnaService {
 =======
                 .build();
 >>>>>>> ♻️ :: Method 분리
+=======
+                .build());
+>>>>>>> 🐛 :: conflicts 해결
     }
 }

@@ -25,10 +25,14 @@ public class UpdateQnaService {
         Qna qna = qnaFacade.getQnaById(qnaId);
 
 <<<<<<< main
+<<<<<<< main
         if (!user.equals(qna.getUser())) {
             throw NotModifyQnaException.EXCEPTION;
 =======
         if(!user.equals(qna.getUser())) {
+=======
+        if (!user.equals(qna.getUser())) {
+>>>>>>> 🐛 :: conflicts 해결
             throw NotQnaWriterException.EXCEPTION;
 >>>>>>> ♻️ :: Exception 이름 변경
         }
