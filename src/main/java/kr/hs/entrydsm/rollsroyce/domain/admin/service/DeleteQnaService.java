@@ -1,11 +1,13 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
 import kr.hs.entrydsm.rollsroyce.domain.qna.domain.repository.QnaRepository;
 import kr.hs.entrydsm.rollsroyce.domain.qna.facade.QnaFacade;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
