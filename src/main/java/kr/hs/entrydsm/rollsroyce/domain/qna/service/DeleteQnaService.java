@@ -23,7 +23,7 @@ public class DeleteQnaService {
         Qna qna = qnaFacade.getQnaById(qnaId);
 
         if (!user.equals(qna.getUser())) {
-            throw .EXCEPTION;
+            throw NotQnaWriterException.EXCEPTION;
         }
 
         qnaRepository.delete(qna);
