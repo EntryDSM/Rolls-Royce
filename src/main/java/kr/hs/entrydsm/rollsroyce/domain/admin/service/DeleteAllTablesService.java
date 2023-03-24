@@ -1,5 +1,11 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Admin;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.CheckPasswordLimitRepository;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotAccessibleException;
@@ -13,10 +19,6 @@ import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.QualificationCas
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @Service
@@ -44,8 +46,7 @@ public class DeleteAllTablesService {
             throw AdminNotAccessibleException.EXCEPTION;
         }
 
-        if (!scheduleFacade.getScheduleByType(Type.SECOND_ANNOUNCEMENT)
-                .isAfter(LocalDateTime.now())) {
+        if (!scheduleFacade.getScheduleByType(Type.SECOND_ANNOUNCEMENT).isAfter(LocalDateTime.now())) {
             throw ApplicationPeriodNotOverException.EXCEPTION;
         }
 
@@ -56,5 +57,4 @@ public class DeleteAllTablesService {
         statusRepository.deleteAll();
         userRepository.deleteAll();
     }
-
 }

@@ -10,5 +10,4 @@ public class RollsRoyceApplication {
     public static void main(String[] args) {
         SpringApplication.run(RollsRoyceApplication.class, args);
     }
-
 }

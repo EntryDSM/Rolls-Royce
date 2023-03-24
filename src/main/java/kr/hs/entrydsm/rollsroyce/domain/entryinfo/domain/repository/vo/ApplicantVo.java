@@ -1,9 +1,11 @@
 package kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo;
 
+import lombok.Getter;
+
 import com.querydsl.core.annotations.QueryProjection;
+
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
-import lombok.Getter;
 
 @Getter
 public class ApplicantVo {
@@ -35,5 +37,4 @@ public class ApplicantVo {
         this.isSubmitted = status.getIsSubmitted();
         this.isOutOfHeadcount = entryInfo.getIsOutOfHeadcount();
     }
-
 }

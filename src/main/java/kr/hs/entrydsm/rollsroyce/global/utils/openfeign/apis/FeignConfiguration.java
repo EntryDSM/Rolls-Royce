@@ -1,12 +1,13 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis;
 
-import feign.Logger;
-import feign.codec.ErrorDecoder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
+import feign.Logger;
+import feign.codec.ErrorDecoder;
 
 @EnableFeignClients(basePackages = "kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis")
 @Import(FeignClientErrorDecoder.class)
@@ -23,5 +24,4 @@ public class FeignConfiguration {
     public FeignClientErrorDecoder commonFeignErrorDecoder() {
         return new FeignClientErrorDecoder();
     }
-
 }

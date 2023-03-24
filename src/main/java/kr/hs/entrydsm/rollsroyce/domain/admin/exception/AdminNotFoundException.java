@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class AdminNotFoundException extends RollsException {
 
-	public static final RollsException EXCEPTION =
-			new AdminNotFoundException();
+    public static final RollsException EXCEPTION = new AdminNotFoundException();
 
-	private AdminNotFoundException() {
-		super(ErrorCode.ADMIN_NOT_FOUND);
-	}
-
+    private AdminNotFoundException() {
+        super(ErrorCode.ADMIN_NOT_FOUND);
+    }
 }

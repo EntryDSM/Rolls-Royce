@@ -1,7 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.domain;
 
-
-import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -29,5 +29,4 @@ public class Admin {
     @Column(length = 24, nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
-
 }

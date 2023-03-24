@@ -1,10 +1,11 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service.dto;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.Sex;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.Sex;
 
 @Getter
 @Builder
@@ -29,5 +30,4 @@ public class UpdateUserInformationDto {
     private final String detailAddress;
 
     private final Integer distance;
-
 }

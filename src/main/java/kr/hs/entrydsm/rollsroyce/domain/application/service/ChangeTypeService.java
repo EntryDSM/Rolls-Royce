@@ -1,17 +1,19 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.application.exception.InvalidGraduateAtException;
-import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
-import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+
+import kr.hs.entrydsm.rollsroyce.domain.application.exception.InvalidGraduateAtException;
+import kr.hs.entrydsm.rollsroyce.domain.application.facade.ApplicationFacade;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeTypeRequest;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 
 @RequiredArgsConstructor
 @Service
@@ -37,11 +39,8 @@ public class ChangeTypeService {
 
         EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
 
-        applicationFacade.updateInformation(
-                entryInfo, request.getGraduatedAt(), request.getEducationalStatus()
-        );
+        applicationFacade.updateInformation(entryInfo, request.getGraduatedAt(), request.getEducationalStatus());
 
         entryInfo.updateUserApplication(request);
     }
-
 }

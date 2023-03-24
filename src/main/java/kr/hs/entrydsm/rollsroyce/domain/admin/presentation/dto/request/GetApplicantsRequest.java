@@ -1,46 +1,48 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request;
 
-import kr.hs.entrydsm.rollsroyce.domain.admin.exception.InvalidKeywordException;
 import lombok.Getter;
+
 import org.springframework.lang.Nullable;
+
+import kr.hs.entrydsm.rollsroyce.domain.admin.exception.InvalidKeywordException;
 
 @Getter
 public class GetApplicantsRequest {
 
-    @Nullable
-    private final String receiptCode;
+    @Nullable private final String receiptCode;
 
-    @Nullable
-    private final String name;
+    @Nullable private final String name;
 
-    @Nullable
-    private final String schoolName;
+    @Nullable private final String schoolName;
 
-    @Nullable
-    private final boolean isDaejeon;
+    @Nullable private final boolean isDaejeon;
 
-    @Nullable
-    private final boolean isNationwide;
+    @Nullable private final boolean isNationwide;
 
-    @Nullable
-    private final boolean isCommon;
+    @Nullable private final boolean isCommon;
 
-    @Nullable
-    private final boolean isMeister;
+    @Nullable private final boolean isMeister;
 
-    @Nullable
-    private final boolean isSocial;
+    @Nullable private final boolean isSocial;
 
-    @Nullable
-    private final boolean isOutOfHeadcount;
+    @Nullable private final boolean isOutOfHeadcount;
 
-    @Nullable
-    private final boolean isSubmitted;
+    @Nullable private final boolean isSubmitted;
 
-    @Nullable
-    private final boolean isNotSubmitted;
+    @Nullable private final boolean isNotSubmitted;
 
-    public GetApplicantsRequest(String receiptCode, String name, String schoolName, boolean isDaejeon, boolean isNationwide, boolean isCommon, boolean isMeister, boolean isSocial, boolean isOutOfHeadcount, boolean isSubmitted, boolean isNotSubmitted) {
+    public GetApplicantsRequest(
+            String receiptCode,
+            String name,
+            String schoolName,
+            boolean isDaejeon,
+            boolean isNationwide,
+            boolean isCommon,
+            boolean isMeister,
+            boolean isSocial,
+            boolean isOutOfHeadcount,
+            boolean isSubmitted,
+            boolean isNotSubmitted) {
         try {
             String r = receiptCode != null ? receiptCode.replaceAll(" ", "") : "";
             this.receiptCode = ((r.equals("")) ? r : Long.parseLong(receiptCode)) + "%";
@@ -66,5 +68,4 @@ public class GetApplicantsRequest {
         this.isSubmitted = isSubmitted;
         this.isNotSubmitted = isNotSubmitted;
     }
-
 }

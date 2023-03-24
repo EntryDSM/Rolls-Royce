@@ -1,5 +1,9 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.pdf;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Component;
+
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,15 +11,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.exception.ApplicationNotFoundException;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
@@ -44,7 +47,8 @@ public class PdfDataConverter {
             setRecommendations(entryInfo, values);
         }
 
-        if (entryInfo.getPhotoFileName() != null && !entryInfo.getPhotoFileName().isBlank()) {
+        if (entryInfo.getPhotoFileName() != null
+                && !entryInfo.getPhotoFileName().isBlank()) {
             setBase64Image(entryInfo, values);
         }
 
@@ -87,7 +91,8 @@ public class PdfDataConverter {
 
     private void setSchoolInfo(EntryInfo entryInfo, Map<String, Object> values) {
         if (!entryInfo.isEducationalStatusEmpty() && !entryInfo.isQualification()) {
-            Graduation application = graduationRepository.findById(entryInfo.getReceiptCode())
+            Graduation application = graduationRepository
+                    .findById(entryInfo.getReceiptCode())
                     .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
             values.put("schoolCode", setBlankIfNull(application.getSchoolCode()));
             values.put("schoolClass", setBlankIfNull(application.getSchoolClass()));
@@ -108,27 +113,44 @@ public class PdfDataConverter {
 
         switch (entryInfo.getEducationalStatus().name()) {
             case EducationalStatus.QUALIFICATION_EXAM:
-                qualificationRepository.findById(entryInfo.getReceiptCode())
+                qualificationRepository
+                        .findById(entryInfo.getReceiptCode())
                         .filter(qualificationExam -> qualificationExam.getQualifiedAt() != null)
                         .ifPresent(qualificationExam -> {
-                            values.put("qualificationExamPassedYear", String.valueOf(qualificationExam.getQualifiedAt().getYear()));
-                            values.put("qualificationExamPassedMonth", String.valueOf(qualificationExam.getQualifiedAt().getMonthValue()));
+                            values.put(
+                                    "qualificationExamPassedYear",
+                                    String.valueOf(
+                                            qualificationExam.getQualifiedAt().getYear()));
+                            values.put(
+                                    "qualificationExamPassedMonth",
+                                    String.valueOf(
+                                            qualificationExam.getQualifiedAt().getMonthValue()));
                         });
                 break;
             case EducationalStatus.GRADUATE:
-                graduationRepository.findById(entryInfo.getReceiptCode())
+                graduationRepository
+                        .findById(entryInfo.getReceiptCode())
                         .filter(graduation -> graduation.getGraduatedAt() != null)
                         .ifPresent(graduation -> {
-                            values.put("graduateYear", String.valueOf(graduation.getGraduatedAt().getYear()));
-                            values.put("graduateMonth", String.valueOf(graduation.getGraduatedAt().getMonthValue()));
+                            values.put(
+                                    "graduateYear",
+                                    String.valueOf(graduation.getGraduatedAt().getYear()));
+                            values.put(
+                                    "graduateMonth",
+                                    String.valueOf(graduation.getGraduatedAt().getMonthValue()));
                         });
                 break;
             case EducationalStatus.PROSPECTIVE_GRADUATE:
-                graduationRepository.findById(entryInfo.getReceiptCode())
+                graduationRepository
+                        .findById(entryInfo.getReceiptCode())
                         .filter(graduation -> graduation.getGraduatedAt() != null)
                         .ifPresent(graduation -> {
-                            values.put("prospectiveGraduateYear", String.valueOf(graduation.getGraduatedAt().getYear()));
-                            values.put("prospectiveGraduateMonth", String.valueOf(graduation.getGraduatedAt().getMonthValue()));
+                            values.put(
+                                    "prospectiveGraduateYear",
+                                    String.valueOf(graduation.getGraduatedAt().getYear()));
+                            values.put(
+                                    "prospectiveGraduateMonth",
+                                    String.valueOf(graduation.getGraduatedAt().getMonthValue()));
                         });
                 break;
             default:
@@ -157,9 +179,21 @@ public class PdfDataConverter {
     }
 
     private void setGradeScore(EntryInfo entryInfo, Score score, Map<String, Object> values) {
-        values.put("conversionScore1st", entryInfo.isQualificationExam() ? "" : score.getThirdBeforeBeforeScore().toString());
-        values.put("conversionScore2nd", entryInfo.isQualificationExam() ? "" : score.getThirdBeforeScore().toString());
-        values.put("conversionScore3rd", entryInfo.isQualificationExam() ? "" : score.getThirdGradeScore().toString());
+        values.put(
+                "conversionScore1st",
+                entryInfo.isQualificationExam()
+                        ? ""
+                        : score.getThirdBeforeBeforeScore().toString());
+        values.put(
+                "conversionScore2nd",
+                entryInfo.isQualificationExam()
+                        ? ""
+                        : score.getThirdBeforeScore().toString());
+        values.put(
+                "conversionScore3rd",
+                entryInfo.isQualificationExam()
+                        ? ""
+                        : score.getThirdGradeScore().toString());
         values.put("conversionScore", score.getTotalGradeScore().toString());
         values.put("attendanceScore", String.valueOf(score.getAttendanceScore()));
         values.put("volunteerScore", score.getVolunteerScore().toString());
@@ -185,9 +219,14 @@ public class PdfDataConverter {
 
     private void setRecommendations(EntryInfo entryInfo, Map<String, Object> values) {
         values.put("isDaejeonAndMeister", markIfTrue(entryInfo.getIsDaejeon() && entryInfo.isMeisterApplicationType()));
-        values.put("isDaejeonAndSocialMerit", markIfTrue(entryInfo.getIsDaejeon() && entryInfo.isSocialApplicationType()));
-        values.put("isNotDaejeonAndMeister", markIfTrue(!entryInfo.getIsDaejeon() && entryInfo.isMeisterApplicationType()));
-        values.put("isNotDaejeonAndSocialMerit", markIfTrue(!entryInfo.getIsDaejeon() && entryInfo.isSocialApplicationType()));
+        values.put(
+                "isDaejeonAndSocialMerit", markIfTrue(entryInfo.getIsDaejeon() && entryInfo.isSocialApplicationType()));
+        values.put(
+                "isNotDaejeonAndMeister",
+                markIfTrue(!entryInfo.getIsDaejeon() && entryInfo.isMeisterApplicationType()));
+        values.put(
+                "isNotDaejeonAndSocialMerit",
+                markIfTrue(!entryInfo.getIsDaejeon() && entryInfo.isSocialApplicationType()));
     }
 
     private void setBase64Image(EntryInfo entryInfo, Map<String, Object> values) {
@@ -205,8 +244,7 @@ public class PdfDataConverter {
                 "schoolCode", "",
                 "schoolClass", "",
                 "schoolTel", "",
-                "schoolName", ""
-        );
+                "schoolName", "");
     }
 
     private Map<String, Object> emptyGraduationClassification() {
@@ -215,8 +253,7 @@ public class PdfDataConverter {
                 "qualificationExamPassedMonth", "__",
                 "graduateYear", "20__",
                 "graduateMonth", "__",
-                "prospectiveGraduateMonth", "__"
-        );
+                "prospectiveGraduateMonth", "__");
     }
 
     private String toFormattedPhoneNumber(String phoneNumber) {
@@ -238,5 +275,4 @@ public class PdfDataConverter {
     private String toBallotBox(boolean is) {
         return is ? "☑" : "☐";
     }
-
 }

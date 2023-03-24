@@ -1,15 +1,17 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.ses;
 
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.stereotype.Component;
+
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceAsync;
 import com.amazonaws.services.simpleemail.model.Destination;
 import com.amazonaws.services.simpleemail.model.MessageRejectedException;
 import com.amazonaws.services.simpleemail.model.SendTemplatedEmailRequest;
 import com.amazonaws.services.simpleemail.model.SendTemplatedEmailResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -37,7 +39,6 @@ public class SESUtil {
         } catch (MessageRejectedException e) {
             throw kr.hs.entrydsm.rollsroyce.global.exception.MessageRejectedException.EXCEPTION;
         }
-
     }
 
     @SneakyThrows
@@ -46,6 +47,4 @@ public class SESUtil {
         data = data.replaceAll("\"", "\\\"");
         return data;
     }
-
 }
-

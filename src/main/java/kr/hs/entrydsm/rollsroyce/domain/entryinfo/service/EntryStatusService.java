@@ -1,12 +1,14 @@
 package kr.hs.entrydsm.rollsroyce.domain.entryinfo.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.presentation.dto.response.StatusResponse;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.presentation.dto.response.StatusResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -31,5 +33,4 @@ public class EntryStatusService {
                 .educationalStatus(entryInfo.getEducationalStatus())
                 .build();
     }
-
 }

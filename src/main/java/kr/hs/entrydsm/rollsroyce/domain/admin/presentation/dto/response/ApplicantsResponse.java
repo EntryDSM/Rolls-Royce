@@ -30,5 +30,4 @@ public class ApplicantsResponse {
         private final Boolean isSubmitted;
         private final Boolean isOutOfHeadcount;
     }
-
 }
