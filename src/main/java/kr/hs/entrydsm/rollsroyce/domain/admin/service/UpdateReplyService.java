@@ -14,7 +14,7 @@ public class UpdateReplyService {
     private final ReplyRepository replyRepository;
 
     @Transactional
-    public void execute(UpdateReplyRequest request, Long replyId) {
+    public void execute(Long replyId, UpdateReplyRequest request) {
         Reply reply = replyRepository.getById(replyId);
 
         reply.updateReply(
