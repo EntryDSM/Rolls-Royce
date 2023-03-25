@@ -22,44 +22,16 @@ public class CreateQnaService {
     public void execute(CreateQnaRequest request) {
         User user = userFacade.getCurrentUser();
 
-<<<<<<< main
-<<<<<<< main
-<<<<<<< main
-        qnaRepository.save(Qna.builder()
-=======
         qnaRepository.save(createQna(request, user));
     }
 
     private Qna createQna(CreateQnaRequest request, User user) {
         return Qna.builder()
->>>>>>> ♻️ :: Method 분리
-=======
-        qnaRepository.save(Qna.builder()
->>>>>>> 🐛 :: conflicts 해결
                 .title(request.getTitle())
                 .content(request.getContent())
                 .isPublic(request.getIsPubic())
                 .isReplied(request.getIsReplied())
                 .user(user)
-<<<<<<< main
-<<<<<<< main
-                .build());
-=======
-        qnaRepository.save(
-                Qna.builder()
-                        .title(request.getTitle())
-                        .content(request.getContent())
-                        .isPublic(request.getIsPubic())
-                        .isReplied(request.getIsReplied())
-                        .user(user)
-                        .build()
-        );
->>>>>>> ♻️ :: 코드 정렬
-=======
                 .build();
->>>>>>> ♻️ :: Method 분리
-=======
-                .build());
->>>>>>> 🐛 :: conflicts 해결
     }
 }
