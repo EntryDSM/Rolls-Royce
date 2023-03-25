@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
 import kr.hs.entrydsm.rollsroyce.domain.qna.domain.repository.QnaRepository;
-import kr.hs.entrydsm.rollsroyce.domain.qna.exception.NotQnaWriterException;
+import kr.hs.entrydsm.rollsroyce.domain.qna.exception.WriterMisMatchedException;
 import kr.hs.entrydsm.rollsroyce.domain.qna.facade.QnaFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
@@ -25,7 +25,7 @@ public class DeleteQnaService {
         Qna qna = qnaFacade.getQnaById(qnaId);
 
         if (!user.equals(qna.getUser())) {
-            throw NotQnaWriterException.EXCEPTION;
+            throw WriterMisMatchedException.EXCEPTION;
         }
 
         qnaRepository.delete(qna);
