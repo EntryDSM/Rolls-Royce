@@ -11,7 +11,7 @@ import kr.hs.entrydsm.rollsroyce.domain.qna.facade.QnaFacade;
 
 @RequiredArgsConstructor
 @Service
-public class DeleteQnaService {
+public class DeleteQnaAdminService {
     private final QnaFacade qnaFacade;
     private final QnaRepository qnaRepository;
 
