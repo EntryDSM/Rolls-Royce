@@ -19,7 +19,7 @@ public class CreateQnaRequest {
     @Size(max = 5000, message = "content는 최대 5000자까지 가능합니다.")
     private String content;
 
-    @NotNull private Boolean isPubic;
+    @NotNull private Boolean isPublic;
 
     @NotNull private Boolean isReplied;
 }
