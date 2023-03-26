@@ -28,6 +28,6 @@ public class UpdateQnaService {
             throw NotModifyQnaException.EXCEPTION;
         }
 
-        qna.updateFeed(request.getTitle(), request.getContent(), request.getIsPubic());
+        qna.updateFeed(request.getTitle(), request.getContent(), request.getIsPublic());
     }
 }

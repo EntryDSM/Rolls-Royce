@@ -25,7 +25,7 @@ public class CreateQnaService {
         qnaRepository.save(Qna.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
-                .isPublic(request.getIsPubic())
+                .isPublic(request.getIsPublic())
                 .isReplied(request.getIsReplied())
                 .user(user)
                 .build());
