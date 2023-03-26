@@ -20,6 +20,4 @@ public class CreateQnaRequest {
     private String content;
 
     @NotNull private Boolean isPublic;
-
-    @NotNull private Boolean isReplied;
 }
