@@ -27,6 +27,6 @@ public class UpdateQnaService {
             throw WriterMisMatchedException.EXCEPTION;
         }
 
-        qna.updateFeed(request.getTitle(), request.getContent(), request.getIsPubic());
+        qna.updateFeed(request.getTitle(), request.getContent(), request.getIsPublic());
     }
 }
