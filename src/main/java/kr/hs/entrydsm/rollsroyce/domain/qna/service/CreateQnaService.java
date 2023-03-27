@@ -30,7 +30,6 @@ public class CreateQnaService {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .isPublic(request.getIsPublic())
-                .isReplied(request.getIsReplied())
                 .user(user)
                 .build();
     }
