@@ -15,12 +15,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
-import kr.hs.entrydsm.rollsroyce.global.entity.BaseTimeEntity;
+import kr.hs.entrydsm.rollsroyce.global.entity.QnaTimeEntity;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "tbl_qna")
-public class Qna extends BaseTimeEntity {
+public class Qna extends QnaTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

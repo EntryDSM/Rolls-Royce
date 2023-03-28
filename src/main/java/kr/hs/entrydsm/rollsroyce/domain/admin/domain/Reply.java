@@ -16,12 +16,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
-import kr.hs.entrydsm.rollsroyce.global.entity.BaseTimeEntity;
+import kr.hs.entrydsm.rollsroyce.global.entity.QnaTimeEntity;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "tbl_reply")
-public class Reply extends BaseTimeEntity {
+public class Reply extends QnaTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -14,8 +14,7 @@ import javax.persistence.MappedSuperclass;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseTimeEntity {
-
+public abstract class QnaTimeEntity {
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime createdAt;
