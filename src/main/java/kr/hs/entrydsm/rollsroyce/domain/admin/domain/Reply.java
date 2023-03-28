@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -44,5 +45,10 @@ public class Reply {
         this.content = content;
         this.admin = admin;
         this.qna = qna;
+    }
+
+    public void updateReply(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 }

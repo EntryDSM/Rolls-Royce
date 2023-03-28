@@ -12,12 +12,9 @@ import javax.validation.constraints.NotNull;
 public class ChangeApplicationCountRequest {
 
     @NotBlank
-	private String applicationType;
+    private String applicationType;
 
-    @NotNull
-	private Boolean isDaejeon;
+    @NotNull private Boolean isDaejeon;
 
-    @NotNull
-	private Integer count;
-
+    @NotNull private Integer count;
 }

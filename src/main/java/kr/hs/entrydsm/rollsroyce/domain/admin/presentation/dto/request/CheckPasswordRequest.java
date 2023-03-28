@@ -12,5 +12,4 @@ public class CheckPasswordRequest {
 
     @NotBlank
     private String password;
-
 }

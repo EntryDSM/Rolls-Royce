@@ -1,17 +1,7 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.presentation;
 
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeStudyPlanRequest;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryIntroduceResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QuerySchoolResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryStudyPlanResponse;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeIntroduceService;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeStudyPlanService;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.FinalSubmitService;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryIntroduceService;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.QuerySchoolService;
-import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryStudyPlanService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeIntroduceRequest;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.ChangeStudyPlanRequest;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryIntroduceResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QuerySchoolResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryStudyPlanResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeIntroduceService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeStudyPlanService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.FinalSubmitService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryIntroduceService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.QuerySchoolService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryStudyPlanService;
+
 @RequiredArgsConstructor
 @RequestMapping("/application")
 @RestController("application.presentation.ApplicationController")
 public class ApplicationController {
-  
+
     private final ChangeIntroduceService changeIntroduceService;
     private final QueryIntroduceService queryIntroduceService;
     private final FinalSubmitService finalSubmitService;
@@ -49,8 +51,7 @@ public class ApplicationController {
     }
 
     @GetMapping("/schools")
-    public QuerySchoolResponse querySchool(@RequestParam("name") String name,
-                                           Pageable pageable) {
+    public QuerySchoolResponse querySchool(@RequestParam("name") String name, Pageable pageable) {
         return querySchoolService.execute(name, pageable);
     }
 

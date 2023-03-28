@@ -2,6 +2,7 @@ package kr.hs.entrydsm.rollsroyce.global.security.logging;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
@@ -16,5 +17,4 @@ public class LogProperties {
     private String path;
 
     private int size;
-
 }

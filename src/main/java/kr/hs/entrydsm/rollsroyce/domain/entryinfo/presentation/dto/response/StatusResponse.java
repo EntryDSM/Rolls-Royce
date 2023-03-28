@@ -1,9 +1,10 @@
 package kr.hs.entrydsm.rollsroyce.domain.entryinfo.presentation.dto.response;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 import lombok.Builder;
 import lombok.Getter;
+
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 
 @Getter
 @Builder
@@ -24,5 +25,4 @@ public class StatusResponse {
     private final String studyPlan;
 
     private final EducationalStatus educationalStatus;
-
 }

@@ -1,10 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo;
 
+import lombok.Getter;
+
 import com.querydsl.core.annotations.QueryProjection;
+
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
-import lombok.Getter;
 
 @Getter
 public class AdmissionTicketVo {

@@ -5,11 +5,9 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class UserAlreadyExistsException extends RollsException {
 
-    public static final RollsException EXCEPTION =
-            new UserAlreadyExistsException();
+    public static final RollsException EXCEPTION = new UserAlreadyExistsException();
 
     private UserAlreadyExistsException() {
         super(ErrorCode.USER_ALREADY_EXISTS);
     }
-
 }

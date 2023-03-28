@@ -1,14 +1,14 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.pdf;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Component;
+
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.PdfMerger;
 import com.itextpdf.layout.Document;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 
 @RequiredArgsConstructor
 @Component
@@ -74,13 +77,11 @@ public class ApplicationPdfGenerator {
                 TemplateFileName.APPLICATION_FOR_ADMISSION,
                 TemplateFileName.INTRODUCTION,
                 TemplateFileName.NON_SMOKING,
-                TemplateFileName.SMOKING_EXAMINE
-        ));
+                TemplateFileName.SMOKING_EXAMINE));
 
         if (!entryInfo.isQualificationExam() && !entryInfo.isCommonApplicationType())
             result.add(2, TemplateFileName.RECOMMENDATION);
 
         return result;
     }
-
 }

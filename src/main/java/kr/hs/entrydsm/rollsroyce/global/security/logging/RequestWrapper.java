@@ -1,13 +1,10 @@
 package kr.hs.entrydsm.rollsroyce.global.security.logging;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.poi.util.IOUtils;
 
-import javax.servlet.ReadListener;
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -15,6 +12,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+
+import javax.servlet.ReadListener;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 public class RequestWrapper extends HttpServletRequestWrapper {
 
@@ -45,9 +47,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
             }
 
             @Override
-            public void setReadListener(ReadListener readListener) {
-
-            }
+            public void setReadListener(ReadListener readListener) {}
 
             @Override
             public int read() throws IOException {
@@ -66,13 +66,11 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            if (body.isEmpty() || body.isBlank())
-                return "{}";
+            if (body.isEmpty() || body.isBlank()) return "{}";
 
             Map bodyMap = objectMapper.readValue(body, Map.class);
 
-            if (bodyMap == null)
-                return "{}";
+            if (bodyMap == null) return "{}";
 
             if (bodyMap.get("password") != null) {
                 bodyMap.put("password", "SECURED");
@@ -92,10 +90,11 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 
     public String getParamsString() {
         StringBuilder params = new StringBuilder();
-        getParameterMap().forEach((key, value) -> params.append(key).append("=").append(value[0]).append("&"));
+        getParameterMap()
+                .forEach((key, value) ->
+                        params.append(key).append("=").append(value[0]).append("&"));
         if (params.length() == 0) return "";
         params.deleteCharAt(params.lastIndexOf("&"));
         return params.insert(0, "?").toString();
     }
-
 }

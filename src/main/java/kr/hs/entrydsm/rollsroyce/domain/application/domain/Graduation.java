@@ -1,20 +1,22 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
+import kr.hs.entrydsm.rollsroyce.domain.school.domain.School;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -48,8 +50,8 @@ public class Graduation extends Application {
     }
 
     @Builder
-    public Graduation(boolean isGraduated, String studentNumber, School school,
-                      String schoolTel, LocalDate graduatedAt) {
+    public Graduation(
+            boolean isGraduated, String studentNumber, School school, String schoolTel, LocalDate graduatedAt) {
         this.isGraduated = isGraduated;
         this.studentNumber = studentNumber;
         this.schoolTel = schoolTel;
@@ -70,16 +72,16 @@ public class Graduation extends Application {
 
     @Override
     public String getDate() {
-        return graduatedAt == null ? null :
-                DateTimeFormatter.ofPattern("yyyyMM")
+        return graduatedAt == null
+                ? null
+                : DateTimeFormatter.ofPattern("yyyyMM")
                         .withZone(ZoneId.of("Asia/Seoul"))
                         .format(graduatedAt);
     }
 
     @Override
     public boolean hasEmptyInfo() {
-        return !(isExists(studentNumber) && isGraduated != null &&
-                school != null && graduatedAt != null);
+        return !(isExists(studentNumber) && isGraduated != null && school != null && graduatedAt != null);
     }
 
     @Override
@@ -102,5 +104,4 @@ public class Graduation extends Application {
         }
         return schoolClass;
     }
-
 }

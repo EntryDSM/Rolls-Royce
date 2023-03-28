@@ -1,7 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.response;
 
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 import lombok.Getter;
+
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 
 @Getter
 public class QueryGraduationResponse {
@@ -35,5 +36,4 @@ public class QueryGraduationResponse {
         this.englishGrade = graduationCase.getEnglishGrade();
         this.techAndHomeGrade = graduationCase.getTechAndHomeGrade();
     }
-
 }

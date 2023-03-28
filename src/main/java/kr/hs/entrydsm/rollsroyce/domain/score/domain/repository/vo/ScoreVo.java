@@ -1,10 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo;
 
-import com.querydsl.core.annotations.QueryProjection;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 import lombok.Getter;
 
+import com.querydsl.core.annotations.QueryProjection;
+
 import java.math.BigDecimal;
+
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
 
 @Getter
 public class ScoreVo {

@@ -1,25 +1,38 @@
 package kr.hs.entrydsm.rollsroyce.domain.score.domain.repository;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.GraduationCaseVo;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.QGraduationCaseVo;
+import static kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.QEntryInfo.entryInfo;
+import static kr.hs.entrydsm.rollsroyce.domain.score.domain.QGraduationCase.graduationCase;
+import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
+
 import lombok.RequiredArgsConstructor;
+
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import java.util.List;
 
-import static kr.hs.entrydsm.rollsroyce.domain.score.domain.QGraduationCase.graduationCase;
-import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
-import static kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.QEntryInfo.entryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.GraduationCaseVo;
+import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.vo.QGraduationCaseVo;
 
 @RequiredArgsConstructor
 public class GraduationCaseCustomRepositoryImpl implements GraduationCaseCustomRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<GraduationCaseVo> findAllByGraduationCase(String koreanGrade, String socialGrade, String historyGrade, String mathGrade, String scienceGrade,
-                                                          String techAndHomeGrade, String englishGrade, Integer volunteerTime, Integer latenessCount,
-                                                          Integer dayAbsenceCount, Integer earlyLeaveCount, Integer lectureAbsenceCount) {
-        return jpaQueryFactory.select(new QGraduationCaseVo(graduationCase))
+    public List<GraduationCaseVo> findAllByGraduationCase(
+            String koreanGrade,
+            String socialGrade,
+            String historyGrade,
+            String mathGrade,
+            String scienceGrade,
+            String techAndHomeGrade,
+            String englishGrade,
+            Integer volunteerTime,
+            Integer latenessCount,
+            Integer dayAbsenceCount,
+            Integer earlyLeaveCount,
+            Integer lectureAbsenceCount) {
+        return jpaQueryFactory
+                .select(new QGraduationCaseVo(graduationCase))
                 .from(graduationCase)
                 .join(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
@@ -35,7 +48,7 @@ public class GraduationCaseCustomRepositoryImpl implements GraduationCaseCustomR
                         graduationCase.latenessCount.eq(latenessCount),
                         graduationCase.dayAbsenceCount.eq(dayAbsenceCount),
                         graduationCase.earlyLeaveCount.eq(earlyLeaveCount),
-                        graduationCase.lectureAbsenceCount.eq(lectureAbsenceCount)
-                ).fetch();
+                        graduationCase.lectureAbsenceCount.eq(lectureAbsenceCount))
+                .fetch();
     }
 }

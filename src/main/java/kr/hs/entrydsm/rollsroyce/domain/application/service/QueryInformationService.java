@@ -1,11 +1,13 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.service;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -37,5 +39,4 @@ public class QueryInformationService {
                 .birthday(String.valueOf(entryInfo.getBirthday()))
                 .build();
     }
-
 }

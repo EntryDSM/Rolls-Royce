@@ -1,11 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.domain.schedule.domain;
 
-import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
+
+import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 
 @Getter
 @Builder
@@ -46,5 +48,4 @@ public class Schedule {
     public boolean isAfter(LocalDateTime localDateTime) {
         return this.date.isAfter(localDateTime);
     }
-
 }
