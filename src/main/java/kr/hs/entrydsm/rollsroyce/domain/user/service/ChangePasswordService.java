@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.presentation.dto.request.PasswordRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,8 @@ public class ChangePasswordService {
 
     @Transactional
     public void execute(PasswordRequest request) {
+        User user = userRepository.findByTelephoneNumberAndName(request.getTelephoneNumber(), request.getName());
 
+        user.updatePassword(passwordEncoder.encode(request.getNewPassword()));
     }
 }
