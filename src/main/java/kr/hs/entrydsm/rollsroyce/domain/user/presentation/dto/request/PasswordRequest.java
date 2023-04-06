@@ -11,9 +11,6 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PasswordRequest {
 
-    @NotBlank(message = "name은 Null 또는 공백 또는 띄어쓰기를 허용하지 않습니다.")
-    private String name;
-
     @NotBlank(message = "telephone_number는 Null 또는 공백 또는 띄어쓰기를 허용하지 않습니다.")
     private String telephoneNumber;
 

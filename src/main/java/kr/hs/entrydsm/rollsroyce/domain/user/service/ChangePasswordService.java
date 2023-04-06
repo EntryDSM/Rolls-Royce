@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +20,8 @@ public class ChangePasswordService {
 
     @Transactional
     public void execute(PasswordRequest request) {
-        User user = userRepository.findByTelephoneNumberAndName(request.getTelephoneNumber(), request.getName());
+        User user = userRepository.findByTelephoneNumber(request.getTelephoneNumber())
+                        .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         user.updatePassword(passwordEncoder.encode(request.getNewPassword()));
     }
