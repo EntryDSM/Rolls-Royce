@@ -23,7 +23,7 @@ public class UpdateQnaService {
         User user = userFacade.getCurrentUser();
         Qna qna = qnaFacade.getQnaById(qnaId);
 
-        if (!user.equals(qna.getUser())) {
+        if (!user.getId().equals(qna.getUser().getId())) {
             throw WriterMisMatchedException.EXCEPTION;
         }
 
