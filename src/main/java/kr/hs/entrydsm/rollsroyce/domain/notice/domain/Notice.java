@@ -1,6 +1,7 @@
-package kr.hs.entrydsm.rollsroyce.domain.post.domain;
+package kr.hs.entrydsm.rollsroyce.domain.notice.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,12 +16,12 @@ import javax.persistence.ManyToOne;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Admin;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
-import kr.hs.entrydsm.rollsroyce.domain.post.domain.type.PostType;
+import kr.hs.entrydsm.rollsroyce.domain.notice.domain.type.NoticeType;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Post extends BaseTimeEntity {
+public class Notice extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,7 +33,7 @@ public class Post extends BaseTimeEntity {
     private String content;
 
     @Column(columnDefinition = "enum(9)", nullable = false)
-    private PostType type;
+    private NoticeType type;
 
     @Column(columnDefinition = "BIT(1) default 0")
     private Boolean isPinned;
@@ -43,4 +44,13 @@ public class Post extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin;
+
+    @Builder
+    public Notice(String title, String content, NoticeType type, Boolean isPinned, Admin admin) {
+        this.title = title;
+        this.content = content;
+        this.type = type;
+        this.isPinned = isPinned;
+        this.admin = admin;
+    }
 }
