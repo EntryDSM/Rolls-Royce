@@ -15,13 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
 import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
-import kr.hs.entrydsm.rollsroyce.global.entity.QnaTimeEntity;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "tbl_reply")
-public class Reply extends QnaTimeEntity {
+public class Reply extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.rollsroyce.domain.qna.domain;
+package kr.hs.entrydsm.rollsroyce.domain.notice.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,13 +14,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Admin;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
-import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.notice.domain.type.NoticeType;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "tbl_qna")
-public class Qna extends BaseTimeEntity {
+@Entity
+public class Notice extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,31 +29,28 @@ public class Qna extends BaseTimeEntity {
     @Column(columnDefinition = "varchar(100)", nullable = false)
     private String title;
 
-    @Column(columnDefinition = "varchar(5000)", nullable = false)
+    @Column(columnDefinition = "varchar(100)", nullable = false)
     private String content;
 
-    @Column(columnDefinition = "BIT(1) default 0")
-    private Boolean isPublic;
+    @Column(columnDefinition = "enum(9)", nullable = false)
+    private NoticeType type;
 
     @Column(columnDefinition = "BIT(1) default 0")
-    private Boolean isReplied;
+    private Boolean isPinned;
+
+    @Column(columnDefinition = "varchar(255)")
+    private String image;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "admin_id", nullable = false)
+    private Admin admin;
 
     @Builder
-    public Qna(String title, String content, Boolean isPublic, Boolean isReplied, User user) {
+    public Notice(String title, String content, NoticeType type, Boolean isPinned, Admin admin) {
         this.title = title;
         this.content = content;
-        this.isPublic = isPublic;
-        this.isReplied = isReplied;
-        this.user = user;
-    }
-
-    public void updateFeed(String title, String content, Boolean isPublic) {
-        this.title = title;
-        this.content = content;
-        this.isPublic = isPublic;
+        this.type = type;
+        this.isPinned = isPinned;
+        this.admin = admin;
     }
 }
