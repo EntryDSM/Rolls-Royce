@@ -27,7 +27,7 @@ public class QueryQnaService {
         List<Qna> qnaList = qnaRepository.findAllByOrderByIdDesc();
 
         return QueryQnaResponse.builder()
-                .qnaDtoList(qnaList.stream()
+                .qnaList(qnaList.stream()
                         .map(qnaLists -> QueryQnaResponse.QnaDto.builder()
                                 .title(qnaLists.getTitle())
                                 .username(qnaLists.getContent())

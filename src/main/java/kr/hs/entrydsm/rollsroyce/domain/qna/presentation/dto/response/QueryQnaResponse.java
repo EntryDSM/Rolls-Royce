@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Builder
 public class QueryQnaResponse {
-    private final List<QnaDto> qnaDtoList;
+    private final List<QnaDto> qnaList;
 
     @Builder
     public static final class QnaDto {
