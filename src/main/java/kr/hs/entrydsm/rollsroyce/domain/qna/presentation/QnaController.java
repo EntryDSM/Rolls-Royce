@@ -3,6 +3,7 @@ package kr.hs.entrydsm.rollsroyce.domain.qna.presentation;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,15 +16,23 @@ import javax.validation.Valid;
 
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.request.CreateQnaRequest;
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.request.UpdateQnaRequest;
+import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.response.QueryQnaResponse;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.CreateQnaService;
+import kr.hs.entrydsm.rollsroyce.domain.qna.service.QueryQnaService;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.UpdateQnaService;
 
 @RequiredArgsConstructor
 @RequestMapping("/qna")
 @RestController
 public class QnaController {
+    private final QueryQnaService queryQnaService;
     private final CreateQnaService createQnaService;
     private final UpdateQnaService updateQnaService;
+
+    @GetMapping("/all")
+    public QueryQnaResponse getQnaList() {
+        return queryQnaService.execute();
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
