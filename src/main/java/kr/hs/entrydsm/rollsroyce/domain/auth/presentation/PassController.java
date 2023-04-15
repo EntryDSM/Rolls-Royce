@@ -1,14 +1,14 @@
 package kr.hs.entrydsm.rollsroyce.domain.auth.presentation;
 
-import kr.hs.entrydsm.rollsroyce.domain.auth.presentation.dto.response.QueryPassInfoResponse;
-import kr.hs.entrydsm.rollsroyce.domain.auth.service.QueryPassInfoService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import kr.hs.entrydsm.rollsroyce.domain.auth.presentation.dto.response.QueryPassInfoResponse;
+import kr.hs.entrydsm.rollsroyce.domain.auth.service.QueryPassInfoService;
 
 @RequiredArgsConstructor
 @RestController
