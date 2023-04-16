@@ -45,11 +45,11 @@ public class Qna extends BaseTimeEntity {
     private User user;
 
     @Builder
-    public Qna(String title, String content, Boolean isPublic, Boolean isReplied, User user) {
+    public Qna(String title, String content, Boolean isPublic, User user) {
         this.title = title;
         this.content = content;
         this.isPublic = isPublic;
-        this.isReplied = isReplied;
+        this.isReplied = false;
         this.user = user;
     }
 
