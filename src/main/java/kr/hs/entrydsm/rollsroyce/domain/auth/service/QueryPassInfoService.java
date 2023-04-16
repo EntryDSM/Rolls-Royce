@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.auth.service;
 
-import kr.hs.entrydsm.rollsroyce.global.utils.pass.PassUtil;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +12,7 @@ import kr.hs.entrydsm.rollsroyce.domain.auth.domain.PassInfo;
 import kr.hs.entrydsm.rollsroyce.domain.auth.domain.repository.PassInfoRepository;
 import kr.hs.entrydsm.rollsroyce.domain.auth.exception.InvalidPassException;
 import kr.hs.entrydsm.rollsroyce.domain.auth.presentation.dto.response.QueryPassInfoResponse;
+import kr.hs.entrydsm.rollsroyce.global.utils.pass.PassUtil;
 
 @RequiredArgsConstructor
 @Service
