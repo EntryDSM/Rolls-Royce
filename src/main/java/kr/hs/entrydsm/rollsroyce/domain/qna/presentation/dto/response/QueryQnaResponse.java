@@ -11,6 +11,7 @@ import java.util.List;
 public class QueryQnaResponse {
     private final List<QnaDto> qnaList;
 
+    @Getter
     @Builder
     public static final class QnaDto {
         private final String title;
