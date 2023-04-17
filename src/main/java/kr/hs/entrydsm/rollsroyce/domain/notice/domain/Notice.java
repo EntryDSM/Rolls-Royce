@@ -20,7 +20,7 @@ import kr.hs.entrydsm.rollsroyce.domain.notice.domain.type.NoticeType;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
+@Entity(name = "tbl_notice")
 public class Notice extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
