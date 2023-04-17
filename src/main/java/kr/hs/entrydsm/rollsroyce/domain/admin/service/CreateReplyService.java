@@ -26,6 +26,8 @@ public class CreateReplyService {
         Admin admin = adminFacade.getAdmin();
         Qna qna = qnaFacade.getQnaById(qnaId);
 
+        qna.updateIsReplied();
+
         replyRepository.save(Reply.builder()
                 .title(request.getTitle())
                 .content(request.getContent())

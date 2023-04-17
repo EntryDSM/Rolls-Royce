@@ -55,4 +55,8 @@ public class Qna extends BaseTimeEntity {
         this.content = content;
         this.isPublic = isPublic;
     }
+
+    public void updateIsReplied() {
+        this.isReplied = true;
+    }
 }
