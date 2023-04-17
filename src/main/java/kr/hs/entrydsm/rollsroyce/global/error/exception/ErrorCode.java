@@ -22,12 +22,13 @@ public enum ErrorCode {
     UNVERIFIED_AUTH_CODE(401, "USER401-1", "UnVerified Auth Code"),
     CREDENTIALS_NOT_FOUND(401, "USER401-2", "User credentials not found"),
     USER_NOT_FOUND(404, "USER404-0", "User Not Found"),
-    ENTRY_INFO_NOT_FOUND(404, "ENTRY_INFO404-0", "Entry Info Not Found"),
     STATUS_NOT_FOUND(404, "USER404-1", "Status Not Found"),
     USER_ALREADY_EXISTS(409, "USER409-0", "User Already Exists"),
     ENTRY_INFO_ALREADY_EXISTS(409, "ENTRY409-0", "Entry Info Already Exists"),
     AUTH_CODE_ALREADY_VERIFIED(409, "USER409-1", "Auth Code Already Verified"),
     AUTH_CODE_REQUEST_OVER_LIMIT(429, "USER429-0", "Auth Code Request Over Limit"),
+
+    ENTRY_INFO_NOT_FOUND(404, "ENTRY_INFO404-0", "Entry Info Not Found"),
 
     APPLICATION_TYPE_UNMATCHED(403, "SCORE403-0", "Application Type is unmatched"),
     GRADE_OR_SCORE_NOT_FOUND(404, "SCORE404-0", "The score does not exist"),
@@ -69,6 +70,7 @@ public enum ErrorCode {
 
     FIELD_NOT_FOUND(400, "SCORE400-0", "Field not found"),
     GRADE_NOT_FOUND(404, "SCORE404-0", "User's grade could not be found"),
+
     NOT_MODIFY_QNA(401, "QNA401-0", "Not modify qna"),
     QNA_NOT_FOUND(404, "QNA404-0", "Qna not found"),
 
