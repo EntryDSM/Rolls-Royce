@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.rollsroyce.domain.admin.domain;
+package kr.hs.entrydsm.rollsroyce.domain.notice.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -13,43 +13,44 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Admin;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
-import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
+import kr.hs.entrydsm.rollsroyce.domain.notice.domain.type.NoticeType;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "tbl_reply")
-public class Reply extends BaseTimeEntity {
+@Entity(name = "tbl_notice")
+public class Notice extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "varchar(150)", nullable = false)
+    @Column(columnDefinition = "varchar(100)", nullable = false)
     private String title;
 
-    @Column(columnDefinition = "varchar(5000)", nullable = false)
+    @Column(columnDefinition = "varchar(100)", nullable = false)
     private String content;
+
+    @Column(columnDefinition = "enum(9)", nullable = false)
+    private NoticeType type;
+
+    @Column(columnDefinition = "BIT(1) default 0")
+    private Boolean isPinned;
+
+    @Column(columnDefinition = "varchar(255)")
+    private String image;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "qna_id", nullable = false)
-    private Qna qna;
-
     @Builder
-    public Reply(String title, String content, Admin admin, Qna qna) {
+    public Notice(String title, String content, NoticeType type, Boolean isPinned, Admin admin) {
         this.title = title;
         this.content = content;
+        this.type = type;
+        this.isPinned = isPinned;
         this.admin = admin;
-        this.qna = qna;
-    }
-
-    public void updateReply(String title, String content) {
-        this.title = title;
-        this.content = content;
     }
 }

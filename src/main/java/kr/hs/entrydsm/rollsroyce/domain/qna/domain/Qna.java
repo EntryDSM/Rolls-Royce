@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,12 +16,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "tbl_qna")
-public class Qna {
+public class Qna extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,14 +41,15 @@ public class Qna {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     @Builder
-    public Qna(String title, String content, Boolean isPublic, Boolean isReplied, User user) {
+    public Qna(String title, String content, Boolean isPublic, User user) {
         this.title = title;
         this.content = content;
         this.isPublic = isPublic;
-        this.isReplied = isReplied;
+        this.isReplied = false;
         this.user = user;
     }
 
@@ -53,5 +57,9 @@ public class Qna {
         this.title = title;
         this.content = content;
         this.isPublic = isPublic;
+    }
+
+    public void updateIsReplied(Boolean isReplied) {
+        this.isReplied = isReplied;
     }
 }

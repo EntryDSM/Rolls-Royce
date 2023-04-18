@@ -44,7 +44,7 @@ public class S3Util {
 
     @Value("${aws.s3.prefix}") private String prefix;
 
-    public String upload(MultipartFile file) {
+    public String upload(MultipartFile file, String path) {
         String ext = verificationFile(file);
 
         String randomName = UUID.randomUUID().toString();
@@ -62,7 +62,7 @@ public class S3Util {
 
         InputStream is = new ByteArrayInputStream(os.toByteArray());
 
-        amazonS3Client.putObject(new PutObjectRequest(bucketName, prefix + filename, is, null)
+        amazonS3Client.putObject(new PutObjectRequest(bucketName, prefix + path + filename, is, null)
                 .withCannedAcl(CannedAccessControlList.AuthenticatedRead));
 
         return filename;

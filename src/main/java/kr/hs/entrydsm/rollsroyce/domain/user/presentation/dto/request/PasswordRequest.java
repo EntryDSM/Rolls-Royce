@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -13,7 +12,6 @@ import javax.validation.constraints.Pattern;
 public class PasswordRequest {
 
     @NotBlank(message = "telephone_number는 Null 또는 공백 또는 띄어쓰기를 허용하지 않습니다.")
-    @Email(message = "이메일 형식이 올바르지 않습니다.")
     private String telephoneNumber;
 
     @NotBlank(message = "new_password는 Null 또는 공백 또는 띄어쓰기를 허용하지 않습니다.")
