@@ -53,4 +53,12 @@ public class Notice extends BaseTimeEntity {
         this.isPinned = isPinned;
         this.admin = admin;
     }
+
+    public void updateNotice(String title, String content, NoticeType type, Boolean isPinned, Admin admin) {
+        this.title = title;
+        this.content = content;
+        this.type = type;
+        this.isPinned = isPinned;
+        this.admin = admin;
+    }
 }
