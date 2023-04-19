@@ -30,7 +30,7 @@ public class QueryQnaService {
                 .qnaList(qnaList.stream()
                         .map(qnaLists -> QueryQnaResponse.QnaDto.builder()
                                 .title(qnaLists.getTitle())
-                                .username(qnaLists.getName())
+                                .username(qnaLists.getUserName())
                                 .isReplied(qnaLists.getIsReplied())
                                 .createdAt(qnaLists.getCreatedAt())
                                 .build())
