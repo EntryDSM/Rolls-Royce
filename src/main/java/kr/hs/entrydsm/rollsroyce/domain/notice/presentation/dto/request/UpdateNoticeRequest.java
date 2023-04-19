@@ -2,8 +2,9 @@ package kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request;
 
 import lombok.Getter;
 
+import reactor.util.annotation.Nullable;
+
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import kr.hs.entrydsm.rollsroyce.domain.notice.domain.type.NoticeType;
@@ -21,5 +22,6 @@ public class UpdateNoticeRequest {
     @NotBlank(message = "type은 null, 공백, 띄어쓰기를 허용하지 않습니다.")
     private NoticeType type;
 
-    @NotNull private Boolean isPinned;
+    @Nullable
+    private Boolean isPinned;
 }
