@@ -22,6 +22,5 @@ public class UpdateNoticeRequest {
     @NotBlank(message = "type은 null, 공백, 띄어쓰기를 허용하지 않습니다.")
     private NoticeType type;
 
-    @Nullable
-    private Boolean isPinned;
+    @Nullable private Boolean isPinned;
 }
