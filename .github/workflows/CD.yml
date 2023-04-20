@@ -15,8 +15,13 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Build Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: |
+            build
+            --build-cache
+            --no-daemon
 
       - name: build docker image
         run: docker build -t rolls .
