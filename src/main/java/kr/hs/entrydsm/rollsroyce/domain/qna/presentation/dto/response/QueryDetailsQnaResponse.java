@@ -16,6 +16,7 @@ public class QueryDetailsQnaResponse {
     @Builder
     @AllArgsConstructor
     public static class QnaDto {
+        private final Long id;
         private final String title;
         private final String content;
         private final String username;
