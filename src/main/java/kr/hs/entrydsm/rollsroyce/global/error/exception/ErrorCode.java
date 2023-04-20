@@ -72,7 +72,10 @@ public enum ErrorCode {
     GRADE_NOT_FOUND(404, "SCORE404-0", "User's grade could not be found"),
 
     NOT_MODIFY_QNA(401, "QNA401-0", "Not modify qna"),
+    ACCESS_DENIED_QNA(403, "QNA403-1", "Have Not Access"),
     QNA_NOT_FOUND(404, "QNA404-0", "Qna not found"),
+
+    REPLY_NOT_FOUND(404, "REPLY404-0", "Reply not found"),
 
     MESSAGE_REJECTED(400, "MESSAGE400-0", "Message is rejected");
 
