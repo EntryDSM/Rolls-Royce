@@ -15,6 +15,7 @@ public enum ErrorCode {
     INVALID_TOKEN(401, "COMMON401-0", "Invalid Token"),
     EXPIRED_TOKEN(401, "COMMON401-1", "Expired Token"),
     UNAUTHENTICATED(401, "COMMON401-2", "UnAuthenticated"),
+    WRITER_MISMATCHED(403, "COMMON403-0", "Writer Mismatched"),
     NOT_FOUND(404, "COMMON404-0", "Not Found"),
     INTERNAL_SERVER_ERROR(500, "COMMON500-0", "Internal Server Error"),
 
