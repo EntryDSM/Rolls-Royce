@@ -32,7 +32,7 @@ public class QueryDetailsQnaService {
             throw AccessDeniedQnaException.EXCEPTION;
         }
 
-        if (!replyRepository.existsById(replyId)) {
+        if (reply == null) {
             throw ReplyNotFoundException.EXCEPTION;
         }
 
