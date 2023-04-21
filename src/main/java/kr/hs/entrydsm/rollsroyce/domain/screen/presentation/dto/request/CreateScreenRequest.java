@@ -1,6 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.screen.presentation.dto.request;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import org.springframework.web.multipart.MultipartFile;
 
