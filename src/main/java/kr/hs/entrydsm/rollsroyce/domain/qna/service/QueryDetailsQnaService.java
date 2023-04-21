@@ -23,9 +23,9 @@ public class QueryDetailsQnaService {
     private final ReplyRepository replyRepository;
 
     @Transactional(readOnly = true)
-    public QueryDetailsQnaResponse execute(Long replyId) {
+    public QueryDetailsQnaResponse execute(Long questionId, Long replyId) {
         Reply reply = replyRepository.getById(replyId);
-        Qna qna = qnaFacade.getQnaById(reply.getQna().getId());
+        Qna qna = qnaFacade.getQnaById(questionId);
         User user = userFacade.getCurrentUser();
 
         if (!qna.getIsPublic() && !user.getId().equals(qna.getId())) {
