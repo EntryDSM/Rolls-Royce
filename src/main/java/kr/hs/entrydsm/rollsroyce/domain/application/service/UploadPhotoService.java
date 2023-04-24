@@ -23,7 +23,9 @@ public class UploadPhotoService {
     public String execute(MultipartFile file) {
         EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
 
-        if (entryInfo.getPhotoFileName() != null) s3Util.delete(entryInfo.getPhotoFileName());
+        if (entryInfo.getPhotoFileName() != null) {
+            entryInfo.updatePhotoFileName(null);
+        }
 
         String fileName = s3Util.upload(file, "entry_photo/");
 
