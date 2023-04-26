@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,7 +13,6 @@ public class QueryDetailsQnaResponse {
 
     @Getter
     @Builder
-    @AllArgsConstructor
     public static class QnaDto {
         private final Long id;
         private final String title;
@@ -25,7 +23,6 @@ public class QueryDetailsQnaResponse {
 
     @Getter
     @Builder
-    @AllArgsConstructor
     public static class ReplyDto {
         private final String title;
         private final String content;
