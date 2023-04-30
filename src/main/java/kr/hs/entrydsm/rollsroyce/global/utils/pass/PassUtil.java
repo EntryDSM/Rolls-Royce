@@ -14,7 +14,7 @@ import kr.hs.entrydsm.rollsroyce.domain.auth.exception.InvalidOkCertConnectExcep
 @Component
 @Slf4j
 public class PassUtil {
-    private final OkCert okCert = new OkCert();
+    private static final OkCert okCert = new OkCert();
 
     private static final String TARGET = "PROD";
 
