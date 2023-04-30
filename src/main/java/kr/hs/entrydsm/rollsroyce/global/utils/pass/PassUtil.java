@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.pass;
 
-import kr.hs.entrydsm.rollsroyce.domain.auth.exception.InvalidOkCertConnectException;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +8,8 @@ import org.springframework.stereotype.Component;
 import kcb.module.v3.OkCert;
 import kcb.module.v3.exception.OkCertException;
 import kcb.org.json.JSONObject;
+
+import kr.hs.entrydsm.rollsroyce.domain.auth.exception.InvalidOkCertConnectException;
 
 @Component
 @Slf4j
