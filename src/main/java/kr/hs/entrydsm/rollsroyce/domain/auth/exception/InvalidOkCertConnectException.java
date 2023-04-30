@@ -5,8 +5,7 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 
 public class InvalidOkCertConnectException extends RollsException {
 
-    public static final RollsException EXCEPTION =
-            new InvalidOkCertConnectException();
+    public static final RollsException EXCEPTION = new InvalidOkCertConnectException();
 
     private InvalidOkCertConnectException() {
         super(ErrorCode.INVALID_OKCERT_CONNECTION);
