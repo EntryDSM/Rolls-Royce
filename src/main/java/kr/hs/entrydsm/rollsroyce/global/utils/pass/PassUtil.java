@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.pass;
 
+import kr.hs.entrydsm.rollsroyce.domain.auth.exception.InvalidOkCertConnectException;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import kcb.org.json.JSONObject;
 @Component
 @Slf4j
 public class PassUtil {
+    private final OkCert okCert = new OkCert();
 
     private static final String TARGET = "PROD";
 
@@ -29,12 +31,11 @@ public class PassUtil {
 
         String reqStr = reqJson.toString();
 
-        OkCert okCert = new OkCert();
         String resultStr = null;
         try {
             resultStr = okCert.callOkCert(TARGET, CP_CD, SVC_NAME, LICENSE, reqStr);
         } catch (OkCertException e) {
-            log.error(e.toString());
+            throw InvalidOkCertConnectException.EXCEPTION;
         }
 
         assert resultStr != null;
