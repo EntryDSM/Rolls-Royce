@@ -1,7 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.domain;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +14,6 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity(name = "tbl_admin")
 public class Admin {
 

@@ -1,7 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.notice.domain;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -47,15 +46,6 @@ public class Notice extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin;
-
-    @Builder
-    public Notice(String title, String content, NoticeType type, Boolean isPinned, Admin admin) {
-        this.title = title;
-        this.content = content;
-        this.type = type;
-        this.isPinned = isPinned;
-        this.admin = admin;
-    }
 
     public void updateNotice(String title, String content, NoticeType type, Boolean isPinned, Admin admin) {
         this.title = title;

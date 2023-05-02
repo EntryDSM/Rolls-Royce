@@ -1,20 +1,24 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.domain;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity(name = "tbl_user")
 public class User extends BaseTimeEntity {
 
@@ -33,6 +37,14 @@ public class User extends BaseTimeEntity {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private EntryInfo entryInfo;
+
+    @Builder
+    public User(String telephoneNumber, String password, String name, EntryInfo entryInfo) {
+        this.telephoneNumber = telephoneNumber;
+        this.password = password;
+        this.name = name;
+        this.entryInfo = entryInfo;
+    }
 
     public User updatePassword(String password) {
         this.password = password;

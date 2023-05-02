@@ -1,8 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.schedule.domain;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,9 +17,7 @@ import javax.persistence.Id;
 import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
 
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity(name = "tbl_schedule")
 public class Schedule {
 
