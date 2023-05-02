@@ -41,7 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .permitAll()
+<<<<<<< main
                 .antMatchers(HttpMethod.GET, "/schedule", "/qna/all")
+=======
+                .antMatchers(HttpMethod.GET, "/schedule", "/question/**")
+>>>>>>> ♻️ :: qna -> question
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/user/**")
                 .permitAll()

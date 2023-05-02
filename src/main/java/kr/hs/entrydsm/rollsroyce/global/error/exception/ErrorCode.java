@@ -73,8 +73,12 @@ public enum ErrorCode {
     FIELD_NOT_FOUND(400, "SCORE400-0", "Field not found"),
     GRADE_NOT_FOUND(404, "SCORE404-0", "User's grade could not be found"),
 
+<<<<<<< main
     ACCESS_DENIED_QNA(403, "QNA403-1", "Have Not Access"),
     QNA_NOT_FOUND(404, "QNA404-0", "Qna not found"),
+=======
+    QUESTION_NOT_FOUND(404, "QUESTION404-0", "Question not found"),
+>>>>>>> ♻️ :: qna -> question
 
     MESSAGE_REJECTED(400, "MESSAGE400-0", "Message is rejected"),
 

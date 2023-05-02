@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
-import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
+import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,15 +37,15 @@ public class Reply extends BaseTimeEntity {
     private Admin admin;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "qna_id", nullable = false)
-    private Qna qna;
+    @JoinColumn(name = "question_id", nullable = false)
+    private Question question;
 
     @Builder
-    public Reply(String title, String content, Admin admin, Qna qna) {
+    public Reply(String title, String content, Admin admin, Question question) {
         this.title = title;
         this.content = content;
         this.admin = admin;
-        this.qna = qna;
+        this.question = question;
     }
 
     public String getAdminId() {

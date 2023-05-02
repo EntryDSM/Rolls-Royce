@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.rollsroyce.domain.qna.domain;
+package kr.hs.entrydsm.rollsroyce.domain.question.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -21,8 +21,8 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "tbl_qna")
-public class Qna extends BaseTimeEntity {
+@Entity(name = "tbl_question")
+public class Question extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,7 +45,7 @@ public class Qna extends BaseTimeEntity {
     private User user;
 
     @Builder
-    public Qna(String title, String content, Boolean isPublic, User user) {
+    public Question(String title, String content, Boolean isPublic, User user) {
         this.title = title;
         this.content = content;
         this.isPublic = isPublic;
