@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
-import kr.hs.entrydsm.rollsroyce.domain.qna.exception.QnaWriterMisMatchedException;
+import kr.hs.entrydsm.rollsroyce.domain.qna.exception.WriterMisMatchedException;
 import kr.hs.entrydsm.rollsroyce.domain.qna.facade.QnaFacade;
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.request.UpdateQnaRequest;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
@@ -24,7 +24,7 @@ public class UpdateQnaService {
         Qna qna = qnaFacade.getQnaById(qnaId);
 
         if (!user.getId().equals(qna.getUser().getId())) {
-            throw QnaWriterMisMatchedException.EXCEPTION;
+            throw WriterMisMatchedException.EXCEPTION;
         }
 
         qna.updateFeed(request.getTitle(), request.getContent(), request.getIsPublic());
