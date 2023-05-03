@@ -64,13 +64,13 @@ public class QueryDetailsQuestionService {
         }
 
         return QueryDetailsQuestionResponse.builder()
-                .question(getQna(reply.getQuestion().getId()))
+                .question(getQuestion(reply.getQuestion().getId()))
                 .reply(getReply(replyId))
                 .build();
     }
 
-    private QueryDetailsQuestionResponse.QuestionDto getQna(Long qnaId) {
-        Question question = questionFacade.getQuestionById(qnaId);
+    private QueryDetailsQuestionResponse.QuestionDto getQuestion(Long questionId) {
+        Question question = questionFacade.getQuestionById(questionId);
 
         return QueryDetailsQuestionResponse.QuestionDto.builder()
                 .title(question.getTitle())
