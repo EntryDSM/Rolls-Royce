@@ -64,15 +64,15 @@ public class QueryDetailsQuestionService {
         }
 
         return QueryDetailsQuestionResponse.builder()
-                .qna(getQna(reply.getQuestion().getId()))
+                .question(getQna(reply.getQuestion().getId()))
                 .reply(getReply(replyId))
                 .build();
     }
 
-    private QueryDetailsQuestionResponse.QnaDto getQna(Long qnaId) {
+    private QueryDetailsQuestionResponse.QuestionDto getQna(Long qnaId) {
         Question question = questionFacade.getQuestionById(qnaId);
 
-        return QueryDetailsQuestionResponse.QnaDto.builder()
+        return QueryDetailsQuestionResponse.QuestionDto.builder()
                 .title(question.getTitle())
                 .content(question.getContent())
                 .createdAt(question.getCreatedAt())

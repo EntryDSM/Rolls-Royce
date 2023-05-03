@@ -16,12 +16,12 @@ public class QueryDetailsQnaResponse {
     private final LocalDateTime createdAt;
 =======
 public class QueryDetailsQuestionResponse {
-    private final QnaDto qna;
+    private final QuestionDto question;
     private final ReplyDto reply;
 
     @Getter
     @Builder
-    public static class QnaDto {
+    public static class QuestionDto {
         private final Long id;
         private final String title;
         private final String content;
