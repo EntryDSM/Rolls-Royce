@@ -64,7 +64,7 @@ public class QueryDetailsQuestionService {
         }
 
         return QueryDetailsQuestionResponse.builder()
-                .question(getQuestion(reply.getQuestion().getId()))
+                .question(getQuestion(reply.getQuestionId()))
                 .reply(getReply(replyId))
                 .build();
     }
