@@ -17,9 +17,11 @@ import javax.validation.Valid;
 
 import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.request.CreateQuestionRequest;
 import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.request.UpdateQuestionRequest;
+import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryDetailsQuestionResponse;
 import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryQuestionResponse;
 import kr.hs.entrydsm.rollsroyce.domain.question.service.CreateQuestionService;
 import kr.hs.entrydsm.rollsroyce.domain.question.service.DeleteQuestionService;
+import kr.hs.entrydsm.rollsroyce.domain.question.service.QueryDetailsQuestionService;
 import kr.hs.entrydsm.rollsroyce.domain.question.service.QueryQuestionService;
 import kr.hs.entrydsm.rollsroyce.domain.question.service.UpdateQuestionService;
 
@@ -31,6 +33,7 @@ public class QuestionController {
     private final CreateQuestionService createQuestionService;
     private final UpdateQuestionService updateQuestionService;
     private final DeleteQuestionService deleteQuestionService;
+    private final QueryDetailsQuestionService queryDetailsQuestionService;
 
     @GetMapping("/all")
     public QueryQuestionResponse getQuestionList() {
@@ -54,5 +57,10 @@ public class QuestionController {
     @DeleteMapping("/{question-id}")
     public void deleteQuestion(@PathVariable("question-id") Long questionId) {
         deleteQuestionService.execute(questionId);
+    }
+
+    @GetMapping("/{question-id}")
+    public QueryDetailsQuestionResponse getQuestionDetails(@PathVariable("question-id") Long questionId) {
+        return queryDetailsQuestionService.execute(questionId);
     }
 }
