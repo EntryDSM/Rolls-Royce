@@ -14,6 +14,7 @@ public class QueryQnaResponse {
     @Getter
     @Builder
     public static final class QnaDto {
+        private final Long id;
         private final String title;
         private final LocalDateTime createdAt;
         private final Boolean isReplied;
