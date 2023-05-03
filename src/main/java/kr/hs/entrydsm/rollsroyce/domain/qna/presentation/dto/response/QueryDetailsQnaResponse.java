@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Builder
 public class QueryDetailsQnaResponse {
     private final QnaDto qna;
-    private final ReplyDto reply;
 
     @Getter
     @Builder
@@ -18,14 +17,6 @@ public class QueryDetailsQnaResponse {
         private final String title;
         private final String content;
         private final String username;
-        private final LocalDateTime createdAt;
-    }
-
-    @Getter
-    @Builder
-    public static class ReplyDto {
-        private final String title;
-        private final String content;
         private final LocalDateTime createdAt;
     }
 }
