@@ -1,7 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.entryinfo.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
-import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -11,6 +9,8 @@ import javax.transaction.Transactional;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.exception.EntryInfoAlreadyExistsException;
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 
@@ -27,9 +27,8 @@ public class CreateEntryInfoService {
         if (entryInfoRepository.findByUser(user).isPresent()) {
             throw EntryInfoAlreadyExistsException.EXCEPTION;
         }
-        EntryInfo entryInfo = entryInfoRepository.save(EntryInfo.builder()
-                .user(user)
-                .build());
+        EntryInfo entryInfo =
+                entryInfoRepository.save(EntryInfo.builder().user(user).build());
 
         statusRepository.save(Status.builder()
                 .entryInfo(entryInfo)
