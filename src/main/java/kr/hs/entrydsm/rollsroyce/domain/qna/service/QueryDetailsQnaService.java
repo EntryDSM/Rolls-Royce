@@ -27,13 +27,13 @@ public class QueryDetailsQnaService {
             throw AccessDeniedQnaException.EXCEPTION;
         }
 
-        return QueryDetailsQnaResponse.builder().qna(getQna(qna.getId())).build();
+        return getQna(questionId);
     }
 
-    private QueryDetailsQnaResponse.QnaDto getQna(Long qnaId) {
+    private QueryDetailsQnaResponse getQna(Long qnaId) {
         Qna qna = qnaFacade.getQnaById(qnaId);
 
-        return QueryDetailsQnaResponse.QnaDto.builder()
+        return QueryDetailsQnaResponse.builder()
                 .title(qna.getTitle())
                 .content(qna.getContent())
                 .createdAt(qna.getCreatedAt())
