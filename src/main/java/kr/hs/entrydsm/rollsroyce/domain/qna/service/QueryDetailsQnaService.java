@@ -5,8 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Reply;
-import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.ReplyRepository;
 import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
 import kr.hs.entrydsm.rollsroyce.domain.qna.exception.AccessDeniedQnaException;
 import kr.hs.entrydsm.rollsroyce.domain.qna.facade.QnaFacade;
@@ -19,7 +17,6 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 public class QueryDetailsQnaService {
     private final QnaFacade qnaFacade;
     private final UserFacade userFacade;
-    private final ReplyRepository replyRepository;
 
     @Transactional(readOnly = true)
     public QueryDetailsQnaResponse execute(Long questionId) {
@@ -41,16 +38,6 @@ public class QueryDetailsQnaService {
                 .content(qna.getContent())
                 .createdAt(qna.getCreatedAt())
                 .username(qna.getUser().getName())
-                .build();
-    }
-
-    private QueryDetailsQnaResponse.ReplyDto getReply(Long replyId) {
-        Reply reply = replyRepository.getById(replyId);
-
-        return QueryDetailsQnaResponse.ReplyDto.builder()
-                .title(reply.getTitle())
-                .content(reply.getContent())
-                .createdAt(reply.getCreatedAt())
                 .build();
     }
 }
