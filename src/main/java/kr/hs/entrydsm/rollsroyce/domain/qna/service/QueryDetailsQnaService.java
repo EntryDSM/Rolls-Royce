@@ -34,6 +34,7 @@ public class QueryDetailsQnaService {
         Qna qna = qnaFacade.getQnaById(qnaId);
 
         return QueryDetailsQnaResponse.builder()
+                .id(qnaId)
                 .title(qna.getTitle())
                 .content(qna.getContent())
                 .createdAt(qna.getCreatedAt())
