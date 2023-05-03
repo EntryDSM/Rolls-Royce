@@ -27,7 +27,6 @@ public class ApplicantDetailsResponse {
 
     @Getter
     @Builder
-    @AllArgsConstructor
     public static class CommonInformation {
         private final String name;
         private final String schoolName;
@@ -39,7 +38,6 @@ public class ApplicantDetailsResponse {
 
     @Getter
     @Builder
-    @AllArgsConstructor
     public static class MoreInformation {
         private final String photoUrl;
         private final String birthday;
@@ -52,7 +50,6 @@ public class ApplicantDetailsResponse {
 
     @Getter
     @Builder
-    @AllArgsConstructor
     public static class Evaluation {
         private final Integer volunteerTime;
         private final BigDecimal conversionScore;
