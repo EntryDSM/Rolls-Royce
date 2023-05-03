@@ -22,11 +22,15 @@ public class CreateQnaService {
     public void execute(CreateQnaRequest request) {
         User user = userFacade.getCurrentUser();
 
-        qnaRepository.save(Qna.builder()
+        qnaRepository.save(createQna(request, user));
+    }
+
+    private Qna createQna(CreateQnaRequest request, User user) {
+        return Qna.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
                 .isPublic(request.getIsPublic())
                 .user(user)
-                .build());
+                .build();
     }
 }

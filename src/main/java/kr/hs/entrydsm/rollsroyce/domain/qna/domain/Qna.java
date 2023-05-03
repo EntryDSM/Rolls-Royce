@@ -62,4 +62,8 @@ public class Qna extends BaseTimeEntity {
     public void updateIsReplied(Boolean isReplied) {
         this.isReplied = isReplied;
     }
+
+    public String getUserName() {
+        return user.getName();
+    }
 }

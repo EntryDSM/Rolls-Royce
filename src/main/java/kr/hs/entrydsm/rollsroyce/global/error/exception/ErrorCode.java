@@ -15,6 +15,7 @@ public enum ErrorCode {
     INVALID_TOKEN(401, "COMMON401-0", "Invalid Token"),
     EXPIRED_TOKEN(401, "COMMON401-1", "Expired Token"),
     UNAUTHENTICATED(401, "COMMON401-2", "UnAuthenticated"),
+    WRITER_MISMATCHED(403, "COMMON403-0", "Writer Mismatched"),
     NOT_FOUND(404, "COMMON404-0", "Not Found"),
     INTERNAL_SERVER_ERROR(500, "COMMON500-0", "Internal Server Error"),
 
@@ -72,7 +73,7 @@ public enum ErrorCode {
     FIELD_NOT_FOUND(400, "SCORE400-0", "Field not found"),
     GRADE_NOT_FOUND(404, "SCORE404-0", "User's grade could not be found"),
 
-    NOT_MODIFY_QNA(401, "QNA401-0", "Not modify qna"),
+    ACCESS_DENIED_QNA(403, "QNA403-1", "Have Not Access"),
     QNA_NOT_FOUND(404, "QNA404-0", "Qna not found"),
 
     MESSAGE_REJECTED(400, "MESSAGE400-0", "Message is rejected"),
@@ -80,6 +81,8 @@ public enum ErrorCode {
     INVALID_PASS(401, "PASS_INFO-401-0", "Invalid Pass"),
     PASS_INFO_NOT_FOUND(404, "PASS_INFO-404-0", "Pass Info Not Found"),
     INVALID_OKCERT_CONNECTION(500, "PASS_INFO-500-0", "Invalid OkCert Connection");
+
+    REPLY_NOT_FOUND(404, "REPLY404-0", "Reply not found");
 
     private final int status;
     private final String code;
