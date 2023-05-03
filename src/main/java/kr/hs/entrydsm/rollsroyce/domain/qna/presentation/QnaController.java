@@ -17,9 +17,11 @@ import javax.validation.Valid;
 
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.request.CreateQnaRequest;
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.request.UpdateQnaRequest;
+import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.response.QueryDetailsQnaResponse;
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.response.QueryQnaResponse;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.CreateQnaService;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.DeleteQnaService;
+import kr.hs.entrydsm.rollsroyce.domain.qna.service.QueryDetailsQnaService;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.QueryQnaService;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.UpdateQnaService;
 
@@ -31,6 +33,7 @@ public class QnaController {
     private final CreateQnaService createQnaService;
     private final UpdateQnaService updateQnaService;
     private final DeleteQnaService deleteQnaService;
+    private final QueryDetailsQnaService queryDetailsQnaService;
 
     @GetMapping("/all")
     public QueryQnaResponse getQnaList() {
@@ -53,5 +56,11 @@ public class QnaController {
     @DeleteMapping("/{qna-id}")
     public void deleteQna(@PathVariable("qna-id") Long qnaId) {
         deleteQnaService.execute(qnaId);
+    }
+
+    @GetMapping("/{qna-id}/{reply-id}")
+    public QueryDetailsQnaResponse getQuestionDetails(
+            @PathVariable("qna-id") Long qnaId, @PathVariable("reply-id") Long replyId) {
+        return queryDetailsQnaService.execute(qnaId, replyId);
     }
 }
