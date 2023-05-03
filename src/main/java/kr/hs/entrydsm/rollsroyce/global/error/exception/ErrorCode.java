@@ -80,7 +80,7 @@ public enum ErrorCode {
 
     INVALID_PASS(401, "PASS_INFO-401-0", "Invalid Pass"),
     PASS_INFO_NOT_FOUND(404, "PASS_INFO-404-0", "Pass Info Not Found"),
-    INVALID_OKCERT_CONNECTION(500, "PASS_INFO-500-0", "Invalid OkCert Connection");
+    INVALID_OKCERT_CONNECTION(500, "PASS_INFO-500-0", "Invalid OkCert Connection"),
 
     REPLY_NOT_FOUND(404, "REPLY404-0", "Reply not found");
 
