@@ -59,8 +59,7 @@ public class QnaController {
     }
 
     @GetMapping("/{qna-id}/{reply-id}")
-    public QueryDetailsQnaResponse getQuestionDetails(
-            @PathVariable("qna-id") Long qnaId, @PathVariable("reply-id") Long replyId) {
-        return queryDetailsQnaService.execute(qnaId, replyId);
+    public QueryDetailsQnaResponse getQuestionDetails(@PathVariable("qna-id") Long qnaId) {
+        return queryDetailsQnaService.execute(qnaId);
     }
 }

@@ -9,7 +9,6 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Reply;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.ReplyRepository;
 import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
 import kr.hs.entrydsm.rollsroyce.domain.qna.exception.AccessDeniedQnaException;
-import kr.hs.entrydsm.rollsroyce.domain.qna.exception.ReplyNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.qna.facade.QnaFacade;
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.response.QueryDetailsQnaResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
@@ -23,8 +22,7 @@ public class QueryDetailsQnaService {
     private final ReplyRepository replyRepository;
 
     @Transactional(readOnly = true)
-    public QueryDetailsQnaResponse execute(Long questionId, Long replyId) {
-        Reply reply = replyRepository.getById(replyId);
+    public QueryDetailsQnaResponse execute(Long questionId) {
         Qna qna = qnaFacade.getQnaById(questionId);
         User user = userFacade.getCurrentUser();
 
@@ -32,14 +30,7 @@ public class QueryDetailsQnaService {
             throw AccessDeniedQnaException.EXCEPTION;
         }
 
-        if (reply == null) {
-            throw ReplyNotFoundException.EXCEPTION;
-        }
-
-        return QueryDetailsQnaResponse.builder()
-                .qna(getQna(reply.getQna().getId()))
-                .reply(getReply(replyId))
-                .build();
+        return QueryDetailsQnaResponse.builder().qna(getQna(qna.getId())).build();
     }
 
     private QueryDetailsQnaResponse.QnaDto getQna(Long qnaId) {
