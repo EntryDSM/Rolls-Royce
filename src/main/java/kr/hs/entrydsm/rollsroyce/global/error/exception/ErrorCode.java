@@ -25,11 +25,12 @@ public enum ErrorCode {
     USER_NOT_FOUND(404, "USER404-0", "User Not Found"),
     STATUS_NOT_FOUND(404, "USER404-1", "Status Not Found"),
     USER_ALREADY_EXISTS(409, "USER409-0", "User Already Exists"),
-    ENTRY_INFO_ALREADY_EXISTS(409, "ENTRY409-0", "Entry Info Already Exists"),
+
     AUTH_CODE_ALREADY_VERIFIED(409, "USER409-1", "Auth Code Already Verified"),
     AUTH_CODE_REQUEST_OVER_LIMIT(429, "USER429-0", "Auth Code Request Over Limit"),
 
     ENTRY_INFO_NOT_FOUND(404, "ENTRY_INFO404-0", "Entry Info Not Found"),
+    ENTRY_INFO_ALREADY_EXISTS(409, "ENTRY409-0", "Entry Info Already Exists"),
 
     APPLICATION_TYPE_UNMATCHED(403, "SCORE403-0", "Application Type is unmatched"),
     GRADE_OR_SCORE_NOT_FOUND(404, "SCORE404-0", "The score does not exist"),
@@ -75,9 +76,13 @@ public enum ErrorCode {
     ACCESS_DENIED_QNA(403, "QNA403-1", "Have Not Access"),
     QNA_NOT_FOUND(404, "QNA404-0", "Qna not found"),
 
-    REPLY_NOT_FOUND(404, "REPLY404-0", "Reply not found"),
+    MESSAGE_REJECTED(400, "MESSAGE400-0", "Message is rejected"),
 
-    MESSAGE_REJECTED(400, "MESSAGE400-0", "Message is rejected");
+    INVALID_PASS(401, "PASS_INFO-401-0", "Invalid Pass"),
+    PASS_INFO_NOT_FOUND(404, "PASS_INFO-404-0", "Pass Info Not Found"),
+    INVALID_OKCERT_CONNECTION(500, "PASS_INFO-500-0", "Invalid OkCert Connection"),
+
+    REPLY_NOT_FOUND(404, "REPLY404-0", "Reply not found");
 
     private final int status;
     private final String code;

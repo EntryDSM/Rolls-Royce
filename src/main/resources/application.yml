@@ -19,6 +19,10 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+  mvc:
+    view:
+      prefix: /WEB-INF/view/
+      suffix: .jsp
   jpa:
     hibernate:
       ddl-auto: update
@@ -84,3 +88,8 @@ logging:
           EC2MetadataUtils: error
 reserve:
   link: ${RESERVE_LINK}
+  
+pass:
+  cp-cd: ${CP_CD}
+  license: ${PASS_LICENSE_PATH}
+  exp: ${PASS_EXP}
