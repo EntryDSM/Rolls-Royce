@@ -73,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyRole(ADMIN_ROOT)
                 .antMatchers("/admin/application-count")
                 .hasAnyRole(ADMIN_ROOT, ADMIN_CONFIRM_APPLICATION)
-                .antMatchers(HttpMethod.POST, "/admin/auth/check")
+                .antMatchers(HttpMethod.POST, "/admin/auth/check", "/notice/**")
                 .hasAnyRole(ADMIN_ROOT, ADMIN_CONFIRM_APPLICATION)
                 .antMatchers(HttpMethod.GET, "/admin/applicants", "/admin/applicant/**", "/admin/statics/**")
                 .hasAnyRole(ADMIN_ROOT, ADMIN_CONFIRM_APPLICATION)
