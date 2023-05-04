@@ -22,7 +22,7 @@ public class DeleteReplyService {
         Admin admin = adminFacade.getAdmin();
         Reply reply = replyRepository.getById(replyId);
 
-        if (reply.getAdminId().equals(admin.getId())) {
+        if (!reply.getAdminId().equals(admin.getId())) {
             throw WriterMisMatchedException.EXCEPTION;
         }
 
