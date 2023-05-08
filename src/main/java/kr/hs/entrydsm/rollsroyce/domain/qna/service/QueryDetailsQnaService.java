@@ -37,8 +37,9 @@ public class QueryDetailsQnaService {
                 .id(qna.getId())
                 .title(qna.getTitle())
                 .content(qna.getContent())
-                .createdAt(qna.getCreatedAt())
                 .username(qna.getUser().getName())
+                .isReplied(qna.getIsReplied())
+                .createdAt(qna.getCreatedAt())
                 .build();
     }
 }

@@ -12,5 +12,6 @@ public class QueryDetailsQnaResponse {
     private final String title;
     private final String content;
     private final String username;
+    private final Boolean isReplied;
     private final LocalDateTime createdAt;
 }
