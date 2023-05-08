@@ -32,6 +32,7 @@ public class QueryQuestionService {
                                 .title(question.getTitle())
                                 .username(question.getUserName())
                                 .isReplied(question.getIsReplied())
+                                .isPublic(question.getIsPublic())
                                 .createdAt(question.getCreatedAt())
                                 .build())
                         .collect(Collectors.toList()))
