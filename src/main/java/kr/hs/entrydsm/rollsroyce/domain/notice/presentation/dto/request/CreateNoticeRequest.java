@@ -1,11 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request;
 
-import kr.hs.entrydsm.rollsroyce.domain.notice.domain.type.NoticeType;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import kr.hs.entrydsm.rollsroyce.domain.notice.domain.type.NoticeType;
 
 @Getter
 public class CreateNoticeRequest {
