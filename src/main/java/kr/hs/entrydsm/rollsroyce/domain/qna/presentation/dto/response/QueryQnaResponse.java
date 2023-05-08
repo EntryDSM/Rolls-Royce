@@ -19,5 +19,6 @@ public class QueryQnaResponse {
         private final LocalDateTime createdAt;
         private final Boolean isReplied;
         private final String username;
+        private final Boolean isPublic;
     }
 }

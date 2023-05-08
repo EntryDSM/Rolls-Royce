@@ -33,6 +33,7 @@ public class QueryQnaService {
                                 .title(qnaLists.getTitle())
                                 .username(qnaLists.getUserName())
                                 .isReplied(qnaLists.getIsReplied())
+                                .isPublic(qnaLists.getIsPublic())
                                 .createdAt(qnaLists.getCreatedAt())
                                 .build())
                         .collect(Collectors.toList()))
