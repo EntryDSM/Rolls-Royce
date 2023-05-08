@@ -19,10 +19,6 @@ public class QueryNoticeService {
 
     @Transactional(readOnly = true)
     public QueryNoticeResponse execute(String type) {
-        return getNoticeList(type);
-    }
-
-    private QueryNoticeResponse getNoticeList(String type) {
         List<Notice> notices = noticeRepository.findAllByType(type);
 
         return QueryNoticeResponse.builder()
