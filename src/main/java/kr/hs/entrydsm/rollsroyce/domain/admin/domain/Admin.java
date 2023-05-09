@@ -27,4 +27,10 @@ public class Admin {
     @Column(length = 24, nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public Admin(String id, String password, Role role) {
+        this.id = id;
+        this.password = password;
+        this.role = role;
+    }
 }
