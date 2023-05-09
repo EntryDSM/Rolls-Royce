@@ -36,8 +36,9 @@ public class QueryDetailsQuestionService {
                 .id(question.getId())
                 .title(question.getTitle())
                 .content(question.getContent())
-                .createdAt(question.getCreatedAt())
+                .isReplied(question.getIsReplied())
                 .username(question.getUserName())
+                .createdAt(question.getCreatedAt())
                 .build();
     }
 }
