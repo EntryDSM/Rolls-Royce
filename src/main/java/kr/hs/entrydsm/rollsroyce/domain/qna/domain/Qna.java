@@ -66,4 +66,8 @@ public class Qna extends BaseTimeEntity {
     public String getUserName() {
         return user.getName();
     }
+
+    public Long getUserId() {
+        return user.getId();
+    }
 }
