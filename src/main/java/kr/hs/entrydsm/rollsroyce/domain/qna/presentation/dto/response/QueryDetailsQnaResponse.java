@@ -25,7 +25,6 @@ public class QueryDetailsQnaResponse {
     @Getter
     @Builder
     public static final class ReplyDto {
-        private final Long id;
         private final String title;
         private final String content;
         private final LocalDateTime createdAt;

@@ -54,7 +54,6 @@ public class QueryDetailsQnaService {
         Reply reply = replyRepository.findByQnaId(qnaId).orElseThrow(() -> ReplyNotFoundException.EXCEPTION);
 
         return QueryDetailsQnaResponse.ReplyDto.builder()
-                .id(reply.getId())
                 .title(reply.getTitle())
                 .content(reply.getContent())
                 .createdAt(reply.getCreatedAt())
