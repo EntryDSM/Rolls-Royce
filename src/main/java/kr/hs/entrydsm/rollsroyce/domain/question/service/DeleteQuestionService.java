@@ -7,10 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.repository.QuestionRepository;
-import kr.hs.entrydsm.rollsroyce.domain.question.exception.QuestionWriterMisMatchedException;
 import kr.hs.entrydsm.rollsroyce.domain.question.facade.QuestionFacade;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
+import kr.hs.entrydsm.rollsroyce.global.exception.WriterMisMatchedException;
 
 @RequiredArgsConstructor
 @Service
@@ -25,7 +25,7 @@ public class DeleteQuestionService {
         Question question = questionFacade.getQuestionById(questionId);
 
         if (!user.getId().equals(question.getUserId())) {
-            throw QuestionWriterMisMatchedException.EXCEPTION;
+            throw WriterMisMatchedException.EXCEPTION;
         }
 
         questionRepository.delete(question);
