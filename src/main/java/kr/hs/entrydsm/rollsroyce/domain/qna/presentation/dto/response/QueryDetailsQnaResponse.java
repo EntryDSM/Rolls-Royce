@@ -19,6 +19,7 @@ public class QueryDetailsQnaResponse {
         private final String content;
         private final String username;
         private final Boolean isReplied;
+        private final Boolean isMine;
         private final LocalDateTime createdAt;
     }
 
