@@ -60,7 +60,7 @@ public class QueryDetailsQnaService {
                 .createdAt(reply.getCreatedAt())
                 .build();
     }
-  
+
     private Boolean getIsMine(Long userId) {
         User user = userFacade.getCurrentUser();
         if (user.getId().equals(userId)) {
