@@ -5,8 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Reply;
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.ReplyRepository;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
 import kr.hs.entrydsm.rollsroyce.domain.question.exception.AccessDeniedQuestionException;
+import kr.hs.entrydsm.rollsroyce.domain.question.exception.ReplyNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.question.facade.QuestionFacade;
 import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryDetailsQuestionResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
@@ -17,28 +20,43 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 public class QueryDetailsQuestionService {
     private final QuestionFacade questionFacade;
     private final UserFacade userFacade;
+    private final ReplyRepository replyRepository;
 
     @Transactional(readOnly = true)
     public QueryDetailsQuestionResponse execute(Long questionId) {
         Question question = questionFacade.getQuestionById(questionId);
         User user = userFacade.getCurrentUser();
 
-        if (!question.getIsPublic() && !user.getId().equals(question.getId())) {
+        if (!question.getIsPublic() && !user.getId().equals(question.getUserId())) {
             throw AccessDeniedQuestionException.EXCEPTION;
         }
-        return getQuestion(questionId);
-    }
-
-    private QueryDetailsQuestionResponse getQuestion(Long questionId) {
-        Question question = questionFacade.getQuestionById(questionId);
 
         return QueryDetailsQuestionResponse.builder()
+                .question(getQna(question.getId()))
+                .reply(getReply(question))
+                .build();
+    }
+
+    private QueryDetailsQuestionResponse.QuestionDto getQna(Long qustionId) {
+        Question question = questionFacade.getQuestionById(qustionId);
+
+        return QueryDetailsQuestionResponse.QuestionDto.builder()
                 .id(question.getId())
                 .title(question.getTitle())
                 .content(question.getContent())
+                .username(question.getUser().getName())
                 .isReplied(question.getIsReplied())
-                .username(question.getUserName())
                 .createdAt(question.getCreatedAt())
+                .build();
+    }
+
+    private QueryDetailsQuestionResponse.ReplyDto getReply(Question question) {
+        Reply reply = replyRepository.findByQuestion(question).orElseThrow(() -> ReplyNotFoundException.EXCEPTION);
+
+        return QueryDetailsQuestionResponse.ReplyDto.builder()
+                .title(reply.getTitle())
+                .content(reply.getContent())
+                .createdAt(reply.getCreatedAt())
                 .build();
     }
 }

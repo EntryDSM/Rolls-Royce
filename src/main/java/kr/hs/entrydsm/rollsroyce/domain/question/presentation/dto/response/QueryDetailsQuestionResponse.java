@@ -8,10 +8,25 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class QueryDetailsQuestionResponse {
-    private final Long id;
-    private final String title;
-    private final String content;
-    private final String username;
-    private final Boolean isReplied;
-    private final LocalDateTime createdAt;
+    private final QuestionDto question;
+    private final ReplyDto reply;
+
+    @Getter
+    @Builder
+    public static final class QuestionDto {
+        private final Long id;
+        private final String title;
+        private final String content;
+        private final String username;
+        private final Boolean isReplied;
+        private final LocalDateTime createdAt;
+    }
+
+    @Getter
+    @Builder
+    public static final class ReplyDto {
+        private final String title;
+        private final String content;
+        private final LocalDateTime createdAt;
+    }
 }
