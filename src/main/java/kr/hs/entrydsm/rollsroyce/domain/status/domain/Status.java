@@ -76,6 +76,4 @@ public class Status {
         this.isFirstRoundPass = true;
         return this;
     }
-
-
 }
