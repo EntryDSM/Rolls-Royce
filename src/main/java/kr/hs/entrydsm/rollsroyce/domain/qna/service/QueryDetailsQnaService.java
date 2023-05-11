@@ -9,7 +9,6 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Reply;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.ReplyRepository;
 import kr.hs.entrydsm.rollsroyce.domain.qna.domain.Qna;
 import kr.hs.entrydsm.rollsroyce.domain.qna.exception.AccessDeniedQnaException;
-import kr.hs.entrydsm.rollsroyce.domain.qna.exception.ReplyNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.qna.facade.QnaFacade;
 import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.response.QueryDetailsQnaResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
@@ -31,27 +30,29 @@ public class QueryDetailsQnaService {
             throw AccessDeniedQnaException.EXCEPTION;
         }
 
-        return QueryDetailsQnaResponse.builder()
-                .qna(getQna(qna.getId()))
-                .reply(getReply(qna.getId()))
-                .build();
+        return getQuestionDetails(qna.getId());
     }
 
-    private QueryDetailsQnaResponse.QnaDto getQna(Long qnaId) {
+    private QueryDetailsQnaResponse getQuestionDetails(Long qnaId) {
         Qna qna = qnaFacade.getQnaById(qnaId);
 
-        return QueryDetailsQnaResponse.QnaDto.builder()
+        return QueryDetailsQnaResponse.builder()
                 .id(qna.getId())
                 .title(qna.getTitle())
                 .content(qna.getContent())
                 .username(qna.getUser().getName())
                 .isReplied(qna.getIsReplied())
                 .createdAt(qna.getCreatedAt())
+                .reply(getReply(qnaId))
                 .build();
     }
 
     private QueryDetailsQnaResponse.ReplyDto getReply(Long qnaId) {
-        Reply reply = replyRepository.findByQnaId(qnaId).orElseThrow(() -> ReplyNotFoundException.EXCEPTION);
+        Reply reply = replyRepository.findByQnaId(qnaId);
+
+        if (reply == null) {
+            return null;
+        }
 
         return QueryDetailsQnaResponse.ReplyDto.builder()
                 .title(reply.getTitle())
