@@ -63,9 +63,6 @@ public class QueryDetailsQnaService {
 
     private Boolean getIsMine(Long userId) {
         User user = userFacade.getCurrentUser();
-        if (user.getId().equals(userId)) {
-            return true;
-        }
-        return false;
+        return user.getId().equals(userId);
     }
 }
