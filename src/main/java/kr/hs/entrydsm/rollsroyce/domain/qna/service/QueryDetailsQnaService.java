@@ -46,6 +46,7 @@ public class QueryDetailsQnaService {
                 .content(qna.getContent())
                 .username(qna.getUser().getName())
                 .isReplied(qna.getIsReplied())
+                .isMine(getIsMine(qna.getUserId()))
                 .createdAt(qna.getCreatedAt())
                 .build();
     }
@@ -58,5 +59,10 @@ public class QueryDetailsQnaService {
                 .content(reply.getContent())
                 .createdAt(reply.getCreatedAt())
                 .build();
+    }
+
+    private Boolean getIsMine(Long userId) {
+        User user = userFacade.getCurrentUser();
+        return user.getId().equals(userId);
     }
 }
