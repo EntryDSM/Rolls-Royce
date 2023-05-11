@@ -50,6 +50,10 @@ public class Status {
     @Column(nullable = false)
     private boolean isFirstRoundPass;
 
+    @ColumnDefault("0")
+    @Column(nullable = false)
+    private boolean isSecondRoundPass;
+
     public void isSubmitToTrue() {
         this.isSubmitted = true;
     }
@@ -72,4 +76,6 @@ public class Status {
         this.isFirstRoundPass = true;
         return this;
     }
+
+
 }
