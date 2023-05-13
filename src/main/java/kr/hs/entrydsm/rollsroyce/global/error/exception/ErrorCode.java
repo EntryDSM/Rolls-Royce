@@ -82,7 +82,9 @@ public enum ErrorCode {
     PASS_INFO_NOT_FOUND(404, "PASS_INFO-404-0", "Pass Info Not Found"),
     INVALID_OKCERT_CONNECTION(500, "PASS_INFO-500-0", "Invalid OkCert Connection"),
 
-    REPLY_NOT_FOUND(404, "REPLY404-0", "Reply not found");
+    REPLY_NOT_FOUND(404, "REPLY404-0", "Reply not found"),
+
+    FAQ_NOT_FOUND(404, "FAQ404-0", "Faq Not Found");
 
     private final int status;
     private final String code;
