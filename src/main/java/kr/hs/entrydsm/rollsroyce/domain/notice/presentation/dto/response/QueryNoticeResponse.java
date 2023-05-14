@@ -1,15 +1,16 @@
 package kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import kr.hs.entrydsm.rollsroyce.domain.schedule.domain.types.Type;
+import kr.hs.entrydsm.rollsroyce.domain.notice.domain.type.NoticeType;
 
 @Getter
-@Builder
+@AllArgsConstructor
 public class QueryNoticeResponse {
     private final List<NoticeDto> notices;
 
@@ -20,6 +21,6 @@ public class QueryNoticeResponse {
         private final String title;
         private final Boolean isPinned;
         private final LocalDateTime createdAt;
-        private final Type type;
+        private final NoticeType type;
     }
 }

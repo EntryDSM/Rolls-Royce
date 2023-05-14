@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import kr.hs.entrydsm.rollsroyce.domain.notice.domain.Notice;
 import kr.hs.entrydsm.rollsroyce.domain.notice.domain.repository.NoticeRepository;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.QueryNoticeResponse;
 
@@ -19,17 +18,16 @@ public class QueryNoticeService {
 
     @Transactional(readOnly = true)
     public QueryNoticeResponse execute(String type) {
-        List<Notice> notices = noticeRepository.findAllByType(type);
+        List<QueryNoticeResponse.NoticeDto> notices = noticeRepository.findAllByType(type).stream()
+                .map(notice -> QueryNoticeResponse.NoticeDto.builder()
+                        .id(notice.getId())
+                        .title(notice.getTitle())
+                        .isPinned(notice.getIsPinned())
+                        .type(notice.getType())
+                        .createdAt(notice.getCreatedAt())
+                        .build())
+                .collect(Collectors.toList());
 
-        return QueryNoticeResponse.builder()
-                .notices(notices.stream()
-                        .map(notice -> QueryNoticeResponse.NoticeDto.builder()
-                                .id(notice.getId())
-                                .title(notice.getTitle())
-                                .isPinned(notice.getIsPinned())
-                                .createdAt(notice.getCreatedAt())
-                                .build())
-                        .collect(Collectors.toList()))
-                .build();
+        return new QueryNoticeResponse(notices);
     }
 }
