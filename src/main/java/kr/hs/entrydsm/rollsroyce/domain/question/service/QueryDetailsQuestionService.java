@@ -37,6 +37,7 @@ public class QueryDetailsQuestionService {
                 .content(question.getContent())
                 .username(question.getUser().getName())
                 .isReplied(question.getIsReplied())
+                .isMine(getIsMine(question.getUserId()))
                 .createdAt(question.getCreatedAt())
                 .reply(getReply(question))
                 .build();
@@ -50,5 +51,10 @@ public class QueryDetailsQuestionService {
                 .content(reply.getContent())
                 .createdAt(reply.getCreatedAt())
                 .build();
+    }
+
+    private Boolean getIsMine(Long userId) {
+        User user = userFacade.getCurrentUser();
+        return user.getId().equals(userId);
     }
 }
