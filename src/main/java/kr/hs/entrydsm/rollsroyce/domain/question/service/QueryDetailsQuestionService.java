@@ -32,21 +32,13 @@ public class QueryDetailsQuestionService {
         }
 
         return QueryDetailsQuestionResponse.builder()
-                .question(getQna(question.getId()))
-                .reply(getReply(question))
-                .build();
-    }
-
-    private QueryDetailsQuestionResponse.QuestionDto getQna(Long qustionId) {
-        Question question = questionFacade.getQuestionById(qustionId);
-
-        return QueryDetailsQuestionResponse.QuestionDto.builder()
                 .id(question.getId())
                 .title(question.getTitle())
                 .content(question.getContent())
                 .username(question.getUser().getName())
                 .isReplied(question.getIsReplied())
                 .createdAt(question.getCreatedAt())
+                .reply(getReply(question))
                 .build();
     }
 
