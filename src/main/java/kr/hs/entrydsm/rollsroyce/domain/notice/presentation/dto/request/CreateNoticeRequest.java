@@ -18,8 +18,7 @@ public class CreateNoticeRequest {
     @Size(max = 5000, message = "content은 최대 5000자까지 가능합니다.")
     private String content;
 
-    @NotBlank(message = "type은 null, 공백, 띄어쓰기를 허용하지 않습니다.")
-    private NoticeType type;
+    @NotNull private NoticeType type;
 
     @NotNull private Boolean isPinned;
 }

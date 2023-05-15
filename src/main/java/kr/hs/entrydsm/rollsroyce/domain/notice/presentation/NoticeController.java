@@ -3,6 +3,7 @@ package kr.hs.entrydsm.rollsroyce.domain.notice.presentation;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,9 @@ import javax.validation.Valid;
 
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request.CreateNoticeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request.UpdateNoticeRequest;
+import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.QueryNoticeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.CreateNoticeService;
+import kr.hs.entrydsm.rollsroyce.domain.notice.service.QueryNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.UpdateNoticeService;
 
 @RequiredArgsConstructor
@@ -24,6 +27,7 @@ import kr.hs.entrydsm.rollsroyce.domain.notice.service.UpdateNoticeService;
 public class NoticeController {
     private final CreateNoticeService createNoticeService;
     private final UpdateNoticeService updateNoticeService;
+    private final QueryNoticeService queryNoticeService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -36,5 +40,10 @@ public class NoticeController {
     public void updateNotice(
             @PathVariable("notice-id") Long noticeId, @RequestBody @Valid UpdateNoticeRequest request) {
         updateNoticeService.execute(noticeId, request);
+    }
+
+    @GetMapping("/{type}")
+    public QueryNoticeResponse getNoticeList(@PathVariable("type") String type) {
+        return queryNoticeService.execute(type);
     }
 }
