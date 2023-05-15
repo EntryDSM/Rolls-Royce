@@ -26,7 +26,7 @@ public class QueryDetailsQnaService {
         Qna qna = qnaFacade.getQnaById(questionId);
         User user = userFacade.getCurrentUser();
 
-        if (!qna.getIsPublic() && !user.getId().equals(qna.getId())) {
+        if (!qna.getIsPublic() && !user.getId().equals(qna.getUserId())) {
             throw AccessDeniedQnaException.EXCEPTION;
         }
 
