@@ -84,7 +84,9 @@ public enum ErrorCode {
 
     REPLY_NOT_FOUND(404, "REPLY404-0", "Reply not found"),
 
-    FAQ_NOT_FOUND(404, "FAQ404-0", "Faq Not Found");
+    FAQ_NOT_FOUND(404, "FAQ404-0", "Faq Not Found"),
+  
+    ADMISSION_UNAVAILABLE(404, "ADMISSION404-0", "Admission Unavailable");
 
     private final int status;
     private final String code;
