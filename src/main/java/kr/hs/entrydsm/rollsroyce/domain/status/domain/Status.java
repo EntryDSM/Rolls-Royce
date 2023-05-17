@@ -48,18 +48,10 @@ public class Status {
     @Column(nullable = false)
     private boolean isFirstRoundPass;
 
-<<<<<<< main
-<<<<<<< main
-    @ColumnDefault("0")
-    @Column(nullable = false)
-    private boolean isSecondRoundPass;
-=======
-=======
     @ColumnDefault("0")
     @Column(nullable = false)
     private boolean isSecondRoundPass;
 
->>>>>>> ♻️ :: spotlessApply
     @Builder
     public Status(
             Long receiptCode,
@@ -68,7 +60,8 @@ public class Status {
             Boolean isSubmitted,
             LocalDateTime submittedAt,
             String examCode,
-            Boolean isFirstRoundPass) {
+            Boolean isFirstRoundPass,
+            Boolean isSecondRoundPass) {
         this.receiptCode = receiptCode;
         this.entryInfo = entryInfo;
         this.isPrintsArrived = isPrintsArrived;
@@ -76,8 +69,8 @@ public class Status {
         this.submittedAt = submittedAt;
         this.examCode = examCode;
         this.isFirstRoundPass = isFirstRoundPass;
+        this.isSecondRoundPass = isSecondRoundPass;
     }
->>>>>>> ♻️ :: Entity 통일
 
     public void isSubmitToTrue() {
         this.isSubmitted = true;
