@@ -49,10 +49,17 @@ public class Status {
     private boolean isFirstRoundPass;
 
 <<<<<<< main
+<<<<<<< main
     @ColumnDefault("0")
     @Column(nullable = false)
     private boolean isSecondRoundPass;
 =======
+=======
+    @ColumnDefault("0")
+    @Column(nullable = false)
+    private boolean isSecondRoundPass;
+
+>>>>>>> ♻️ :: spotlessApply
     @Builder
     public Status(
             Long receiptCode,
