@@ -37,4 +37,8 @@ public class Screen extends BaseTimeEntity {
         this.image = image;
         this.admin = admin;
     }
+
+    public void updateScreen(String image) {
+        this.image = image;
+    }
 }
