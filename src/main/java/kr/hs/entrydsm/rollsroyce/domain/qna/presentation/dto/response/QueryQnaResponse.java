@@ -20,6 +20,5 @@ public class QueryQnaResponse {
         private final Boolean isReplied;
         private final String username;
         private final Boolean isPublic;
-        private final Boolean isMine;
     }
 }
