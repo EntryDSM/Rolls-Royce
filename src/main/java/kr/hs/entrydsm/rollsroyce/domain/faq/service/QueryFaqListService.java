@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import kr.hs.entrydsm.rollsroyce.domain.faq.domain.Faq;
 import kr.hs.entrydsm.rollsroyce.domain.faq.domain.repository.FaqRepository;
@@ -24,6 +25,6 @@ public class QueryFaqListService {
                         .createdAt(faq.getCreatedAt())
                         .faqType(faq.getFaqType())
                         .build())
-                .toList();
+                .collect(Collectors.toList());
     }
 }

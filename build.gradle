@@ -8,7 +8,7 @@ plugins {
 
 group = 'kr.hs.entrydsm'
 version = '0.0.0'
-sourceCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
 	compileOnly {
@@ -115,4 +115,3 @@ jacocoTestReport {
 jar {
 	enabled = false
 }
-targetCompatibility = JavaVersion.VERSION_16
