@@ -41,17 +41,17 @@ public class FaqController {
     }
 
     @GetMapping("/{faq-id}")
-    public QueryFaqInfoResponse execute(@PathVariable("faq-id") Long id) {
+    public QueryFaqInfoResponse queryFaqInfo(@PathVariable("faq-id") Long id) {
         return queryFaqInfoService.execute(id);
     }
 
     @GetMapping
-    public List<QueryFaqResponse> execute(@RequestParam("type") String type) {
+    public List<QueryFaqResponse> queryFaqListByType(@RequestParam("type") String type) {
         return queryFaqListByTypeService.execute(type);
     }
 
     @GetMapping("/all")
-    public List<QueryFaqResponse> execute() {
+    public List<QueryFaqResponse> queryFaqList() {
         return queryFaqListService.execute();
     }
 }
