@@ -32,7 +32,7 @@ public class ScreenController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/[screen-id}")
+    @PatchMapping("/{screen-id}")
     public void updateScreen(
             @PathVariable("screen-id") Long screenId, @RequestBody @Valid UpdateScreenRequest request) {
         updateScreenService.execute(screenId, request);
