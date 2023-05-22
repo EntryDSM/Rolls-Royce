@@ -11,21 +11,14 @@ import java.util.stream.Collectors;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.repository.QuestionRepository;
 import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryQuestionResponse;
-import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 
 @RequiredArgsConstructor
 @Service
 public class QueryQuestionListService {
     private final QuestionRepository questionRepository;
-    private final UserFacade userFacade;
 
     @Transactional(readOnly = true)
     public QueryQuestionResponse execute() {
-
-        return getQuestions();
-    }
-
-    private QueryQuestionResponse getQuestions() {
         List<Question> questions = questionRepository.findAllByOrderByIdDesc();
 
         return QueryQuestionResponse.builder()
