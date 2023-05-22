@@ -9,7 +9,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Admin;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Reply;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.ReplyRepository;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
-import kr.hs.entrydsm.rollsroyce.domain.qna.exception.WriterMisMatchedException;
+import kr.hs.entrydsm.rollsroyce.global.exception.WriterMisMatchedException;
 
 @RequiredArgsConstructor
 @Service

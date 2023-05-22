@@ -7,17 +7,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.repository.QuestionRepository;
-import kr.hs.entrydsm.rollsroyce.domain.question.facade.QuestionFacade;
+import kr.hs.entrydsm.rollsroyce.domain.question.exception.QuestionNotFoundException;
 
 @RequiredArgsConstructor
 @Service
 public class DeleteQuestionAdminService {
-    private final QuestionFacade questionFacade;
     private final QuestionRepository questionRepository;
 
     @Transactional
     public void execute(Long questionId) {
-        Question question = questionFacade.getQuestionById(questionId);
+        Question question =
+                questionRepository.findById(questionId).orElseThrow(() -> QuestionNotFoundException.EXCEPTION);
+        ;
 
         questionRepository.delete(question);
     }
