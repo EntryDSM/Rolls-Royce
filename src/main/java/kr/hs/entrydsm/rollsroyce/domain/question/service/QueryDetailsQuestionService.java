@@ -8,9 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Reply;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.ReplyRepository;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
+import kr.hs.entrydsm.rollsroyce.domain.question.domain.repository.QuestionRepository;
 import kr.hs.entrydsm.rollsroyce.domain.question.exception.AccessDeniedQuestionException;
+import kr.hs.entrydsm.rollsroyce.domain.question.exception.QuestionNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.question.exception.ReplyNotFoundException;
-import kr.hs.entrydsm.rollsroyce.domain.question.facade.QuestionFacade;
 import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryDetailsQuestionResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
@@ -18,13 +19,15 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 @RequiredArgsConstructor
 @Service
 public class QueryDetailsQuestionService {
-    private final QuestionFacade questionFacade;
+    private final QuestionRepository questionRepository;
     private final UserFacade userFacade;
     private final ReplyRepository replyRepository;
 
     @Transactional(readOnly = true)
     public QueryDetailsQuestionResponse execute(Long questionId) {
-        Question question = questionFacade.getQuestionById(questionId);
+        Question question =
+                questionRepository.findById(questionId).orElseThrow(() -> QuestionNotFoundException.EXCEPTION);
+        ;
         User user = userFacade.getCurrentUser();
 
         if (!question.getIsPublic() && !user.getId().equals(question.getUserId())) {
