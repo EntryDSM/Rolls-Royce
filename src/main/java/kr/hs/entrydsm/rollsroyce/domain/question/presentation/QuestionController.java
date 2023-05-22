@@ -22,14 +22,14 @@ import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.Query
 import kr.hs.entrydsm.rollsroyce.domain.question.service.CreateQuestionService;
 import kr.hs.entrydsm.rollsroyce.domain.question.service.DeleteQuestionService;
 import kr.hs.entrydsm.rollsroyce.domain.question.service.QueryDetailsQuestionService;
-import kr.hs.entrydsm.rollsroyce.domain.question.service.QueryQuestionService;
+import kr.hs.entrydsm.rollsroyce.domain.question.service.QueryQuestionListService;
 import kr.hs.entrydsm.rollsroyce.domain.question.service.UpdateQuestionService;
 
 @RequiredArgsConstructor
 @RequestMapping("/question")
 @RestController
 public class QuestionController {
-    private final QueryQuestionService queryQuestionService;
+    private final QueryQuestionListService queryQuestionListService;
     private final CreateQuestionService createQuestionService;
     private final UpdateQuestionService updateQuestionService;
     private final DeleteQuestionService deleteQuestionService;
@@ -37,7 +37,7 @@ public class QuestionController {
 
     @GetMapping("/all")
     public QueryQuestionResponse getQuestionList() {
-        return queryQuestionService.execute();
+        return queryQuestionListService.execute();
     }
 
     @ResponseStatus(HttpStatus.CREATED)

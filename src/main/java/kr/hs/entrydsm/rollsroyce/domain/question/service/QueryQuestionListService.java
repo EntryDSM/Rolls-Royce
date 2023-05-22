@@ -15,7 +15,7 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 
 @RequiredArgsConstructor
 @Service
-public class QueryQuestionService {
+public class QueryQuestionListService {
     private final QuestionRepository questionRepository;
     private final UserFacade userFacade;
 
