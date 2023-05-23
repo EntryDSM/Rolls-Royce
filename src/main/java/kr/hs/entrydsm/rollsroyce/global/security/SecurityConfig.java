@@ -83,6 +83,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // reserve
                 .antMatchers(HttpMethod.GET, "/reserve")
                 .permitAll()
+                .antMatchers(HttpMethod.GET, "/qna/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
