@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.request.CreateQuestionRequest;
 import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.request.UpdateQuestionRequest;
 import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryDetailsQuestionResponse;
-import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryQuestionResponse;
+import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryQuestionListResponse;
 import kr.hs.entrydsm.rollsroyce.domain.question.service.CreateQuestionService;
 import kr.hs.entrydsm.rollsroyce.domain.question.service.DeleteQuestionService;
 import kr.hs.entrydsm.rollsroyce.domain.question.service.QueryDetailsQuestionService;
@@ -38,7 +38,7 @@ public class QuestionController {
     private final QueryMyQuestionListService queryMyQuestionListService;
 
     @GetMapping("/all")
-    public QueryQuestionResponse getQuestionList() {
+    public QueryQuestionListResponse getQuestionList() {
         return queryQuestionListService.execute();
     }
 
@@ -67,7 +67,7 @@ public class QuestionController {
     }
 
     @GetMapping()
-    public QueryQuestionResponse getMyQnaList() {
+    public QueryQuestionListResponse getMyQnaList() {
         return queryMyQuestionListService.execute();
     }
 }

@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.repository.QuestionRepository;
-import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryQuestionResponse;
+import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryQuestionListResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 
@@ -21,13 +21,13 @@ public class QueryMyQuestionListService {
     private final QuestionRepository questionRepository;
 
     @Transactional(readOnly = true)
-    public QueryQuestionResponse execute() {
+    public QueryQuestionListResponse execute() {
         User user = userFacade.getCurrentUser();
         List<Question> questions = questionRepository.findAllByUser(user);
 
-        return QueryQuestionResponse.builder()
+        return QueryQuestionListResponse.builder()
                 .questions(questions.stream()
-                        .map(question -> QueryQuestionResponse.QuestionDto.builder()
+                        .map(question -> QueryQuestionListResponse.QuestionDto.builder()
                                 .id(question.getId())
                                 .title(question.getTitle())
                                 .username(question.getUserName())

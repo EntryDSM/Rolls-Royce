@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class QueryQuestionResponse {
+public class QueryQuestionListResponse {
     private final List<QuestionDto> questions;
 
     @Getter

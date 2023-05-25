@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.repository.QuestionRepository;
-import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryQuestionResponse;
+import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryQuestionListResponse;
 
 @RequiredArgsConstructor
 @Service
@@ -18,12 +18,12 @@ public class QueryQuestionListService {
     private final QuestionRepository questionRepository;
 
     @Transactional(readOnly = true)
-    public QueryQuestionResponse execute() {
+    public QueryQuestionListResponse execute() {
         List<Question> questions = questionRepository.findAllByOrderByIdDesc();
 
-        return QueryQuestionResponse.builder()
+        return QueryQuestionListResponse.builder()
                 .questions(questions.stream()
-                        .map(question -> QueryQuestionResponse.QuestionDto.builder()
+                        .map(question -> QueryQuestionListResponse.QuestionDto.builder()
                                 .title(question.getTitle())
                                 .username(question.getUserName())
                                 .isReplied(question.getIsReplied())
