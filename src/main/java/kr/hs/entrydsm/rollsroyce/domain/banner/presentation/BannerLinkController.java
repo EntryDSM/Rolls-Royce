@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import kr.hs.entrydsm.rollsroyce.domain.banner.presentation.dto.response.QueryBannerLinkListResponse;
@@ -31,7 +33,7 @@ public class BannerLinkController {
     }
 
     @GetMapping
-    public QueryBannerLinkListResponse getBannerLink() {
+    public List<QueryBannerLinkListResponse> getBannerLink() {
         return queryBannerLinkListService.execute();
     }
 }
