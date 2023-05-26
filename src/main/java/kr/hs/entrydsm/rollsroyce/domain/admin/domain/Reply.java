@@ -48,6 +48,10 @@ public class Reply extends BaseTimeEntity {
         this.qna = qna;
     }
 
+    public String getAdminId() {
+        return admin.getId();
+    }
+
     public void updateReply(String title, String content) {
         this.title = title;
         this.content = content;

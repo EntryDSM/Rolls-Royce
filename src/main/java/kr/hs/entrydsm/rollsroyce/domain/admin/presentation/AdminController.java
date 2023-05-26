@@ -28,6 +28,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsS
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.CreateReplyService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteAllTablesService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteQnaAdminService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteReplyService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.GetApplicantsService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.QueryStaticsCountService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.QueryStaticsScore;
@@ -45,6 +46,7 @@ public class AdminController {
     private final CreateReplyService createReplyService;
     private final DeleteQnaAdminService deleteQnaAdminService;
     private final UpdateReplyService updateReplyService;
+    private final DeleteReplyService deleteReplyService;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/data")
@@ -83,5 +85,11 @@ public class AdminController {
     @PatchMapping("/{reply-id}")
     public void updateReply(@PathVariable("reply-id") Long replyId, @RequestBody @Valid UpdateReplyRequest request) {
         updateReplyService.execute(replyId, request);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{reply-id}")
+    public void deletReply(@PathVariable("reply-id") Long replyId) {
+        deleteReplyService.execute(replyId);
     }
 }

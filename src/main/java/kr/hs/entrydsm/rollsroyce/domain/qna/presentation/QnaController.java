@@ -22,6 +22,7 @@ import kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.response.QueryQnaRe
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.CreateQnaService;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.DeleteQnaService;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.QueryDetailsQnaService;
+import kr.hs.entrydsm.rollsroyce.domain.qna.service.QueryMyQnaService;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.QueryQnaService;
 import kr.hs.entrydsm.rollsroyce.domain.qna.service.UpdateQnaService;
 
@@ -34,6 +35,7 @@ public class QnaController {
     private final UpdateQnaService updateQnaService;
     private final DeleteQnaService deleteQnaService;
     private final QueryDetailsQnaService queryDetailsQnaService;
+    private final QueryMyQnaService queryMyQnaService;
 
     @GetMapping("/all")
     public QueryQnaResponse getQnaList() {
@@ -61,5 +63,10 @@ public class QnaController {
     @GetMapping("/{qna-id}")
     public QueryDetailsQnaResponse getQuestionDetails(@PathVariable("qna-id") Long qnaId) {
         return queryDetailsQnaService.execute(qnaId);
+    }
+
+    @GetMapping()
+    public QueryQnaResponse getMyQnaList() {
+        return queryMyQnaService.execute();
     }
 }
