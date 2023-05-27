@@ -35,8 +35,7 @@ public class Faq extends BaseTimeEntity {
     private Admin admin;
 
     @Builder
-    public Faq(Long id, String title, String content, FaqType faqType, Admin admin) {
-        this.id = id;
+    public Faq(String title, String content, FaqType faqType, Admin admin) {
         this.title = title;
         this.content = content;
         this.faqType = faqType;
