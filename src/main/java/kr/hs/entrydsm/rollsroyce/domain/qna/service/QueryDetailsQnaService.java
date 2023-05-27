@@ -40,7 +40,7 @@ public class QueryDetailsQnaService {
                 .id(qna.getId())
                 .title(qna.getTitle())
                 .content(qna.getContent())
-                .username(qna.getUser().getName())
+                .username(qna.getUserName())
                 .isReplied(qna.getIsReplied())
                 .isMine(getIsMine(qna.getUserId()))
                 .createdAt(qna.getCreatedAt())

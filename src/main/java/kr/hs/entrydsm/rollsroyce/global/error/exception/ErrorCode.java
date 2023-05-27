@@ -86,7 +86,9 @@ public enum ErrorCode {
 
     FAQ_NOT_FOUND(404, "FAQ404-0", "Faq Not Found"),
 
-    ADMISSION_UNAVAILABLE(404, "ADMISSION404-0", "Admission Unavailable");
+    ADMISSION_UNAVAILABLE(404, "ADMISSION404-0", "Admission Unavailable"),
+
+    BANNERLINK_NOT_FOUND(404, "BANNERLINK404-0", "BannerLink Not Found");
 
     private final int status;
     private final String code;
