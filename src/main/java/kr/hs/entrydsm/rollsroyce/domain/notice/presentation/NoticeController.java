@@ -3,6 +3,7 @@ package kr.hs.entrydsm.rollsroyce.domain.notice.presentation;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request.CreateNo
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request.UpdateNoticeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.QueryNoticeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.CreateNoticeService;
+import kr.hs.entrydsm.rollsroyce.domain.notice.service.DeleteNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.QueryNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.UpdateNoticeService;
 
@@ -27,6 +29,7 @@ import kr.hs.entrydsm.rollsroyce.domain.notice.service.UpdateNoticeService;
 public class NoticeController {
     private final CreateNoticeService createNoticeService;
     private final UpdateNoticeService updateNoticeService;
+    private final DeleteNoticeService deleteNoticeService;
     private final QueryNoticeService queryNoticeService;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -40,6 +43,12 @@ public class NoticeController {
     public void updateNotice(
             @PathVariable("notice-id") Long noticeId, @RequestBody @Valid UpdateNoticeRequest request) {
         updateNoticeService.execute(noticeId, request);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{notice-id}")
+    public void deleteNotice(@PathVariable("notice-id") Long noticeId) {
+        deleteNoticeService.execute(noticeId);
     }
 
     @GetMapping("/{type}")
