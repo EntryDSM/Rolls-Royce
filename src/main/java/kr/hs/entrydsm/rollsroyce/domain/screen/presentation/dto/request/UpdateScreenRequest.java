@@ -13,6 +13,5 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UpdateScreenRequest {
     @NotBlank(message = "image은 null, 공백, 띄어쓰기를 허용하지 않습니다.")
-    @Size(max = 255)
     private MultipartFile image;
 }
