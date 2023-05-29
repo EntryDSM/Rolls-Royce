@@ -67,15 +67,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole(USER)
 
                 // admin
-                .antMatchers(HttpMethod.DELETE, "/admin/data")
+                .antMatchers(HttpMethod.DELETE, "/admin/data", "/notice")
                 .hasRole(ADMIN_ROOT)
                 .antMatchers(HttpMethod.GET, "/admin/excel/**")
                 .hasRole(ADMIN_ROOT)
-                .antMatchers(HttpMethod.PATCH, "/schedule", "/admin/application/**")
+                .antMatchers(HttpMethod.PATCH, "/schedule", "/admin/application/**", "/notice/**")
                 .hasAnyRole(ADMIN_ROOT)
                 .antMatchers("/admin/application-count")
                 .hasAnyRole(ADMIN_ROOT, ADMIN_CONFIRM_APPLICATION)
-                .antMatchers(HttpMethod.POST, "/admin/auth/check", "/notice/**")
+                .antMatchers(HttpMethod.POST, "/admin/auth/check", "/notice/**", "/banner")
                 .hasAnyRole(ADMIN_ROOT, ADMIN_CONFIRM_APPLICATION)
                 .antMatchers(HttpMethod.GET, "/admin/applicants", "/admin/applicant/**", "/admin/statics/**")
                 .hasAnyRole(ADMIN_ROOT, ADMIN_CONFIRM_APPLICATION)

@@ -76,6 +76,8 @@ public enum ErrorCode {
     ACCESS_DENIED_QUESTION(403, "QUESTION403-1", "Have Not Access"),
     QUESTION_NOT_FOUND(404, "QUESTION404-0", "Question not found"),
 
+    NOTICE_NOT_FOUND(404, "NOTICE404-0", "Notice not found"),
+
     MESSAGE_REJECTED(400, "MESSAGE400-0", "Message is rejected"),
 
     INVALID_PASS(401, "PASS_INFO-401-0", "Invalid Pass"),
@@ -84,7 +86,9 @@ public enum ErrorCode {
 
     REPLY_NOT_FOUND(404, "REPLY404-0", "Reply not found"),
 
-    ADMISSION_UNAVAILABLE(404, "ADMISSION404-0", "Admission Unavailable");
+    ADMISSION_UNAVAILABLE(404, "ADMISSION404-0", "Admission Unavailable"),
+
+    BANNERLINK_NOT_FOUND(404, "BANNERLINK404-0", "BannerLink Not Found");
 
     private final int status;
     private final String code;
