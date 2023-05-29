@@ -73,6 +73,8 @@ public enum ErrorCode {
     FIELD_NOT_FOUND(400, "SCORE400-0", "Field not found"),
     GRADE_NOT_FOUND(404, "SCORE404-0", "User's grade could not be found"),
 
+    NOTICE_NOT_FOUND(404, "NOTICE404-0", "Notice not found"),
+
     ACCESS_DENIED_QNA(403, "QNA403-1", "Have Not Access"),
     QNA_NOT_FOUND(404, "QNA404-0", "Qna not found"),
 
