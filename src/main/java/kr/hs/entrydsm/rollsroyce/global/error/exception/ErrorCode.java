@@ -86,6 +86,8 @@ public enum ErrorCode {
 
     REPLY_NOT_FOUND(404, "REPLY404-0", "Reply not found"),
 
+    SCREEN_NOT_FOUND(404, "SCREEN404-0", "Screen not found"),
+
     ADMISSION_UNAVAILABLE(404, "ADMISSION404-0", "Admission Unavailable"),
 
     BANNERLINK_NOT_FOUND(404, "BANNERLINK404-0", "BannerLink Not Found");
