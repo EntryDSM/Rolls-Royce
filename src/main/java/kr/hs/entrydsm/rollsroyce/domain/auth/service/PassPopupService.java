@@ -1,33 +1,30 @@
 package kr.hs.entrydsm.rollsroyce.domain.auth.service;
 
-import kcb.module.v3.OkCert;
-import kcb.org.json.JSONObject;
-import kr.hs.entrydsm.rollsroyce.global.exception.InternalServerErrorException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import kcb.module.v3.OkCert;
+import kcb.org.json.JSONObject;
+
+import kr.hs.entrydsm.rollsroyce.global.exception.InternalServerErrorException;
 
 @Service
 public class PassPopupService {
 
     private static final String TARGET = "PROD";
-    @Value("pass.site-name")
-    String SITE_NAME;
 
-    @Value("pass.site-url")
-    private String SITE_URL;
+    @Value("pass.site-name") String SITE_NAME;
 
-    @Value("${pass.popup-url}")
-    private String POPUP_URL;
+    @Value("pass.site-url") private String SITE_URL;
 
-    @Value("${pass.return-url}")
-    private String RETURN_URL;
+    @Value("${pass.popup-url}") private String POPUP_URL;
 
-    @Value("${pass.cp-cd}")
-    private String CP_CD;
+    @Value("${pass.return-url}") private String RETURN_URL;
 
-    @Value("${pass.license}")
-    private String LICENSE;
+    @Value("${pass.cp-cd}") private String CP_CD;
+
+    @Value("${pass.license}") private String LICENSE;
 
     String SVC_NAME = "IDS_HS_POPUP_START";
 
@@ -76,7 +73,8 @@ public class PassPopupService {
             htmlBuilder.append("</head>");
             htmlBuilder.append("<body>");
             htmlBuilder.append("<form name=\"form1\">");
-            htmlBuilder.append("<input type=\"hidden\" name=\"tc\" value=\"kcb.oknm.online.safehscert.popup.cmd.P931_CertChoiceCmd\"/>");
+            htmlBuilder.append(
+                    "<input type=\"hidden\" name=\"tc\" value=\"kcb.oknm.online.safehscert.popup.cmd.P931_CertChoiceCmd\"/>");
             htmlBuilder.append("<input type=\"hidden\" name=\"cp_cd\" value=\"" + CP_CD + "\"/>");
             htmlBuilder.append("<input type=\"hidden\" name=\"mdl_tkn\" value=\"" + MDL_TKN + "\"/>");
             htmlBuilder.append("<input type=\"hidden\" name=\"target_id\" value=\"\"/>");
