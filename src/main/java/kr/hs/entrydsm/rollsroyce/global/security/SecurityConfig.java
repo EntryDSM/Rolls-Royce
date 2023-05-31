@@ -80,6 +80,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/admin/applicants", "/admin/applicant/**", "/admin/statics/**")
                 .hasAnyRole(ADMIN_ROOT, ADMIN_CONFIRM_APPLICATION)
 
+                // faq
+                .antMatchers(HttpMethod.GET, "/faq/**")
+                .permitAll()
+                .antMatchers(HttpMethod.POST, "/faq")
+                .hasRole(ADMIN_ROOT)
+                .antMatchers(HttpMethod.DELETE, "/faq/**")
+                .hasRole(ADMIN_ROOT)
+                .antMatchers(HttpMethod.PATCH, "/faq/**")
+                .hasRole(ADMIN_ROOT)
+
                 // reserve
                 .antMatchers(HttpMethod.GET, "/reserve")
                 .permitAll()
