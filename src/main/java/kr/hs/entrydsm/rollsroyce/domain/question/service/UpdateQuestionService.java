@@ -24,7 +24,6 @@ public class UpdateQuestionService {
         User user = userFacade.getCurrentUser();
         Question question =
                 questionRepository.findById(questionId).orElseThrow(() -> QuestionNotFoundException.EXCEPTION);
-        ;
 
         if (!user.getId().equals(question.getUserId())) {
             throw WriterMisMatchedException.EXCEPTION;

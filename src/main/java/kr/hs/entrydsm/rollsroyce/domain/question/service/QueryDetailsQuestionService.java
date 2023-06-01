@@ -27,7 +27,6 @@ public class QueryDetailsQuestionService {
     public QueryDetailsQuestionResponse execute(Long questionId) {
         Question question =
                 questionRepository.findById(questionId).orElseThrow(() -> QuestionNotFoundException.EXCEPTION);
-        ;
         User user = userFacade.getCurrentUser();
 
         if (!question.getIsPublic() && !user.getId().equals(question.getUserId())) {
