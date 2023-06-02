@@ -49,6 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(HttpMethod.GET, "/user/verify/**")
                 .permitAll()
+                .antMatchers(HttpMethod.GET, "/user/verify/info", "/banner")
+                .permitAll()
                 .antMatchers("/user/auth", "/admin/auth")
                 .permitAll()
                 .antMatchers("/**/email/verify")
@@ -67,18 +69,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole(USER)
 
                 // admin
-                .antMatchers(HttpMethod.DELETE, "/admin/data")
+                .antMatchers(HttpMethod.DELETE, "/admin/data", "/notice")
                 .hasRole(ADMIN_ROOT)
                 .antMatchers(HttpMethod.GET, "/admin/excel/**")
                 .hasRole(ADMIN_ROOT)
-                .antMatchers(HttpMethod.PATCH, "/schedule", "/admin/application/**")
+                .antMatchers(HttpMethod.PATCH, "/schedule", "/admin/application/**", "/notice/**")
                 .hasAnyRole(ADMIN_ROOT)
                 .antMatchers("/admin/application-count")
                 .hasAnyRole(ADMIN_ROOT, ADMIN_CONFIRM_APPLICATION)
-                .antMatchers(HttpMethod.POST, "/admin/auth/check", "/notice/**")
+                .antMatchers(HttpMethod.POST, "/admin/auth/check", "/notice/**", "/banner", "/screen/**")
                 .hasAnyRole(ADMIN_ROOT, ADMIN_CONFIRM_APPLICATION)
                 .antMatchers(HttpMethod.GET, "/admin/applicants", "/admin/applicant/**", "/admin/statics/**")
                 .hasAnyRole(ADMIN_ROOT, ADMIN_CONFIRM_APPLICATION)
+
+                // faq
+                .antMatchers(HttpMethod.GET, "/faq/**")
+                .permitAll()
+                .antMatchers(HttpMethod.POST, "/faq")
+                .hasRole(ADMIN_ROOT)
+                .antMatchers(HttpMethod.DELETE, "/faq/**")
+                .hasRole(ADMIN_ROOT)
+                .antMatchers(HttpMethod.PATCH, "/faq/**")
+                .hasRole(ADMIN_ROOT)
 
                 // reserve
                 .antMatchers(HttpMethod.GET, "/reserve")
