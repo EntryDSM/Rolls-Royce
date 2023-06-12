@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.auth.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +10,7 @@ import kcb.org.json.JSONObject;
 
 import kr.hs.entrydsm.rollsroyce.global.exception.InternalServerErrorException;
 
+@Slf4j
 @Service
 public class PassPopupService {
 
@@ -92,6 +94,7 @@ public class PassPopupService {
             return htmlBuilder.toString();
 
         } catch (Exception e) {
+            log.error("error", e);
             throw InternalServerErrorException.EXCEPTION;
         }
     }
