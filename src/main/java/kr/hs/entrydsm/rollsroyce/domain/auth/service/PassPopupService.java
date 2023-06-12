@@ -69,7 +69,7 @@ public class PassPopupService {
             htmlBuilder.append("<script type=\"text/javascript\">");
             htmlBuilder.append("function request(){");
             htmlBuilder.append("document.form1.action = \"" + POPUP_URL + "\";");
-            htmlBuilder.append("document.form1.method = \"get\";");
+            htmlBuilder.append("document.form1.method = \"post\";");
             htmlBuilder.append("document.form1.submit();");
             htmlBuilder.append("}");
             htmlBuilder.append("</script>");
