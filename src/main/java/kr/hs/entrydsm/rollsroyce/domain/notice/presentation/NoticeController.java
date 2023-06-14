@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import kr.hs.entrydsm.rollsroyce.domain.notice.domain.type.NoticeType;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request.CreateNoticeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request.UpdateNoticeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.QueryNoticeResponse;
@@ -51,8 +52,8 @@ public class NoticeController {
         deleteNoticeService.execute(noticeId);
     }
 
-    @GetMapping("/{type}")
-    public QueryNoticeResponse getNoticeList(@PathVariable("type") String type) {
+    @GetMapping("/all/{type}")
+    public QueryNoticeResponse getNoticeList(@PathVariable("type") NoticeType type) {
         return queryNoticeService.execute(type);
     }
 }

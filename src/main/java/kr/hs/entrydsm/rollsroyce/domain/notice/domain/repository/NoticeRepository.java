@@ -6,8 +6,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import kr.hs.entrydsm.rollsroyce.domain.notice.domain.Notice;
+import kr.hs.entrydsm.rollsroyce.domain.notice.domain.type.NoticeType;
 
 @Repository
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
-    List<Notice> findAllByType(String type);
+    List<Notice> findAllByType(NoticeType type);
 }
