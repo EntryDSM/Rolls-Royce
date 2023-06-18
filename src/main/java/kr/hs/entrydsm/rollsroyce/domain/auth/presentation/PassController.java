@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+import kr.hs.entrydsm.rollsroyce.domain.auth.presentation.dto.request.PassPopupRequest;
 import kr.hs.entrydsm.rollsroyce.domain.auth.presentation.dto.response.QueryPassInfoResponse;
 import kr.hs.entrydsm.rollsroyce.domain.auth.service.PassPopupService;
 import kr.hs.entrydsm.rollsroyce.domain.auth.service.QueryPassInfoService;
@@ -20,8 +23,8 @@ public class PassController {
         return queryPassInfoService.execute(token);
     }
 
-    @GetMapping("/popup")
-    public String getPass(@RequestParam("type") String urlType) {
-        return passPopupService.execute(urlType);
+    @PostMapping("/popup")
+    public String getPass(@RequestBody @Valid PassPopupRequest request) {
+        return passPopupService.execute(request);
     }
 }

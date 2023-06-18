@@ -10,8 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import kcb.module.v3.OkCert;
 import kcb.org.json.JSONObject;
 
+import kr.hs.entrydsm.rollsroyce.domain.auth.presentation.dto.request.PassPopupRequest;
 import kr.hs.entrydsm.rollsroyce.global.exception.InternalServerErrorException;
-import kr.hs.entrydsm.rollsroyce.global.utils.pass.RedirectUrlGenerator;
+import kr.hs.entrydsm.rollsroyce.global.utils.pass.RedirectUrlChecker;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,14 +34,14 @@ public class PassPopupService {
     private String SVC_NAME = "IDS_HS_POPUP_START";
 
     private String RQST_CAUS_CD = "00";
-
-    private final RedirectUrlGenerator redirectUrlGenerator;
+    private final RedirectUrlChecker redirectUrlChecker;
 
     @Transactional
-    public String execute(String urlType) {
+    public String execute(PassPopupRequest request) {
+        redirectUrlChecker.checkRedirectUrl(request.getRedirectUrl());
         try {
             JSONObject reqJson = new JSONObject();
-            reqJson.put("RETURN_URL", redirectUrlGenerator.getRedirectUrl(urlType));
+            reqJson.put("RETURN_URL", request.getRedirectUrl());
             reqJson.put("SITE_NAME", SITE_NAME);
             reqJson.put("SITE_URL", SITE_URL);
             reqJson.put("RQST_CAUS_CD", RQST_CAUS_CD);
