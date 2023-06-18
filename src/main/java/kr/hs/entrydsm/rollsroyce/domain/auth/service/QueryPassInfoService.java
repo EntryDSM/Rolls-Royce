@@ -37,14 +37,14 @@ public class QueryPassInfoService {
             throw InvalidPassException.EXCEPTION;
         }
 
-        String resultName = resJson.getString(RESULT_NAME);
-        String telNo = resJson.getString(TEL_NO);
+        String name = resJson.getString(RESULT_NAME);
+        String phoneNumber = resJson.getString(TEL_NO);
 
         PassInfo passInfo =
-                PassInfo.builder().name(resultName).phoneNumber(telNo).ttl(EXP).build();
+                PassInfo.builder().phoneNumber(phoneNumber). name(name).ttl(EXP).build();
 
         passInfoRepository.save(passInfo);
 
-        return QueryPassInfoResponse.builder().phoneNumber(telNo).build();
+        return new QueryPassInfoResponse(phoneNumber, name);
     }
 }

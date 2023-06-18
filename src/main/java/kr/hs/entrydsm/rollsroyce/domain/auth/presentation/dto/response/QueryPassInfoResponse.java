@@ -1,10 +1,12 @@
 package kr.hs.entrydsm.rollsroyce.domain.auth.presentation.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
+@AllArgsConstructor
 public class QueryPassInfoResponse {
     private final String phoneNumber;
+    private final String name;
 }
