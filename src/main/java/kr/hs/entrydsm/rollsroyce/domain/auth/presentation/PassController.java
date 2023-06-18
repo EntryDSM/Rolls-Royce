@@ -20,8 +20,8 @@ public class PassController {
         return queryPassInfoService.execute(token);
     }
 
-    @PostMapping("/popup")
-    public String getPass() {
-        return passPopupService.execute();
+    @GetMapping("/popup")
+    public String getPass(@RequestParam("type") String urlType) {
+        return passPopupService.execute(urlType);
     }
 }
