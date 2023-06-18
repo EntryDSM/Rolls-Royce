@@ -1,12 +1,14 @@
 package kr.hs.entrydsm.rollsroyce.global.utils.pass;
 
-import kr.hs.entrydsm.rollsroyce.domain.auth.exception.RedirectUrlNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Stream;
+
+import kr.hs.entrydsm.rollsroyce.domain.auth.exception.RedirectUrlNotFoundException;
 
 @Component
 public class RedirectUrlGenerator {
@@ -28,7 +30,7 @@ public class RedirectUrlGenerator {
     @AllArgsConstructor
     private enum UrlType {
         SIGN_UP("signUp", "/user"),
-        CHANGE_PASSWORD("password","/user/password");
+        CHANGE_PASSWORD("password", "/user/password");
 
         private final String type;
         private final String url;

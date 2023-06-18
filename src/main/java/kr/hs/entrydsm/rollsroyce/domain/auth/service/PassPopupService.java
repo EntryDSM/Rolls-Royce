@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.auth.service;
 
-import kr.hs.entrydsm.rollsroyce.global.utils.pass.RedirectUrlGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,6 +11,7 @@ import kcb.module.v3.OkCert;
 import kcb.org.json.JSONObject;
 
 import kr.hs.entrydsm.rollsroyce.global.exception.InternalServerErrorException;
+import kr.hs.entrydsm.rollsroyce.global.utils.pass.RedirectUrlGenerator;
 
 @Slf4j
 @RequiredArgsConstructor

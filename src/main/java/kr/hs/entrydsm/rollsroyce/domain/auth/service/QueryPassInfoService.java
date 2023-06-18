@@ -41,7 +41,7 @@ public class QueryPassInfoService {
         String phoneNumber = resJson.getString(TEL_NO);
 
         PassInfo passInfo =
-                PassInfo.builder().phoneNumber(phoneNumber). name(name).ttl(EXP).build();
+                PassInfo.builder().phoneNumber(phoneNumber).name(name).ttl(EXP).build();
 
         passInfoRepository.save(passInfo);
 

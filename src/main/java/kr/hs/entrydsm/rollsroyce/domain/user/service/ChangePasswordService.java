@@ -1,14 +1,13 @@
 package kr.hs.entrydsm.rollsroyce.domain.user.service;
 
-import kr.hs.entrydsm.rollsroyce.domain.auth.domain.PassInfo;
-import kr.hs.entrydsm.rollsroyce.domain.auth.domain.repository.PassInfoRepository;
-import kr.hs.entrydsm.rollsroyce.domain.auth.exception.PassInfoNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.hs.entrydsm.rollsroyce.domain.auth.domain.repository.PassInfoRepository;
+import kr.hs.entrydsm.rollsroyce.domain.auth.exception.PassInfoNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
@@ -25,7 +24,7 @@ public class ChangePasswordService {
     @Transactional
     public void execute(PasswordRequest request) {
 
-        if(passInfoRepository.findByPhoneNumber(request.getTelephoneNumber()).isEmpty()) {
+        if (passInfoRepository.findByPhoneNumber(request.getTelephoneNumber()).isEmpty()) {
             throw PassInfoNotFoundException.EXCEPTION;
         }
 
