@@ -93,3 +93,4 @@ pass:
   cp-cd: ${CP_CD}
   license: ${PASS_LICENSE_PATH}
   exp: ${PASS_EXP}
+  base-url: ${BASE_URL}

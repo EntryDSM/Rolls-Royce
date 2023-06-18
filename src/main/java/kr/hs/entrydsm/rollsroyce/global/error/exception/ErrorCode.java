@@ -92,7 +92,9 @@ public enum ErrorCode {
 
     ADMISSION_UNAVAILABLE(404, "ADMISSION404-0", "Admission Unavailable"),
 
-    BANNERLINK_NOT_FOUND(404, "BANNERLINK404-0", "BannerLink Not Found");
+    BANNERLINK_NOT_FOUND(404, "BANNERLINK404-0", "BannerLink Not Found"),
+
+    INVALID_URL(401, "URL401-0", "Invalid Url");
 
     private final int status;
     private final String code;

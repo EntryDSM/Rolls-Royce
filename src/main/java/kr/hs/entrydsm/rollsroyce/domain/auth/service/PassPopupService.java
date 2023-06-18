@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.auth.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -9,9 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import kcb.module.v3.OkCert;
 import kcb.org.json.JSONObject;
 
+import kr.hs.entrydsm.rollsroyce.domain.auth.presentation.dto.request.PassPopupRequest;
 import kr.hs.entrydsm.rollsroyce.global.exception.InternalServerErrorException;
+import kr.hs.entrydsm.rollsroyce.global.utils.pass.RedirectUrlChecker;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class PassPopupService {
 
@@ -23,21 +27,21 @@ public class PassPopupService {
 
     @Value("${pass.popup-url}") private String POPUP_URL;
 
-    @Value("${pass.return-url}") private String RETURN_URL;
-
     @Value("${pass.cp-cd}") private String CP_CD;
 
     @Value("${pass.license}") private String LICENSE;
 
-    String SVC_NAME = "IDS_HS_POPUP_START";
+    private String SVC_NAME = "IDS_HS_POPUP_START";
 
-    String RQST_CAUS_CD = "00";
+    private String RQST_CAUS_CD = "00";
+    private final RedirectUrlChecker redirectUrlChecker;
 
     @Transactional
-    public String execute() {
+    public String execute(PassPopupRequest request) {
+        redirectUrlChecker.checkRedirectUrl(request.getRedirectUrl());
         try {
             JSONObject reqJson = new JSONObject();
-            reqJson.put("RETURN_URL", RETURN_URL);
+            reqJson.put("RETURN_URL", request.getRedirectUrl());
             reqJson.put("SITE_NAME", SITE_NAME);
             reqJson.put("SITE_URL", SITE_URL);
             reqJson.put("RQST_CAUS_CD", RQST_CAUS_CD);
