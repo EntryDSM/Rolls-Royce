@@ -21,6 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
                         adminOrigin,
                         "http://localhost:3000",
                         "http://localhost:3001",
-                        "http://localhost:3002");
+                        "http://localhost:3002",
+                        "https://auth.entrydsm.hs.kr/login");
     }
 }
