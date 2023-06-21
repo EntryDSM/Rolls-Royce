@@ -79,6 +79,7 @@ tmap:
 cors:
   user-origin: ${USER_ORIGIN}
   admin-origin: ${ADMIN_ORIGIN}
+  auth-origin: ${AUTH_ORIGIN}
 
 logging:
   level:
