@@ -12,6 +12,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Value("${cors.admin-origin}") private String adminOrigin;
 
+    @Value("${cors.auth-origin}") private String authOringin;
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -22,6 +24,6 @@ public class WebConfig implements WebMvcConfigurer {
                         "http://localhost:3000",
                         "http://localhost:3001",
                         "http://localhost:3002",
-                        "https://auth.entrydsm.hs.kr/login");
+                        authOringin);
     }
 }
