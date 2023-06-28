@@ -6,7 +6,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
@@ -37,5 +44,10 @@ public class User extends BaseTimeEntity {
     public User updatePassword(String password) {
         this.password = password;
         return this;
+    }
+
+    public void updateNameAndTelephoneNumber(String name, String telephoneNumber) {
+        this.name = name;
+        this.telephoneNumber = telephoneNumber;
     }
 }

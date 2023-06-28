@@ -12,6 +12,8 @@ import kr.hs.entrydsm.rollsroyce.domain.application.service.dto.UpdateUserInform
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.Sex;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
+import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
+import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 import kr.hs.entrydsm.rollsroyce.global.utils.EnumUtil;
 import kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis.client.TmapApi;
 import kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis.dto.request.RouteRequest;
@@ -23,12 +25,14 @@ import kr.hs.entrydsm.rollsroyce.global.utils.openfeign.apis.dto.response.RouteR
 public class ChangeInformationService {
 
     private final EntryInfoFacade entryInfoFacade;
+    private final UserFacade userFacade;
     private final TmapApi tmapApi;
 
     @Value("${tmap.app.key}") private String appKey;
 
     @Transactional
     public void execute(ChangeInformationRequest request) {
+        User user = userFacade.getCurrentUser();
         EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
 
         CoordinateResponse coordinate = tmapApi.getCoordinate(appKey, request.getAddress());
@@ -53,5 +57,7 @@ public class ChangeInformationService {
                 .detailAddress(request.getDetailAddress())
                 .distance(distance.getTotalDistance())
                 .build());
+
+        user.updateNameAndTelephoneNumber(request.getName(), request.getTelephoneNumber());
     }
 }
