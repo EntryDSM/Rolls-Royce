@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -23,6 +25,7 @@ import kr.hs.entrydsm.rollsroyce.domain.notice.service.CreateNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.DeleteNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.QueryNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.UpdateNoticeService;
+import kr.hs.entrydsm.rollsroyce.domain.notice.service.UploadNoticeImageService;
 
 @RequiredArgsConstructor
 @RequestMapping("/notice")
@@ -32,6 +35,7 @@ public class NoticeController {
     private final UpdateNoticeService updateNoticeService;
     private final DeleteNoticeService deleteNoticeService;
     private final QueryNoticeService queryNoticeService;
+    private final UploadNoticeImageService uploadNoticeImageService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -55,5 +59,11 @@ public class NoticeController {
     @GetMapping("/all/{type}")
     public QueryNoticeResponse getNoticeList(@PathVariable("type") NoticeType type) {
         return queryNoticeService.execute(type);
+    }
+
+    @PostMapping("/images")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String uploadImage(@RequestPart MultipartFile file) {
+        return uploadNoticeImageService.execute(file);
     }
 }
