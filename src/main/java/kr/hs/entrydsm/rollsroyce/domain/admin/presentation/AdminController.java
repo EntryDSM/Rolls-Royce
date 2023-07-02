@@ -23,6 +23,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.CreateRep
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.GetApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.UpdateReplyRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantsResponse;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.QueryQuestionDetailAdminResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsCountResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsScoreResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.CreateReplyService;
@@ -30,6 +31,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteAllTablesService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteQuestionAdminService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteReplyService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.GetApplicantsService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.QueryQuestionDetailAdminService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.QueryStaticsCountService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.QueryStaticsScore;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.UpdateReplyService;
@@ -47,6 +49,7 @@ public class AdminController {
     private final DeleteQuestionAdminService deleteQuestionAdminService;
     private final UpdateReplyService updateReplyService;
     private final DeleteReplyService deleteReplyService;
+    private final QueryQuestionDetailAdminService queryQuestionDetailAdminService;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/data")
@@ -80,6 +83,11 @@ public class AdminController {
     public void createReply(
             @RequestBody @Valid CreateReplyRequest request, @PathVariable("question-id") Long questionId) {
         createReplyService.execute(request, questionId);
+    }
+
+    @GetMapping("/{question-id}")
+    public QueryQuestionDetailAdminResponse queryQuestionDetail(@PathVariable("question-id") Long questionId) {
+        return queryQuestionDetailAdminService.execute(questionId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
