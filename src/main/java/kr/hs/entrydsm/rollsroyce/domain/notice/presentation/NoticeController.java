@@ -20,9 +20,11 @@ import javax.validation.Valid;
 import kr.hs.entrydsm.rollsroyce.domain.notice.domain.type.NoticeType;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request.CreateNoticeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request.UpdateNoticeRequest;
+import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.QueryNoticeDetailResponse;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.QueryNoticeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.CreateNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.DeleteNoticeService;
+import kr.hs.entrydsm.rollsroyce.domain.notice.service.QueryNoticeDetailService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.QueryNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.UpdateNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.UploadNoticeImageService;
@@ -36,6 +38,7 @@ public class NoticeController {
     private final DeleteNoticeService deleteNoticeService;
     private final QueryNoticeService queryNoticeService;
     private final UploadNoticeImageService uploadNoticeImageService;
+    private final QueryNoticeDetailService queryNoticeDetailService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -65,5 +68,10 @@ public class NoticeController {
     @ResponseStatus(HttpStatus.CREATED)
     public String uploadImage(@RequestPart MultipartFile file) {
         return uploadNoticeImageService.execute(file);
+    }
+
+    @GetMapping("/{notice-id}")
+    public QueryNoticeDetailResponse queryNoticeDetail(@PathVariable("notice-id") Long noticeId) {
+        return queryNoticeDetailService.execute(noticeId);
     }
 }
