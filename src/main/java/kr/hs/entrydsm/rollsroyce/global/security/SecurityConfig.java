@@ -73,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole(USER)
 
                 // admin
-                .antMatchers(HttpMethod.DELETE, "/admin/data", "/notice")
+                .antMatchers(HttpMethod.DELETE, "/admin/data", "/notice", "/admin/question/**")
                 .hasRole(ADMIN_ROOT)
                 .antMatchers(HttpMethod.GET, "/admin/excel/**")
                 .hasRole(ADMIN_ROOT)
