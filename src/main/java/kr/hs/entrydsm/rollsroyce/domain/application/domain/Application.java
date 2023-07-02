@@ -1,7 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.application.domain;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +15,6 @@ import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @MappedSuperclass
 public abstract class Application extends BaseTimeEntity {
 

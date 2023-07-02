@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.response;
+package kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,12 +8,12 @@ import java.util.List;
 
 @Getter
 @Builder
-public class QueryQnaResponse {
-    private final List<QnaDto> qnaList;
+public class QueryQuestionListResponse {
+    private final List<QuestionDto> questions;
 
     @Getter
     @Builder
-    public static final class QnaDto {
+    public static final class QuestionDto {
         private final Long id;
         private final String title;
         private final LocalDateTime createdAt;

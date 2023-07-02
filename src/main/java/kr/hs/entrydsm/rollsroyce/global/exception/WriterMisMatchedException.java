@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.rollsroyce.domain.qna.exception;
+package kr.hs.entrydsm.rollsroyce.global.exception;
 
 import kr.hs.entrydsm.rollsroyce.global.error.exception.ErrorCode;
 import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
@@ -6,7 +6,7 @@ import kr.hs.entrydsm.rollsroyce.global.error.exception.RollsException;
 public class WriterMisMatchedException extends RollsException {
     public static final RollsException EXCEPTION = new WriterMisMatchedException();
 
-    private WriterMisMatchedException() {
+    public WriterMisMatchedException() {
         super(ErrorCode.WRITER_MISMATCHED);
     }
 }

@@ -1,7 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.domain;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +14,6 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity(name = "tbl_admin")
 public class Admin {
 
@@ -29,4 +27,10 @@ public class Admin {
     @Column(length = 24, nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public Admin(String id, String password, Role role) {
+        this.id = id;
+        this.password = password;
+        this.role = role;
+    }
 }

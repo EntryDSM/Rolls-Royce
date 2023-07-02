@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.status.domain;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,9 +19,7 @@ import javax.persistence.OneToOne;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "tbl_status")
 public class Status {
 
@@ -53,6 +51,26 @@ public class Status {
     @ColumnDefault("0")
     @Column(nullable = false)
     private boolean isSecondRoundPass;
+
+    @Builder
+    public Status(
+            Long receiptCode,
+            EntryInfo entryInfo,
+            Boolean isPrintsArrived,
+            Boolean isSubmitted,
+            LocalDateTime submittedAt,
+            String examCode,
+            Boolean isFirstRoundPass,
+            Boolean isSecondRoundPass) {
+        this.receiptCode = receiptCode;
+        this.entryInfo = entryInfo;
+        this.isPrintsArrived = isPrintsArrived;
+        this.isSubmitted = isSubmitted;
+        this.submittedAt = submittedAt;
+        this.examCode = examCode;
+        this.isFirstRoundPass = isFirstRoundPass;
+        this.isSecondRoundPass = isSecondRoundPass;
+    }
 
     public void isSubmitToTrue() {
         this.isSubmitted = true;

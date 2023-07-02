@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.rollsroyce.domain.qna.presentation.dto.request;
+package kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.request;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CreateQnaRequest {
+public class CreateQuestionRequest {
     @NotBlank(message = "title은 null, 공백, 띄어쓰기를 허용하지 않습니다.")
     @Size(max = 100, message = "title은 최대 100자까지 가능합니다.")
     private String title;

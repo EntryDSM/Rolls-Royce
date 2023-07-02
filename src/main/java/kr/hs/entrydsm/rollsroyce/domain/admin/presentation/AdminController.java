@@ -27,7 +27,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsC
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.StaticsScoreResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.CreateReplyService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteAllTablesService;
-import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteQnaAdminService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteQuestionAdminService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.DeleteReplyService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.GetApplicantsService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.QueryStaticsCountService;
@@ -44,7 +44,7 @@ public class AdminController {
     private final QueryStaticsCountService queryStaticsCountService;
     private final QueryStaticsScore queryStaticsScore;
     private final CreateReplyService createReplyService;
-    private final DeleteQnaAdminService deleteQnaAdminService;
+    private final DeleteQuestionAdminService deleteQuestionAdminService;
     private final UpdateReplyService updateReplyService;
     private final DeleteReplyService deleteReplyService;
 
@@ -70,15 +70,16 @@ public class AdminController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{qna-id}")
-    public void deleteQna(@PathVariable("qna-id") Long qnaId) {
-        deleteQnaAdminService.execute(qnaId);
+    @DeleteMapping("/{question-id}")
+    public void deleteQuestion(@PathVariable("question-id") Long questionId) {
+        deleteQuestionAdminService.execute(questionId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/{qna-id}")
-    public void createReply(@RequestBody @Valid CreateReplyRequest request, @PathVariable("qna-id") Long qnaId) {
-        createReplyService.execute(request, qnaId);
+    @PostMapping("/{question-id}")
+    public void createReply(
+            @RequestBody @Valid CreateReplyRequest request, @PathVariable("question-id") Long questionId) {
+        createReplyService.execute(request, questionId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
