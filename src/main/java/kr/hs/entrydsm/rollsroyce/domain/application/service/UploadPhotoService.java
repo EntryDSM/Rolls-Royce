@@ -22,15 +22,15 @@ public class UploadPhotoService {
     @Transactional
     public String execute(MultipartFile file) {
         EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
+        String fileName;
 
-        if (entryInfo.getPhotoFileName() != null) {
-            entryInfo.updatePhotoFileName(null);
+        if (entryInfo.getPhotoFileName() == null) {
+            fileName = s3Util.upload(file, "entry_photo/");
+        } else {
+            fileName = s3Util.putObject(file, "entry_photo/");
         }
 
-        String fileName = s3Util.upload(file, "entry_photo/");
-
         entryInfo.updatePhotoFileName(fileName);
-
         return s3Util.generateObjectUrl(fileName);
     }
 }
