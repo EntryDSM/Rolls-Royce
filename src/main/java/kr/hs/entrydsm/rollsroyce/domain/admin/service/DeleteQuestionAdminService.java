@@ -18,7 +18,6 @@ public class DeleteQuestionAdminService {
     public void execute(Long questionId) {
         Question question =
                 questionRepository.findById(questionId).orElseThrow(() -> QuestionNotFoundException.EXCEPTION);
-        ;
 
         questionRepository.delete(question);
     }
