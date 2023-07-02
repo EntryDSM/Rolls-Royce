@@ -22,12 +22,14 @@ import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.request.Cha
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryGraduationInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryTypeResponse;
+import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryUserInfoResponse;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeGraduationInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.ChangeTypeService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryGraduationInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryInformationService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryTypeService;
+import kr.hs.entrydsm.rollsroyce.domain.application.service.QueryUserInfoService;
 import kr.hs.entrydsm.rollsroyce.domain.application.service.UploadPhotoService;
 
 @RequiredArgsConstructor
@@ -42,6 +44,7 @@ public class ApplicationUserController {
     private final ChangeGraduationInformationService changeGraduationInformationService;
     private final QueryGraduationInformationService queryGraduationInformationService;
     private final UploadPhotoService uploadPhotoService;
+    private final QueryUserInfoService queryUserInfoService;
 
     @PatchMapping("/type")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -80,5 +83,10 @@ public class ApplicationUserController {
     @ResponseStatus(HttpStatus.CREATED)
     public String uploadPhoto(@RequestPart(name = "photo") @Nullable MultipartFile file) {
         return uploadPhotoService.execute(file);
+    }
+
+    @GetMapping("/info")
+    public QueryUserInfoResponse queryUserInfo() {
+        return queryUserInfoService.execute();
     }
 }
