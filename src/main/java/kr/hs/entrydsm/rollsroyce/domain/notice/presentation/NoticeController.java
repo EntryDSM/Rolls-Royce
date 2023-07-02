@@ -64,10 +64,10 @@ public class NoticeController {
         return queryNoticeService.execute(type);
     }
 
-    @PostMapping("/images")
+    @PostMapping("/{notice-id}/images")
     @ResponseStatus(HttpStatus.CREATED)
-    public String uploadImage(@RequestPart MultipartFile file) {
-        return uploadNoticeImageService.execute(file);
+    public String uploadImage(@PathVariable("notice-id") Long noticeId, @RequestPart MultipartFile file) {
+        return uploadNoticeImageService.execute(noticeId, file);
     }
 
     @GetMapping("/{notice-id}")

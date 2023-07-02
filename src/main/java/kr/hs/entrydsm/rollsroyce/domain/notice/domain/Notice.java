@@ -64,4 +64,8 @@ public class Notice extends BaseTimeEntity {
         this.isPinned = isPinned;
         this.admin = admin;
     }
+
+    public void updateImage(String image) {
+        this.image = image;
+    }
 }
