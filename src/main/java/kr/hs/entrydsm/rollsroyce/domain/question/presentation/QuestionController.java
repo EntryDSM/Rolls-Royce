@@ -67,7 +67,7 @@ public class QuestionController {
     }
 
     @GetMapping()
-    public QueryQuestionListResponse getMyQnaList() {
+    public QueryQuestionListResponse getMyQuestionList() {
         return queryMyQuestionListService.execute();
     }
 }
