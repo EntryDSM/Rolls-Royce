@@ -35,6 +35,7 @@ public class CreateEntryInfoService {
                 .isPrintsArrived(false)
                 .isSubmitted(false)
                 .isFirstRoundPass(false)
+                .isSecondRoundPass(false)
                 .build());
     }
 }
