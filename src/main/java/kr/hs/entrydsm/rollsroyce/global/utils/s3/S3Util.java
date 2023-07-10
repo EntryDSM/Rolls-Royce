@@ -62,7 +62,7 @@ public class S3Util {
 
         InputStream is = new ByteArrayInputStream(os.toByteArray());
 
-        amazonS3Client.putObject(new PutObjectRequest(bucketName, path + filename, is, null)
+        amazonS3Client.putObject(new PutObjectRequest(bucketName, filename, is, null)
                 .withCannedAcl(CannedAccessControlList.AuthenticatedRead));
 
         return filename;
