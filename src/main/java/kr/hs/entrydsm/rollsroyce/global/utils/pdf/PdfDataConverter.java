@@ -230,7 +230,7 @@ public class PdfDataConverter {
     }
 
     private void setBase64Image(EntryInfo entryInfo, Map<String, Object> values) {
-        byte[] imageBytes = s3Util.getObject(entryInfo.getPhotoFileName());
+        byte[] imageBytes = s3Util.getObject("entry_photo/" + entryInfo.getPhotoFileName());
         String base64EncodedImage = new String(Base64.getEncoder().encode(imageBytes), StandardCharsets.UTF_8);
         values.put("base64Image", base64EncodedImage);
     }
