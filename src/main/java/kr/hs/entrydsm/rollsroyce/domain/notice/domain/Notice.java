@@ -67,8 +67,4 @@ public class Notice extends BaseTimeEntity {
         this.admin = admin;
         this.image = image;
     }
-
-    public void updateImage(String image) {
-        this.image = image;
-    }
 }
