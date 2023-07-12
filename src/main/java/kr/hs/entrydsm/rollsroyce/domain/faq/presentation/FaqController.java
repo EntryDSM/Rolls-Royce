@@ -47,11 +47,13 @@ public class FaqController {
         createFaqService.execute(request);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{faq-id}")
     public void updateFaq(@PathVariable("faq-id") Long id, @RequestBody @Valid UpdateFaqRequest request) {
         updateFaqService.execute(id, request);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{faq-id}")
     public void deleteFaq(@PathVariable("faq-id") Long id) {
         deleteFaqService.execute(id);
