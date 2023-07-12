@@ -14,8 +14,10 @@ import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateGra
 import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.request.UpdateQualificationRequest;
 import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.response.QueryGraduationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.response.QueryQualificationResponse;
+import kr.hs.entrydsm.rollsroyce.domain.score.presentation.dto.response.QueryTotalScoreResponse;
 import kr.hs.entrydsm.rollsroyce.domain.score.service.QueryGraduationService;
 import kr.hs.entrydsm.rollsroyce.domain.score.service.QueryQualificationService;
+import kr.hs.entrydsm.rollsroyce.domain.score.service.QueryTotalScoreService;
 import kr.hs.entrydsm.rollsroyce.domain.score.service.UpdateGraduationService;
 import kr.hs.entrydsm.rollsroyce.domain.score.service.UpdateQualificationService;
 
@@ -28,6 +30,7 @@ public class ScoreController {
     private final UpdateGraduationService updateGraduationService;
     private final QueryQualificationService queryQualificationService;
     private final UpdateQualificationService updateQualificationService;
+    private final QueryTotalScoreService queryTotalScoreService;
 
     @GetMapping("/graduation")
     public QueryGraduationResponse queryGraduation() {
@@ -47,5 +50,10 @@ public class ScoreController {
     @PatchMapping("/qualification")
     public void updateQualification(@RequestBody @Valid UpdateQualificationRequest request) {
         updateQualificationService.execute(request);
+    }
+
+    @GetMapping("/total-score")
+    public QueryTotalScoreResponse queryTotalScore() {
+        return queryTotalScoreService.execute();
     }
 }
