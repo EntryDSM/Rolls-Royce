@@ -34,8 +34,8 @@ public class Notice extends BaseTimeEntity {
     @Column(columnDefinition = "varchar(100)", nullable = false)
     private String content;
 
-    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "char(9)", nullable = false)
+    @Enumerated(EnumType.STRING)
     private NoticeType type;
 
     @Column(columnDefinition = "BIT(1) default 0")
