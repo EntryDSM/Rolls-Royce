@@ -2,6 +2,8 @@ package kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request;
 
 import lombok.Getter;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import reactor.util.annotation.Nullable;
 
 import javax.validation.constraints.NotBlank;
@@ -23,4 +25,6 @@ public class UpdateNoticeRequest {
     @NotNull private NoticeType type;
 
     @Nullable private Boolean isPinned;
+
+    @Nullable private MultipartFile file;
 }

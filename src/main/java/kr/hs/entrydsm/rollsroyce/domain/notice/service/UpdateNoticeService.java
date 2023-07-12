@@ -11,17 +11,30 @@ import kr.hs.entrydsm.rollsroyce.domain.notice.domain.Notice;
 import kr.hs.entrydsm.rollsroyce.domain.notice.domain.repository.NoticeRepository;
 import kr.hs.entrydsm.rollsroyce.domain.notice.exception.NoticeNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request.UpdateNoticeRequest;
+import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 
 @RequiredArgsConstructor
 @Service
 public class UpdateNoticeService {
     private final NoticeRepository noticeRepository;
     private final AdminFacade adminFacade;
+    private final S3Util s3Util;
 
     @Transactional
-    public void execute(Long noticeId, UpdateNoticeRequest request) {
+    public String execute(Long noticeId, UpdateNoticeRequest request) {
         Admin admin = adminFacade.getAdmin();
         Notice notice = noticeRepository.findById(noticeId).orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
-        notice.updateNotice(request.getTitle(), request.getContent(), request.getType(), request.getIsPinned(), admin);
+        String fileName;
+
+        if (notice.getImage() == null) {
+            fileName = s3Util.upload(request.getFile(), "/post");
+        } else {
+            fileName = s3Util.putObject(request.getFile(), "/post");
+        }
+
+        notice.updateNotice(
+                request.getTitle(), request.getContent(), request.getType(), request.getIsPinned(), admin, fileName);
+
+        return s3Util.generateObjectUrl(fileName);
     }
 }

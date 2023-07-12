@@ -49,20 +49,23 @@ public class Notice extends BaseTimeEntity {
     private Admin admin;
 
     @Builder
-    public Notice(String title, String content, NoticeType type, Boolean isPinned, Admin admin) {
+    public Notice(String title, String content, NoticeType type, Boolean isPinned, Admin admin, String image) {
         this.title = title;
         this.content = content;
         this.type = type;
         this.isPinned = isPinned;
+        this.image = image;
         this.admin = admin;
     }
 
-    public void updateNotice(String title, String content, NoticeType type, Boolean isPinned, Admin admin) {
+    public void updateNotice(
+            String title, String content, NoticeType type, Boolean isPinned, Admin admin, String image) {
         this.title = title;
         this.content = content;
         this.type = type;
         this.isPinned = isPinned;
         this.admin = admin;
+        this.image = image;
     }
 
     public void updateImage(String image) {
