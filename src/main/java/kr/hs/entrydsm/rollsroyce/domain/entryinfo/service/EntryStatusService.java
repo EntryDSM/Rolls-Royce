@@ -23,6 +23,7 @@ public class EntryStatusService {
         Status status = statusFacade.getStatusByReceiptCode(entryInfo.getReceiptCode());
 
         return StatusResponse.builder()
+                .receiptCode(entryInfo.getReceiptCode())
                 .phoneNumber(entryInfo.getUserTelephoneNumber())
                 .name(entryInfo.getUserName())
                 .isSubmitted(status.getIsSubmitted())
