@@ -80,6 +80,7 @@ cors:
   user-origin: ${USER_ORIGIN}
   admin-origin: ${ADMIN_ORIGIN}
   auth-origin: ${AUTH_ORIGIN}
+  landing-origin: ${LANDING_ORIGIN}
 
 logging:
   level:
