@@ -24,6 +24,7 @@ public class QueryQuestionListService {
         return QueryQuestionListResponse.builder()
                 .questions(questions.stream()
                         .map(question -> QueryQuestionListResponse.QuestionDto.builder()
+                                .id(question.getId())
                                 .title(question.getTitle())
                                 .username(question.getUserName())
                                 .isReplied(question.getIsReplied())
