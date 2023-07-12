@@ -11,6 +11,7 @@ import kr.hs.entrydsm.rollsroyce.domain.faq.domain.type.FaqType;
 @Builder
 public class QueryFaqResponse {
     private final String title;
+    private final String content;
     private final LocalDateTime createdAt;
     private final FaqType faqType;
 }

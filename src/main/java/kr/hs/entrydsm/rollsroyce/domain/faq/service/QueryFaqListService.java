@@ -22,6 +22,7 @@ public class QueryFaqListService {
         return faqList.stream()
                 .map(faq -> QueryFaqResponse.builder()
                         .title(faq.getTitle())
+                        .content(faq.getContent())
                         .createdAt(faq.getCreatedAt())
                         .faqType(faq.getFaqType())
                         .build())
