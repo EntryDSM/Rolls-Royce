@@ -37,6 +37,10 @@ public class QueryQuestionDetailAdminService {
     private QueryQuestionDetailAdminResponse.ReplyDto getReply(Question question) {
         Reply reply = replyRepository.findByQuestion(question);
 
+        if (reply == null) {
+            return null;
+        }
+
         return QueryQuestionDetailAdminResponse.ReplyDto.builder()
                 .title(reply.getTitle())
                 .content(reply.getContent())
