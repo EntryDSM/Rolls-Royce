@@ -13,6 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${cors.admin-origin}") private String adminOrigin;
 
     @Value("${cors.auth-origin}") private String authOrigin;
+
     @Value("${cors.landing-origin}") private String landingOrigin;
 
     @Override
