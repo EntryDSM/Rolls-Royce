@@ -2,7 +2,17 @@ package kr.hs.entrydsm.rollsroyce.domain.faq.presentation;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -13,7 +23,12 @@ import kr.hs.entrydsm.rollsroyce.domain.faq.presentation.dto.request.CreateFaqRe
 import kr.hs.entrydsm.rollsroyce.domain.faq.presentation.dto.request.UpdateFaqRequest;
 import kr.hs.entrydsm.rollsroyce.domain.faq.presentation.dto.response.QueryFaqInfoResponse;
 import kr.hs.entrydsm.rollsroyce.domain.faq.presentation.dto.response.QueryFaqResponse;
-import kr.hs.entrydsm.rollsroyce.domain.faq.service.*;
+import kr.hs.entrydsm.rollsroyce.domain.faq.service.CreateFaqService;
+import kr.hs.entrydsm.rollsroyce.domain.faq.service.DeleteFaqService;
+import kr.hs.entrydsm.rollsroyce.domain.faq.service.QueryFaqInfoService;
+import kr.hs.entrydsm.rollsroyce.domain.faq.service.QueryFaqListByTypeService;
+import kr.hs.entrydsm.rollsroyce.domain.faq.service.QueryFaqListService;
+import kr.hs.entrydsm.rollsroyce.domain.faq.service.UpdateFaqService;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,6 +41,7 @@ public class FaqController {
     private final QueryFaqListByTypeService queryFaqListByTypeService;
     private final UpdateFaqService updateFaqService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createFaq(@RequestBody @Valid CreateFaqRequest request) {
         createFaqService.execute(request);
