@@ -47,6 +47,10 @@ public class QueryDetailsQuestionService {
     private QueryDetailsQuestionResponse.ReplyDto getReply(Question question) {
         Reply reply = replyRepository.findByQuestion(question);
 
+        if (reply == null) {
+            return null;
+        }
+
         return QueryDetailsQuestionResponse.ReplyDto.builder()
                 .title(reply.getTitle())
                 .content(reply.getContent())
