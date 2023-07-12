@@ -17,7 +17,7 @@ public class CreateFaqRequest {
     private String title;
 
     @NotBlank(message = "content는 null, 공백, 띄어쓰기를 허용하지 않습니다.")
-    @Size(max = 100, message = "content는 최대 100자까지 가능합니다.")
+    @Size(max = 5000, message = "content는 최대 5000자까지 가능합니다.")
     private String content;
 
     private FaqType faqType;
