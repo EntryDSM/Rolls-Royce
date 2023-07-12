@@ -11,7 +11,6 @@ import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.repository.QuestionRepository;
 import kr.hs.entrydsm.rollsroyce.domain.question.exception.AccessDeniedQuestionException;
 import kr.hs.entrydsm.rollsroyce.domain.question.exception.QuestionNotFoundException;
-import kr.hs.entrydsm.rollsroyce.domain.question.exception.ReplyNotFoundException;
 import kr.hs.entrydsm.rollsroyce.domain.question.presentation.dto.response.QueryDetailsQuestionResponse;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
@@ -46,7 +45,7 @@ public class QueryDetailsQuestionService {
     }
 
     private QueryDetailsQuestionResponse.ReplyDto getReply(Question question) {
-        Reply reply = replyRepository.findByQuestion(question).orElseThrow(() -> ReplyNotFoundException.EXCEPTION);
+        Reply reply = replyRepository.findByQuestion(question).orElseThrow(() -> null);
 
         return QueryDetailsQuestionResponse.ReplyDto.builder()
                 .title(reply.getTitle())
