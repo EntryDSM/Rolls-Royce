@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import kr.hs.entrydsm.rollsroyce.domain.faq.domain.type.FaqType;
 import kr.hs.entrydsm.rollsroyce.domain.faq.presentation.dto.request.CreateFaqRequest;
 import kr.hs.entrydsm.rollsroyce.domain.faq.presentation.dto.request.UpdateFaqRequest;
 import kr.hs.entrydsm.rollsroyce.domain.faq.presentation.dto.response.QueryFaqInfoResponse;
@@ -46,7 +47,7 @@ public class FaqController {
     }
 
     @GetMapping
-    public List<QueryFaqResponse> queryFaqListByType(@RequestParam("type") String type) {
+    public List<QueryFaqResponse> queryFaqListByType(@RequestParam("type") FaqType type) {
         return queryFaqListByTypeService.execute(type);
     }
 
