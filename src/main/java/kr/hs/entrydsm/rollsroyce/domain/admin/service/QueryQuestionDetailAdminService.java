@@ -11,7 +11,6 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.QueryQue
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.repository.QuestionRepository;
 import kr.hs.entrydsm.rollsroyce.domain.question.exception.QuestionNotFoundException;
-import kr.hs.entrydsm.rollsroyce.domain.question.exception.ReplyNotFoundException;
 
 @RequiredArgsConstructor
 @Service
@@ -36,7 +35,7 @@ public class QueryQuestionDetailAdminService {
     }
 
     private QueryQuestionDetailAdminResponse.ReplyDto getReply(Question question) {
-        Reply reply = replyRepository.findByQuestion(question).orElseThrow(() -> ReplyNotFoundException.EXCEPTION);
+        Reply reply = replyRepository.findByQuestion(question);
 
         return QueryQuestionDetailAdminResponse.ReplyDto.builder()
                 .title(reply.getTitle())
