@@ -58,11 +58,11 @@ aws:
   s3:
     prefix: ${AWS_S3_PREFIX:adsf}
     bucket: ${AWS_S3_BUCKET:bucket}
-    base-image-url: ${AWS_S3_URL:images/}
+    base-image-url: ${AWS_S3_URL}
   ses:
-    access-key: ${AWS_SES_ACCESS:ses_access}
-    secret-key: ${AWS_SES_SECRET:ses_secret}
-    region: ${AWS_SES_REGION:ap-northeast-2}
+    access-key: ${AWS_SES_ACCESS}
+    secret-key: ${AWS_SES_SECRET}
+    region: ${AWS_SES_REGION}
 
 rolls-royce:
   logging:
