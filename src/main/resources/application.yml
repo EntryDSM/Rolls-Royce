@@ -90,7 +90,7 @@ logging:
           EC2MetadataUtils: error
 reserve:
   link: ${RESERVE_LINK}
-  
+
 pass:
   cp-cd: ${CP_CD}
   license: ${PASS_LICENSE_PATH}

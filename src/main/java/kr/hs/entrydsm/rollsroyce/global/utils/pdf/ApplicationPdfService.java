@@ -52,7 +52,6 @@ public class ApplicationPdfService {
 
     private void validatePrintableApplicant(EntryInfo entryInfo) {
         if (entryInfo.isEducationalStatusEmpty()) throw EducationalStatusNullException.EXCEPTION;
-
         if (!scoreRepository.existsById(entryInfo.getReceiptCode())) throw ScoreNotFoundException.EXCEPTION;
     }
 }

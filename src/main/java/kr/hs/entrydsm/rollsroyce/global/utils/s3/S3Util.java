@@ -42,8 +42,6 @@ public class S3Util {
 
     @Value("${aws.s3.base-image-url}") private String baseImageUrl;
 
-    @Value("${aws.s3.prefix}") private String prefix;
-
     public String upload(MultipartFile file, String path) {
         String ext = verificationFile(file);
 
@@ -92,8 +90,8 @@ public class S3Util {
         }
     }
 
-    public void delete(String objectName) {
-        amazonS3Client.deleteObject(bucketName, "images/" + objectName);
+    public void delete(String objectName, String path) {
+        amazonS3Client.deleteObject(bucketName, path + objectName);
     }
 
     public String putObject(MultipartFile file, String path) {
