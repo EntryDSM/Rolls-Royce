@@ -81,9 +81,9 @@ public class S3Util {
         return url.toString();
     }
 
-    public byte[] getObject(String fileName) {
+    public byte[] getObject(String fileName, String path) {
         try {
-            S3Object object = amazonS3Client.getObject(bucketName, fileName);
+            S3Object object = amazonS3Client.getObject(bucketName, path + fileName);
             return IOUtils.toByteArray(object.getObjectContent());
         } catch (RuntimeException | IOException e) {
             throw ImageNotFoundException.EXCEPTION;
