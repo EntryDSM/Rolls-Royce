@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import kr.hs.entrydsm.rollsroyce.domain.screen.domain.Screen;
 import kr.hs.entrydsm.rollsroyce.domain.screen.domain.repository.ScreenRepository;
+import kr.hs.entrydsm.rollsroyce.domain.screen.presentation.dto.ScreenElement;
 
 @RequiredArgsConstructor
 @Service
@@ -17,10 +18,15 @@ public class QueryScreenListService {
     private final ScreenRepository screenRepository;
 
     @Transactional(readOnly = true)
-    public List<Screen> execute() {
+    public List<ScreenElement> execute() {
         List<Screen> screenList = screenRepository.findAll();
         return screenList.stream()
-                .map(screen -> Screen.builder().image(screen.getImage()).build())
+                .map(screenElement -> ScreenElement.builder()
+                        .id(screenElement.getId())
+                        .image(screenElement.getImage())
+                        .createdAt(screenElement.getCreatedAt())
+                        .modifiedAt(screenElement.getModifiedAt())
+                        .build())
                 .collect(Collectors.toList());
     }
 }

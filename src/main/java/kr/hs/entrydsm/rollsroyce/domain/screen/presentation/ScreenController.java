@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-import kr.hs.entrydsm.rollsroyce.domain.screen.domain.Screen;
+import kr.hs.entrydsm.rollsroyce.domain.screen.presentation.dto.ScreenElement;
 import kr.hs.entrydsm.rollsroyce.domain.screen.service.CreateScreenService;
 import kr.hs.entrydsm.rollsroyce.domain.screen.service.QueryScreenListService;
 import kr.hs.entrydsm.rollsroyce.domain.screen.service.UpdateScreenService;
@@ -43,7 +43,7 @@ public class ScreenController {
     }
 
     @GetMapping
-    public List<Screen> queryScreenList() {
+    public List<ScreenElement> queryScreenList() {
         return queryScreenListService.execute();
     }
 }
