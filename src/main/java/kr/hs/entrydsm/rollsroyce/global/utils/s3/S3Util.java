@@ -128,8 +128,11 @@ public class S3Util {
         String ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
         String lowerExt = ext.toLowerCase();
 
-        if (!(lowerExt.equals("jpg") || lowerExt.equals("jpeg") || lowerExt.equals("png") || lowerExt.equals("heic")))
-            throw BadFileExtensionException.EXCEPTION;
+        if (!(lowerExt.equals("jpg") || lowerExt.equals("jpeg") || lowerExt.equals("png") || lowerExt.equals("heic") || lowerExt.equals("pdf"))) throw BadFileExtensionException.EXCEPTION;
+                || lowerExt.equals("jpeg")
+                || lowerExt.equals("png")
+                || lowerExt.equals("heic")
+                || lowerExt.equals("pdf"))) throw BadFileExtensionException.EXCEPTION;
         return ext;
     }
 }
