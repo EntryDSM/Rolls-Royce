@@ -48,20 +48,16 @@ public class S3Util {
         String randomName = UUID.randomUUID().toString();
         String filename = randomName + "." + ext;
 
-        BufferedImage outputImage;
-
-        if (!ext.equals("pdf")) {
-            outputImage = makeThumbnail(file);
-        } else {
-            outputImage = makePdfThumbnail(file);
-        }
-
         ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-        try {
-            ImageIO.write(outputImage, "png", os);
-        } catch (IOException e) {
-            throw ImageNotFoundException.EXCEPTION;
+        if (!ext.equals("pdf")) {
+            BufferedImage outputImage = makeThumbnail(file);
+
+            try {
+                ImageIO.write(outputImage, "png", os);
+            } catch (IOException e) {
+                throw ImageNotFoundException.EXCEPTION;
+            }
         }
 
         InputStream is = new ByteArrayInputStream(os.toByteArray());
