@@ -28,7 +28,7 @@ public class CreateNoticeService {
 
     private Notice createPost(CreateNoticeRequest request, Admin admin) {
         return Notice.builder()
-                .image(s3Util.upload(request.getFile(), "/post"))
+                .image(s3Util.upload(request.getFile(), "post/"))
                 .title(request.getTitle())
                 .content(request.getContent())
                 .type(request.getType())

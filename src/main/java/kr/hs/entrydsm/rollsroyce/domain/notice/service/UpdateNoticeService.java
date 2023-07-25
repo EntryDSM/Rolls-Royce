@@ -27,9 +27,9 @@ public class UpdateNoticeService {
         String fileName;
 
         if (notice.getImage() == null) {
-            fileName = s3Util.upload(request.getFile(), "/post");
+            fileName = s3Util.upload(request.getFile(), "post/");
         } else {
-            fileName = s3Util.putObject(request.getFile(), "/post");
+            fileName = s3Util.putObject(request.getFile(), "post/");
         }
 
         notice.updateNotice(

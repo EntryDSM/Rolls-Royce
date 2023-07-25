@@ -31,6 +31,7 @@ public class UploadPhotoService {
         }
 
         entryInfo.updatePhotoFileName(fileName);
+
         return s3Util.generateObjectUrl(fileName);
     }
 }
