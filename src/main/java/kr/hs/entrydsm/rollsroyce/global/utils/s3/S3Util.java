@@ -94,15 +94,6 @@ public class S3Util {
         amazonS3Client.deleteObject(bucketName, path + objectName);
     }
 
-    public String putObject(MultipartFile file, String path) {
-        String ext = verificationFile(file);
-        String randomName = UUID.randomUUID().toString();
-        String filename = randomName + "." + ext;
-        amazonS3Client.putObject(bucketName, path + filename, String.valueOf(file));
-
-        return filename;
-    }
-
     private BufferedImage makeThumbnail(MultipartFile file) {
         BufferedImage srcImg;
 

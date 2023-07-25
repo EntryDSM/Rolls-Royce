@@ -20,7 +20,8 @@ public class UpdateScreenService {
     @Transactional
     public void execute(Long screenId, MultipartFile file) {
         Screen screen = screenRepository.findById(screenId).orElseThrow(() -> ScreenNotFoundException.EXCEPTION);
-        String fileName = s3Util.putObject(file, "screen/");
+        String fileName = s3Util.upload(file, "screen/");
+        s3Util.delete(screen.getImage(), "screen/");
         screen.updateScreen(fileName);
     }
 }
