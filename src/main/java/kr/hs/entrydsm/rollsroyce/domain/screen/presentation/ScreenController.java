@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
+import kr.hs.entrydsm.rollsroyce.domain.screen.domain.Screen;
 import kr.hs.entrydsm.rollsroyce.domain.screen.service.CreateScreenService;
+import kr.hs.entrydsm.rollsroyce.domain.screen.service.QueryScreenListService;
 import kr.hs.entrydsm.rollsroyce.domain.screen.service.UpdateScreenService;
 
 @RequiredArgsConstructor
@@ -22,6 +27,7 @@ import kr.hs.entrydsm.rollsroyce.domain.screen.service.UpdateScreenService;
 public class ScreenController {
     private final CreateScreenService createScreenService;
     private final UpdateScreenService updateScreenService;
+    private final QueryScreenListService queryScreenListService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -34,5 +40,10 @@ public class ScreenController {
     public void updateScreen(
             @PathVariable("screen-id") Long screenId, @RequestPart(name = "file") @Nullable MultipartFile file) {
         updateScreenService.execute(screenId, file);
+    }
+
+    @GetMapping
+    public List<Screen> queryScreenList() {
+        return queryScreenListService.execute();
     }
 }
