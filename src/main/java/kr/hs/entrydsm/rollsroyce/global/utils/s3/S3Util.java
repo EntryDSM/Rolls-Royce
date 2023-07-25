@@ -48,7 +48,13 @@ public class S3Util {
         String randomName = UUID.randomUUID().toString();
         String filename = randomName + "." + ext;
 
-        BufferedImage outputImage = makeThumbnail(file);
+        BufferedImage outputImage;
+
+        if (!ext.equals("pdf")) {
+            outputImage = makeThumbnail(file);
+        } else {
+            outputImage = makePdfThumbnail(file);
+        }
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
 
@@ -120,6 +126,18 @@ public class S3Util {
         BufferedImage cropImg = Scalr.crop(srcImg, (ow - nw) / 2, (oh - nh) / 2, nw, nh);
 
         return Scalr.resize(cropImg, dw, dh);
+    }
+
+    private BufferedImage makePdfThumbnail(MultipartFile file) {
+        BufferedImage srcImg;
+
+        try {
+            srcImg = ImageIO.read(file.getInputStream());
+        } catch (IOException e) {
+            throw FileIsEmptyException.EXCEPTION;
+        }
+
+        return srcImg;
     }
 
     private String verificationFile(MultipartFile file) {
