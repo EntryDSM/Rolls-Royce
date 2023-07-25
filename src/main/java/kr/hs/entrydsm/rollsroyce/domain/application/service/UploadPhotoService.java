@@ -27,7 +27,7 @@ public class UploadPhotoService {
         if (entryInfo.getPhotoFileName() == null) {
             fileName = s3Util.upload(file, "entry_photo/");
         } else {
-            entryInfo.updatePhotoFileName(null);
+            s3Util.delete(file, "entry_photo/");
             fileName = s3Util.upload(file, "entry_photo/");
         }
 
