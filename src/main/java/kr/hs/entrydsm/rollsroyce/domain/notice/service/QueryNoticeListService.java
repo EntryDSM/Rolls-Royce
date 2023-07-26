@@ -14,7 +14,7 @@ import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.QueryNo
 
 @RequiredArgsConstructor
 @Service
-public class QueryNoticeService {
+public class QueryNoticeListService {
     private final NoticeRepository noticeRepository;
 
     @Transactional(readOnly = true)

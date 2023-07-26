@@ -23,7 +23,7 @@ import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.QueryNo
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.CreateNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.DeleteNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.QueryNoticeDetailService;
-import kr.hs.entrydsm.rollsroyce.domain.notice.service.QueryNoticeService;
+import kr.hs.entrydsm.rollsroyce.domain.notice.service.QueryNoticeListService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.UpdateNoticeService;
 
 @RequiredArgsConstructor
@@ -33,7 +33,7 @@ public class NoticeController {
     private final CreateNoticeService createNoticeService;
     private final UpdateNoticeService updateNoticeService;
     private final DeleteNoticeService deleteNoticeService;
-    private final QueryNoticeService queryNoticeService;
+    private final QueryNoticeListService queryNoticeListService;
     private final QueryNoticeDetailService queryNoticeDetailService;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -57,7 +57,7 @@ public class NoticeController {
 
     @GetMapping("/all/{type}")
     public QueryNoticeResponse getNoticeList(@PathVariable("type") NoticeType type) {
-        return queryNoticeService.execute(type);
+        return queryNoticeListService.execute(type);
     }
 
     @GetMapping("/{notice-id}")
