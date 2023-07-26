@@ -14,6 +14,7 @@ public class QueryDetailsQuestionResponse {
     private final String username;
     private final Boolean isReplied;
     private final Boolean isMine;
+    private final Boolean isPublic;
     private final LocalDateTime createdAt;
     private final ReplyDto reply;
 

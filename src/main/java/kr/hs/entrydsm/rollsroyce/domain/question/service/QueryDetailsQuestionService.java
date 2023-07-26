@@ -39,6 +39,7 @@ public class QueryDetailsQuestionService {
                 .username(question.getUserName())
                 .isReplied(question.getIsReplied())
                 .isMine(getIsMine(question.getUserId()))
+                .isPublic(question.getIsPublic())
                 .createdAt(question.getCreatedAt())
                 .reply(getReply(question))
                 .build();
