@@ -96,3 +96,12 @@ pass:
   license: ${PASS_LICENSE_PATH}
   exp: ${PASS_EXP}
   base-url: ${BASE_URL}
+
+springdoc:
+  api-docs:
+    path: ${SWAGGER_PATH}
+  swagger-ui:
+    path: ${SWAGGER_UI_PATH}
+    display-request-duration: true
+  cache:
+    disabled: true
