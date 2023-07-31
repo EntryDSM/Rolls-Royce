@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -21,6 +24,7 @@ import kr.hs.entrydsm.rollsroyce.domain.banner.service.CreateBannerLinkService;
 import kr.hs.entrydsm.rollsroyce.domain.banner.service.QueryBannerLinkListService;
 import kr.hs.entrydsm.rollsroyce.domain.banner.service.UploadBannerLinkService;
 
+@Tag(name = "배너 API")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/banner")
@@ -29,12 +33,14 @@ public class BannerLinkController {
     private final UploadBannerLinkService uploadBannerLinkService;
     private final QueryBannerLinkListService queryBannerLinkListService;
 
+    @Operation(summary = "배너 생성 API")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public String createBannerLink(@RequestPart(name = "photo") MultipartFile file) {
         return createBannerLinkService.execute(file);
     }
 
+    @Operation(summary = "배너 수정 API")
     @PostMapping("/{banner-id}")
     public String uploadBanner(
             @RequestPart(name = "photo") @Nullable MultipartFile multipartFile,
@@ -42,6 +48,7 @@ public class BannerLinkController {
         return uploadBannerLinkService.execute(multipartFile, bannerId);
     }
 
+    @Operation(summary = "배너 조회 API")
     @GetMapping
     public List<QueryBannerLinkListResponse> getBannerLink() {
         return queryBannerLinkListService.execute();

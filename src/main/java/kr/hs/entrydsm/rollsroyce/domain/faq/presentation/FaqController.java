@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -30,6 +33,7 @@ import kr.hs.entrydsm.rollsroyce.domain.faq.service.QueryFaqListByTypeService;
 import kr.hs.entrydsm.rollsroyce.domain.faq.service.QueryFaqListService;
 import kr.hs.entrydsm.rollsroyce.domain.faq.service.UpdateFaqService;
 
+@Tag(name = "자주 묻는 질문 API")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/faq")
@@ -41,34 +45,40 @@ public class FaqController {
     private final QueryFaqListByTypeService queryFaqListByTypeService;
     private final UpdateFaqService updateFaqService;
 
+    @Operation(summary = "FAQ 생성 API")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createFaq(@RequestBody @Valid CreateFaqRequest request) {
         createFaqService.execute(request);
     }
 
+    @Operation(summary = "FAQ 수정 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{faq-id}")
     public void updateFaq(@PathVariable("faq-id") Long id, @RequestBody @Valid UpdateFaqRequest request) {
         updateFaqService.execute(id, request);
     }
 
+    @Operation(summary = "FAQ 삭제 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{faq-id}")
     public void deleteFaq(@PathVariable("faq-id") Long id) {
         deleteFaqService.execute(id);
     }
 
+    @Operation(summary = "FAQ 상세조회 API")
     @GetMapping("/{faq-id}")
     public QueryFaqInfoResponse queryFaqInfo(@PathVariable("faq-id") Long id) {
         return queryFaqInfoService.execute(id);
     }
 
+    @Operation(summary = "FAQ 유형별 전체조회 API")
     @GetMapping
     public List<QueryFaqResponse> queryFaqListByType(@RequestParam("type") FaqType type) {
         return queryFaqListByTypeService.execute(type);
     }
 
+    @Operation(summary = "FAQ 전체조회 API")
     @GetMapping("/all")
     public List<QueryFaqResponse> queryFaqList() {
         return queryFaqListService.execute();
