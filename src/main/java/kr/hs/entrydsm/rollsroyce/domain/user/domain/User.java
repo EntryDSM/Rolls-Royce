@@ -35,14 +35,18 @@ public class User extends BaseTimeEntity {
     @Column(columnDefinition = "char(5)", nullable = false)
     private String name;
 
+    @Column(columnDefinition = "bit(1) default 1", nullable = false)
+    private Boolean isStudent;
+
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private EntryInfo entryInfo;
 
     @Builder
-    public User(String telephoneNumber, String password, String name, EntryInfo entryInfo) {
+    public User(String telephoneNumber, String password, String name, Boolean isStudent, EntryInfo entryInfo) {
         this.telephoneNumber = telephoneNumber;
         this.password = password;
         this.name = name;
+        this.isStudent = isStudent;
         this.entryInfo = entryInfo;
     }
 
