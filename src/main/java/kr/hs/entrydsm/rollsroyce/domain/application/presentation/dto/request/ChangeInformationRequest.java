@@ -23,6 +23,12 @@ public class ChangeInformationRequest {
 
     @NotNull(message = "birthday는 Null을 허용하지 않습니다.") private LocalDate birthday;
 
+    @Length(max = 5, message = "TOO LONG NAME") private String name;
+
+    @NotEmpty(message = "user_tel은 Null 또는 공백을 허용하지 않습니다.")
+    @Length(max = 11) @Pattern(regexp = TEL_REGEXP, message = "INVALID TEL")
+    private String telephoneNumber;
+
     @Length(max = 5, message = "TOO LONG NAME") private String parentName;
 
     @NotEmpty(message = "parent_tel은 Null 또는 공백을 허용하지 않습니다.")

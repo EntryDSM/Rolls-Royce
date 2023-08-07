@@ -30,6 +30,12 @@ public class CreateEntryInfoService {
         EntryInfo entryInfo =
                 entryInfoRepository.save(EntryInfo.builder().user(user).build());
 
+        if (user.getIsStudent()) {
+            entryInfo.updateUserNameAndTel(user.getName(), user.getTelephoneNumber());
+        } else {
+            entryInfo.updateParentNameAndTel(user.getName(), user.getTelephoneNumber());
+        }
+
         statusRepository.save(Status.builder()
                 .entryInfo(entryInfo)
                 .isPrintsArrived(false)

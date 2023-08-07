@@ -17,6 +17,6 @@ public class QueryUserInfoService {
     @Transactional(readOnly = true)
     public QueryUserInfoResponse execute() {
         User user = userFacade.getCurrentUser();
-        return new QueryUserInfoResponse(user.getName(), user.getTelephoneNumber());
+        return new QueryUserInfoResponse(user.getName(), user.getTelephoneNumber(), user.getIsStudent());
     }
 }

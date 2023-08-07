@@ -42,6 +42,8 @@ public class ChangeInformationService {
         if (distance.getFeatures().isEmpty()) throw RequestFailToTmapServerException.EXCEPTION;
 
         entryInfo.updateEntryInformation(UpdateUserInformationDto.builder()
+                .name(request.getName())
+                .telephoneNumber(request.getTelephoneNumber())
                 .sex(EnumUtil.getEnum(Sex.class, request.getSex()))
                 .birthday(request.getBirthday())
                 .parentName(request.getParentName())

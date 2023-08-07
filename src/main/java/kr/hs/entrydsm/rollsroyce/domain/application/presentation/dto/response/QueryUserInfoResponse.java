@@ -8,4 +8,5 @@ import lombok.Getter;
 public class QueryUserInfoResponse {
     private final String name;
     private final String telephoneNumber;
+    private final Boolean isStudent;
 }

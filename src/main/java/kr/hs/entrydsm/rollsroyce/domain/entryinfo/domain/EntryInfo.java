@@ -1,12 +1,23 @@
 package kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import org.hibernate.annotations.DynamicInsert;
 
 import java.time.LocalDate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Application;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
@@ -29,6 +40,12 @@ public class EntryInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long receiptCode;
+
+    @Column(columnDefinition = "char(5)")
+    private String name;
+
+    @Column(columnDefinition = "char(11)")
+    private String telephoneNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "char(7)")
@@ -91,6 +108,16 @@ public class EntryInfo {
         this.user = user;
     }
 
+    public void updateUserNameAndTel(String name, String telephoneNumber) {
+        this.name = name;
+        this.telephoneNumber = telephoneNumber;
+    }
+
+    public void updateParentNameAndTel(String parentName, String parentTel) {
+        this.parentName = parentTel;
+        this.parentTel = parentTel;
+    }
+
     public void updateUserApplication(ChangeTypeRequest request) {
         this.educationalStatus = EnumUtil.getEnum(EducationalStatus.class, request.getEducationalStatus());
         this.applicationType = EnumUtil.getEnum(ApplicationType.class, request.getApplicationType());
@@ -100,6 +127,8 @@ public class EntryInfo {
     }
 
     public void updateEntryInformation(UpdateUserInformationDto information) {
+        this.name = information.getName();
+        this.telephoneNumber = information.getTelephoneNumber();
         this.sex = information.getSex();
         this.birthday = information.getBirthday();
         this.parentName = information.getParentName();
