@@ -46,6 +46,7 @@ public class UserSignupService {
                 .name(passInfo.getName())
                 .telephoneNumber(telephoneNumber)
                 .password(password)
+                .isStudent(request.getIsStudent())
                 .build());
 
         return tokenProvider.generateToken(user.getTelephoneNumber(), Role.USER.toString());
