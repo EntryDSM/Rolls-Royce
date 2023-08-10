@@ -25,7 +25,7 @@ public class ChangeInformationRequest {
 
     @Length(max = 5, message = "TOO LONG NAME") private String name;
 
-    @NotEmpty(message = "user_tel은 Null 또는 공백을 허용하지 않습니다.")
+    @NotEmpty(message = "telephone_number은 Null 또는 공백을 허용하지 않습니다.")
     @Length(max = 11) @Pattern(regexp = TEL_REGEXP, message = "INVALID TEL")
     private String telephoneNumber;
 
@@ -38,7 +38,7 @@ public class ChangeInformationRequest {
     @NotEmpty(message = "address는 Null 또는 공백을 허용하지 않습니다.")
     @Length(max = 300, message = "TOO LONG ADDRESS") private String address;
 
-    @NotEmpty(message = "detailAddress는 Null 또는 공백을 허용하지 않습니다.")
+    @NotEmpty(message = "detail_address는 Null 또는 공백을 허용하지 않습니다.")
     @Length(max = 100, message = "TOO LONG DETAIL_ADDRESS") private String detailAddress;
 
     @Length(min = 5, max = 5, message = "INVALID POST_CODE") private String postCode;
