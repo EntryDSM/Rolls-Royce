@@ -213,27 +213,26 @@
 <div class="title">금 연 동 의 서</div>
 <br/>
 <table>
-    <tr class="firstTr">
-        <td rowspan="3" class="info">
-            <p>인</p>
-            <p>적</p>
-            <p>사</p>
-            <p>항</p>
+    <tr style="text-align: center">
+        <td rowspan="3" style="width: 5%">인적<br/>사항</td>
+        <td style="padding: 3px; width: 10%">성명</td>
+        <td style="padding: 3px; width: 20%" th:text="${userName}">
         </td>
-        <td class="firstTd">성 명</td>
-        <td class="secondTd" colspan="2" th:text="${userName}"></td>
-        <td class="thirdTd">접수번호</td>
-        <td class="forthTd" colspan="2" th:text="${receiptCode}"></td>
+        <td style="padding: 3px; width: 10%">
+            접 수 번 호
+        </td>
+        <td style="padding: 3px; width: 20%;" th:text="${receiptCode}">
+        </td>
     </tr>
-    <tr class="secondTr">
-        <td class="firstTd">연락처</td>
-        <td class="secondTd" colspan="2" th:text="${applicantTel}"></td>
-        <td class="thirdTd">출신 중학교</td>
-        <td class="forthTd" colspan="2" th:text="${schoolName}"></td>
+    <tr style="text-align: center">
+        <td style="padding: 3px; width: 10%">연락처</td>
+        <td style="padding: 3px; width: 20%" th:text="${telephoneNumber}"></td>
+        <td style="padding: 3px; width: 10%">출신 중학교</td>
+        <td style="padding: 3px; width: 20%" colspan="3" th:text="${schoolName}"></td>
     </tr>
-    <tr class="thirdTr">
-        <td class="firstTd">주 소</td>
-        <td colspan="5" class="addressblank" th:text="|${address} ${detailAddress}|"></td>
+    <tr style="text-align: center">
+        <td style="padding: 3px; width: 10%">주소</td>
+        <td style="padding: 3px; width: 20%" colspan="3" th:text="|${address} ${detailAddress}|"></td>
     </tr>
     <tr></tr>
     <tr class="fifthTr">
@@ -248,7 +247,8 @@
                 </p>
                 <br/>
                 <p>
-                    나 (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)은(는) 장차 소프트웨어 분야를 선도할 전문가로 성장하기 위하여 <br/>흡연하지 않겠습니다.
+                    나 (&nbsp;&nbsp;&nbsp;&nbsp; <span th:text="${userName}"></span> &nbsp;&nbsp;&nbsp;&nbsp;)은(는) 장차
+                    소프트웨어 분야를 선도할 전문가로 성장하기 위하여 흡연하지 않겠습니다.
                 </p>
                 <p>
                     보호자는 지원자가 금연하는 데 용기와 도움을 줄 것을 약속합니다.
@@ -276,7 +276,7 @@
                 ※ 개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다.
             </p>
             <p class="tab">
-                그러나 동의를 거부할 경우 최종 입학에 제한을 받을 수 있습니다.
+                &nbsp;&nbsp;그러나 동의를 거부할 경우 최종 입학에 제한을 받을 수 있습니다
             </p>
             <div class="table">
                 <table class="checkTable">
