@@ -64,35 +64,22 @@
             >
                 <div style="display: inline-block; margin: 1em 0">
                     성명:
-                    <div style="display: inline-block; width: 70px; margin: 0px" th:text="${userName}"></div>
+                    <div style="display: inline-block; width: 70px; margin: 0px" th:text="${userName}"><br/><br/></div>
                 </div>
             </div>
         </div>
-        <table
-                style="
+        <br/><br/>
+        <h2 style="text-align: center">
+            특별전형 추천 분야
+        </h2>
+        <table style="
             text-align: center;
             font-weight: 600;
             border-spacing: 0;
             border-collapse: collapse;
             width: 95%;
-            margin: 0 auto;
-            margin-top: 40px;
-            margin-bottom: 40px;
-          "
-        >
+            margin-bottom: 40px;">
             <tbody>
-            <tr>
-                <td
-                        colspan="3"
-                        style="
-                  border: 1px solid black;
-                  background-color: #F2F2F2;
-                  font-size: 18px;
-                "
-                >
-                    특별전형 추천분야(해당란에 O표)
-                </td>
-            </tr>
             <tr>
                 <td style="border: 1px solid black; width: 20%; font-size: 18px;">
                     구분
@@ -144,7 +131,7 @@
                   th:utext="'|' + ${schoolName} + '장|'"></span>
             <span style="color: #b8b8b8"><b>(직인)</b></span>
         </div>
-        <div style="font-size: 25px; font-weight: 600;margin-top: 40px">
+        <div style="font-size: 25px; font-weight: 600;margin-top: 40px; margin-left: 10px">
             <p>대덕소프트웨어마이스터고등학교장 귀하</p>
         </div>
     </div>
