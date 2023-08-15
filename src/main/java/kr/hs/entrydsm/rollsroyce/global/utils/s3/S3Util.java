@@ -52,7 +52,6 @@ public class S3Util {
 
         if (!ext.equals("pdf")) {
             BufferedImage outputImage = makeThumbnail(file);
-
             try {
                 ImageIO.write(outputImage, "png", os);
             } catch (IOException e) {
