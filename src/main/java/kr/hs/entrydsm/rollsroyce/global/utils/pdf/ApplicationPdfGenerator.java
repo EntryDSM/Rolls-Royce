@@ -75,6 +75,7 @@ public class ApplicationPdfGenerator {
     private List<String> getTemplateFileNames(EntryInfo entryInfo) {
         List<String> result = new LinkedList<>(List.of(
                 TemplateFileName.APPLICATION_FOR_ADMISSION,
+                TemplateFileName.PRIVACY_AGREEMENT,
                 TemplateFileName.INTRODUCTION,
                 TemplateFileName.NON_SMOKING,
                 TemplateFileName.SMOKING_EXAMINE));
