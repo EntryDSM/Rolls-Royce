@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <style>
         * {
@@ -15,209 +14,318 @@
             font-family: KoPubWorld_Dotum_Light;
         }
     </style>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
 </head>
 
 <body>
 <center>
     <div style="font-size: x-large">
-        <b th:text="${entranceYear} + '학년도 대덕소프트웨어마이스터고등학교 입학원서'">2024학년도 대덕소프트웨어마이스터고등학교 입학원서</b>
+        <b
+                th:text="${entranceYear} + '학년도 대덕소프트웨어마이스터고등학교 입학원서'"
+        >2024학년도 대덕소프트웨어마이스터고등학교 입학원서</b
+        >
     </div>
 </center>
-<table style="border-collapse: collapse; width: 100%; border: 1.5px solid black">
+<table style="border-collapse: collapse; width: 100%; border: none">
     <tr>
-        <td style="width: 11.5%; background-color: #f2f2f2">접수번호</td>
-        <td style="width: 24%" th:text="${receiptCode}"></td>
-        <td style="width: 12%; background-color: #f2f2f2">중학교 코드</td>
-        <td style="width: 6.72%" th:text="${schoolCode}"></td>
-        <td style="width: 13.44%; background-color: #f2f2f2">수험번호</td>
-        <td style="width: 13.44%; color: #b8b8b8">*기재하지 않음</td>
+        <td>
+            <table style="border-collapse: collapse; width: 100%; height: 60px">
+                <tr>
+                    <td style="width: 10%">접수번호</td>
+                    <td style="width: 30%" th:text="${receiptCode}"></td>
+                    <td style="width: 17%">수험번호</td>
+                    <td style="width: 26%; color: #b8b8b8">*기재하지 않음</td>
+                </tr>
+            </table>
+        </td>
+        <td rowspan="2" style="width: 17%; border: 1.5px solid black">
+            <img
+                    style="width: 3cm; height: 4cm"
+                    th:src="|data:image/*;base64,${base64Image}|"
+                    alt="#"
+            />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table
+                    style="
+              border-collapse: collapse;
+              margin-top: -1px;
+              width: 100%;
+              height: 110px;
+            "
+            >
+                <tr>
+                    <td rowspan="2" style="width: 10%">지원자<br/>인적<br/>사항</td>
+                    <td style="width: 8.5%; height: 55px">성명</td>
+                    <td style="width: 13%" th:text="${userName}"></td>
+                    <td style="width: 8.5%">생년<br/>월일</td>
+                    <td style="width: 17%" th:text="${birthday}"></td>
+                    <td style="width: 8.5%">성별</td>
+                    <td
+                            style="width: 17.5%"
+                            th:text="${isMale} + ' 남  ' + ${isFemale} + ' 여'"
+                    ></td>
+                </tr>
+                <tr>
+                    <td style="width: 8.5%">주소</td>
+                    <td
+                            colspan="5"
+                            style="width: 64.5%"
+                            th:text="${address} + ' ' + ${detailAddress}"
+                    ></td>
+                </tr>
+            </table>
+        </td>
     </tr>
 </table>
-<table style="
+<table
+        style="
         border-collapse: collapse;
         margin-top: -1px;
         width: 100%;
+        height: 120px;
         border: 1.5px solid black;
-      ">
+      "
+>
     <tr>
-        <td rowspan="2" style="width: 11.55%; background-color: #f2f2f2">
-            지원자<br/>인적사항
-        </td>
-        <td style="width: 8.5%">성명</td>
-        <td style="width: 15.5%" th:text="${userName}"></td>
-        <td style="width: 12%; background-color: #f2f2f2">생년월일</td>
-        <td style="width: 25.44%" th:text="${birthday}"></td>
-        <td style="width: 13.44%; background-color: #f2f2f2">성별</td>
-        <td style="width: 13.44%" th:text="${isMale} + ' 남  ' + ${isFemale} + ' 여'"></td>
-    </tr>
-    <tr>
-        <td style="width: 8.5%">주소</td>
-        <td colspan="5" style="width: 79.95%" th:text="${address} + ' ' + ${detailAddress}"></td>
-    </tr>
-</table>
-<table style="
-        border-collapse: collapse;
-        margin-top: -1px;
-        width: 100%;
-        border: 1.5px solid black;
-      ">
-    <tr>
-        <td rowspan="3" style="width: 11.55%; background-color: #f2f2f2">
-            전화<br/>연락처
-        </td>
+        <td rowspan="3" style="width: 10%">연락처</td>
         <td style="width: 8.5%">보호자</td>
-        <td style="width: 27.5%" th:text="${parentTel}"></td>
-        <td rowspan="3" style="width: 12%; background-color: #f2f2f2">
-            졸업구분
-        </td>
-        <td style="width: 40.32%; text-align: left; padding-left: 8px"
-            th:text="|${isProspectiveGraduate} ${prospectiveGraduateYear}년 ${prospectiveGraduateMonth}월 중학교 졸업예정|">
+        <td style="width: 30%" th:text="${parentTel}"></td>
+        <td rowspan="3" style="width: 8.5%">졸업<br/>구분</td>
+        <td
+                style="width: 43%; text-align: left; padding-left: 12px"
+                th:text="|${isProspectiveGraduate} ${prospectiveGraduateYear}년 ${prospectiveGraduateMonth}월 중학교 졸업예정|"
+        >
             <div style="width: 10px; height: 10px; border: 1px solid black"></div>
         </td>
     </tr>
+
     <tr>
         <td style="width: 8.5%">학교</td>
-        <td style="width: 27.5%" th:text="${schoolTel}"></td>
-        <td style="width: 40.32%; text-align: left; padding-left: 8px"
-            th:text="|${isGraduate} ${graduateYear}년 ${graduateMonth}월 중학교 졸업|">
+        <td style="width: 30%" th:text="${schoolTel}"></td>
+        <td
+                style="width: 43%; text-align: left; padding-left: 12px"
+                th:text="|${isGraduate} ${graduateYear}년 ${graduateMonth}월 중학교 졸업|"
+        >
             <div style="width: 10px; height: 10px; border: 1px solid black"></div>
         </td>
     </tr>
     <tr>
         <td style="width: 8.5%">학생</td>
-        <td style="width: 27.5%" th:text="${applicantTel}"></td>
-        <td style="width: 40.32%; text-align: left; padding-left: 8px"
-            th:text="|${isQualificationExam} ${qualificationExamPassedYear}년 ${qualificationExamPassedMonth}월 중학교 졸업학력 검정고시 합격|">
+        <td style="width: 30%" th:text="${applicantTel}"></td>
+        <td
+                style="width: 43%; text-align: left; padding-left: 12px"
+                th:text="|${isQualificationExam} ${qualificationExamPassedYear}년 ${qualificationExamPassedMonth}월 중학교 졸업학력 검정고시 합격|"
+        >
             <div style="width: 10px; height: 10px; border: 1px solid black"></div>
         </td>
     </tr>
 </table>
-<table style="
+<table
+        style="
         border-collapse: collapse;
         margin-top: -1px;
         width: 100%;
+        height: 110px;
         border: 1.5px solid black;
-      ">
+      "
+>
     <tr>
-        <td rowspan="3" style="width: 11.55%; background-color: #f2f2f2">
-            전형유형
-        </td>
-        <td colspan="2" style="width: 27.8%; text-align: left; padding-left: 8px" height="22px"
-            th:text="${isCommon + '  일반전형'}">
+        <td rowspan="3" style="width: 10%">전형<br/>유형</td>
+        <td
+                colspan="2"
+                style="
+            width: 38.5%;
+            height: 36px;
+            text-align: left;
+            padding-left: 12px;
+          "
+                th:text="${isCommon + '  일반전형'}"
+        >
             <div style="width: 10px; height: 10px; border: 1px solid black"></div>
         </td>
-        <td rowspan="3" style="width: 7.2%; background-color: #f2f2f2">지원자<br/>특기<br/>사항</td>
-        <td rowspan="3" style="width: 25.44%; padding: 0px">
-            <table style="width: 100%; border-collapse: collapse; padding: 0px; height: 110px;">
+        <td rowspan="3" style="width: 8.5%">특기<br/>사항</td>
+        <td rowspan="3" style="width: 26%; padding: 0px">
+            <table
+                    style="
+              width: 100%;
+              height: 110px;
+              border-collapse: collapse;
+              padding: 0px;
+            "
+            >
                 <tr>
-                    <td style="border: none; border-bottom: 1px solid black; padding: 0px;" colspan="2">
-                        <div style="text-align: left; padding-left: 8px" th:text="${isNationalMerit + '  국가유공자 자녀'}">
-                            <div style="width: 8px; height: 8px; border: 1px solid black"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="border: none; padding: 0px;" colspan="2">
-                        <div style="text-align: left; padding-left: 8px"
-                             th:text="${isPrivilegedAdmission + '  특례입학 대상자'}">
-                            <div style="width: 8px; height: 8px; border: 1px solid black"></div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </td>
-        <td rowspan="3" style="width: 13.44%; background-color: #f2f2f2">
-            지역
-        </td>
-        <td rowspan="3" style="width: 13.44%">
-            <table style="width: 100%; height: 66px">
-                <tr>
-                    <td style="
+                    <td
+                            style="
                   border: none;
                   border-bottom: 1px solid black;
-                  height: 44px;
-                ">
-                        <div style="text-align: center" th:text="|${isDaejeon} 대전|"></div>
+                  text-align: left;
+                  padding-left: 12px;
+                "
+                            th:text="${isNationalMerit + '  국가유공자 자녀'}"
+                    >
+                        <div
+                                style="width: 10px; height: 10px; border: 1px solid black"
+                        ></div>
                     </td>
                 </tr>
                 <tr>
-                    <td style="border: none; height: 44px">
-                        <div style="text-align: center" th:text="|${isNotDaejeon} 전국|"></div>
+                    <td
+                            style="
+                  border: none;
+                  padding: 0px;
+                  text-align: left;
+                  padding-left: 12px;
+                "
+                            th:text="${isPrivilegedAdmission + '  특례입학 대상자'}"
+                    >
+                        <div
+                                style="width: 10px; height: 10px; border: 1px solid black"
+                        ></div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td rowspan="3" style="width: 5%">지역</td>
+        <td rowspan="3" style="width: 12%">
+            <table style="width: 100%; height: 110px; border-collapse: collapse">
+                <tr>
+                    <td
+                            style="
+                  border: none;
+                  border-bottom: 1px solid black;
+                  text-align: center;
+                  padding-left: 12px;
+                "
+                            th:text="|${isDaejeon} 대전|"
+                    >
+                        <div
+                                style="width: 10px; height: 10px; border: 1px solid black"
+                        ></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td
+                            style="border: none; text-align: center; padding-left: 12px"
+                            th:text="|${isNotDaejeon} 전국|"
+                    >
+                        <div
+                                style="width: 10px; height: 10px; border: 1px solid black"
+                        ></div>
                     </td>
                 </tr>
             </table>
         </td>
     </tr>
     <tr>
-        <td style="width: 24%; text-align: left; padding-left: 8px; height: 44px;" height="22px"
-            th:text="|${isMeister}  마이스터인재전형|">
+        <td
+                style="
+            width: 25.65%;
+            height: 37px;
+            text-align: left;
+            padding-left: 12px;
+          "
+                th:text="|${isMeister}  마이스터인재전형|"
+        >
             <div style="width: 10px; height: 10px; border: 1px solid black"></div>
         </td>
-        <td rowspan="2" style="width: 4.8%">특별<br/>전형</td>
+        <td rowspan="2" style="width: 12.85%">특별전형</td>
     </tr>
     <tr>
-        <td style="width: 24%; text-align: left; padding-left: 8px; height:44px" height="22px"
-            th:text="|${isSocialMerit}  사회통합전형|">
+        <td
+                style="
+            width: 25.65%;
+            height: 37px;
+            text-align: left;
+            padding-left: 12px;
+          "
+                th:text="|${isSocialMerit}  사회통합전형|"
+        >
             <div style="width: 10px; height: 10px; border: 1px solid black"></div>
         </td>
     </tr>
 </table>
-<table style="
-        border-collapse: collapse;
-        margin-top: -1px;
+<table
+        style="
         width: 100%;
+        height: 150px;
+        margin-top: -1px;
         border: 1.5px solid black;
-      ">
+        border-collapse: collapse;
+      "
+>
     <tr>
-        <td rowspan="4" style="width: 11.5%; background-color: #f2f2f2">
-            내신성적
-        </td>
-        <td colspan="4" style="width: 48%">교과성적 환산점수</td>
-        <td rowspan="3" style="width: 13.44%">출석<br/>점수</td>
-        <td rowspan="3" style="width: 13.44%">봉사활동<br/>점수</td>
-        <td rowspan="3" style="width: 13.44%">총점</td>
+        <td rowspan="3" style="width: 10%">내신<br/>성적</td>
+        <td colspan="4" style="width: 51.4%">교과성적</td>
+        <td rowspan="2" style="width: 13.3">출석<br/>점수</td>
+        <td rowspan="2" style="width: 13.3">봉사활동<br/>점수</td>
+        <td rowspan="2" style="width: 12">총점</td>
     </tr>
     <tr>
-        <td rowspan="2" style="width: 12%">직전전 학기<br>환산점수</td>
-        <td rowspan="2" style="width: 12%">직전 학기<br>환산점수</td>
-        <td rowspan="2" style="width: 12%">3학년<br>환산점수</td>
-        <td rowspan="2" style="width: 12%">교과성적<br>환산점수</td>
+        <td style="width: 12.85%">3학년<br/>환산점수</td>
+        <td style="width: 12.85%">직전 학기<br/>환산점수</td>
+        <td style="width: 12.85%">직전전 학기<br/>환산점수</td>
+        <td style="width: 12.85%">교과성적<br/>환산점수</td>
     </tr>
-    <tr></tr>
     <tr>
-        <td style="width: 12%" th:text="${conversionScore1st}"></td>
-        <td style="width: 12%" th:text="${conversionScore2nd}"></td>
-        <td style="width: 12%" th:text="${conversionScore3rd}"></td>
-        <td style="width: 12%" th:text="${conversionScore}"></td>
-        <td style="width: 13.44%" th:text="${attendanceScore}"></td>
-        <td style="width: 13.44%" th:text="${volunteerScore}"></td>
-        <td style="width: 13.44%" th:text="${finalScore}"></td>
+        <td
+                style="width: 12.85%; height: 50px"
+                th:text="${conversionScore1st}"
+        ></td>
+        <td
+                style="width: 12.85%; height: 50px"
+                th:text="${conversionScore2nd}"
+        ></td>
+        <td
+                style="width: 12.85%; height: 50px"
+                th:text="${conversionScore3rd}"
+        ></td>
+        <td
+                style="width: 12.85%; height: 50px"
+                th:text="${conversionScore}"
+        ></td>
+        <td
+                style="width: 13.3%; height: 50px"
+                th:text="${attendanceScore}"
+        ></td>
+        <td style="width: 13.3%; height: 50px" th:text="${volunteerScore}"></td>
+        <td style="width: 12%; height: 50px" th:text="${finalScore}"></td>
     </tr>
 </table>
-<table style="
+
+<table
+        style="
         border-collapse: collapse;
         margin-top: -1px;
         width: 100%;
         border: 1.5px solid black;
-        height: 4cm;
-      ">
+        height: 180px;
+      "
+>
     <tr>
-        <td>
-            <img style="width: 3cm; height: 4cm" th:src="|data:image/*;base64,${base64Image}|" alt="#"/>
-        </td>
-        <td style="width: 56.5%; font-size: small">
+        <td style="width: 74.7%; font-size: small">
             본인은 귀 고등학교에 입학하고자 소정의 서류를 갖추어 지원합니다.<br/><br/>
             <p th:text="|${year}년 ${month}월 ${day}일|"></p>
             <br/>
             <table style="width: 100%; border-collapse: collapse">
                 <tr>
+                    <td style="border: none"></td>
                     <td style="border: none; width: 16.6%">지원자 :</td>
                     <td style="border: none; width: 16.6%" th:text="${userName}"></td>
-                    <td style="border: none; width: 16.6%">(서명)</td>
+                    <td style="border: none; width: 16.6%">(서명 또는 인)</td>
+                    <td style="border: none"></td>
+                </tr>
+                <tr>
+                    <td style="border: none"></td>
                     <td style="border: none; width: 16.6%">보호자 :</td>
-                    <td style="border: none; width: 16.6%" th:text="${parentName}"></td>
-                    <td style="border: none; width: 16.6%">(서명)</td>
+                    <td
+                            style="border: none; width: 16.6%"
+                            th:text="${parentName}"
+                    ></td>
+                    <td style="border: none; width: 16.6%">(서명 또는 인)</td>
+                    <td style="border: none"></td>
                 </tr>
             </table>
             <br/>
@@ -225,128 +333,78 @@
                 대덕소프트웨어마이스터고등학교장 귀하
             </p>
         </td>
-        <td style="width: 26.9%; line-height: 2">
-            보훈번호 : __________<br/>
+        <td style="width: 25.3%; line-height: 2">
+            보훈번호 :
+            (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br/>
             위는 국가유공자<br/>
             자녀임을 확인함<br/>
-            2022. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.
+            2023. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br/>
             교사
-            :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(서명)
+            :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(서명
+            또는 인)
         </td>
     </tr>
 </table>
-<table style="
+
+<table
+        style="
         border-collapse: collapse;
         margin-top: -1px;
         width: 100%;
         height: 100px;
         border: 1.5px solid black;
-      ">
+      "
+>
     <tr>
         <td colspan="2" style="border: none">
             추&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;천&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서
         </td>
     </tr>
     <tr>
-        <td colspan="2" style="border: none; text-align: left; padding-left: 100px">
-            본 입학원서의 내용은 사실과 다름이 없으며 위 학생은 귀교에 입학 적격자로 인정되므로 추천합니다.
+        <td
+                colspan="2"
+                style="border: none; text-align: left; padding-left: 100px"
+        >
+            본 입학원서의 내용은 사실과 다름이 없으며 상기자는 귀교에 입학
+            적격자로 인정되므로 추천합니다.
         </td>
     </tr>
     <tr>
-        <td colspan="2" style="border: none" th:text="|${year}년 ${month}월 ${day}일|"></td>
+        <td
+                colspan="2"
+                style="border: none"
+                th:text="|${year}년 ${month}월 ${day}일|"
+        ></td>
     </tr>
     <tr>
-        <td width="60%" style="
+        <td
+                width="60%"
+                style="
             text-align: left;
             padding-left: 30px;
             border: none;
             font-size: 14px;
-          ">
+          "
+        >
             교사 :
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(서명)
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(서명
+            또는 인)
         </td>
-        <td width="40%" style="
+        <td
+                width="40%"
+                style="
             text-align: right;
             padding-right: 30px;
             border: none;
             font-size: 14px;
-          " th:utext="${schoolName} + '장' + '&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;' + '(직인)'"></td>
+          "
+                th:utext="${schoolName} + '장' + '&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;' + '(직인)'"
+        ></td>
     </tr>
 </table>
-<center>
-    <div style="font-size: 15px; margin-top: 10px">
-        <b>개인정보 활용 동의서</b>
-    </div>
-</center>
-<div style="border: 1px solid black; padding: 2px 10px; font-size: 10px">
-    &nbsp;본 입학원서에 기재된 지원자의 개인정보는 신입생 입학관리업무의 원활한 수행을 위하여 개인정보의 수집·유출·오용·남용으로부터 사생활의
-    비밀 등을 보호하도록 한 개인정보보호법 규정에 따라 다음과 같이 수집·이용·제공됩니다.<br/>
-    1. (개인정보 처리의 법령상 근거) 본 입학원서에 기재된 개인정보의 처리업무는 초·중등교육법 제47조 및 동법 시행령 제81조, 제82조,
-    제84조, 제98조 및<br/>
-    &nbsp;&nbsp;&nbsp;본교의 입학전형 실시계획 등에 근거하고 있습니다.<br/>
-    2. (정보주체의 권리) 지원자는 자신이 제공한 개인정보에 대하여 개인정보 보호법 제4조 및 제35조부터 제38조까지에 따라
-    열람·처리·정지·정정·삭제·파기 등을<br/>
-    &nbsp;&nbsp;&nbsp;요구할 수 있으며, 개인정보 보호법을 위반한 행위로 인한 손해 발생시에는 개인정보 보호법 제39조에 따라
-    손해배상을 청구할 수 있습니다.<br/>
-    3. (개인정보 수집항목) 입학관리 업무의 원활한 수행을 위하여 수집하는 개인정보는 성명, 생년월일, 증명사진, 주소, 전화번호, 학력,
-    출결사항·교과성적 등입니다.<br/>
-    4. (개인정보의 수집·이용 목적) 수집한 지원자의 개인정보는 원서접수, 지원자격·지원결격 사유 확인, 지원자 본인확인, 성적산출, 합격자 명부
-    관리, 합격증명서 발급,<br/>
-    &nbsp;&nbsp;&nbsp;성적 통지, 통계자료 산출 등 입학관리 업무를 위한 정보로 이용됩니다.<br/>
-    5. (개인정보 제공)<br/>
-    &nbsp;&nbsp;&nbsp;1) 수집한 개인정보는 지원자격·지원결격 사유 조회 및 교과성적 확인 등을 위하여 지원자가 졸업한 중학교 등
-    관련된 기관에 제공될 수 있습니다.<br/>
-    &nbsp;&nbsp;&nbsp;2) 코로나19 감염 확산으로(사회적 거리두기 2,3 단계시) 2차 전형이 온라인실시간 평가로 전환시 평가에
-    필요한 개인정보를 시행업체(제 3자)에게 제공될 수 있습니다.<br/>
-    6. (개인정보의 보유기간 및 이용기간) 수집한 개인정보는 입학관리 업무를 계속하는 동안 보유ㆍ이용할 수 있으며, 입학관리 업무 완료 후 5년간
-    보관의 목적으로만<br/>
-    &nbsp;&nbsp;&nbsp;관리하고 이후에는 바로 폐기합니다.<br/>
-    7. (개인정보의 수집·이용·제공에 대한 동의 거부) 지원자는 개인정보의 수집·이용·제공에 대한 동의를 거부할 수 있으며, 동의를 거부할 경우
-    지원결격 사유 조회 등<br/>
-    &nbsp;&nbsp;&nbsp;입학관리 업무를 수행할 수 없으므로 원서를 접수할 수 없습니다.
-</div>
-<div style="border: 1px solid black; margin-top: 10px">
-    <b style="font-size: 15px; margin-left: 10px; margin-top: 5px">개인정보 수집 이용 동의</b>
-    <div style="display: inline-block; float: right; padding-right: 20px">
-        <div style="
-            width: 10px;
-            height: 10px;
-            border: 1px solid black;
-            display: inline-block;
-          "></div>
-        아니요
-    </div>
-    <div style="display: inline-block; float: right; padding-right: 20px">
-        <div style="
-            width: 10px;
-            height: 10px;
-            border: 1px solid black;
-            display: inline-block;
-          "></div>
-        예
-    </div>
-</div>
-<table style="
-        border-collapse: collapse;
-        float: right;
-        width: 30%;
-        font-size: 14px;
-      ">
-    <tr>
-        <td style="width: 10%; border: none">지원자 성명</td>
-        <td style="width: 15%; border: none" th:text="${userName}"></td>
-        <td style="width: 5%; border: none">(서명)</td>
-    </tr>
-    <tr>
-        <td style="width: 10%; border: none">보호자 성명</td>
-        <td style="width: 15%; border: none" th:text="${parentName}"></td>
-        <td style="width: 5%; border: none">(서명)</td>
-    </tr>
-</table>
-<br/>
-<br/>
-<b style="font-size: 20px; margin-left: 8px">대덕소프트웨어마이스터고등학교장 귀하</b>
+<b style="font-size: 20px; margin-left: 8px"
+>대덕소프트웨어마이스터고등학교장 귀하</b
+>
 </body>
-
 </html>
