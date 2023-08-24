@@ -24,7 +24,7 @@ jobs:
             --no-daemon
 
       - name: build docker image
-        run: docker build -t rolls .
+        run: docker build -t rolls-royce .
 
       - name: publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@v4
