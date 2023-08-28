@@ -3,6 +3,8 @@ package kr.hs.entrydsm.rollsroyce.global.error;
 import org.springframework.http.MediaType;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import io.sentry.Sentry;
+
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
@@ -21,9 +23,11 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (RollsException e) {
+            Sentry.captureException(e);
             writerErrorCode(response, e.getErrorCode());
         } catch (Exception e) {
             e.printStackTrace();
+            Sentry.captureException(e);
             writerErrorCode(response, ErrorCode.INTERNAL_SERVER_ERROR);
         }
     }
