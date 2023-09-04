@@ -27,7 +27,7 @@ jobs:
         run: docker build -t rolls-royce .
 
       - name: publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@v4
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: rolls-royce
           username: ${{ secrets.DOCKER_USERNAME }}

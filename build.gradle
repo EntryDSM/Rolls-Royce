@@ -67,8 +67,8 @@ dependencies {
 
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.11'
 
-	implementation("io.sentry:sentry-spring-boot-starter:6.18.1")
-	implementation("io.sentry:sentry-logback:6.18.1")
+	implementation 'io.sentry:sentry-spring-boot-starter:6.18.1'
+	implementation 'io.sentry:sentry-logback:6.18.1'
 }
 
 sourceSets {

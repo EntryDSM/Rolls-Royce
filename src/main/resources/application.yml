@@ -103,5 +103,5 @@ springdoc:
     disabled: true
 
 sentry:
-  dsn : ${SENTRY_DSN}
+  dsn: ${SENTRY_DSN}
   enable-tracing-rate: 1.0
