@@ -57,7 +57,6 @@ public enum ErrorCode {
     INVALID_ENUM_CONSTANT(400, "APPLICATION400-1", "The enum constant is invalid"),
     EDUCATIONAL_STATUS_UNMATCHED(400, "APPLICATION400-2", "Education Status is unmatched"),
     BAD_FILE_EXTENSION(400, "APPLICATION400-3", "File Extension is invalid"),
-    EMPTY_CONTENT(400, "APPLICATION400-4", "Content is empty."),
     SCORE_NOT_FOUND(400, "APPLICATION400-5", "Score not found"),
     EDUCATIONAL_STATUS_NULL(400, "APPLICATION400-6", "Educational status is null"),
     REQUEST_FAIL_TO_TMAP_SERVER(400, "APPLICATION400-7", "Request fail to tmap server."),

@@ -47,11 +47,12 @@ public class S3Util {
 
         String randomName = UUID.randomUUID().toString();
         String filename = randomName + "." + ext;
+        BufferedImage outputImage;
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
 
         if (!ext.equals("pdf")) {
-            BufferedImage outputImage = makeThumbnail(file);
+            outputImage = makeThumbnail(file);
             try {
                 ImageIO.write(outputImage, "png", os);
             } catch (IOException e) {
