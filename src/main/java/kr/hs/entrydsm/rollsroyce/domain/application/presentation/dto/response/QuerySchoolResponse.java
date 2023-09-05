@@ -16,7 +16,6 @@ public class QuerySchoolResponse {
     public static class SchoolInformation {
         private final String code;
         private final String name;
-        private final String information;
         private final String address;
     }
 }

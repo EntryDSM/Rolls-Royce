@@ -20,9 +20,6 @@ public class School {
     @Column(length = 30, nullable = false)
     private String name;
 
-    @Column(length = 50, nullable = false)
-    private String information;
-
     @Column(length = 150, nullable = false)
     private String address;
 }
