@@ -104,7 +104,11 @@ public class PdfDataConverter {
     }
 
     private void setPhoneNumber(EntryInfo entryInfo, Map<String, Object> values) {
-        values.put("applicantTel", toFormattedPhoneNumber(entryInfo.getUserTelephoneNumber()));
+        if (entryInfo.getUserTelephoneNumber().equals("00000000000")) {
+            values.put("aplicationTel", "");
+        } else {
+            values.put("applicantTel", toFormattedPhoneNumber(entryInfo.getUserTelephoneNumber()));
+        }
         values.put("parentTel", toFormattedPhoneNumber(entryInfo.getParentTel()));
     }
 
