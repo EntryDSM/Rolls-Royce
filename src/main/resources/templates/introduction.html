@@ -9,6 +9,7 @@
             border: 1px solid black;
             text-align: center;
         }
+
         table {
             border-collapse: collapse;
             border-spacing: 0px;
@@ -24,28 +25,28 @@
             <span style="font-size: 20pt; font-family: KoPubWorldDotum_Pro Medium;">자기소개서 및 학업계획서</span>
         </b>
     </p>
-    <p class="MsoNormal">
-        <b>
-            <span style="font-size:12.0pt;line-height:200%; font-family: KoPubWorldDotum_Pro Medium;">지원자 기재사항</span>
-        </b>
-    </p>
 </div>
 <table style="border: 1px solid black; margin-bottom: 50px;">
     <tr>
-        <td style="padding: 10px; width: 25%;background-color: #F2F2F2;">
-            성명
+        <td rowspan="3" style="width: 7%">인적<br/>사항</td>
+        <td style="padding: 10px; width: 10%">성명</td>
+        <td style="padding: 10px; width: 20%;" th:text="${userName}">
         </td>
-        <td style="padding: 10px; width: 25%;" th:text="${userName}">
+        <td style="padding: 10px; width: 10%">
+            접 수 번 호
         </td>
-        <td style="padding: 10px; width: 25%;background-color: #F2F2F2;">
-            접수번호
-        </td>
-        <td style="padding: 10px; width: 25%;" th:text="${receiptCode}">
+        <td style="padding: 10px; width: 20%;" th:text="${receiptCode}">
         </td>
     </tr>
     <tr>
-        <td style="padding: 10px;background-color: #F2F2F2;">출신중학교</td>
-        <td style="padding: 10px" colspan="3" th:text="${schoolName}"></td>
+        <td style="padding: 10px; width: 10%">연락처</td>
+        <td style="padding: 10px; width: 20%" th:text="${telephoneNumber}"></td>
+        <td style="padding: 10px; width: 10%">출신 중학교</td>
+        <td style="padding: 10px; width: 20%" colspan="3" th:text="${schoolName}"></td>
+    </tr>
+    <tr>
+        <td style="padding: 10px; width: 10%">주소</td>
+        <td style="padding: 10px; width: 20%" colspan="3" th:text="|${address} ${detailAddress}|"></td>
     </tr>
 </table>
 <table style="margin-bottom: 50px; text-align: left;">
@@ -55,7 +56,8 @@
         </td>
     </tr>
     <tr>
-        <td style="min-height: 230px; text-align: left; padding: 0px 7px;"><p style="line-height: 5px">(빈칸 포함 1,600자 이내)</p>
+        <td style="min-height: 230px; text-align: left; padding: 0px 7px;">
+            <p style="line-height: 5px">(빈칸 포함 1,600자 이내)</p>
             <p style="min-height: 230px; word-break: keep-all"
                th:utext="${#strings.replace(selfIntroduction, newLineChar, '&lt;br /&gt;')}"></p></td>
     </tr>
@@ -67,7 +69,8 @@
         </td>
     </tr>
     <tr>
-        <td style=" min-height: 230px;text-align: left; padding: 0px 7px;"><p style="line-height: 5px">(빈칸 포함 1,600자 이내)</p>
+        <td style=" min-height: 230px;text-align: left; padding: 0px 7px;">
+            <p style="line-height: 5px">(빈칸 포함 1,600자 이내)</p>
             <p style="min-height: 230px; word-break: keep-all"
                th:utext="${#strings.replace(studyPlan, newLineChar, '&lt;br /&gt;')}"></p></td>
     </tr>
