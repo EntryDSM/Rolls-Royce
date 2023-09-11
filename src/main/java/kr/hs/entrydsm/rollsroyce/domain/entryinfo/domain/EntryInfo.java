@@ -114,7 +114,7 @@ public class EntryInfo {
     }
 
     public void updateParentNameAndTel(String parentName, String parentTel) {
-        this.parentName = parentTel;
+        this.parentName = parentName;
         this.parentTel = parentTel;
     }
 
