@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -53,5 +54,9 @@ public class User extends BaseTimeEntity {
     public User updatePassword(String password) {
         this.password = password;
         return this;
+    }
+
+    public Status getStatus() {
+        return this.entryInfo.getStatus();
     }
 }
