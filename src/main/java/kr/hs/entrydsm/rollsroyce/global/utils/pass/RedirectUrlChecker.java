@@ -10,7 +10,7 @@ public class RedirectUrlChecker {
     @Value("${pass.base-url}") private String BASE_URL;
 
     public void checkRedirectUrl(String redirectUrl) {
-        if (!redirectUrl.startsWith(BASE_URL)) {
+        if (!redirectUrl.contains(BASE_URL)) {
             throw InvalidUrlException.EXCEPTION;
         }
     }
