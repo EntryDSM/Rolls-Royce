@@ -228,7 +228,7 @@
     </tr>
     <tr style="text-align: center">
         <td style="width: 10%">연락처</td>
-        <td style="width: 20%" th:text="${telephoneNumber}"></td>
+        <td style="width: 20%" th:text="${applicantTel}"></td>
         <td style="width: 10%">출신 중학교</td>
         <td style="width: 20%" colspan="3" th:text="${schoolName}"></td>
     </tr>
@@ -269,14 +269,12 @@
                             <p>출신 중학교, 주소)</p>
                         </td>
                         <td>흡연검사동의</td>
-                        <td><strong>1년</strong></td>
+                        <td><strong>3년</strong></td>
                     </tr>
                 </table>
             </div>
             <p>
-                ※ 개인정보 수집 · 이용에 대한 동의를 거부할 권리가 있습니다.<br/>
-                &nbsp;&nbsp;&nbsp;그러나 동의를 거부할 경우 최종 입학에 제한을 받을
-                수 있습니다.
+                ※ 개인정보 수집 · 이용에 대한 동의를 거부할 권리가 있습니다.그러나 동의를 거부할 경우 최종 입학에 제한을 받을 수 있습니다.
             </p>
             <div class="table">
                 <table class="checkTable">
@@ -297,9 +295,8 @@
             <br/>
             <br/>
             <p class="date">
-                <span th:text="${year} + '년'">2022년</span>
-                <span>월</span>
-                <span>일</span>
+                <span th:text="${year} + ${year} + '년 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ ${month} +'월 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ ${day} +'일'">
+                    2024년 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일</span>
             </p>
             <br/>
             <table
@@ -315,12 +312,12 @@
                 <tr>
                     <td style="width: 15%; border: none">지원자 성명:</td>
                     <td style="width: 15%; border: none" th:text="${userName}"></td>
-                    <td style="width: 10%; border: none">(서명)</td>
+                    <td style="width: 10%; border: none">(서명 또는 인)</td>
                 </tr>
                 <tr>
                     <td style="width: 15%; border: none">보호자 성명:</td>
                     <td style="width: 15%; border: none" th:text="${parentName}"></td>
-                    <td style="width: 10%; border: none">(서명)</td>
+                    <td style="width: 10%; border: none">(서명 또는 인)</td>
                 </tr>
             </table>
         </td>
