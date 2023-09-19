@@ -147,6 +147,10 @@ public class EntryInfo {
         return getUser().getName();
     }
 
+    public boolean getUserIsStudent() {
+        return getUser().getIsStudent();
+    }
+
     public QueryTypeResponse queryUserApplication(Application application) {
         QueryTypeResponse response = QueryTypeResponse.builder()
                 .applicationRemark(getValue(applicationRemark))
