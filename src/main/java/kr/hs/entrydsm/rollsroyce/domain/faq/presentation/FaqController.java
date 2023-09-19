@@ -79,7 +79,7 @@ public class FaqController {
     }
 
     @Operation(summary = "FAQ 전체조회 API")
-    @GetMapping("/all")
+    @GetMapping
     public List<QueryFaqResponse> queryFaqList() {
         return queryFaqListService.execute();
     }
