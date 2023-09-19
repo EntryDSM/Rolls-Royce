@@ -59,7 +59,7 @@
 <div class="table" style="border: 1px solid black; width: 98%; margin-right: auto; margin-left: auto; padding: 5px">
     <table class="checkTable">
         <tr class="checkTr">
-            <td class="checkTd">개인정보 수집·이용 동의&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="checkTd">개인정보 수집·이용 동의&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td class="checknote">
                 <span class="yes">□ 예</span>
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -69,25 +69,25 @@
     </table>
 </div>
 <br/>
-<div style="text-align: center" th:text="${year} + '년'">2024년
+<div style="text-align: center" th:text="${year} + '년 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ ${month} +'월 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ ${day} +'일'">2024년
     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월</span>
     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일</span>
 </div>
 <table style="
         border-collapse: collapse;
         float: right;
-        width: 29%;
+        width: 30%;
         font-size: 14px;
       ">
     <tr>
-        <td style="width: 10%; border: none">지원자 성명</td>
-        <td style="width: 15%; border: none" th:text="${userName}"></td>
-        <td style="width: 5%; border: none">(서명)</td>
+        <td style="width: 20%; border: none">지원자 성명</td>
+        <td style="width: 3%; border: none" th:text="${userName}"></td>
+        <td style="width: 5%; border: none">(서명 또는 인)</td>
     </tr>
     <tr>
-        <td style="width: 10%; border: none">보호자 성명</td>
-        <td style="width: 15%; border: none" th:text="${parentName}"></td>
-        <td style="width: 5%; border: none">(서명)</td>
+        <td style="width: 20%; border: none">보호자 성명</td>
+        <td style="width: 3%; border: none" th:text="${parentName}"></td>
+        <td style="width: 5%; border: none">(서명 또는 인)</td>
     </tr>
 </table>
 <br/><br/>

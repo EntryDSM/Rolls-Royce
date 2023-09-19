@@ -65,7 +65,8 @@ public class PdfDataConverter {
     }
 
     private void setPersonalInfo(EntryInfo entryInfo, Map<String, Object> values) {
-        values.put("userName", setBlankIfNull(entryInfo.getUserName()));
+        String userName = entryInfo.getUserIsStudent() ? entryInfo.getUserName() : entryInfo.getName();
+        values.put("userName", setBlankIfNull(userName));
         values.put("isMale", toBallotBox(entryInfo.isMale()));
         values.put("isFemale", toBallotBox(entryInfo.isFemale()));
         values.put("address", setBlankIfNull(entryInfo.getAddress()));
@@ -257,6 +258,7 @@ public class PdfDataConverter {
                 "qualificationExamPassedMonth", "__",
                 "graduateYear", "20__",
                 "graduateMonth", "__",
+                "prospectiveGraduateYear", "20__",
                 "prospectiveGraduateMonth", "__");
     }
 
