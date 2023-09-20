@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Reply;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.ReplyRepository;
+import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
+import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.repository.QuestionRepository;
 import kr.hs.entrydsm.rollsroyce.domain.question.exception.AccessDeniedQuestionException;
@@ -18,17 +20,18 @@ import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 @RequiredArgsConstructor
 @Service
 public class QueryDetailsQuestionService {
-    private final QuestionRepository questionRepository;
     private final UserFacade userFacade;
+    private final AdminFacade adminFacade;
     private final ReplyRepository replyRepository;
+    private final QuestionRepository questionRepository;
 
     @Transactional(readOnly = true)
     public QueryDetailsQuestionResponse execute(Long questionId) {
         Question question =
                 questionRepository.findById(questionId).orElseThrow(() -> QuestionNotFoundException.EXCEPTION);
-        User user = userFacade.getCurrentUser();
 
-        if (!question.getIsPublic() && !user.getId().equals(question.getUserId())) {
+        if (!question.getIsPublic() && !userFacade.getCurrentUser().getId().equals(question.getUserId())
+                || adminFacade.getAdmin().getRole().equals(Role.CONFIRM_APPLICATION)) {
             throw AccessDeniedQuestionException.EXCEPTION;
         }
 
