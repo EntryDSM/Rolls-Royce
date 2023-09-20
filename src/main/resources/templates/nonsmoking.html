@@ -26,7 +26,7 @@
         .info {
             width: 5%;
             text-align: center;
-            background-color: #F2F2F2;
+            background-color: #f2f2f2;
         }
         .info > p {
             line-height: 6px;
@@ -41,7 +41,7 @@
         .firstTd {
             width: 20%;
             text-align: center;
-            background-color: #F2F2F2;
+            background-color: #f2f2f2;
         }
         .secondTd {
             width: 27.5%;
@@ -50,7 +50,7 @@
         .thirdTd {
             width: 20%;
             text-align: center;
-            background-color: #F2F2F2;
+            background-color: #f2f2f2;
         }
         .forthTd {
             width: 27.5%;
@@ -58,10 +58,10 @@
             text-align: center;
         }
         .address {
-            background-color: #F2F2F2;
+            background-color: #f2f2f2;
         }
         .privateFTr > td {
-            background-color: #F2F2F2;
+            background-color: #f2f2f2;
             width: 208px;
             height: 27px;
             text-align: center;
@@ -118,7 +118,7 @@
             line-height: 0;
             height: 27px;
             font-weight: bold;
-            background-color: #F2F2F2;
+            background-color: #f2f2f2;
             text-align: center;
         }
         .checknote {
@@ -176,25 +176,28 @@
 <table>
     <tr>
         <td rowspan="3" style="width: 5%">인적<br />사항</td>
-        <td style="padding: 10px; width: 10%">성명</td>
-        <td style="padding: 10px; width: 20%" th:text="${userName}"></td>
-        <td style="padding: 10px; width: 10%">접 수 번 호</td>
-        <td style="padding: 10px; width: 20%" th:text="${receiptCode}"></td>
+        <td style="padding: 0px 10px; width: 10%">성명</td>
+        <td style="padding: 0px 10px; width: 20%" th:text="${userName}"></td>
+        <td style="padding: 0px 10px; width: 10%">접 수 번 호</td>
+        <td style="padding: 0px 10px; width: 20%" th:text="${receiptCode}"></td>
     </tr>
     <tr>
-        <td style="padding: 10px; width: 10%">연락처</td>
-        <td style="padding: 10px; width: 20%" th:text="${applicantTel}"></td>
-        <td style="padding: 10px; width: 10%">출신 중학교</td>
+        <td style="padding: 0px 10px; width: 10%">연락처</td>
         <td
-                style="padding: 10px; width: 20%"
+                style="padding: 0px 10px; width: 20%"
+                th:text="${applicantTel}"
+        ></td>
+        <td style="padding: 0px 10px; width: 10%">출신 중학교</td>
+        <td
+                style="padding: 0px 10px; width: 20%"
                 colspan="3"
                 th:text="${schoolName}"
         ></td>
     </tr>
     <tr>
-        <td style="padding: 10px; width: 10%">주소</td>
+        <td style="padding: 0px 10px; width: 10%">주소</td>
         <td
-                style="padding: 10px; width: 20%"
+                style="padding: 0px 10px; width: 20%"
                 colspan="3"
                 th:text="|${address} ${detailAddress}|"
         ></td>
@@ -204,16 +207,22 @@
             <div class="agree">
                 <br />
                 <br />
-                <p>하나, 나 자신의 건강을 위해서 흡연하지 않겠습니다.</p>
-                <p>하나, 흡연의 유혹에 절대로 흔들리지 않겠습니다.</p>
-                <p class="blank">
-                    하나, 흡연하는 친구가 있으면 충고하여 금연할 수 있도록 돕겠습니다.
-                </p>
+                <div style="text-align: left">
+                    <p>하나, 나 자신의 건강을 위해서 흡연하지 않겠습니다.</p>
+                    <p>하나, 흡연의 유혹에 절대로 흔들리지 않겠습니다.</p>
+                    <p class="blank">
+                        하나, 흡연하는 친구가 있으면 충고하여 금연할 수 있도록
+                        돕겠습니다.
+                    </p>
+                </div>
                 <br />
                 <p>
-                    나 (<span th:text="${userName}">김주영</span
-                >&nbsp;&nbsp;&nbsp;)은(는) 장차 소프트웨어 분야를
-                    선도할 전문가로 성장하기 위하여 흡연하지 않겠습니다.
+                    나 (<span
+                        style="margin: 0px"
+                        th:text="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + ${userName} + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"
+                ></span
+                >)은(는) 장차 소프트웨어 분야를 선도할 전문가로 성장하기 위하여
+                    흡연하지 않겠습니다.
                 </p>
                 <p>
                     보호자는 지원자가 금연하는 데 용기와 도움을 줄 것을 약속합니다.
@@ -250,7 +259,9 @@
                         <td class="checkTd">개인정보 수집·이용 동의</td>
                         <td class="checknote">
                             <span class="yes">□ 예</span>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span
+                            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+                            >
                             <span class="no">□ 아니요</span>
                         </td>
                     </tr>
@@ -259,8 +270,12 @@
             <br />
             <br />
             <p class="date">
-                <span th:text="${year} + ${year} + '년 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ ${month} +'월 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ ${day} +'일'">
-                    2024년 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일</span>
+            <span
+                    th:text="${year} + '년 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ ${month} +'월 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ ${day} +'일'"
+            >
+              2024년 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일</span
+            >
             </p>
             <br />
             <table
@@ -275,13 +290,13 @@
             >
                 <tr>
                     <td style="width: 15%; border: none">지원자 성명</td>
-                    <td style="width: 15%; border: none" th:text="${userName}"></td>
-                    <td style="width: 10%; border: none">(서명 또는 인)</td>
+                    <td style="width: 10%; border: none" th:text="${userName}"></td>
+                    <td style="width: 15%; border: none">(서명 또는 인)</td>
                 </tr>
                 <tr>
                     <td style="width: 15%; border: none">보호자 성명</td>
-                    <td style="width: 15%; border: none" th:text="${parentName}"></td>
-                    <td style="width: 10%; border: none">(서명 또는 인)</td>
+                    <td style="width: 10%; border: none" th:text="${parentName}"></td>
+                    <td style="width: 15%; border: none">(서명 또는 인)</td>
                 </tr>
             </table>
         </td>
