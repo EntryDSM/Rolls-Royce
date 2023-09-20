@@ -3,13 +3,15 @@ package kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 @Getter
 @Builder
 public class QueryInformationResponse {
 
     private final String name;
     private final String sex;
-    private final String birthday;
+    private final LocalDate birthday;
     private final String parentName;
     private final String parentTel;
     private final String telephoneNumber;
