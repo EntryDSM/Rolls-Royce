@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import reactor.util.annotation.Nullable;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -30,7 +31,6 @@ import kr.hs.entrydsm.rollsroyce.domain.faq.service.CreateFaqService;
 import kr.hs.entrydsm.rollsroyce.domain.faq.service.DeleteFaqService;
 import kr.hs.entrydsm.rollsroyce.domain.faq.service.QueryFaqInfoService;
 import kr.hs.entrydsm.rollsroyce.domain.faq.service.QueryFaqListByTypeService;
-import kr.hs.entrydsm.rollsroyce.domain.faq.service.QueryFaqListService;
 import kr.hs.entrydsm.rollsroyce.domain.faq.service.UpdateFaqService;
 
 @Tag(name = "자주 묻는 질문 API")
@@ -41,7 +41,6 @@ public class FaqController {
     private final CreateFaqService createFaqService;
     private final DeleteFaqService deleteFaqService;
     private final QueryFaqInfoService queryFaqInfoService;
-    private final QueryFaqListService queryFaqListService;
     private final QueryFaqListByTypeService queryFaqListByTypeService;
     private final UpdateFaqService updateFaqService;
 
@@ -74,13 +73,7 @@ public class FaqController {
 
     @Operation(summary = "FAQ 유형별 전체조회 API")
     @GetMapping
-    public List<QueryFaqResponse> queryFaqListByType(@RequestParam("type") FaqType type) {
+    public List<QueryFaqResponse> queryFaqListByType(@RequestParam("type") @Nullable FaqType type) {
         return queryFaqListByTypeService.execute(type);
-    }
-
-    @Operation(summary = "FAQ 전체조회 API")
-    @GetMapping
-    public List<QueryFaqResponse> queryFaqList() {
-        return queryFaqListService.execute();
     }
 }

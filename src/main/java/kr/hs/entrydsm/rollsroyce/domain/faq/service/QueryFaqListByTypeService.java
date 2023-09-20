@@ -20,6 +20,23 @@ public class QueryFaqListByTypeService {
     public List<QueryFaqResponse> execute(FaqType faqType) {
         List<Faq> faqList = faqRepository.findAllByFaqType(faqType);
 
+        if (faqType == null) {
+            return findAllFaq();
+        }
+
+        return faqList.stream()
+                .map(faq -> QueryFaqResponse.builder()
+                        .title(faq.getTitle())
+                        .content(faq.getContent())
+                        .createdAt(faq.getCreatedAt())
+                        .faqType(faq.getFaqType())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    private List<QueryFaqResponse> findAllFaq() {
+        List<Faq> faqList = faqRepository.findAll();
+
         return faqList.stream()
                 .map(faq -> QueryFaqResponse.builder()
                         .title(faq.getTitle())
