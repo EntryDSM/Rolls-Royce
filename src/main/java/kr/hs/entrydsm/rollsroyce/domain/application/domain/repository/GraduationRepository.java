@@ -10,4 +10,6 @@ import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 public interface GraduationRepository extends CrudRepository<Graduation, Long> {
 
     List<Graduation> findByGraduatedAtAndStudentNumber(LocalDate graduatedAt, String studentNumber);
+
+    Graduation findByReceiptCode(Long receiptCode);
 }

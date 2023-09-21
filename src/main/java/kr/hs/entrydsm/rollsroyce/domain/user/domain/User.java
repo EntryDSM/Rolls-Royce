@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.BaseTimeEntity;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 
 @Getter
@@ -58,5 +59,13 @@ public class User extends BaseTimeEntity {
 
     public Status getStatus() {
         return this.entryInfo.getStatus();
+    }
+
+    public Long getEntryInfoReceiptCode() {
+        return getEntryInfo().getReceiptCode();
+    }
+
+    public EducationalStatus getEntryInfoEducationStatus() {
+        return getEntryInfo().getEducationalStatus();
     }
 }

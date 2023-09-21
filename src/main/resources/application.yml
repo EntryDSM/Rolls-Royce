@@ -65,6 +65,10 @@ aws:
     region: ${AWS_SES_REGION}
 
 rolls-royce:
+  logging:
+    name: rolls-royce.log
+    path: ${LOG_PATH:/}
+    size: 10 # 10mb
   font:
     path: ${FONT_PATH:/fonts}
 

@@ -36,7 +36,7 @@ public class QueryInformationService {
                 .parentName(entryInfo.getParentName())
                 .postCode(entryInfo.getPostCode())
                 .photoFileName(entryInfo.getPhotoFileName())
-                .birthday(String.valueOf(entryInfo.getBirthday()))
+                .birthday(entryInfo.getBirthday())
                 .build();
     }
 }
