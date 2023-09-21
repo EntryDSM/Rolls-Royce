@@ -10,6 +10,7 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Admin;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.AdminNotAccessibleException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
+import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.UploadNoticeImageResponse;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class UploadNoticeImageService {
     private final AdminFacade adminFacade;
 
     @Transactional
-    public String execute(MultipartFile file) {
+    public UploadNoticeImageResponse execute(MultipartFile file) {
         Admin admin = adminFacade.getAdmin();
         String fileName = s3Util.upload(file, "post/");
 
@@ -27,6 +28,6 @@ public class UploadNoticeImageService {
             throw AdminNotAccessibleException.EXCEPTION;
         }
 
-        return s3Util.generateObjectUrl(fileName);
+        return new UploadNoticeImageResponse(s3Util.generateObjectUrl(fileName), fileName);
     }
 }

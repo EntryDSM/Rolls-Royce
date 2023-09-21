@@ -25,6 +25,7 @@ import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request.CreateNo
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request.UpdateNoticeRequest;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.QueryNoticeDetailResponse;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.QueryNoticeResponse;
+import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.UploadNoticeImageResponse;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.CreateNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.DeleteNoticeService;
 import kr.hs.entrydsm.rollsroyce.domain.notice.service.QueryNoticeDetailService;
@@ -79,8 +80,8 @@ public class NoticeController {
     }
 
     @Operation(summary = "공지사항 사진 업로드 API")
-    @PostMapping("/images")
-    public String uploadNoticeImage(@RequestPart(name = "photo") MultipartFile file) {
+    @PostMapping("/image")
+    public UploadNoticeImageResponse uploadNoticeImage(@RequestPart(name = "photo") MultipartFile file) {
         return uploadNoticeImageService.execute(file);
     }
 }
