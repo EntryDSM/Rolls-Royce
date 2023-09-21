@@ -4,15 +4,13 @@ import lombok.RequiredArgsConstructor;
 
 import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.*;
 import com.amazonaws.util.IOUtils;
 
 import java.awt.image.BufferedImage;
@@ -62,7 +60,11 @@ public class S3Util {
 
         InputStream is = new ByteArrayInputStream(os.toByteArray());
 
-        amazonS3Client.putObject(new PutObjectRequest(bucketName, path + filename, is, null)
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType(MediaType.IMAGE_PNG_VALUE);
+        metadata.setContentLength(file.getSize());
+
+        amazonS3Client.putObject(new PutObjectRequest(bucketName, path + filename, is, metadata)
                 .withCannedAcl(CannedAccessControlList.AuthenticatedRead));
 
         return filename;
