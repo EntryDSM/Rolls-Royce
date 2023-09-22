@@ -63,6 +63,7 @@ public class S3Util {
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(MediaType.IMAGE_PNG_VALUE);
         metadata.setContentLength(file.getSize());
+        metadata.setContentDisposition("inline");
 
         amazonS3Client.putObject(new PutObjectRequest(bucketName, path + filename, is, metadata)
                 .withCannedAcl(CannedAccessControlList.AuthenticatedRead));
