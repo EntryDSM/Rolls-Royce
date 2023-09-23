@@ -22,7 +22,7 @@ public class GetSchedulesService {
     private final ScheduleFacade scheduleFacade;
     private final ScheduleRepository scheduleRepository;
 
-    @Cacheable(value = "scheduleList")
+    @Cacheable(value = "schedule", key = "'all'")
     public SchedulesResponse execute() {
         return SchedulesResponse.builder()
                 .schedules(scheduleRepository.findAllBy().stream()
