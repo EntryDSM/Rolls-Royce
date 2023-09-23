@@ -2,6 +2,7 @@ package kr.hs.entrydsm.rollsroyce.domain.schedule.service;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ public class UpdateSchedulesService {
     private final ScheduleRepository scheduleRepository;
 
     @Transactional
+    @CacheEvict(value = "schedule", allEntries = true)
     public void execute(ScheduleRequest request) {
         if (request.getSchedules() == null) {
             throw InvalidScheduleRequestException.EXCEPTION;
