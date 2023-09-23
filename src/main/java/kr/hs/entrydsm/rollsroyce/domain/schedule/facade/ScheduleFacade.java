@@ -16,7 +16,7 @@ public class ScheduleFacade {
 
     private final ScheduleRepository scheduleRepository;
 
-    @Cacheable(value = "schedule", key = "#type")
+    @Cacheable(value = "schedule", key = "#type", unless = "#result == null")
     public Schedule getScheduleByType(Type type) {
         return scheduleRepository.findByType(type).orElseThrow(() -> ScheduleNotFoundException.EXCEPTION);
     }
