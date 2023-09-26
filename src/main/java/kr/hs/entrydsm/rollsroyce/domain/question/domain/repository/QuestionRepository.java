@@ -10,5 +10,5 @@ import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findAllByOrderByIdDesc();
 
-    List<Question> findAllByUser(User user);
+    List<Question> findAllByUserOrderByCreatedAtDesc(User user);
 }

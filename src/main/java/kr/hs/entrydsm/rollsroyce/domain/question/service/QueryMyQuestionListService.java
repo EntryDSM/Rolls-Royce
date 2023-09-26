@@ -23,7 +23,7 @@ public class QueryMyQuestionListService {
     @Transactional(readOnly = true)
     public QueryQuestionListResponse execute() {
         User user = userFacade.getCurrentUser();
-        List<Question> questions = questionRepository.findAllByUser(user);
+        List<Question> questions = questionRepository.findAllByUserOrderByCreatedAtDesc(user);
 
         return QueryQuestionListResponse.builder()
                 .questions(questions.stream()
