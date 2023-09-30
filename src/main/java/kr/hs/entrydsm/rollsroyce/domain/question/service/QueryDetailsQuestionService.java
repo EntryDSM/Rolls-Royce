@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.Reply;
 import kr.hs.entrydsm.rollsroyce.domain.admin.domain.repository.ReplyRepository;
-import kr.hs.entrydsm.rollsroyce.domain.admin.domain.types.Role;
 import kr.hs.entrydsm.rollsroyce.domain.admin.facade.AdminFacade;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.repository.QuestionRepository;
@@ -30,11 +29,27 @@ public class QueryDetailsQuestionService {
         Question question =
                 questionRepository.findById(questionId).orElseThrow(() -> QuestionNotFoundException.EXCEPTION);
 
-        if (!question.getIsPublic() && !userFacade.getCurrentUser().getId().equals(question.getUserId())
-                || adminFacade.getAdmin().getRole().equals(Role.CONFIRM_APPLICATION)) {
+        if (adminFacade.getIsAdmin()) {
+            return QueryDetailsQuestionResponse.builder()
+                    .id(question.getId())
+                    .title(question.getTitle())
+                    .content(question.getContent())
+                    .username(question.getUserName())
+                    .isReplied(question.getIsReplied())
+                    .isPublic(question.getIsPublic())
+                    .createdAt(question.getCreatedAt())
+                    .reply(getReply(question))
+                    .build();
+        }
+
+        if (!question.getIsPublic() && !userFacade.getCurrentUser().getId().equals(question.getUserId())) {
             throw AccessDeniedQuestionException.EXCEPTION;
         }
 
+        return getQuestion(question);
+    }
+
+    private QueryDetailsQuestionResponse getQuestion(Question question) {
         return QueryDetailsQuestionResponse.builder()
                 .id(question.getId())
                 .title(question.getTitle())

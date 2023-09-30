@@ -10,7 +10,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.*;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.util.IOUtils;
 
 import java.awt.image.BufferedImage;
@@ -48,21 +52,18 @@ public class S3Util {
         BufferedImage outputImage;
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-
-        if (!ext.equals("pdf")) {
-            outputImage = makeThumbnail(file);
-            try {
-                ImageIO.write(outputImage, "png", os);
-            } catch (IOException e) {
-                throw ImageNotFoundException.EXCEPTION;
-            }
+        outputImage = makeThumbnail(file);
+        try {
+            ImageIO.write(outputImage, "png", os);
+        } catch (IOException e) {
+            throw ImageNotFoundException.EXCEPTION;
         }
 
         InputStream is = new ByteArrayInputStream(os.toByteArray());
 
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(MediaType.IMAGE_PNG_VALUE);
-        metadata.setContentLength(file.getSize());
+        metadata.setContentLength(os.size());
         metadata.setContentDisposition("inline");
 
         amazonS3Client.putObject(new PutObjectRequest(bucketName, path + filename, is, metadata)
@@ -145,11 +146,8 @@ public class S3Util {
         String ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
         String lowerExt = ext.toLowerCase();
 
-        if (!(lowerExt.equals("jpg")
-                || lowerExt.equals("jpeg")
-                || lowerExt.equals("png")
-                || lowerExt.equals("heic")
-                || lowerExt.equals("pdf"))) throw BadFileExtensionException.EXCEPTION;
+        if (!(lowerExt.equals("jpg") || lowerExt.equals("jpeg") || lowerExt.equals("png") || lowerExt.equals("heic")))
+            throw BadFileExtensionException.EXCEPTION;
         return ext;
     }
 }

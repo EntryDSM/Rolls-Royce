@@ -37,6 +37,10 @@ public class AdminFacade {
                 .orElseThrow(() -> AdminNotAccessibleException.EXCEPTION);
     }
 
+    public boolean getIsAdmin() {
+        return adminRepository.existsById(getEmail());
+    }
+
     public Role getAdminRole() {
         return adminRepository
                 .findById(getEmail())
