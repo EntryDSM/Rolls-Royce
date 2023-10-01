@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import javax.servlet.http.HttpServletResponse;
+
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.AdmissionTicketRequest;
-import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.request.PrintApplicantsRequest;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.AdmissionTicketService;
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.PrintApplicantsService;
 
@@ -31,7 +32,7 @@ public class ExcelController {
 
     @Operation(summary = "지원자 목록 출력 API")
     @GetMapping("/applicants/new")
-    public void printApplicantInformation(@ModelAttribute PrintApplicantsRequest request) {
-        printApplicantsService.execute(request);
+    public void printApplicantInformation(HttpServletResponse response) {
+        printApplicantsService.execute(response);
     }
 }
