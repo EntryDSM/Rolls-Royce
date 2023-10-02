@@ -2,6 +2,7 @@ package kr.hs.entrydsm.rollsroyce.domain.schedule.service;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public class GetSchedulesService {
     private final ScheduleFacade scheduleFacade;
     private final ScheduleRepository scheduleRepository;
 
+    @Cacheable(value = "schedule", key = "'all'")
     public SchedulesResponse execute() {
         return SchedulesResponse.builder()
                 .schedules(scheduleRepository.findAllBy().stream()
