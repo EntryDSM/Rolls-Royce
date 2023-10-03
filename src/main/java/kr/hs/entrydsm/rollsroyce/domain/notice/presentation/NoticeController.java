@@ -1,18 +1,10 @@
 package kr.hs.entrydsm.rollsroyce.domain.notice.presentation;
 
+import kr.hs.entrydsm.rollsroyce.domain.notice.service.*;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,12 +18,6 @@ import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.request.UpdateNo
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.QueryNoticeDetailResponse;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.QueryNoticeResponse;
 import kr.hs.entrydsm.rollsroyce.domain.notice.presentation.dto.response.UploadNoticeImageResponse;
-import kr.hs.entrydsm.rollsroyce.domain.notice.service.CreateNoticeService;
-import kr.hs.entrydsm.rollsroyce.domain.notice.service.DeleteNoticeService;
-import kr.hs.entrydsm.rollsroyce.domain.notice.service.QueryNoticeDetailService;
-import kr.hs.entrydsm.rollsroyce.domain.notice.service.QueryNoticeListService;
-import kr.hs.entrydsm.rollsroyce.domain.notice.service.UpdateNoticeService;
-import kr.hs.entrydsm.rollsroyce.domain.notice.service.UploadNoticeImageService;
 
 @Tag(name = "공지사항 API")
 @RequiredArgsConstructor
@@ -41,6 +27,7 @@ public class NoticeController {
     private final CreateNoticeService createNoticeService;
     private final UpdateNoticeService updateNoticeService;
     private final DeleteNoticeService deleteNoticeService;
+    private final QueryNoticeListByTypeService queryNoticeListByTypeService;
     private final QueryNoticeListService queryNoticeListService;
     private final QueryNoticeDetailService queryNoticeDetailService;
     private final UploadNoticeImageService uploadNoticeImageService;
@@ -68,9 +55,15 @@ public class NoticeController {
     }
 
     @Operation(summary = "공지사항 유형별 전체조회 API")
-    @GetMapping("/all/{type}")
-    public QueryNoticeResponse getNoticeList(@PathVariable("type") NoticeType type) {
-        return queryNoticeListService.execute(type);
+    @GetMapping(params = "type")
+    public QueryNoticeResponse getNoticeListByType(@RequestParam("type") NoticeType type) {
+        return queryNoticeListByTypeService.execute(type);
+    }
+
+    @Operation(summary = "공지사항 전체조회 API")
+    @GetMapping
+    public QueryNoticeResponse getNoticeList() {
+        return queryNoticeListService.execute();
     }
 
     @Operation(summary = "공지사항 상세조회 API")
