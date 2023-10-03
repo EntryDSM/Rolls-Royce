@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 import kr.hs.entrydsm.rollsroyce.domain.application.presentation.dto.response.QueryInformationResponse;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.facade.EntryInfoFacade;
@@ -20,7 +23,9 @@ public class QueryInformationService {
         EntryInfo entryInfo = entryInfoFacade.getCurrentEntryInfo();
         QueryInformationResponse response = queryInformation(entryInfo);
 
-        response.setPhotoFileName(s3Util.generateObjectUrl(response.getPhotoFileName()));
+        response.setPhotoFileName(new String(
+                Base64.getEncoder().encode(s3Util.getObject(entryInfo.getPhotoFileName(), "entry_photo/")),
+                StandardCharsets.UTF_8));
 
         return response;
     }

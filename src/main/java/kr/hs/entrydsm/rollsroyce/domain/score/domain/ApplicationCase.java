@@ -16,7 +16,7 @@ public abstract class ApplicationCase {
 
     protected static final BigDecimal COMMON_GRADE_RATE = BigDecimal.valueOf(1.75);
 
-    protected static final int MAX_VOLUNTEER_TIME = 12;
+    protected static final int MAX_VOLUNTEER_TIME = 15;
     protected static final int MIN_VOLUNTEER_TIME = 1;
 
     protected static final int MAX_VOLUNTEER_SCORE = 15;
