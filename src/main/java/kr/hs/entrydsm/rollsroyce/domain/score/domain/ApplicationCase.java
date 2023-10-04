@@ -20,7 +20,7 @@ public abstract class ApplicationCase {
     protected static final int MIN_VOLUNTEER_TIME = 1;
 
     protected static final int MAX_VOLUNTEER_SCORE = 15;
-    protected static final int MIN_VOLUNTEER_SCORE = 3;
+    protected static final int MIN_VOLUNTEER_SCORE = 0;
 
     protected static final int MAX_ATTENDANCE_SCORE = 15;
 
