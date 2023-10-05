@@ -12,7 +12,6 @@ import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.Graduation
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.QualificationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
-import kr.hs.entrydsm.rollsroyce.domain.question.domain.Question;
 import kr.hs.entrydsm.rollsroyce.domain.question.domain.repository.QuestionRepository;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
@@ -34,9 +33,9 @@ public class UserWithdrawalService {
 
     @Transactional
     public void execute() {
-        User user = userFacade.getCurrentUser();
+        User user = userRepository.findById(40L)
+                .orElseThrow(() -> new IllegalArgumentException("asdf"));
         Long receiptCode = user.getEntryInfoReceiptCode();
-        List<Question> questions = questionRepository.findAllByUserOrderByCreatedAtDesc(user);
         if (user.getEntryInfo() != null && EducationalStatus.GRADUATE.equals(user.getEntryInfoEducationStatus())
                 || EducationalStatus.PROSPECTIVE_GRADUATE.equals(user.getEntryInfoEducationStatus())) {
             deleteGraduateAndProspectiveGraduate(receiptCode);
@@ -47,11 +46,7 @@ public class UserWithdrawalService {
             statusRepository.findById(receiptCode).ifPresent(statusRepository::delete);
             entryInfoRepository.deleteById(receiptCode);
         }
-
-        if (questions != null) {
-            questionRepository.deleteAll(questions);
-        }
-
+        questionRepository.deleteAllByUser(user);
         userRepository.delete(user);
     }
 

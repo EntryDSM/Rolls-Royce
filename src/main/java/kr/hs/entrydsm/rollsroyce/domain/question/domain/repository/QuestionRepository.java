@@ -11,4 +11,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findAllByOrderByIdDesc();
 
     List<Question> findAllByUserOrderByCreatedAtDesc(User user);
+
+    void deleteAllByUser(User user);
 }
