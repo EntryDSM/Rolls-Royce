@@ -39,16 +39,10 @@ public class UserWithdrawalService {
         List<Question> questions = questionRepository.findAllByUserOrderByCreatedAtDesc(user);
         if (user.getEntryInfo() != null && EducationalStatus.GRADUATE.equals(user.getEntryInfoEducationStatus())
                 || EducationalStatus.PROSPECTIVE_GRADUATE.equals(user.getEntryInfoEducationStatus())) {
-            scoreRepository.findById(receiptCode).ifPresent(scoreRepository::delete);
-            graduationRepository.findById(receiptCode).ifPresent(graduationRepository::delete);
-            statusRepository.findById(receiptCode).ifPresent(statusRepository::delete);
-            entryInfoRepository.deleteById(receiptCode);
+            deleteGraduateAndProspectiveGraduate(receiptCode);
         } else if (user.getEntryInfo() != null
                 && EducationalStatus.QUALIFICATION_EXAM.equals(user.getEntryInfoEducationStatus())) {
-            scoreRepository.findById(receiptCode).ifPresent(scoreRepository::delete);
-            qualificationRepository.findById(receiptCode).ifPresent(qualificationRepository::delete);
-            statusRepository.findById(receiptCode).ifPresent(statusRepository::delete);
-            entryInfoRepository.deleteById(receiptCode);
+            deleteQualificationExam(receiptCode);
         } else if (user.getEntryInfoReceiptCode() != null) {
             statusRepository.findById(receiptCode).ifPresent(statusRepository::delete);
             entryInfoRepository.deleteById(receiptCode);
@@ -59,5 +53,19 @@ public class UserWithdrawalService {
         }
 
         userRepository.delete(user);
+    }
+
+    private void deleteGraduateAndProspectiveGraduate(Long receiptCode) {
+        scoreRepository.findById(receiptCode).ifPresent(scoreRepository::delete);
+        graduationRepository.findById(receiptCode).ifPresent(graduationRepository::delete);
+        statusRepository.findById(receiptCode).ifPresent(statusRepository::delete);
+        entryInfoRepository.deleteById(receiptCode);
+    }
+
+    private void deleteQualificationExam(Long receiptCode) {
+        scoreRepository.findById(receiptCode).ifPresent(scoreRepository::delete);
+        qualificationRepository.findById(receiptCode).ifPresent(qualificationRepository::delete);
+        statusRepository.findById(receiptCode).ifPresent(statusRepository::delete);
+        entryInfoRepository.deleteById(receiptCode);
     }
 }
