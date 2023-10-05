@@ -31,7 +31,7 @@ public class UserWithdrawalService {
 
     @Transactional
     public void execute() {
-        User user = userRepository.findById(40L).orElseThrow(() -> new IllegalArgumentException("asdf"));
+        User user = userFacade.getCurrentUser();
         Long receiptCode = user.getEntryInfoReceiptCode();
         if (user.getEntryInfo() != null && EducationalStatus.GRADUATE.equals(user.getEntryInfoEducationStatus())
                 || EducationalStatus.PROSPECTIVE_GRADUATE.equals(user.getEntryInfoEducationStatus())) {
