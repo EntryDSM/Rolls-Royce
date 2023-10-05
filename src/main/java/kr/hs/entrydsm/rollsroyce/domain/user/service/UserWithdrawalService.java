@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
@@ -33,8 +31,7 @@ public class UserWithdrawalService {
 
     @Transactional
     public void execute() {
-        User user = userRepository.findById(40L)
-                .orElseThrow(() -> new IllegalArgumentException("asdf"));
+        User user = userRepository.findById(40L).orElseThrow(() -> new IllegalArgumentException("asdf"));
         Long receiptCode = user.getEntryInfoReceiptCode();
         if (user.getEntryInfo() != null && EducationalStatus.GRADUATE.equals(user.getEntryInfoEducationStatus())
                 || EducationalStatus.PROSPECTIVE_GRADUATE.equals(user.getEntryInfoEducationStatus())) {

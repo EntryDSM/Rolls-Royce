@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class NewApplicantInformation {
+public class CheckApplicantInformation {
 
     private final Workbook workbook = new XSSFWorkbook();
     private final Sheet sheet = workbook.createSheet("1차 검증");

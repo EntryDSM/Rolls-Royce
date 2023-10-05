@@ -12,7 +12,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.service.AdmissionTicketExcelService;
-import kr.hs.entrydsm.rollsroyce.domain.admin.service.PrintApplicantsService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.ApplicationInformationExcelService;
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.CheckApplicantsService;
 
 @Tag(name = "어드민 엑셀 API")
 @RequiredArgsConstructor
@@ -20,17 +21,24 @@ import kr.hs.entrydsm.rollsroyce.domain.admin.service.PrintApplicantsService;
 @RestController
 public class ExcelController {
     private final AdmissionTicketExcelService admissionTicketExcelService;
-    private final PrintApplicantsService printApplicantsService;
+    private final CheckApplicantsService checkApplicantsService;
+    private final ApplicationInformationExcelService applicationInformationExcelService;
 
-    @Operation(summary = "수험표 출력 API")
+    @Operation(summary = "수험표 엑셀 출력 API")
     @GetMapping("/admission-ticket")
     public void printAdmissionTicket(HttpServletResponse response) {
         admissionTicketExcelService.execute(response);
     }
 
-    @Operation(summary = "지원자 목록 출력 API")
-    @GetMapping("/applicants/new")
+    @Operation(summary = "지원자 목록 검증 엑셀 출력 API")
+    @GetMapping("/applicants/check")
+    public void checkApplicantInformation(HttpServletResponse response) {
+        checkApplicantsService.execute(response);
+    }
+
+    @Operation(summary = "지원자 목록 엑셀 출력 API")
+    @GetMapping("/applicants")
     public void printApplicantInformation(HttpServletResponse response) {
-        printApplicantsService.execute(response);
+        applicationInformationExcelService.execute(response);
     }
 }

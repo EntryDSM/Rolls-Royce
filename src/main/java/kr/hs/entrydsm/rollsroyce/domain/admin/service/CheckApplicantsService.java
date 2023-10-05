@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ExcelOException;
-import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.NewApplicantInformation;
+import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.CheckApplicantInformation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
@@ -31,7 +31,7 @@ import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 
 @RequiredArgsConstructor
 @Service
-public class PrintApplicantsService {
+public class CheckApplicantsService {
 
     private final ScoreFacade scoreFacade;
     private final StatusFacade statusFacade;
@@ -39,10 +39,10 @@ public class PrintApplicantsService {
     private final GraduationCaseRepository graduationCaseRepository;
     private final GraduationRepository graduationRepository;
 
-    NewApplicantInformation applicantInformation;
+    CheckApplicantInformation applicantInformation;
 
     public void execute(HttpServletResponse response) {
-        applicantInformation = new NewApplicantInformation();
+        applicantInformation = new CheckApplicantInformation();
         List<EntryInfo> applicants = entryInfoRepository.findAllByStatusIsSubmittedTrue();
 
         int DH = 0;
