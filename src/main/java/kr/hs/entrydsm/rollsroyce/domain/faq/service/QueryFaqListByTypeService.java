@@ -26,6 +26,7 @@ public class QueryFaqListByTypeService {
 
         return faqList.stream()
                 .map(faq -> QueryFaqResponse.builder()
+                        .id(faq.getId())
                         .title(faq.getTitle())
                         .content(faq.getContent())
                         .createdAt(faq.getCreatedAt())
@@ -39,6 +40,7 @@ public class QueryFaqListByTypeService {
 
         return faqList.stream()
                 .map(faq -> QueryFaqResponse.builder()
+                        .id(faq.getId())
                         .title(faq.getTitle())
                         .content(faq.getContent())
                         .createdAt(faq.getCreatedAt())

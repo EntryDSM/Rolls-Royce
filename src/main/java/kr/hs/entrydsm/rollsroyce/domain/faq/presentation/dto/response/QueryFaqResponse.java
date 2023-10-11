@@ -10,6 +10,7 @@ import kr.hs.entrydsm.rollsroyce.domain.faq.domain.type.FaqType;
 @Getter
 @Builder
 public class QueryFaqResponse {
+    private final Long id;
     private final String title;
     private final String content;
     private final LocalDateTime createdAt;
