@@ -3,6 +3,8 @@ package kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository;
 import static kr.hs.entrydsm.rollsroyce.domain.application.domain.QGraduation.graduation;
 import static kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.QEntryInfo.entryInfo;
 import static kr.hs.entrydsm.rollsroyce.domain.school.domain.QSchool.school;
+import static kr.hs.entrydsm.rollsroyce.domain.score.domain.QGraduationCase.graduationCase;
+import static kr.hs.entrydsm.rollsroyce.domain.score.domain.QScore.score;
 import static kr.hs.entrydsm.rollsroyce.domain.status.domain.QStatus.status;
 import static kr.hs.entrydsm.rollsroyce.domain.user.domain.QUser.user;
 
@@ -21,12 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.AdmissionTicketVo;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantVo;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.NewApplicantVo;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QAdmissionTicketVo;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QApplicantVo;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QNewApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.*;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
@@ -52,11 +49,18 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
     }
 
     @Override
-    public List<EntryInfo> findAllByStatusIsSubmittedTrue() {
+    public List<ApplicantInfoVo> findApplicationInfoListByStatusIsSubmittedTrue() {
         return jpaQueryFactory
-                .selectFrom(entryInfo)
-                .join(status)
+                .select(new QApplicantInfoVo(entryInfo, graduationCase, graduation, status, score))
+                .from(entryInfo)
+                .leftJoin(graduationCase)
+                .on(entryInfo.receiptCode.eq(graduationCase.receiptCode))
+                .leftJoin(graduation)
+                .on(entryInfo.receiptCode.eq(graduation.receiptCode))
+                .leftJoin(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
+                .leftJoin(score)
+                .on(entryInfo.receiptCode.eq(score.receiptCode))
                 .where(status.isSubmitted.eq(true))
                 .fetch();
     }

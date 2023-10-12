@@ -17,52 +17,35 @@ import javax.servlet.http.HttpServletResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.exception.ExcelOException;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.excel.ApplicantInformation;
 import kr.hs.entrydsm.rollsroyce.domain.application.domain.Graduation;
-import kr.hs.entrydsm.rollsroyce.domain.application.domain.repository.GraduationRepository;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.EntryInfoRepository;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantInfoVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.Sex;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.GraduationCase;
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.Score;
-import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.GraduationCaseRepository;
-import kr.hs.entrydsm.rollsroyce.domain.score.facade.ScoreFacade;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
-import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 
 @RequiredArgsConstructor
 @Service
 public class ApplicationInformationExcelService {
-    private final ScoreFacade scoreFacade;
-
-    private final StatusFacade statusFacade;
-
     private final EntryInfoRepository entryInfoRepository;
-    private final GraduationCaseRepository graduationCaseRepository;
-    private final GraduationRepository graduationRepository;
 
     public void execute(HttpServletResponse response) {
         ApplicantInformation applicantInformation = new ApplicantInformation();
         Sheet sheet = applicantInformation.getSheet();
         applicantInformation.format();
-        List<EntryInfo> applicants = entryInfoRepository.findAllByStatusIsSubmittedTrue();
+        List<ApplicantInfoVo> applicants = entryInfoRepository.findApplicationInfoListByStatusIsSubmittedTrue();
 
         int i = 0;
-        for (EntryInfo entryInfo : applicants) {
-            long receiptCode = entryInfo.getReceiptCode();
-
-            GraduationCase graduationCase =
-                    graduationCaseRepository.findById(receiptCode).orElse(null);
-            Graduation graduation = graduationRepository.findById(receiptCode).orElse(null);
-            Status status = statusFacade.getStatusByReceiptCode(receiptCode);
-            Score score = scoreFacade.queryScore(receiptCode);
-
+        for (ApplicantInfoVo applicantInfo : applicants) {
             Row row = sheet.createRow(++i);
-            insertUserInfo(row, entryInfo, graduation, status);
-            insertRating(row, graduationCase);
-            insertScore(row, score);
-            insertSelfIntroduceAndStudyPlan(row, entryInfo);
+            insertUserInfo(row, applicantInfo.getEntryInfo(), applicantInfo.getGraduation(), applicantInfo.getStatus());
+            insertRating(row, applicantInfo.getGraduationCase());
+            insertScore(row, applicantInfo.getScore());
+            insertSelfIntroduceAndStudyPlan(row, applicantInfo.getEntryInfo());
         }
 
         try {

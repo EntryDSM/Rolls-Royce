@@ -20,7 +20,7 @@ import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.QualificationCas
 import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
-import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserNotFoundException;
+import kr.hs.entrydsm.rollsroyce.global.exception.ScoreNotFoundException;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 
 @RequiredArgsConstructor
@@ -81,7 +81,7 @@ public class GetApplicantDetailsService {
 
     private Evaluation getEvaluation(EntryInfo entryInfo) {
         long receiptCode = entryInfo.getReceiptCode();
-        Score score = scoreRepository.findById(receiptCode).orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        Score score = scoreRepository.findById(receiptCode).orElseThrow(() -> ScoreNotFoundException.EXCEPTION);
         GraduationCase graduationCase =
                 graduationCaseRepository.findById(receiptCode).orElse(null);
         QualificationCase qualificationCase =

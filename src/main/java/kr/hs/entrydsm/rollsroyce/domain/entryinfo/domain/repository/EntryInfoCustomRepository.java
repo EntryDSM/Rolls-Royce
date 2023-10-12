@@ -8,6 +8,7 @@ import java.util.List;
 
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.AdmissionTicketVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantInfoVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.NewApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
@@ -16,7 +17,7 @@ import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.Sex;
 
 public interface EntryInfoCustomRepository {
-    List<EntryInfo> findAllByStatusIsSubmittedTrue();
+    List<ApplicantInfoVo> findApplicationInfoListByStatusIsSubmittedTrue();
 
     Page<ApplicantVo> findAllByEntryInfo(
             String receiptCode,
