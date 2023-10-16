@@ -144,7 +144,7 @@ public class EntryInfo {
     }
 
     public String getUserName() {
-        return getUser().getName();
+        return name;
     }
 
     public boolean getUserIsStudent() {
