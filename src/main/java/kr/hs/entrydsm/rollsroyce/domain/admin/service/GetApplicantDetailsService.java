@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.CommonInformation;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.Evaluation;
@@ -22,9 +25,6 @@ import kr.hs.entrydsm.rollsroyce.domain.status.domain.Status;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.global.exception.ScoreNotFoundException;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 
 @RequiredArgsConstructor
 @Service
