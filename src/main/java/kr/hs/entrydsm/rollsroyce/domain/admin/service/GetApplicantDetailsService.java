@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.CommonInformation;
 import kr.hs.entrydsm.rollsroyce.domain.admin.presentation.dto.response.ApplicantDetailsResponse.Evaluation;
@@ -65,8 +68,9 @@ public class GetApplicantDetailsService {
     }
 
     private MoreInformation getMoreInformation(EntryInfo entryInfo) {
+        byte[] imageBytes = s3Util.getObject(entryInfo.getPhotoFileName(), "entry_photo/");
         return MoreInformation.builder()
-                .photoUrl(s3Util.generateObjectUrl(entryInfo.getPhotoFileName()))
+                .photoUrl(new String(Base64.getEncoder().encode(imageBytes), StandardCharsets.UTF_8))
                 .birthday(entryInfo.getBirthday().toString())
                 .educationStatus(entryInfo.getEducationalStatus().name())
                 .applicationType(entryInfo.getApplicationType().name())
