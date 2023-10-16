@@ -23,7 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.*;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.AdmissionTicketVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantInfoVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.NewApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QAdmissionTicketVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QApplicantInfoVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QNewApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
@@ -144,17 +151,6 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
                 .from(entryInfo)
                 .join(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
-                .where(
-                        entryInfo.receiptCode.like(receiptCode),
-                        entryInfo.educationalStatus.eq(educationalStatus),
-                        entryInfo.applicationType.eq(applicationType),
-                        entryInfo.user.name.contains(name),
-                        isDeajeonEq(isDaejeon),
-                        entryInfo.birthday.eq(birthday),
-                        entryInfo.user.telephoneNumber.eq(telephoneNumber),
-                        entryInfo.applicationRemark.eq(applicationRemark),
-                        entryInfo.sex.eq(sex),
-                        entryInfo.parentTel.eq(parentTel))
                 .fetch();
     }
 
@@ -204,7 +200,11 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
             condition.add(ApplicationType.SOCIAL);
         }
 
-        return entryInfo.applicationType.in(condition);
+        if (!condition.isEmpty()) {
+            return entryInfo.applicationType.in(condition);
+        } else {
+            return null;
+        }
     }
 
     private BooleanExpression isSubmittedEq(Boolean isSubmitted) {
