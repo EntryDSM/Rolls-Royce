@@ -78,7 +78,7 @@ public class GetApplicantDetailsService {
                         entryInfo.getApplicationRemark() != null
                                 ? entryInfo.getApplicationRemark().name()
                                 : null)
-                .address(entryInfo.getAddress())
+                .address(entryInfo.getAddress() != null ? entryInfo.getAddress() : null)
                 .detailAddress(entryInfo.getDetailAddress())
                 .build();
     }
