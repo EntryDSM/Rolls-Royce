@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.notice.service;
 
+import kr.hs.entrydsm.rollsroyce.domain.notice.domain.Notice;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class QueryNoticeListByTypeService {
 
     @Transactional(readOnly = true)
     public QueryNoticeResponse execute(NoticeType type) {
-        List<QueryNoticeResponse.NoticeDto> notices = noticeRepository.findAllByType(type).stream()
+        List<QueryNoticeResponse.NoticeDto> notices = getNoticeList(type).stream()
                 .map(notice -> QueryNoticeResponse.NoticeDto.builder()
                         .id(notice.getId())
                         .title(notice.getTitle())
@@ -31,4 +32,13 @@ public class QueryNoticeListByTypeService {
 
         return new QueryNoticeResponse(notices);
     }
+
+    private List<Notice> getNoticeList(NoticeType type) {
+        if(type == null) {
+            return noticeRepository.findAll();
+        } else {
+            return noticeRepository.findAllByType(type);
+        }
+    }
+
 }
