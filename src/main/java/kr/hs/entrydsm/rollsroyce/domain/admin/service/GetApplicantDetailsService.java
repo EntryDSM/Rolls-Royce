@@ -23,6 +23,9 @@ import kr.hs.entrydsm.rollsroyce.domain.status.domain.facade.StatusFacade;
 import kr.hs.entrydsm.rollsroyce.global.exception.ScoreNotFoundException;
 import kr.hs.entrydsm.rollsroyce.global.utils.s3.S3Util;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 @RequiredArgsConstructor
 @Service
 public class GetApplicantDetailsService {
@@ -65,8 +68,9 @@ public class GetApplicantDetailsService {
     }
 
     private MoreInformation getMoreInformation(EntryInfo entryInfo) {
+        byte[] imageBytes = s3Util.getObject(entryInfo.getPhotoFileName(), "entry_photo/");
         return MoreInformation.builder()
-                .photoUrl(s3Util.generateObjectUrl(entryInfo.getPhotoFileName()))
+                .photoUrl(new String(Base64.getEncoder().encode(imageBytes), StandardCharsets.UTF_8))
                 .birthday(entryInfo.getBirthday().toString())
                 .educationStatus(entryInfo.getEducationalStatus().name())
                 .applicationType(entryInfo.getApplicationType().name())
