@@ -19,6 +19,7 @@ public enum ErrorCode {
     NOT_FOUND(404, "COMMON404-0", "Not Found"),
     INTERNAL_SERVER_ERROR(500, "COMMON500-0", "Internal Server Error"),
 
+    USER_WITHDRAWAL_NOT_POSSIBLE(400, "USER400-0", "Withdrawal Not Possible"),
     INVALID_AUTH_CODE(401, "USER401-0", "Invalid Auth Code"),
     UNVERIFIED_AUTH_CODE(401, "USER401-1", "UnVerified Auth Code"),
     CREDENTIALS_NOT_FOUND(401, "USER401-2", "User credentials not found"),

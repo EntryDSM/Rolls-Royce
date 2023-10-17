@@ -15,6 +15,7 @@ import kr.hs.entrydsm.rollsroyce.domain.score.domain.repository.ScoreRepository;
 import kr.hs.entrydsm.rollsroyce.domain.status.domain.repository.StatusRepository;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.User;
 import kr.hs.entrydsm.rollsroyce.domain.user.domain.repository.UserRepository;
+import kr.hs.entrydsm.rollsroyce.domain.user.exception.UserWithdrawalNotPossibleException;
 import kr.hs.entrydsm.rollsroyce.domain.user.facade.UserFacade;
 
 @RequiredArgsConstructor
@@ -33,6 +34,11 @@ public class UserWithdrawalService {
     public void execute() {
         User user = userFacade.getCurrentUser();
         Long receiptCode = user.getEntryInfoReceiptCode();
+
+        if (user.getStatus().getIsSubmitted().equals(true)) {
+            throw UserWithdrawalNotPossibleException.EXCEPTION;
+        }
+
         if (user.getEntryInfo() != null && EducationalStatus.GRADUATE.equals(user.getEntryInfoEducationStatus())
                 || EducationalStatus.PROSPECTIVE_GRADUATE.equals(user.getEntryInfoEducationStatus())) {
             deleteGraduateAndProspectiveGraduate(receiptCode);
