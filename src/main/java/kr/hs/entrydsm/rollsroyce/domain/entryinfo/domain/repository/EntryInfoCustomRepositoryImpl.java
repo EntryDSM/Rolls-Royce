@@ -95,7 +95,7 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
                 .join(entryInfo.user, user)
                 .where(
                         entryInfo.receiptCode.like(receiptCode),
-                        entryInfo.user.name.contains(name),
+                        entryInfo.name.contains(name),
                         isSubmittedEq(isSubmitted),
                         isDeajeonEq(isDaejeon),
                         isOutOfHeadcountEq(isOutOfHeadcount),
