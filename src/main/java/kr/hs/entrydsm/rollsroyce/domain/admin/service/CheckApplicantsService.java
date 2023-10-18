@@ -177,10 +177,10 @@ public class CheckApplicantsService {
                 .setCellValue(graduationCase != null ? graduationCase.getLatenessCount() : 0);
         applicantInformation
                 .getCell(DH + 18, 5)
-                .setCellValue(graduationCase != null ? graduationCase.getLectureAbsenceCount() : 0);
+                .setCellValue(graduationCase != null ? graduationCase.getEarlyLeaveCount() : 0);
         applicantInformation
                 .getCell(DH + 18, 6)
-                .setCellValue(graduationCase != null ? graduationCase.getEarlyLeaveCount() : 0);
+                .setCellValue(graduationCase != null ? graduationCase.getLectureAbsenceCount() : 0);
         applicantInformation.getCell(DH + 18, 7).setCellValue(score.getAttendanceScore());
         applicantInformation
                 .getCell(DH + 19, 7)
