@@ -136,15 +136,15 @@ public class CheckApplicantsService {
         applicantInformation.getCell(DH + 12, 4).setCellValue(scienceScore[2]);
         applicantInformation.getCell(DH + 12, 5).setCellValue(scienceScore[3]);
 
-        applicantInformation.getCell(DH + 13, 2).setCellValue(techAndHomeScore[0]);
-        applicantInformation.getCell(DH + 13, 3).setCellValue(techAndHomeScore[1]);
-        applicantInformation.getCell(DH + 13, 4).setCellValue(techAndHomeScore[2]);
-        applicantInformation.getCell(DH + 13, 5).setCellValue(techAndHomeScore[3]);
+        applicantInformation.getCell(DH + 13, 2).setCellValue(englishScore[0]);
+        applicantInformation.getCell(DH + 13, 3).setCellValue(englishScore[1]);
+        applicantInformation.getCell(DH + 13, 4).setCellValue(englishScore[2]);
+        applicantInformation.getCell(DH + 13, 5).setCellValue(englishScore[3]);
 
-        applicantInformation.getCell(DH + 14, 2).setCellValue(englishScore[0]);
-        applicantInformation.getCell(DH + 14, 3).setCellValue(englishScore[1]);
-        applicantInformation.getCell(DH + 14, 4).setCellValue(englishScore[2]);
-        applicantInformation.getCell(DH + 14, 5).setCellValue(englishScore[3]);
+        applicantInformation.getCell(DH + 14, 2).setCellValue(techAndHomeScore[0]);
+        applicantInformation.getCell(DH + 14, 3).setCellValue(techAndHomeScore[1]);
+        applicantInformation.getCell(DH + 14, 4).setCellValue(techAndHomeScore[2]);
+        applicantInformation.getCell(DH + 14, 5).setCellValue(techAndHomeScore[3]);
 
         // 점수
         applicantInformation
