@@ -56,8 +56,7 @@ public class QualificationCase extends ApplicationCase {
     private BigDecimal volunteerScoreFormula() {
         return averageScore
                 .subtract(BigDecimal.valueOf(40))
-                .divide(BigDecimal.valueOf(5), 3, RoundingMode.HALF_UP)
-                .add(BigDecimal.valueOf(3));
+                .divide(BigDecimal.valueOf(4), 3, RoundingMode.HALF_UP);
     }
 
     private BigDecimal gradeScoreFormula() {
