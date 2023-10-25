@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.rollsroyce.domain.admin.presentation;
 
+import kr.hs.entrydsm.rollsroyce.domain.admin.service.PrintApplicantCodesService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class ExcelController {
     private final AdmissionTicketExcelService admissionTicketExcelService;
     private final CheckApplicantsService checkApplicantsService;
     private final ApplicationInformationExcelService applicationInformationExcelService;
+    private final PrintApplicantCodesService printApplicantCodesService;
 
     @Operation(summary = "수험표 엑셀 출력 API")
     @GetMapping("/admission-ticket")
@@ -40,5 +42,11 @@ public class ExcelController {
     @GetMapping("/applicants")
     public void printApplicantInformation(HttpServletResponse response) {
         applicationInformationExcelService.execute(response);
+    }
+
+    @Operation(summary = "지원자 코드 목록 엑셀 출력 API")
+    @GetMapping("/applicants/code")
+    public void printApplicantCode(HttpServletResponse response) {
+        printApplicantCodesService.execute(response);
     }
 }

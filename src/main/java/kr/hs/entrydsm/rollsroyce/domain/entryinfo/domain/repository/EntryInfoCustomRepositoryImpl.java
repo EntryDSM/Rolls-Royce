@@ -66,6 +66,16 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
     }
 
     @Override
+    public List<ApplicantCodeVo> findApplicantCodesByIsFirstRoundPass() {
+         return jpaQueryFactory.select(new QApplicantCodeVo(entryInfo.receiptCode, status.examCode, entryInfo.name))
+                 .from(entryInfo)
+                 .join(status)
+                 .on(entryInfo.receiptCode.eq(status.receiptCode))
+                 .where(status.isFirstRoundPass)
+                 .fetch();
+    }
+
+    @Override
     public Page<ApplicantVo> findAllByEntryInfo(
             String receiptCode,
             String schoolName,
