@@ -23,7 +23,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.*;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.AdmissionTicketVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantCodeVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantInfoVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.ApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.NewApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QAdmissionTicketVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QApplicantCodeVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QApplicantInfoVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QApplicantVo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.QNewApplicantVo;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;
@@ -72,7 +81,7 @@ public class EntryInfoCustomRepositoryImpl implements EntryInfoCustomRepository 
                 .from(entryInfo)
                 .join(status)
                 .on(entryInfo.receiptCode.eq(status.receiptCode))
-                .where(status.isFirstRoundPass)
+                .where(status.isFirstRoundPass.eq(true))
                 .fetch();
     }
 
