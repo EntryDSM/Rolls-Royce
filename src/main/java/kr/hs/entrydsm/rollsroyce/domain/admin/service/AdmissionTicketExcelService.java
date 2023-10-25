@@ -170,9 +170,7 @@ public class AdmissionTicketExcelService {
                     EntryInfo entryInfo = entryInfoList.get(j);
                     int index = j % 3 * (entryInfoCount / 3) + Math.min((entryInfoCount % 3), j % 3) + j / 3 + 1;
                     String examCode = createExamCode(entryInfo) + String.format("%03d", index);
-                    statusFacade.saveStatus(statusFacade
-                            .getStatusByReceiptCode(entryInfo.getReceiptCode())
-                            .updateExamCode(examCode));
+                    statusFacade.saveStatus(statusFacade.getStatusByReceiptCode(entryInfo.getReceiptCode()));
                 });
             }
         }

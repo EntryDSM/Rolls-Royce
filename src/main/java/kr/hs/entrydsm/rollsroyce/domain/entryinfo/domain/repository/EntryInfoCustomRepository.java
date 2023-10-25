@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository;
 
-import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,6 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.EntryInfo;
+import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo.*;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationRemark;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.ApplicationType;
 import kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.types.EducationalStatus;

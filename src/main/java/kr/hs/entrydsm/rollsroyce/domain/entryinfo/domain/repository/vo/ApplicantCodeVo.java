@@ -1,7 +1,8 @@
 package kr.hs.entrydsm.rollsroyce.domain.entryinfo.domain.repository.vo;
 
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
+
+import com.querydsl.core.annotations.QueryProjection;
 
 @Getter
 public class ApplicantCodeVo {
